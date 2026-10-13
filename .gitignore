@@ -1,0 +1,26 @@
+node_modules/
+*.log
+*.psd
+
+# 密钥和本机配置
+.env
+.env.*
+!.env.example
+config.local.json
+.oauth-pending.json
+
+# 运行数据：绑定库、主密钥、曲库和素材缓存、日志
+data/
+
+# 外部素材由部署者自行准备，不进仓库（同 MiaBot 的 ASSETS.md 口径）
+/themes/**/assets/*
+/themes/**/design/*
+/themes/shared/fonts/*
+/themes/shared/icons/*
+!/themes/**/README.md
+# 预览图里有落雪的曲绘
+previews/
+
+.DS_Store
+Thumbs.db
+desktop.ini

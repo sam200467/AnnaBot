@@ -1,0 +1,155 @@
+"use strict";
+// 落雪查分器（maimai.lxns.net）中二节奏接口。只管请求、解包和错误，不缓存（缓存在 catalog.cjs / assets.cjs）。
+//
+// 三种鉴权各走各的路径（2026-10-13 用真实密钥逐个实测过）：
+//   - 公共接口 /chunithm/...：不带密钥。直接返回数据，没有外面那层 { success, data }
+//   - 开发者接口 /chunithm/player/{好友码}/...：Authorization: <开发者密钥>，能查任何玩家，
+//     但受玩家自己的「允许第三方读取」开关管：读玩家信息、读谱面成绩默认开，读历史成绩（trend 等）默认关。
+//     /scores 只给简化成绩（评级、CLEAR、FC 标记），**没有分数** —— 要分数得走 OAuth
+//   - 玩家接口 /user/chunithm/player/...：Authorization: Bearer <OAuth 访问令牌> 或 X-User-Token: <个人密钥>，
+//     只能查授权的那个人，不受第三方开关管，/scores 带完整分数。文档只列了几个，完整列表在前端源码
+//     （github.com/Lxns-Network/maimai-prober-frontend）里
+//
+// 实测到的几个坑：
+//   - 单曲全难度成绩是 GET .../bests?song_id=（返回 Score[]），不是 .../score —— 那个是 405
+//   - .../best?song_id&level_index 查没玩过的谱面返回 200 + data:null，不是 404
+//   - 好友码不存在 404「player not found」；不是数字 400「invalid friend code」
+//   - 第三方开关关着时 403「allow third party fetch history is disabled」这种句子
+
+const DEFAULT_BASE = "https://maimai.lxns.net/api/v0";
+
+class LxnsError extends Error {
+  constructor(message, { status = 0, code = "unknown", path = "" } = {}) {
+    super(message);
+    this.name = "LxnsError";
+    this.status = status;
+    this.code = code;
+    this.path = path;
+  }
+}
+
+// 服务器给的英文消息归成几类，上层（voice.cjs）按类给玩家看的话。
+function classify(status, message) {
+  const text = String(message || "").toLowerCase();
+  if (status === 401) return "unauthorized";
+  if (status === 403 && text.includes("allow third party fetch history")) return "privacy_history";
+  if (status === 403 && text.includes("allow third party fetch scores")) return "privacy_scores";
+  if (status === 403 && text.includes("allow third party")) return "privacy_player";
+  if (status === 403) return "forbidden";
+  if (status === 404 && text.includes("player")) return "player_not_found";
+  if (status === 404) return "not_found";
+  if (status === 400 && text.includes("friend code")) return "invalid_friend_code";
+  if (status === 429) return "rate_limited";
+  if (status >= 500) return "server";
+  return "unknown";
+}
+
+const RETRYABLE = new Set(["network", "server", "rate_limited", "timeout"]);
+
+function createLxnsClient(options = {}) {
+  const base = String(options.baseUrl || DEFAULT_BASE).replace(/\/+$/, "");
+  const devToken = String(options.devToken || "").trim();
+  const fetchImpl = options.fetchImpl || fetch;
+  const timeoutMs = options.timeoutMs || 20000;
+  const retries = Number.isInteger(options.retries) ? options.retries : 1;
+  const retryDelayMs = options.retryDelayMs ?? 800;
+  const log = options.log || (() => {});
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function once(path, { headers, query }) {
+    const url = new URL(base + path);
+    for (const [key, value] of Object.entries(query || {})) {
+      if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));
+    }
+    let res;
+    try {
+      res = await fetchImpl(url, { headers, signal: AbortSignal.timeout(timeoutMs) });
+    } catch (error) {
+      const timeout = error?.name === "TimeoutError" || error?.name === "AbortError";
+      throw new LxnsError(timeout ? "请求落雪查分器超时" : "连不上落雪查分器：" + (error?.cause?.code || error?.message || error),
+        { code: timeout ? "timeout" : "network", path });
+    }
+    const text = await res.text();
+    let json = null;
+    try { json = text ? JSON.parse(text) : null; } catch { /* 非 JSON 原样当错误信息 */ }
+    if (!res.ok || json?.success === false) {
+      const status = res.ok ? Number(json?.code) || 0 : res.status;
+      const message = json?.message || text.slice(0, 200) || "HTTP " + res.status;
+      throw new LxnsError(message, { status, code: classify(status, message), path });
+    }
+    return json && typeof json === "object" && "success" in json ? json.data : json;
+  }
+
+  // 只重试一次「过一会儿可能就好」的错误；401/403/404 这类重试也没用。
+  async function get(path, { headers = {}, query } = {}) {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        return await once(path, { headers, query });
+      } catch (error) {
+        if (!(error instanceof LxnsError) || !RETRYABLE.has(error.code) || attempt >= retries) throw error;
+        log("落雪接口 " + path.replace(/\/player\/\d+/, "/player/…") + " 失败（" + error.code + "），稍后重试");
+        await sleep(error.code === "rate_limited" ? retryDelayMs * 2 : retryDelayMs);
+      }
+    }
+  }
+
+  function friendPath(friendCode) {
+    const code = String(friendCode ?? "").trim();
+    if (!/^\d{1,20}$/.test(code)) throw new LxnsError("好友码只能是数字", { status: 400, code: "invalid_friend_code" });
+    return "/chunithm/player/" + code;
+  }
+
+  // 参数不对、没配密钥也返回失败的 Promise，不同步抛 —— 调用方只要 await / .catch 一种写法。
+  async function devGet(friendCode, sub = "", query) {
+    const path = friendPath(friendCode) + sub;
+    if (!devToken) throw new LxnsError("没有配置开发者密钥（LXNS_DEV_TOKEN）", { code: "no_dev_token", path });
+    return get(path, { headers: { Authorization: devToken }, query });
+  }
+
+  // 开发者接口：按好友码查任意玩家（受玩家的第三方开关管）。
+  const dev = {
+    player: (friendCode) => devGet(friendCode),
+    // { bests: B30, selections: 候选 10, new_bests: 新曲 20 }
+    bests: (friendCode) => devGet(friendCode, "/bests"),
+    // 单曲全部难度 Score[]
+    songBests: (friendCode, songId) => devGet(friendCode, "/bests", { song_id: songId }),
+    // 单张谱面 Score，没玩过是 null
+    best: (friendCode, songId, levelIndex) => devGet(friendCode, "/best", { song_id: songId, level_index: levelIndex }),
+    recents: (friendCode) => devGet(friendCode, "/recents"),
+    // 简化成绩 SimpleScore[]：没有 score / rating 字段
+    simpleScores: (friendCode) => devGet(friendCode, "/scores"),
+    trend: (friendCode, version) => devGet(friendCode, "/trend", { version }),
+    collection: (friendCode, type, id) => devGet(friendCode, "/" + type + "/" + id),
+  };
+
+  // 玩家接口：auth 是 { bearer } 或 { userToken }，只能查这个令牌背后的那个人。
+  function user(auth) {
+    const headers = auth?.bearer ? { Authorization: "Bearer " + auth.bearer }
+      : auth?.userToken ? { "X-User-Token": auth.userToken } : null;
+    if (!headers) throw new LxnsError("玩家接口缺少令牌", { code: "unauthorized" });
+    const userGet = (path, query) => get("/user/chunithm/player" + path, { headers, query });
+    return {
+      player: () => userGet(""),
+      bests: () => userGet("/bests"),
+      songBests: (songId) => userGet("/bests", { song_id: songId }),
+      // 全部成绩 Score[]，带分数
+      scores: () => userGet("/scores"),
+      trend: (version) => userGet("/trend", { version }),
+      collection: (type, id) => userGet("/" + type + "/" + id),
+    };
+  }
+
+  return {
+    dev,
+    user,
+    hasDevToken: Boolean(devToken),
+    // 公共接口
+    songList: (query) => get("/chunithm/song/list", { query }),
+    song: (songId) => get("/chunithm/song/" + songId),
+    aliasList: () => get("/chunithm/alias/list"),
+    // type: trophy | character | plate | icon
+    collectionList: (type) => get("/chunithm/" + type + "/list"),
+  };
+}
+
+module.exports = { createLxnsClient, LxnsError, classify, DEFAULT_BASE };

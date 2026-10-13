@@ -1,0 +1,37 @@
+/* 示例主题：只用来验证出图流程，没有任何外部素材。新主题从这里复制一份再改。 */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 720px;
+  background: #1d1b2e;
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  color: #f4f1ff;
+}
+
+.card {
+  display: flex;
+  gap: 24px;
+  padding: 28px;
+  background: linear-gradient(135deg, #2c2650, #1d1b2e 60%);
+}
+
+.jacket {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #3a3460;
+}
+
+.info { flex: 1; }
+.name { font-size: 32px; font-weight: 700; }
+.rating { margin-top: 6px; font-size: 20px; color: #ffd36e; }
+
+.songs {
+  margin-top: 16px;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.songs .level { display: inline-block; width: 92px; color: #b9b2e6; }

@@ -1,0 +1,46 @@
+{
+  "_说明": "复制成 config.local.json 再改。密钥（QQ AppSecret、落雪密钥）不放这里，放 .env（见 .env.example）。",
+
+  "_沙箱": "sandbox=true 走 QQ 沙箱环境，只有沙箱成员能触发；正式上线前用沙箱验，上线后改成 false。",
+  "sandbox": true,
+
+  "_群白名单": "allowedGroupIds 是 group_openid（形如 1A2B3C4D…），不是群号。换 AppID 或换沙箱/正式环境都会变。留空时拒绝启动，免得误入陌生群。拿法：npm run probe，然后在群里 @ 机器人一次，探针会把 openid 打出来。",
+  "allowedGroupIds": [],
+  "allowPrivateChat": true,
+
+  "_管理员": "admins 是管理员的 openid（同样用 npm run probe 拿）。管理员能用 /刷新曲库 这类不在帮助里列出的指令。",
+  "admins": [],
+
+  "_数据目录": "绑定库、主密钥、曲库和素材缓存、日志都放在这里。迁移服务器时整个目录拷走，再按 README 的说明处理主密钥。",
+  "workDir": "./data",
+
+  "_逃生阀": "acceptBareGroupCommands=true 会让群里不 @ 机器人的 /指令 也执行。默认 false：群主开了「接收全部消息」后，别的机器人被 @ 的指令也会推到这儿来，放行就是抢答别人的指令。",
+  "acceptBareGroupCommands": false,
+
+  "_被动凭据": "出图慢、超过群里 5 分钟的被动回复窗口时，改用这个群最新一条消息的凭据发图（引用仍指向原来的指令）。MiaBot 2026-09-19 实测平台接受。没人说话时仍然会过期。",
+  "reuseLatestPassiveCredential": true,
+
+  "_Markdown和按钮": "机器人没有 Markdown / 按钮权限时平台会拒收，传输层自动改发纯文本并记住，一般不用改。想彻底不发就写 false。",
+  "markdown": true,
+  "keyboard": true,
+
+  "_出图": "generateCooldownMs：同一个人同一种图之间的冷却（毫秒）；receiptDelayMs：图在这么久之内出来就不发「正在生成」占位；maxQueue：出图队列上限；renderScale：输出倍率（2 = 两倍像素）；browserPath：Chrome/Edge 路径，留空自动找。",
+  "generateCooldownMs": 3000,
+  "receiptDelayMs": 1500,
+  "maxQueue": 10,
+  "renderScale": 2,
+  "browserPath": "",
+
+  "_落雪": "catalogRefreshHours：多久从落雪重新拉一次曲库和别名；oauthKeepAliveDays：授权玩家这么多天没用过，就替他刷新一次令牌（落雪的刷新令牌 30 天不用就过期）。",
+  "catalogRefreshHours": 6,
+  "oauthKeepAliveDays": 20,
+
+  "_日志": "日志在 workDir/logs/，按天一个文件，保留 logKeepDays 天。",
+  "logKeepDays": 14,
+
+  "_限流": "QQ 官方有正式频控，失败代价不是封号，所以比较宽松。不填就用 src/official-transport.cjs 的默认值。",
+  "minSendIntervalMs": 500,
+  "perTargetIntervalMs": 1000,
+  "perTargetPerHour": 60,
+  "dailyCap": 3000
+}

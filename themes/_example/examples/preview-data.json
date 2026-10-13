@@ -1,0 +1,8 @@
+{
+  "player": { "name": "示例玩家", "rating": 16.5482 },
+  "jacket": "lxns:jacket/407",
+  "songs": [
+    { "title": "混沌を越えし我らが神聖なる調律主を讃えよ", "level": "MASTER", "score": 1007725 },
+    { "title": "B.B.K.K.B.K.K.", "level": "ULTIMA", "score": 1009000 }
+  ]
+}

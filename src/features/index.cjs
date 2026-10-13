@@ -1,0 +1,11 @@
+"use strict";
+// 功能清单。加新功能：在 src/features/ 加一个文件，再在这里加一行。顺序就是 /帮助 里的顺序。
+// 功能模块的写法见 src/commands.cjs 开头和 CLAUDE.md「加一个新功能」。
+
+module.exports = [
+  ...require("./binding.cjs"),
+  require("./info.cjs"),
+  require("./help.cjs"),
+  ...require("./status.cjs"),
+  require("./example-image.cjs"),
+];
