@@ -86,8 +86,12 @@ npm run check:lxns               落雪接口连通性检查
 
 ## 提交
 
-本地 git 仓库，分支 `main`，还没有远程。作者身份是仓库级配置（sam2004 + GitHub noreply 邮箱，跟 MiaBot 一样），别改。
-一个功能做完、`npm test` 全过再提交一次；作者要求提交时才提交。提交前确认 `git status` 里没有 `.env`、`data/`、素材文件。
+分支 `main`，远程 `origin` = github.com/sam200467/AnnaBot（**公开仓库**）。作者身份是仓库级配置
+（sam2004 + GitHub noreply 邮箱，跟 MiaBot 一样），别改。
+一个功能做完、`npm test` 全过再提交一次；作者要求提交、推送时才做。提交前确认 `git status` 里没有 `.env`、`data/`、素材文件。
+
+仓库是公开的，所以代码、测试、文档里都不能出现作者的个人信息：真实好友码、游戏昵称、授权码、openid 一律用假的
+（测试里用 `123456789012345`、「测试玩家」这类）。用 `npm run try` 跑出来的真数据只留在本机的 `data/` 里。
 
 ## 不能做的事
 
