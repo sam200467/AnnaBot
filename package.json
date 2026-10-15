@@ -7,9 +7,11 @@
   },
   "scripts": {
     "start": "node src/main.cjs",
+    "stop": "node tools/background.cjs stop",
     "test": "node --test --test-timeout=90000 \"test/*.test.cjs\"",
     "check:lxns": "node tools/check-lxns.cjs",
     "check:oauth": "node tools/check-oauth.cjs",
+    "launchers": "node tools/make-launchers.cjs",
     "probe": "node tools/probe-qq.cjs",
     "preview": "node tools/render-preview.cjs",
     "theme": "node tools/theme-server.cjs",

@@ -64,6 +64,20 @@ npm start
 - 沙箱和正式两个环境不能同时连：后连的会被踢掉，所以探针要跟 Anna 连同一个环境。同一个环境开两个连接倒是可以，
   但别同时开两个 Anna，每句话会回两遍。
 
+## 日常运行
+
+`npm start` 得一直开着一个终端窗口。平时挂着用无窗口启动器：
+
+```powershell
+npm run launchers    # 在项目目录生成「启动Anna.vbs」「停止Anna.vbs」
+```
+
+- 双击「启动Anna.vbs」：Anna 在后台跑，没有窗口。连上 QQ 后弹窗说一声（5 秒后自己关），没起来就弹出报错。
+  已经有 Anna 在跑（包括终端里 `npm start` 开的）时不会再开第二个 —— 同时开两个，每句话会回两遍。
+- 双击「停止Anna.vbs」或者 `npm stop`：结束命令行里带 `src/main.cjs` 的 node 进程，别的 node 程序不受影响。
+- 日志照常在 `data/logs/anna-日期.log`；后台启动时起不来、崩溃的报错另外记在 `data/logs/stderr.log`。
+- 两个 `.vbs` 是生成的，不进仓库。里面只有相对路径，挪了项目目录也照样能用。
+
 ## 数据和迁移
 
 运行数据都在 `data/`：绑定库 `bindings.enc`（加密）、主密钥 `vault.key`、曲库和素材缓存 `cache/`、日志 `logs/`。

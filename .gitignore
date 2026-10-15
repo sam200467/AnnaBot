@@ -12,6 +12,9 @@ config.local.json
 # 运行数据：绑定库、主密钥、曲库和素材缓存、日志
 data/
 
+# 无窗口启动器，npm run launchers 生成（同 MiaBot）
+/*.vbs
+
 # 外部素材由部署者自行准备，不进仓库（同 MiaBot 的 ASSETS.md 口径）
 /themes/**/assets/*
 /themes/**/design/*

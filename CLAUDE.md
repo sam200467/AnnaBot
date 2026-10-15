@@ -17,11 +17,17 @@ npm run try -- "#信息" "#示例图"   用真落雪数据、真出图流程跑�
 npm run theme -- <主题名>         主题实时预览（浏览器打开，改 CSS 刷新就能看到）
 npm run preview -- <主题名>       用正式出图流程渲染主题的示例数据
 npm start                        正式启动（要 .env 和 config.local.json 都填好）
+npm stop                         停掉在跑的 Anna（无窗口启动的、npm start 开的都算）
+npm run launchers                生成无窗口启动器「启动Anna.vbs」「停止Anna.vbs」（作者双击用）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run check:lxns               落雪接口连通性检查
 ```
 
 `npm run try` 在 Git Bash 里写 `/` 开头的指令会被改成路径（工具里已经改回来了），写 `#信息` 最稳。
+
+Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态看 `data/logs/`）。改了代码要重启：`npm stop`，再让作者双击启动，
+或者 `npm start` 开在终端里看日志。别在它开着的时候再 `npm start`：同一个 QQ 环境连两次，每句话会回两遍。
+后台跑的 Anna 没有控制台，代码里起子进程一律带 `windowsHide: true`，不然会弹黑框。
 
 ## 目录
 
@@ -109,7 +115,6 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
 
 - 公开上线：现在只有管理员能用。让群友用，要在开放平台做开发者认证、把服务范围设成公开（官方 FAQ：个人认证后最多进 500 个群），
   上线后在别人的群里再验一遍。
-- 日常运行：现在只能开着一个窗口 `npm start`。MiaBot 有无窗口的启动/停止脚本（`qq-official/make-launchers.cjs` 生成 VBS），可以照着做。
 - 曲绘预下载：B50 这类图第一次出时要现下 50 张曲绘，会慢（2026-10-14 实测：50 张都没缓存时要等 40 秒左右）。
   落雪素材限频，预下载要低并发、慢慢来。
 - 角色聊天：`bot.cjs` 留了 `deps.chat` 钩子（@ 了 Anna 但不是指令时调用），人设定了以后再接。

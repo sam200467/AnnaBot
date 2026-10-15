@@ -14,6 +14,9 @@ function stamp(date) {
   };
 }
 
+// 某一天的日志文件（后台启动器要在里面等「QQ 网关已连上」，所以导出）
+const logFile = (dir, date) => path.join(dir, "anna-" + stamp(date).day + ".log");
+
 function createLog({ dir = "", secrets = [], keepDays = 14, out = console, now = () => new Date() } = {}) {
   const masks = secrets.filter((value) => value && value.length >= 6);
   const redact = (text) => {
@@ -34,11 +37,11 @@ function createLog({ dir = "", secrets = [], keepDays = 14, out = console, now =
   }
 
   const log = (...parts) => {
-    const { day, time } = stamp(now());
-    const line = "[" + time + "] " + redact(parts.map((part) => (typeof part === "string" ? part : inspect(part))).join(" "));
+    const date = now();
+    const line = "[" + stamp(date).time + "] " + redact(parts.map((part) => (typeof part === "string" ? part : inspect(part))).join(" "));
     out.log(line);
     if (dir) {
-      try { fs.appendFileSync(path.join(dir, "anna-" + day + ".log"), line + "\n"); }
+      try { fs.appendFileSync(logFile(dir, date), line + "\n"); }
       catch { /* 日志写不进去不该让机器人挂掉 */ }
     }
   };
@@ -46,4 +49,4 @@ function createLog({ dir = "", secrets = [], keepDays = 14, out = console, now =
   return log;
 }
 
-module.exports = { createLog };
+module.exports = { createLog, logFile };
