@@ -257,11 +257,16 @@ function exampleData(file) {
 }
 
 // 宽 = 内容 1824 + 两边羊皮纸 12 + 画框（左 97、右 95，按画框原图量的尺寸算，见 theme.js 的 FRAME）
-test("best 主题：B50、B30 的示例数据都能出图，宽 2040", { skip }, async () => {
-  const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1 });
+test("best 主题：B50、B30 的示例数据都能出图，宽 2040", { skip }, async (t) => {
+  // 浏览器临时目录放测试自己的目录里，不碰系统临时目录
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
+  t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
+  const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
   for (const file of ["preview-data.json", "b30.json"]) {
     const out = await renderer.render("best", exampleData(file), { width: 2100, format: "jpeg" });
     assert.equal(out.width, 2040, file);
     assert.ok(out.height > 1500, file);
   }
+  await renderer.idle();
+  assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");
 });

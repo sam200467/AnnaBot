@@ -15,6 +15,8 @@ async function main() {
     ({ env: "ANNA_VAULT_KEY", dpapi: "vault.key（DPAPI）", "dpapi-new": "新生成的 vault.key（DPAPI）" })[services.keySource]);
   if (!services.oauth.enabled) log("提示：.env 里没配 LXNS_OAUTH_CLIENT_ID / LXNS_OAUTH_CLIENT_SECRET，/授权 不可用。");
   if (!services.renderer.findBrowser()) log("⚠ 没找到 Chrome 或 Edge，出图功能用不了（可以在 config.local.json 的 browserPath 指定）。");
+  // 上次被强行结束（npm stop、关机）时正在出图的话，浏览器临时目录来不及删，启动时清一遍（在后台做，不耽误连 QQ）
+  void services.renderer.sweep();
 
   const loaded = await services.catalog.ready();
   log("曲库：" + services.catalog.size + " 首，" + services.catalog.currentVersion().title +

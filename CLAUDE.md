@@ -46,7 +46,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/vault.cjs` | 加密绑定库（AES-256-GCM，主密钥由 DPAPI 保护） |
 | `src/catalog.cjs` | 曲库和别名：缓存、搜索（`search` / `resolve`） |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
-| `src/renderer.cjs` | 无头 Chrome/Edge 出图 |
+| `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
 | `src/services.cjs` | 按配置把上面这些装起来（`main.cjs` 和 `tools/` 共用） |
 | `themes/` | 出图主题，约定见 `themes/README.md` |
 | `tools/` | 上面那些命令；`build-package.cjs` 打部署包、`install.cjs` 是服务器上的安装程序（改之前看文件头） |
@@ -64,6 +64,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
    几个主题共用的图标和字体放 `themes/shared/`。示例数据里用 `"lxns:jacket/407"` 引用落雪素材。
 4. 文案写进 `src/voice.cjs`，功能代码里不直接写句子。
 5. 测试：在 `test/` 加用例（端到端的写法看 `test/bot.test.cjs`），`npm test` 全过；再用 `npm run try` 拿真数据跑一遍、看图。
+   真出图的测试给 `createRenderer` 传 `tmpDir`（测试自己的临时目录），结束前 `await renderer.idle()`（照 `test/renderer.test.cjs`）：
+   不碰系统临时目录，也顺便验了浏览器临时目录删干净没有。
 
 ## 出图的视觉风格
 

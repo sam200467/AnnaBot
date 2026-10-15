@@ -11,11 +11,18 @@
 //   画完（字体、图片都加载好）后设 window.__THEME_READY__ = true，出错就设 window.__THEME_ERROR__ = "原因"；
 //   想指定截图尺寸就设 window.__THEME_SIZE__ = { width, height }（CSS 像素），不设就按页面实际大小。
 //   themes/shared/theme-kit.js 的 ThemeKit.done() 会替主题等字体和图片，再设好这几个变量。
+//
+// 每个浏览器用一个新的临时目录（--user-data-dir，系统临时目录下的 anna-render-*，一个 10 MB 上下），出完图连浏览器带目录收拾掉。
+// 2026-10-15 发现 %TEMP% 里积了 166 个没删掉的（1.4 GB）：以前删目录挂在一个 unref 的定时器上，测试、npm run preview
+// 这种跑完就退的进程等不到它；taskkill 也没等它结束就开删，浏览器还拿着文件，删到一半放弃了。
+// 现在等 taskkill 跑完、浏览器真的退出了再删，删的过程也不 unref（跑完就退的进程会等它删完）。
+// 进程被强行结束（npm stop、出图途中关机）时还是来不及删，所以另外清扫：启动时一次，之后出图时最多一小时一次。
 
 const fs = require("node:fs");
+const fsp = require("node:fs/promises");
 const os = require("node:os");
 const path = require("node:path");
-const { spawn } = require("node:child_process");
+const { spawn, execFile } = require("node:child_process");
 const { pathToFileURL } = require("node:url");
 
 const BROWSER_CANDIDATES = [
@@ -36,6 +43,12 @@ const BROWSER_CANDIDATES = [
 // 一张图最多这么多像素（按输出像素算，已经乘过倍率）。超了多半是主题算错了尺寸，渲出来也发不出去。
 const MAX_PIXELS = 50_000_000;
 
+// 浏览器临时目录的前缀，清扫按它认
+const PROFILE_PREFIX = "anna-render-";
+// 清扫只删建了这么久的：一张图最多一分多钟（起浏览器 30 秒 + 等主题 60 秒），正在用的目录不会这么旧。
+// 别的进程（比如开着 Anna 的同时跑 npm run try）正在出图的目录也就不会被误删。
+const LEFTOVER_AGE_MS = 60 * 60 * 1000;
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function findBrowser(preferred) {
@@ -43,12 +56,34 @@ function findBrowser(preferred) {
   return BROWSER_CANDIDATES.find((candidate) => candidate && fs.existsSync(candidate)) || null;
 }
 
-function killBrowser(proc) {
+// 结束浏览器，等它真的退出。Chrome 会带一串子进程，Windows 上要用 taskkill /T 连进程树一起杀，还得等 taskkill 跑完：
+// 不等的话目录里的文件还被子进程拿着，删不干净。gone 是浏览器进程退出时兑现的 promise。
+async function killBrowser(proc, gone) {
+  if (proc.exitCode === null && proc.signalCode === null) {
+    if (process.platform === "win32") {
+      // 进程已经自己退了的话 taskkill 会报错，不要紧
+      await new Promise((resolve) => execFile("taskkill", ["/pid", String(proc.pid), "/T", "/F"], { windowsHide: true, timeout: 10000 }, () => resolve()));
+    } else {
+      try { proc.kill("SIGKILL"); } catch { /* 已经退出了 */ }
+    }
+  }
+  await Promise.race([gone, sleep(5000)]);
+}
+
+// 刚退出的浏览器进程可能还拿着几个文件：rm 遇到 EBUSY / EPERM 会自己隔一会儿重试（一次比一次等得久，最多十来秒）
+async function removeDir(dir) {
   try {
-    // Chrome 会带一串子进程，Windows 上要连进程树一起杀
-    if (process.platform === "win32") spawn("taskkill", ["/pid", String(proc.pid), "/T", "/F"], { stdio: "ignore", windowsHide: true });
-    else proc.kill("SIGKILL");
-  } catch { /* 已经退出了 */ }
+    await fsp.rm(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// 关浏览器、删它的临时目录。返回目录删掉了没有
+async function closeBrowser({ proc, gone, userDataDir }) {
+  await killBrowser(proc, gone);
+  return removeDir(userDataDir);
 }
 
 // Chrome DevTools Protocol 客户端，照 MiaBot 的 CDP 类写的。用 Node 22 自带的 WebSocket。
@@ -131,8 +166,8 @@ class CDP {
   }
 }
 
-async function launchBrowser(browserPath, timeoutMs) {
-  const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), "anna-render-"));
+async function launchBrowser(browserPath, timeoutMs, tmpDir) {
+  const userDataDir = fs.mkdtempSync(path.join(tmpDir, PROFILE_PREFIX));
   const args = [
     "--headless=new",
     "--user-data-dir=" + userDataDir,
@@ -148,9 +183,13 @@ async function launchBrowser(browserPath, timeoutMs) {
   ];
   const proc = spawn(browserPath, args, { stdio: "ignore", windowsHide: true });
   let exited = false;
-  proc.on("exit", () => { exited = true; });
-  proc.on("error", () => { exited = true; });
-  const fail = (message) => { killBrowser(proc); cleanup(userDataDir); return new Error(message); };
+  const gone = new Promise((resolve) => {
+    proc.on("exit", () => { exited = true; resolve(); });
+    proc.on("error", () => { exited = true; resolve(); });
+  });
+  const browser = { proc, gone, userDataDir, wsUrl: "" };
+  // 起不来的时候先把浏览器和目录收拾掉，再报错（这时还没交给 render，它收拾不到）
+  const fail = async (message) => { await closeBrowser(browser); return new Error(message); };
 
   // 浏览器把调试端口写进 DevToolsActivePort。Windows 上文件刚出现时可能还锁着、或者还没写完，
   // 这时读会报 EBUSY / EPERM 或读到空内容 —— 读不到有效端口就等一下再读。
@@ -162,29 +201,62 @@ async function launchBrowser(browserPath, timeoutMs) {
       port = parseInt(fs.readFileSync(portFile, "utf8").split("\n")[0].trim(), 10);
       if (port > 0) break;
     } catch (error) {
-      if (!["ENOENT", "EBUSY", "EPERM", "EACCES"].includes(error?.code)) throw fail("读浏览器调试端口失败：" + error.message);
+      if (!["ENOENT", "EBUSY", "EPERM", "EACCES"].includes(error?.code)) throw await fail("读浏览器调试端口失败：" + error.message);
     }
     await sleep(100);
   }
-  if (!(port > 0)) throw fail(exited ? "浏览器启动后立刻退出了（" + browserPath + "）" : "浏览器启动超时（没等到调试端口）");
+  if (!(port > 0)) throw await fail(exited ? "浏览器启动后立刻退出了（" + browserPath + "）" : "浏览器启动超时（没等到调试端口）");
 
   for (let i = 0; i < 50; i++) {
     try {
       const res = await fetch("http://127.0.0.1:" + port + "/json/list", { signal: AbortSignal.timeout(3000) });
       const page = (await res.json()).find((target) => target.type === "page");
-      if (page) return { proc, wsUrl: page.webSocketDebuggerUrl, userDataDir };
+      if (page) {
+        browser.wsUrl = page.webSocketDebuggerUrl;
+        return browser;
+      }
     } catch { /* 还没就绪 */ }
     await sleep(100);
   }
-  throw fail("拿不到浏览器页面");
+  throw await fail("拿不到浏览器页面");
 }
 
-// 浏览器退出后文件还会被占用一会儿，异步慢慢删，删不掉也不要紧（在系统临时目录里）。
-function cleanup(dir) {
-  setTimeout(() => fs.rm(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 }, () => {}), 500).unref?.();
-}
+// tmpDir：浏览器临时目录放哪，默认系统临时目录（测试换成自己的临时目录，好检查删干净没有）。
+function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60000, tmpDir = os.tmpdir(), log = () => {} } = {}) {
+  // 还没收拾完的浏览器、正在清扫的目录。出完图先把图交出去，这些在后台做；idle() 等它们都做完
+  const pending = new Set();
+  const track = (promise) => {
+    const done = promise
+      .catch((error) => log("⚠ 收拾出图的临时浏览器目录出错：" + error.message))
+      .finally(() => pending.delete(done));
+    pending.add(done);
+    return done;
+  };
+  let lastSweep = 0;
 
-function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60000, log = () => {} } = {}) {
+  // 清扫以前留下的浏览器临时目录：只删建了 maxAgeMs 以上的（见 LEFTOVER_AGE_MS），返回 { removed, failed }。
+  // 按建立时间、不按修改时间算：2026-10-15 实测，上午留下的 40 个目录下午被别的程序（多半是杀毒软件扫临时文件）
+  // 挨个碰了一遍，修改时间全变成了同一分钟，按修改时间又得多等一小时。没有建立时间的文件系统（birthtimeMs 是 0）只好看修改时间。
+  async function sweep({ maxAgeMs = LEFTOVER_AGE_MS, now = Date.now() } = {}) {
+    lastSweep = Date.now();
+    const result = { removed: 0, failed: 0 };
+    let names;
+    try { names = await fsp.readdir(tmpDir); } catch { return result; }
+    for (const name of names) {
+      if (!name.startsWith(PROFILE_PREFIX)) continue;
+      const dir = path.join(tmpDir, name);
+      const stat = await fsp.stat(dir).catch(() => null);
+      if (!stat?.isDirectory()) continue;
+      const since = stat.birthtimeMs > 0 ? Math.min(stat.birthtimeMs, stat.mtimeMs) : stat.mtimeMs;
+      if (now - since < maxAgeMs) continue;
+      result[(await removeDir(dir)) ? "removed" : "failed"]++;
+    }
+    if (result.removed || result.failed) {
+      log("清掉了 " + result.removed + " 个以前出图留下的临时浏览器目录" + (result.failed ? "，" + result.failed + " 个删不掉（下次再试）" : ""));
+    }
+    return result;
+  }
+
   // 返回 { buffer, width, height, format }，width/height 是输出图片的像素尺寸。
   // options.width/height 是初始视口（CSS 像素），主题按它排版；截图尺寸以主题量出来的为准。
   async function render(theme, data, options = {}) {
@@ -201,7 +273,7 @@ function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60
     let browser = null;
     let cdp = null;
     try {
-      browser = await launchBrowser(executable, 30000);
+      browser = await launchBrowser(executable, 30000, tmpDir);
       cdp = new CDP(browser.wsUrl);
       await cdp.connect();
       await cdp.send("Page.enable");
@@ -241,13 +313,26 @@ function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60
     } finally {
       cdp?.close();
       if (browser) {
-        killBrowser(browser.proc);
-        cleanup(browser.userDataDir);
+        // 图先交出去，浏览器和目录在后台收拾；顺带每小时最多清扫一次以前留下的（这个进程里第一张图出完就扫一次）
+        const { userDataDir } = browser;
+        track(closeBrowser(browser).then((removed) => {
+          if (!removed) log("⚠ 出图的临时浏览器目录没删掉，以后清扫时再删：" + userDataDir);
+          if (Date.now() - lastSweep >= LEFTOVER_AGE_MS) return sweep();
+        }));
       }
     }
   }
 
-  return { render, findBrowser: () => findBrowser(browserPath) };
+  return {
+    render,
+    findBrowser: () => findBrowser(browserPath),
+    // 现在就清扫一遍（main.cjs 启动时调）
+    sweep: (options) => track(sweep(options)),
+    // 等后台收拾、清扫都做完。收拾时可能顺带开始清扫，所以一直等到真的空了
+    async idle() {
+      while (pending.size) await Promise.allSettled([...pending]);
+    },
+  };
 }
 
-module.exports = { createRenderer, findBrowser };
+module.exports = { createRenderer, findBrowser, PROFILE_PREFIX, LEFTOVER_AGE_MS };
