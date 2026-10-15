@@ -1,10 +1,10 @@
 {
   "_说明": "复制成 config.local.json 再改。密钥（QQ AppSecret、落雪密钥）不放这里，放 .env（见 .env.example）。",
 
-  "_沙箱": "sandbox=true 走 QQ 沙箱环境，只有沙箱成员能触发；正式上线前用沙箱验，上线后改成 false。",
-  "sandbox": true,
+  "_环境": "sandbox=false 连正式环境。新版开放平台不用沙箱：机器人还没公开时，正式环境里也只有管理员（和开发体验用户）能用（2026-10-15 实测）。true 连沙箱环境，一般用不上；两个环境不能同时连，后连的会被踢掉。",
+  "sandbox": false,
 
-  "_群白名单": "allowedGroupIds 是 group_openid（形如 1A2B3C4D…），不是群号。换 AppID 或换沙箱/正式环境都会变。留空时拒绝启动，免得误入陌生群。拿法：npm run probe，然后在群里 @ 机器人一次，探针会把 openid 打出来。",
+  "_群白名单": "allowedGroupIds 是 group_openid（形如 1A2B3C4D…），不是群号，换 AppID 会变（换沙箱/正式环境不变）。留空时拒绝启动，免得误入陌生群。拿法：npm run probe，然后在群里 @ 机器人一次，探针会把 openid 打出来。",
   "allowedGroupIds": [],
   "allowPrivateChat": true,
 

@@ -191,8 +191,28 @@ test("断线后自动重连", async () => {
   const { mock, transport } = await connected({ minSendIntervalMs: 0 });
   assert.equal(transport.state.connected, true);
   mock.dropClients();
+  // 先等它发现断线：刚断的那一下 connected 还是 true，直接等「连上」会立刻成立，等于什么都没测
+  assert.ok(await mock.waitFor(() => !transport.state.connected, 3000), "应当发现断线");
   const back = await mock.waitFor(() => transport.state.connected, 8000);
   assert.ok(back, "断线后应自动重连");
+  await transport.stop(); await mock.stop();
+});
+
+test("重连时取网关失败（比如被限频）：接着退避重试，进程不崩", async () => {
+  // 2026-10-15 真 QQ 联调实测：重连时取 /gateway 被回 40023001「接口调用超过频率限制」，
+  // 原来的 void connect(true) 没接住这个 rejection，Node 直接把整个进程结束了。
+  const { mock, transport } = await connected();
+  const unhandled = [];
+  const onUnhandled = (reason) => unhandled.push(reason);
+  process.on("unhandledRejection", onUnhandled);
+  mock.state.nextError = { status: 400, err_code: 40023001, message: "接口调用超过频率限制", times: 2 };
+  mock.dropClients();
+  assert.ok(await mock.waitFor(() => !transport.state.connected, 3000), "应当发现断线");
+  const back = await mock.waitFor(() => transport.state.connected, 8000);
+  process.off("unhandledRejection", onUnhandled);
+  assert.equal(mock.state.nextError, null, "两次限频都应当真的被撞上");
+  assert.deepEqual(unhandled.map(String), [], "重连失败不能变成没人接的 rejection");
+  assert.ok(back, "限频过去以后应当重连上");
   await transport.stop(); await mock.stop();
 });
 

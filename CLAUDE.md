@@ -17,7 +17,7 @@ npm run try -- "#信息" "#示例图"   用真落雪数据、真出图流程跑�
 npm run theme -- <主题名>         主题实时预览（浏览器打开，改 CSS 刷新就能看到）
 npm run preview -- <主题名>       用正式出图流程渲染主题的示例数据
 npm start                        正式启动（要 .env 和 config.local.json 都填好）
-npm run probe                    QQ 连接探针：拿 group_openid / openid
+npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run check:lxns               落雪接口连通性检查
 ```
 
@@ -27,7 +27,7 @@ npm run check:lxns               落雪接口连通性检查
 
 | 路径 | 内容 |
 | --- | --- |
-| `src/official-transport.cjs` | QQ 官方机器人传输层，原样移植自 MiaBot（改之前看文件头） |
+| `src/official-transport.cjs` | QQ 官方机器人传输层，移植自 MiaBot（改之前看文件头） |
 | `src/bot.cjs` | 消息处理顺序：白名单 → @ 判定 → 去重 → 认指令 → 执行 |
 | `src/commands.cjs` | 指令解析、功能表、绑定检查、出图队列/冷却、二次确认；**功能模块的写法在文件开头** |
 | `src/features/` | 一个功能一个文件，在 `index.cjs` 里登记 |
@@ -87,16 +87,29 @@ npm run check:lxns               落雪接口连通性检查
 - 文档只列了几个玩家接口，完整列表看落雪前端源码 github.com/Lxns-Network/maimai-prober-frontend（`user/{game}/player/...`）。
 - OAuth：访问令牌 15 分钟，刷新令牌 30 天、**每次刷新都换新的、旧的立刻作废**。刷新的串行和写回在 `bindings.cjs`，别绕过它直接调 `oauth.refresh`。
 
-## QQ 官方平台的硬约束（MiaBot 实测）
+## QQ 官方平台的硬约束
+
+MiaBot 实测：
 
 - 不能主动发消息，所有回复都是被动回复、回在原地。群里一条消息 5 分钟内最多回 5 次，私聊 60 分钟 4～5 次。
 - 拿不到 QQ 号，只有 openid（换 AppID 就变）。所以落雪的「按 QQ 号查」用不上，绑定只能好友码或 OAuth。
 - 群里判断「是不是在叫 Anna」用平台给的 `mentions[].is_you`，不能用「有没有 @ 人」——别的机器人被 @ 的指令也会推过来。
-- 还没在真 QQ 上验证过的：消息里能不能带外部链接（`/授权` 发的是落雪链接）、Markdown 和按钮权限。上线前先在沙箱里试。
+
+Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
+
+- 不用沙箱：没公开的机器人直接连正式环境（`sandbox: false`），只有管理员能用。沙箱也连得上，但**两个环境不能同时连**：
+  后连的会被判会话失效（op 9）再以 4903 关掉。同一个环境开两个连接可以，都会收到事件。
+- openid 跟环境无关：沙箱、正式里同一个人、同一个群的 openid 一样；同一个人私聊和群里的 openid 也一样，私聊绑定、群里查分走得通。
+- 群里 @ 了没反应、私聊正常：群主要在群里点机器人头像，设置它能收哪些群消息（官方 FAQ 也这么说）。
+- 纯文本消息里能带外部链接：`/授权` 的落雪链接发得出去，授权走通了。约 3.8 MB 的 JPEG 在群里、私聊都发得出去。
+- 取网关地址会被限频（40023001），断线重连失败要接着退避（`official-transport.cjs` 的 `scheduleReconnect`）。
+- 还没验证：Markdown 和按钮权限（还没有功能用到）；公开以后别人用起来怎样。
 
 ## 底座层面还没做的
 
-- 真 QQ 联调：还没有 QQ 机器人凭据，`npm start` 没在真平台上跑过。先沙箱，重点看 `/授权` 的链接能不能发出去。
+- 公开上线：现在只有管理员能用。让群友用，要在开放平台做开发者认证、把服务范围设成公开（官方 FAQ：个人认证后最多进 500 个群），
+  上线后在别人的群里再验一遍。
+- 日常运行：现在只能开着一个窗口 `npm start`。MiaBot 有无窗口的启动/停止脚本（`qq-official/make-launchers.cjs` 生成 VBS），可以照着做。
 - 曲绘预下载：B50 这类图第一次出时要现下 50 张曲绘，会慢（2026-10-14 实测：50 张都没缓存时要等 40 秒左右）。
   落雪素材限频，预下载要低并发、慢慢来。
 - 角色聊天：`bot.cjs` 留了 `deps.chat` 钩子（@ 了 Anna 但不是指令时调用），人设定了以后再接。

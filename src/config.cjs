@@ -9,7 +9,7 @@ const path = require("node:path");
 const ROOT = path.resolve(__dirname, "..");
 
 const DEFAULTS = Object.freeze({
-  sandbox: true,
+  sandbox: false,
   allowedGroupIds: [],
   allowPrivateChat: true,
   admins: [],

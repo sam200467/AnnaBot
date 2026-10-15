@@ -5,6 +5,7 @@
 // test/official-transport.test.cjs。注释里的「美亚」「梨绪」是 MiaBot 那边的机器人，
 // 那些平台行为都是在它们身上实测出来的，对 Anna 同样成立，所以原文保留。
 // 要改这个文件之前先想清楚：MiaBot 那份是否也该一起改。
+// 移植后改过的：scheduleReconnect 接住重连失败（2026-10-15，MiaBot 那份有同样的问题）。
 //
 // 连接、收发、限流全关在这个文件里，上层（src/bot.cjs）不碰协议。
 // 官方协议是「我们主动连腾讯网关、收事件走 WS、发消息走 REST」。
@@ -665,7 +666,11 @@ function createOfficial(host) {
     // 进程会一直等它到点才退出（测试里表现为整个跑不完）。
     reconnectTimer = setTimeout(() => {
       reconnectTimer = null;
-      if (!stopped) void connect(true);
+      if (stopped) return;
+      // 重连本身也会失败：换令牌、取网关地址都是网络请求（2026-10-15 真 QQ 联调实测：取网关被回 40023001
+      // 「接口调用超过频率限制」）。原来写的 void connect(true) 没接住，Node 把整个进程结束了 ——
+      // 网络抖一下机器人就没了。失败了就接着退避，下一次等得更久。
+      connect(true).catch((error) => scheduleReconnect("重连失败：" + (error?.message || error)));
     }, wait);
   }
 
