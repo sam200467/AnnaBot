@@ -159,6 +159,7 @@ function feature(mode) {
     usage: "/" + mode,
     summary: isB50 ? "成绩图：旧曲 B30 + 新曲 N20，也就是 Rating 的构成（@ 别人看 TA 的）"
       : "成绩图：不分新旧，单曲 Rating 最高的 30 首（@ 别人看 TA 的）",
+    panel: isB50 ? "旧曲 B30 + 新曲 N20 成绩图" : "不分新旧的 B30 成绩图",
     group: "查询",
     binding: "any",
     allowOthers: true,

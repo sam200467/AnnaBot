@@ -22,6 +22,7 @@ npm run launchers                生成无窗口启动器「启动Anna.vbs」「
 npm run package                  打服务器完整安装包（带密钥和绑定，dist/ 下的 zip）；本机的 Anna 要先停
 npm run package:update           打服务器更新包（只有程序）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
+npm run panel                    指令面板（QQ 输入框打 / 弹出的清单）：看本地和平台上的样子；-- --sync 不重启马上同步
 npm run check:lxns               落雪接口连通性检查
 ```
 
@@ -38,6 +39,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/official-transport.cjs` | QQ 官方机器人传输层，移植自 MiaBot（改之前看文件头） |
 | `src/bot.cjs` | 消息处理顺序：白名单 → @ 判定 → 去重 → 认指令 → 执行 |
 | `src/commands.cjs` | 指令解析、功能表、绑定检查、出图队列/冷却、二次确认；**功能模块的写法在文件开头** |
+| `src/command-panel.cjs` | 指令面板：按功能表生成，`bot.start()` 时同步到 QQ（平台规则在文件头） |
 | `src/features/` | 一个功能一个文件，在 `index.cjs` 里登记 |
 | `src/voice.cjs` | 所有回给玩家的话，包括落雪错误的翻译（`errorText`） |
 | `src/lxns.cjs` | 落雪接口：公共 / 开发者 / 玩家三种 |
@@ -58,6 +60,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
    - `binding: "any"`：好友码或授权绑定都行，`ctx.player` 就是查分入口（方法见 `bindings.cjs` 的 `createPlayerApi`）
    - `binding: "oauth"`：要全部成绩的**具体分数**时用（等级成绩、分表）。好友码绑定的人会被提示去 `/授权`
    - `allowOthers: true`：`@某人 /指令` 查别人。查别人一律走开发者接口（受对方在落雪的第三方开关管），只能查自己的功能别开
+   - 指令面板（QQ 输入框打 `/` 弹出的清单）跟着功能表走、启动时自动同步，不用另外注册。说明默认用 `summary`，
+     超过 15 个汉字（平台算 30 个字符，中文算 2 个）时写一个短的 `panel`，测试会提醒
 2. 出图：照 `src/features/example-image.cjs` 写，交给 `ctx.image({ kind, label, render })`。排队、冷却、占位消息、
    被动回复过期都由它管。落雪素材在 `render` 里用 `assets.fileUrls` 换成 `file://` 地址（慢，必须在队列里做）。
 3. 主题：复制 `themes/_example/` 成 `themes/<名字>/`，按 `themes/README.md` 写。作者给的背景图等放 `themes/<名字>/assets/`，
@@ -112,6 +116,8 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
 - openid 跟环境无关：沙箱、正式里同一个人、同一个群的 openid 一样；同一个人私聊和群里的 openid 也一样，私聊绑定、群里查分走得通。
 - 群里 @ 了没反应、私聊正常：群主要在群里点机器人头像，设置它能收哪些群消息（官方 FAQ 也这么说）。
 - 纯文本消息里能带外部链接：`/授权` 的落雪链接发得出去，授权走通了。约 3.8 MB 的 JPEG 在群里、私聊都发得出去。
+- 指令面板（`/v2/panels`）没公开的机器人也能建：群聊面板（挂白名单里的群）、私聊面板（对所有人）都建上了。
+  平台读回来的指令名去掉了开头的斜杠（跟 MiaBot 记的一样），归一化以后再同步一次不会再写。
 - 取网关地址会被限频（40023001），断线重连失败要接着退避（`official-transport.cjs` 的 `scheduleReconnect`）。
 - 还没验证：Markdown 和按钮权限（还没有功能用到）；公开以后别人用起来怎样。
 

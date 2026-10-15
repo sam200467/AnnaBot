@@ -369,6 +369,7 @@ function deployGuide(manifest) {
     (full ? "五" : "四") + "、更新",
     "  在自己电脑上 npm run package:update 打更新包，拷过来解压，同样双击「安装Anna.cmd」。",
     "  它会先停掉 Anna，换完程序再启动；.env、config.local.json、data 都不动。",
+    "  QQ 输入框里打 / 弹出的指令清单，Anna 启动时会自己更新，不用另外操作。",
     "  回退：把上一个安装包或更新包再装一遍。",
     "",
     (full ? "六" : "五") + "、不用了",

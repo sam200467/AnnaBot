@@ -18,6 +18,7 @@ const DEFAULTS = Object.freeze({
   reuseLatestPassiveCredential: true,
   markdown: true,
   keyboard: true,
+  commandPanel: true,
   generateCooldownMs: 3000,
   receiptDelayMs: 1500,
   maxQueue: 10,

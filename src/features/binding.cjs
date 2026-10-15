@@ -23,6 +23,7 @@ const authorize = {
   words: ["授权", "授權", "authorize", "oauth"],
   usage: "/授权",
   summary: "用落雪账号授权，能读全部成绩的具体分数",
+  panel: "用落雪账号授权，能读全部成绩",
   group: "账号",
   // 私聊里有进行中的授权时，直接发授权码也认
   matchDirect(text, ctx) {

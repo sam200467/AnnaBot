@@ -265,4 +265,18 @@ test("走真的网关：bot.start() 之后推一条消息能收到回复", async
   s.qq.push("C2C_MESSAGE_CREATE", { id: "gw-1", author: { user_openid: "U1" }, content: "/状态" });
   assert.ok(await s.qq.waitFor(() => s.qq.state.sent.length === 1));
   assert.match(s.last(), /在线：是/);
+  // 启动时顺带把指令面板同步上去：群聊的只挂白名单里的群
+  assert.ok(await s.qq.waitFor(() => s.logs.some((line) => line.startsWith("指令面板："))));
+  assert.ok(s.logs.includes("指令面板：群聊新建了（1 个群），私聊新建了"));
+  const group = [...s.qq.state.panels.values()].find((p) => p.scope === "group");
+  assert.deepEqual([...group.targets], ["G1"]);
+});
+
+test("commandPanel=false 时启动不碰指令面板", async (t) => {
+  const s = await setup(t, { config: { commandPanel: false } });
+  await s.bot.start();
+  await s.qq.waitFor(() => s.qq.state.identified.length > 0);
+  s.qq.push("C2C_MESSAGE_CREATE", { id: "gw-1", author: { user_openid: "U1" }, content: "/状态" });
+  assert.ok(await s.qq.waitFor(() => s.qq.state.sent.length === 1));
+  assert.equal(s.qq.state.panelCalls.length, 0);
 });

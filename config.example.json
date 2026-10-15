@@ -24,6 +24,9 @@
   "markdown": true,
   "keyboard": true,
 
+  "_指令面板": "QQ 输入框里打 / 弹出来的指令清单。Anna 每次启动按功能表同步：群聊的只挂 allowedGroupIds 里的群，私聊的对所有人（allowPrivateChat=false 时撤掉）。false 是不管面板（平台上已有的原样留着）。",
+  "commandPanel": true,
+
   "_出图": "generateCooldownMs：同一个人同一种图之间的冷却（毫秒）；receiptDelayMs：图在这么久之内出来就不发「正在生成」占位；maxQueue：出图队列上限；renderScale：输出倍率（2 = 两倍像素）；browserPath：Chrome/Edge 路径，留空自动找。",
   "generateCooldownMs": 3000,
   "receiptDelayMs": 1500,

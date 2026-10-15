@@ -27,9 +27,61 @@ function createMockOfficial(options = {}) {
     sockets: new Set(),
     nextError: null,    // { status, err_code, message } —— 让下一次 REST 调用失败
     tokenCalls: 0,
+    panels: new Map(),  // 指令面板 panel_id -> { panel_id, scope, target_type, panel, targets: Set }
+    panelCalls: [],     // 指令面板接口的调用 { method, path, body }
   };
 
   let port = 0;
+  let panelSeq = 0;
+
+  // 指令面板接口（POST/GET /v2/panels、GET/PUT/DELETE /v2/panels/{id}、PUT /v2/panels/{id}/target）。
+  // 跟真平台一样：存的时候去掉 name 开头的斜杠、读回来的键序是 name/desc/type（MiaBot 实测），测试才测得到归一化。
+  function panelRoute(req, res, url, body) {
+    state.panelCalls.push({ method: req.method, path: url, body });
+    const stored = (panel) => ({
+      items: (panel?.items || []).map((item) => ({ name: String(item.name || "").replace(/^\/+/, ""), desc: item.desc || "", type: item.type || "command" })),
+      remark: panel?.remark || "",
+    });
+    const fieldOf = (scope) => (scope === "group" ? "group_openids" : "user_openids");
+    const [, id, sub] = url.match(/^\/v2\/panels(?:\/([^/]+))?(\/target)?$/) || [];
+    if (!id && req.method === "GET") {
+      const scope = new URL(req.url, "http://mock").searchParams.get("scope");
+      // 按设置时间倒序
+      const records = [...state.panels.values()].filter((p) => p.scope === scope).reverse()
+        .map((p) => ({ panel_id: p.panel_id, scope: p.scope, target_type: p.target_type, panel: p.panel }));
+      return json(res, 200, { records, next_cursor: "", is_end: true });
+    }
+    if (!id && req.method === "POST") {
+      if (state.panels.size >= 20) return json(res, 400, { message: "超出数量限制", err_code: 40030013 });
+      const panel_id = "p_" + (++panelSeq);
+      state.panels.set(panel_id, {
+        panel_id, scope: body.scope, target_type: body.target_type || "all", panel: stored(body.panel), targets: new Set(body[fieldOf(body.scope)] || []),
+      });
+      return json(res, 200, { panel_id });
+    }
+    const record = state.panels.get(decodeURIComponent(id || ""));
+    if (!record) return json(res, 400, { message: "指令面板不存在", err_code: 40030006 });
+    if (sub && req.method === "PUT") {
+      if (record.target_type === "all") return json(res, 400, { message: "全局面板不支持添加指定关联对象", err_code: 40030021 });
+      for (const target of body[fieldOf(record.scope)] || []) {
+        if (body.op === "del") record.targets.delete(target); else record.targets.add(target);
+      }
+      return json(res, 200, {});
+    }
+    if (req.method === "GET") {
+      return json(res, 200, { panel_id: record.panel_id, scope: record.scope, target_type: record.target_type, panel: record.panel,
+        [fieldOf(record.scope)]: [...record.targets] });
+    }
+    if (req.method === "PUT") {
+      record.panel = stored(body.panel);
+      return json(res, 200, { version: 1 });
+    }
+    if (req.method === "DELETE") {
+      state.panels.delete(record.panel_id);
+      return json(res, 200, {});
+    }
+    return json(res, 404, { message: "not found: " + url });
+  }
 
   function json(res, status, payload) {
     const body = JSON.stringify(payload);
@@ -78,6 +130,7 @@ function createMockOfficial(options = {}) {
         state.sent.push({ path: url, body });
         return json(res, 200, { id: "sent-" + state.sent.length, timestamp: new Date().toISOString() });
       }
+      if (/^\/v2\/panels(\/|$)/.test(url)) return panelRoute(req, res, url, body);
       return json(res, 404, { message: "not found: " + url });
     });
   });

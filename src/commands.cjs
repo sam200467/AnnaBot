@@ -15,6 +15,8 @@
 //     name: "info",                      内部名，唯一
 //     words: ["信息", "info"],            指令词（不带前缀），第一个是正式名，帮助里显示它
 //     usage: "/信息", summary: "……",       帮助里的用法和一句话说明
+//     panel: "……",                        可选：指令面板（QQ 输入框打 / 弹出的清单）里的说明，最多 15 个汉字；
+//                                         不写就用 summary，false 是不进面板（见 command-panel.cjs）
 //     group: "查询",                      帮助里的分组
 //     binding: "none" | "any" | "oauth",  需要什么绑定。any：好友码或授权都行；oauth：要全部成绩的具体分数
 //     allowOthers: false,                 true：@ 了别人就查别人（只认这条消息真 @ 到的人）

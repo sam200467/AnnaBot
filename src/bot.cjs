@@ -15,6 +15,7 @@
 
 const { createOfficial } = require("./official-transport.cjs");
 const { createCommands } = require("./commands.cjs");
+const { syncPanels } = require("./command-panel.cjs");
 const { V } = require("./voice.cjs");
 
 function makeTarget(event) {
@@ -136,6 +137,12 @@ function createAnnaBot(config, deps = {}) {
         void handleEvent(name, d).catch((error) => log("⚠ 处理消息出错：" + (error?.stack || error)));
       });
       watchGateway();
+      // QQ 输入框打 / 弹出的指令清单跟着功能表和白名单走，每次启动对一遍。在后台做，没对上只记日志：面板只是个入口，不影响收发
+      if (config.commandPanel !== false && typeof transport.rest === "function") {
+        void syncPanels({ rest: transport.rest, features, groups: [...allowGroups], privateChat: allowPrivate })
+          .then((result) => log("指令面板：" + result))
+          .catch((error) => log("⚠ 指令面板没同步上：" + error.message + (error.code ? "（错误码 " + error.code + "）" : "")));
+      }
     },
     stop() {
       if (gatewayTimer) clearInterval(gatewayTimer);
