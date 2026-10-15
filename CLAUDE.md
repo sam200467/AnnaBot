@@ -19,6 +19,8 @@ npm run preview -- <主题名>       用正式出图流程渲染主题的示例�
 npm start                        正式启动（要 .env 和 config.local.json 都填好）
 npm stop                         停掉在跑的 Anna（无窗口启动的、npm start 开的都算）
 npm run launchers                生成无窗口启动器「启动Anna.vbs」「停止Anna.vbs」（作者双击用）
+npm run package                  打服务器完整安装包（带密钥和绑定，dist/ 下的 zip）；本机的 Anna 要先停
+npm run package:update           打服务器更新包（只有程序）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run check:lxns               落雪接口连通性检查
 ```
@@ -47,7 +49,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图 |
 | `src/services.cjs` | 按配置把上面这些装起来（`main.cjs` 和 `tools/` 共用） |
 | `themes/` | 出图主题，约定见 `themes/README.md` |
-| `tools/` | 上面那些命令 |
+| `tools/` | 上面那些命令；`build-package.cjs` 打部署包、`install.cjs` 是服务器上的安装程序（改之前看文件头） |
 | `test/` | 测试，`mock-official.cjs`（假 QQ）和 `mock-lxns.cjs`（假落雪）可以复用 |
 
 ## 加一个新功能
@@ -119,11 +121,26 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
   落雪素材限频，预下载要低并发、慢慢来。
 - 角色聊天：`bot.cjs` 留了 `deps.chat` 钩子（@ 了 Anna 但不是指令时调用），人设定了以后再接。
 
+## 部署到服务器
+
+`npm run package` 打完整包，拷到服务器解压、双击「安装Anna.cmd」；以后有新功能用 `npm run package:update` 打更新包，同样双击安装。
+细节在 `tools/build-package.cjs`、`tools/install.cjs` 的文件头，给作者看的说明是打包时生成的「部署说明.txt」。要点：
+
+- 服务器跟 MiaBot 一样是 Windows。默认装到 `C:\AnnaBot`，开机自启是计划任务 `AnnaBot`（S4U：不存密码，没人登录也跑）。
+  设了这个任务以后，「启动Anna.vbs」交给计划任务去启动，Anna 不挂在远程桌面会话上（直接起子进程的话，注销远程桌面会把它一起关掉）
+- 服务器上的绑定库主密钥写在 `.env` 的 `ANNA_VAULT_KEY`，不用 DPAPI：S4U 任务里解不开，云控制台重置密码也会让 DPAPI 封的东西永远解不开
+- 打完整包时本机的 Anna 必须停着，之后也别再开：刷新令牌是滚动的，两边各刷一次就有一边失效
+- git 外的素材不用改打包脚本：`themes/*/assets/`、`themes/shared/fonts|icons/` 自动带上，字体只带主题里用到了名字的。
+  新功能要是在 `src/` `tools/` `themes/` 之外加了运行时要读的目录，要加进 `build-package.cjs` 的 `PROGRAM_DIRS`
+- `安装Anna.cmd` 只能是纯 ASCII、不能调 PowerShell：带 `powershell -EncodedCommand` 的 .cmd 一运行就被火绒 / 腾讯电脑管家
+  当病毒删掉（2026-10-15 本机实测）。中文提示都由 `install.cjs` 打印
+- 还没在真服务器上跑过：S4U 计划任务里无头浏览器能不能出图（安装程序就是用计划任务启动的，装完在群里发一次 `/b50` 就知道）
+
 ## 提交
 
 分支 `main`，远程 `origin` = github.com/sam200467/AnnaBot（**公开仓库**）。作者身份是仓库级配置
 （sam2004 + GitHub noreply 邮箱，跟 MiaBot 一样），别改。
-一个功能做完、`npm test` 全过再提交一次；作者要求提交、推送时才做。提交前确认 `git status` 里没有 `.env`、`data/`、素材文件。
+一个功能做完、`npm test` 全过再提交一次；作者要求提交、推送时才做。提交前确认 `git status` 里没有 `.env`、`data/`、`dist/`、素材文件。
 
 仓库是公开的，所以代码、测试、文档里都不能出现作者的个人信息：真实好友码、游戏昵称、授权码、openid 一律用假的
 （测试里用 `123456789012345`、「测试玩家」这类）。用 `npm run try` 跑出来的真数据只留在本机的 `data/` 里。

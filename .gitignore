@@ -15,6 +15,9 @@ data/
 # 无窗口启动器，npm run launchers 生成（同 MiaBot）
 /*.vbs
 
+# 部署包（npm run package 生成）：完整包里有密钥和所有人的绑定
+dist/
+
 # 外部素材由部署者自行准备，不进仓库（同 MiaBot 的 ASSETS.md 口径）
 /themes/**/assets/*
 /themes/**/design/*

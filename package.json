@@ -12,6 +12,8 @@
     "check:lxns": "node tools/check-lxns.cjs",
     "check:oauth": "node tools/check-oauth.cjs",
     "launchers": "node tools/make-launchers.cjs",
+    "package": "node tools/build-package.cjs",
+    "package:update": "node tools/build-package.cjs --update",
     "probe": "node tools/probe-qq.cjs",
     "preview": "node tools/render-preview.cjs",
     "theme": "node tools/theme-server.cjs",

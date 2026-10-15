@@ -47,6 +47,9 @@ const CONNECTS = [
   "setTimeout(() => {}, 5000);",
 ].join("\n");
 
+// 没有开机自启的计划任务（本机真的查一次要好几秒，结果也跟机器有关）
+const noTask = { find: async () => null, run: async () => { throw new Error("不该交给计划任务"); } };
+
 test("认 Anna：命令行里带 src/main.cjs 的 node 进程；写的是绝对路径时要是这个目录的", () => {
   const root = "F:\\bots\\Anna Bot";
   const anna = [
@@ -97,7 +100,7 @@ test("启动器等的那句跟 bot.cjs 连上网关时打的一致", () => {
 
 test("后台启动：等到连上 QQ 网关才报成功，启动器退了 Anna 接着跑；已经有 Anna 在跑就不再开", async (t) => {
   const { root, logs, track } = fakeAnna(t, CONNECTS);
-  const result = await start({ root, list: async () => [], timeoutMs: 15000 });
+  const result = await start({ root, list: async () => [], task: noTask, timeoutMs: 15000 });
   track(result.pid);
   assert.equal(result.code, 0, result.text);
   assert.equal(result.text, "Anna 已在后台启动，连上 QQ 了（进程 " + result.pid + "）。");
@@ -115,23 +118,53 @@ test("后台启动：等到连上 QQ 网关才报成功，启动器退了 Anna �
 
 test("后台启动：起不来时把 stderr 里的报错带回来；超时没连上也说一声，不拿上次留下的那句充数", async (t) => {
   const failing = fakeAnna(t, 'console.error("启动失败：找不到 config.local.json"); process.exit(1);');
-  const failed = await start({ root: failing.root, list: async () => [] });
+  const failed = await start({ root: failing.root, list: async () => [], task: noTask });
   assert.equal(failed.code, 1);
   assert.equal(failed.text, "Anna 没能启动：\n启动失败：找不到 config.local.json\n\n（报错也记在 " + path.join("data", "logs", STDERR_FILE) + "）");
   assert.match(fs.readFileSync(path.join(failing.logs, STDERR_FILE), "utf8"), /后台启动\n启动失败：找不到 config\.local\.json/);
 
   const crashing = fakeAnna(t, 'throw new Error("坏了");');
-  const crashed = await start({ root: crashing.root, list: async () => [] });
+  const crashed = await start({ root: crashing.root, list: async () => [], task: noTask });
   assert.equal(crashed.code, 1);
   assert.match(crashed.text, /^Anna 没能启动：\n[\s\S]*Error: 坏了/);
 
   const slow = fakeAnna(t, "setTimeout(() => {}, 5000);");
   fs.mkdirSync(slow.logs, { recursive: true });
   fs.writeFileSync(logFile(slow.logs, new Date()), "[00:00:00] " + READY_LINE + "\n");
-  const late = await start({ root: slow.root, list: async () => [], timeoutMs: 800 });
+  const late = await start({ root: slow.root, list: async () => [], task: noTask, timeoutMs: 800 });
   slow.track(late.pid);
   assert.equal(late.code, 2, late.text);
   assert.match(late.text, /^Anna 已在后台启动（进程 \d+），但 1 秒内还没连上 QQ。/);
+});
+
+test("后台启动：设了开机自启时交给计划任务去起，照样等到连上；计划任务起的 Anna 报错、计划任务本身起不来都说清楚", async (t) => {
+  // 假的计划任务：run 时自己起一个假 Anna，相当于任务计划程序替我们起
+  const { root, track } = fakeAnna(t, CONNECTS);
+  let child = null;
+  const task = {
+    find: async (where) => (where === root ? { state: "Ready" } : null),
+    run: async () => {
+      child = spawn(process.execPath, [path.join(root, "src", "main.cjs")], { stdio: "ignore", windowsHide: true });
+      track(child.pid);
+    },
+  };
+  const list = async () => (child && alive(child.pid) ? [{ pid: child.pid, commandLine: 'node "' + path.join(root, "src", "main.cjs") + '"' }] : []);
+  const result = await start({ root, list, task, timeoutMs: 15000 });
+  assert.equal(result.code, 0, result.text);
+  assert.equal(result.text, "Anna 已在后台启动（计划任务 AnnaBot），连上 QQ 了（进程 " + child.pid + "）。");
+
+  // 计划任务把 Anna 的 stderr 接到 stderr.log（见 tools/install.cjs），起不来的报错从那里读
+  const failing = fakeAnna(t, "");
+  const broken = {
+    find: async () => ({ state: "Ready" }),
+    run: async () => fs.appendFileSync(path.join(failing.logs, STDERR_FILE), "启动失败：.env 里缺少 QQ_APP_ID\n"),
+  };
+  const failed = await start({ root: failing.root, list: async () => [], task: broken });
+  assert.deepEqual(failed, { code: 1, text: "Anna 没能启动：\n启动失败：.env 里缺少 QQ_APP_ID\n\n（报错也记在 " + path.join("data", "logs", STDERR_FILE) + "）" });
+
+  const refused = { find: async () => ({ state: "Ready" }), run: async () => { throw new Error("计划任务 AnnaBot 启动不了（PowerShell 出错，退出码 1：拒绝访问。）"); } };
+  assert.deepEqual(await start({ root: failing.root, list: async () => [], task: refused }),
+    { code: 1, text: "计划任务 AnnaBot 启动不了（PowerShell 出错，退出码 1：拒绝访问。）" });
 });
 
 test("停止：只结束认出来的进程，连它的子进程一起；记进日志；没在跑也照实说", { skip: !windows && "taskkill 只有 Windows 有" }, async (t) => {

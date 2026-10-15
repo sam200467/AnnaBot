@@ -11,6 +11,9 @@
 // 怎么认 Anna：命令行里带 src/main.cjs 的 node 进程 —— npm start、启动器、手打的 node src/main.cjs 都是这样。
 // 写的是绝对路径时还得是这个目录下的那个，别的项目也叫 src/main.cjs 的话不会被误杀；
 // 相对路径看不出是哪个目录的（Windows 拿不到别的进程的当前目录），只能算上。
+//
+// 服务器上装了开机自启（计划任务 AnnaBot，tools/install.cjs 设的）时，start 交给计划任务去启动：
+// 这样开的 Anna 跟开机自启的一样，不挂在谁的登录会话上。直接起子进程的话，远程桌面一注销，Anna 会被一起关掉。
 
 const fs = require("node:fs");
 const path = require("node:path");
@@ -18,6 +21,7 @@ const { spawn, execFile } = require("node:child_process");
 const { promisify } = require("node:util");
 const { loadConfig, ROOT } = require("../src/config.cjs");
 const { createLog, logFile } = require("../src/log.cjs");
+const { powerShellError } = require("../src/vault.cjs");
 
 const run = promisify(execFile);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -26,6 +30,24 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const READY_LINE = "QQ 网关已连上";
 // 启动失败、崩溃的报错只打在 stderr（那时日志模块可能还没建起来）。后台跑没有窗口，所以接到这个文件里。
 const STDERR_FILE = "stderr.log";
+// 开机自启的计划任务叫这个名字（tools/install.cjs 注册）
+const TASK_NAME = "AnnaBot";
+
+// PowerShell 单引号字符串：里面的单引号写两遍
+const psQuote = (value) => "'" + String(value).replace(/'/g, "''") + "'";
+
+// 跑一段 PowerShell，返回它的标准输出。脚本走 -EncodedCommand（UTF-16LE base64），中文路径、引号都不用转义。
+// what 是报错时说「什么没做成」。别把 error.message 原样往外报：里面是整条命令，带一大串 base64。
+async function powershell(script, { what = "PowerShell", timeout = 60000 } = {}) {
+  try {
+    const { stdout } = await run("powershell.exe", ["-NoProfile", "-NonInteractive", "-EncodedCommand", Buffer.from(script, "utf16le").toString("base64")],
+      { encoding: "utf8", windowsHide: true, timeout });
+    return stdout.trim();   // trim 连开头的 BOM 一起去掉（U+FEFF 算空白）
+  } catch (error) {
+    const detail = error.killed ? "超时" : "出错，退出码 " + error.code + (error.stderr ? "：" + powerShellError(error.stderr) : "");
+    throw new Error(what + "（PowerShell " + detail + "）");
+  }
+}
 
 // Windows 命令行按空白切开、去掉引号。够认路径用，不管 \" 这类转义。
 const splitCommandLine = (line) => (String(line || "").match(/(?:"[^"]*"|[^\s"])+/g) || []).map((arg) => arg.replace(/"/g, ""));
@@ -49,20 +71,33 @@ const LIST_SCRIPT = [
 ].join("\n");
 
 async function listNodeProcesses() {
-  let stdout;
-  try {
-    ({ stdout } = await run("powershell.exe", ["-NoProfile", "-NonInteractive", "-EncodedCommand", Buffer.from(LIST_SCRIPT, "utf16le").toString("base64")],
-      { encoding: "utf8", windowsHide: true, timeout: 60000 }));
-  } catch (error) {
-    // 别把 error.message 原样往外报：里面是整条命令，带一大串 base64
-    throw new Error("查不了进程列表（PowerShell " + (error.killed ? "超时" : "出错，退出码 " + error.code) + "）");
-  }
-  return JSON.parse(stdout.replace(/^\uFEFF/, "").trim() || "[]");
+  return JSON.parse(await powershell(LIST_SCRIPT, { what: "查不了进程列表" }) || "[]");
 }
 
 async function findAnna({ root = ROOT, list = listNodeProcesses } = {}) {
   return (await list()).filter((proc) => proc.pid !== process.pid && isAnnaCommand(proc.commandLine, root));
 }
+
+// 开机自启的计划任务。find 只认启动的是这个目录里那个 src/main.cjs 的：同名任务指着别的安装目录时当它不存在。
+const TASK_QUERY = [
+  "$ProgressPreference = 'SilentlyContinue'",
+  "[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding $false",
+  "$task = Get-ScheduledTask -TaskName " + psQuote(TASK_NAME) + " -ErrorAction SilentlyContinue | Select-Object -First 1",
+  "if ($task) { ConvertTo-Json -Compress -InputObject @{ state = [string]$task.State; " +
+    "actions = (@($task.Actions | ForEach-Object { [string]$_.Execute + ' ' + [string]$_.Arguments }) -join ' | ') } } else { 'null' }",
+].join("\n");
+
+const scheduledTask = {
+  async find(root = ROOT) {
+    if (process.platform !== "win32") return null;
+    const task = JSON.parse(await powershell(TASK_QUERY, { what: "查不了计划任务" }) || "null");
+    const entry = path.win32.join(root, "src", "main.cjs").toLowerCase();
+    return task && String(task.actions).replace(/\//g, "\\").toLowerCase().includes(entry) ? task : null;
+  },
+  async run() {
+    await powershell("$ErrorActionPreference = 'Stop'\nStart-ScheduledTask -TaskName " + psQuote(TASK_NAME), { what: "计划任务 " + TASK_NAME + " 启动不了" });
+  },
+};
 
 // 日志目录跟 Anna 自己用的一样（workDir/logs）。读不了配置时 Anna 自己也起不来，报错会从 stderr 里看到，这里先按默认的 data/ 算。
 function logsOf(root) {
@@ -89,7 +124,7 @@ function head(text, maxLines = 10) {
   return lines.length > maxLines ? lines.slice(0, maxLines).join("\n") + "\n…" : lines.join("\n");
 }
 
-async function start({ root = ROOT, list, timeoutMs = 60000, pollMs = 250, now = () => new Date() } = {}) {
+async function start({ root = ROOT, list, task = scheduledTask, timeoutMs = 60000, pollMs = 250, now = () => new Date() } = {}) {
   const running = await findAnna({ root, list });
   if (running.length) {
     return { code: 2, text: "Anna 已经在运行了（进程 " + pidList(running) + "），没有再开一个：同时开两个，每句话会回两遍。\n" +
@@ -104,6 +139,40 @@ async function start({ root = ROOT, list, timeoutMs = 60000, pollMs = 250, now =
   // 只看这次启动以后新写的日志。文件按天分，跨了零点的话新一天的从头看。
   const offsets = new Map([[logFile(logs, now()), sizeOf(logFile(logs, now()))]]);
 
+  let viaTask = null;
+  try { viaTask = await task.find(root); } catch { /* 查不了计划任务就照常直接起 */ }
+  const launched = viaTask ? await launchTask({ root, list, task, errFile, errOffset }) : launchChild(root, errFile);
+  if (launched.failed) return launched.failed;
+  const by = viaTask ? "计划任务 " + TASK_NAME : "";
+
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    await sleep(pollMs);
+    const exit = await launched.exited();
+    if (exit) {
+      const detail = exit.error ? exit.error.message : head(readFrom(errFile, errOffset));
+      return { code: 1, text: detail
+        ? "Anna 没能启动：\n" + detail + "\n\n（报错也记在 " + shown(root, errFile) + "）"
+        : exit.never
+          ? "计划任务 " + TASK_NAME + " 没把 Anna 拉起来（15 秒内没见到进程），也没留下报错。打开「任务计划程序」看看 " + TASK_NAME + " 的「上次运行结果」。"
+          : "Anna 刚启动就退出了" + (exit.code === undefined ? "" : "（退出码 " + exit.code + "）") + "，没留下报错。看看日志：" + shown(root, logFile(logs, now())) };
+    }
+    const today = logFile(logs, now());
+    if (!offsets.has(today)) offsets.set(today, 0);
+    if ([...offsets].some(([file, offset]) => readFrom(file, offset).includes(READY_LINE))) {
+      const pid = await launched.pid();
+      return { code: 0, pid, text: "Anna 已在后台启动" + (by ? "（" + by + "）" : "") + "，连上 QQ 了（进程 " + pid + "）。" };
+    }
+    if (Date.now() >= deadline) {
+      const pid = await launched.pid();
+      return { code: 2, pid, text: "Anna 已在后台启动（进程 " + pid + (by ? "，" + by : "") + "），但 " + Math.round(timeoutMs / 1000) +
+        " 秒内还没连上 QQ。\n看看日志：" + shown(root, today) };
+    }
+  }
+}
+
+// 没有计划任务：直接起一个脱离的子进程
+function launchChild(root, errFile) {
   const errFd = fs.openSync(errFile, "a");
   let child;
   try {
@@ -118,26 +187,36 @@ async function start({ root = ROOT, list, timeoutMs = 60000, pollMs = 250, now =
   child.once("exit", (code, signal) => { exit = { code: code ?? signal }; });
   child.once("error", (error) => { exit = { error }; });
   child.unref();
+  return { exited: async () => exit, pid: async () => child.pid };
+}
 
-  const deadline = Date.now() + timeoutMs;
-  for (;;) {
-    await sleep(pollMs);
-    if (exit) {
-      const detail = exit.error ? exit.error.message : head(readFrom(errFile, errOffset));
-      return { code: 1, text: detail
-        ? "Anna 没能启动：\n" + detail + "\n\n（报错也记在 " + shown(root, errFile) + "）"
-        : "Anna 刚启动就退出了（退出码 " + exit.code + "），没留下报错。看看日志：" + shown(root, logFile(logs, now())) };
-    }
-    const today = logFile(logs, now());
-    if (!offsets.has(today)) offsets.set(today, 0);
-    if ([...offsets].some(([file, offset]) => readFrom(file, offset).includes(READY_LINE))) {
-      return { code: 0, pid: child.pid, text: "Anna 已在后台启动，连上 QQ 了（进程 " + child.pid + "）。" };
-    }
-    if (Date.now() >= deadline) {
-      return { code: 2, pid: child.pid, text: "Anna 已在后台启动（进程 " + child.pid + "），但 " + Math.round(timeoutMs / 1000) +
-        " 秒内还没连上 QQ。\n看看日志：" + shown(root, today) };
-    }
-  }
+// 交给计划任务启动。拿不到子进程，就隔两秒看一眼进程列表：进程出现过又没了、或者 stderr.log 里有了新报错（计划任务
+// 把 Anna 的 stderr 接到了同一个文件），就是没起来；15 秒都没见到进程，多半是计划任务本身没跑起来。
+async function launchTask({ root, list, task, errFile, errOffset }) {
+  try { await task.run(); } catch (error) { return { failed: { code: 1, text: error.message } }; }
+  const started = Date.now();
+  let pid = null;
+  let nextLook = 0;
+  const look = async () => {
+    const procs = await findAnna({ root, list });
+    if (procs.length) pid = procs[0].pid;
+    return procs.length > 0;
+  };
+  return {
+    async exited() {
+      if (Date.now() < nextLook) return null;
+      nextLook = Date.now() + 2000;
+      let running;
+      try { running = await look(); } catch { return null; }   // 这一回查不了进程列表，下一回再看，别因此判它没起来
+      if (running) return null;
+      if (pid !== null || readFrom(errFile, errOffset).trim()) return {};
+      return Date.now() - started > 15000 ? { never: true } : null;
+    },
+    async pid() {
+      if (pid === null) await look().catch(() => {});
+      return pid;
+    },
+  };
 }
 
 // taskkill /T 连子进程一起结束：正在出图时停的话，无头 Chrome 是 Anna 的子进程，不带 /T 它会一直留着。
@@ -194,4 +273,7 @@ async function main() {
 
 if (require.main === module) void main();
 
-module.exports = { start, stop, findAnna, listNodeProcesses, isAnnaCommand, splitCommandLine, READY_LINE, STDERR_FILE };
+module.exports = {
+  start, stop, findAnna, listNodeProcesses, isAnnaCommand, splitCommandLine, logsOf, powershell, psQuote, scheduledTask,
+  READY_LINE, STDERR_FILE, TASK_NAME,
+};

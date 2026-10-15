@@ -78,16 +78,40 @@ npm run launchers    # 在项目目录生成「启动Anna.vbs」「停止Anna.vb
 - 日志照常在 `data/logs/anna-日期.log`；后台启动时起不来、崩溃的报错另外记在 `data/logs/stderr.log`。
 - 两个 `.vbs` 是生成的，不进仓库。里面只有相对路径，挪了项目目录也照样能用。
 
-## 数据和迁移
+## 部署到服务器
+
+照 MiaBot 的做法打一个安装包，装到一台一直开着的 Windows 服务器上。服务器的要求跟 MiaBot 一样：Windows（Server 要选带桌面体验的）、
+Node.js 22+、Chrome 或 Edge；跟 MiaBot 放同一台也行。
+
+```powershell
+npm stop                  # 先停掉本机的 Anna（打完整包以后也别再开）
+npm run package           # 完整包：dist/AnnaBot-install-日期-提交.zip，第一次部署用
+npm run package:update    # 更新包：只有程序，服务器上已经装过时用
+```
+
+把 zip 拷到服务器、解压，双击「安装Anna.cmd」：默认装到 `C:\AnnaBot`，设好开机自启（计划任务 `AnnaBot`），启动并等它连上 QQ。
+更新也是双击这个文件：先停掉 Anna、换程序、再启动，`.env`、`config.local.json`、`data/` 都不动。详细步骤和排查见包里的「部署说明.txt」。
+
+包里带什么由打包脚本挑，不用手动拷：
+
+| 带 | 不带 |
+| --- | --- |
+| `src/` `tools/` `themes/`，连同 git 外的背景图、字体、图标（字体只带主题用到的） | `test/`、`.git/` |
+| `node_modules/ws`（服务器上不用 `npm install`） | `data/vault.key`：DPAPI 封的，换一台机器解不开 |
+| `.env`（主密钥写进 `ANNA_VAULT_KEY`，去掉 `LXNS_USER_TOKEN`）、`config.local.json` | `data/logs/`、`data/try/` |
+| `data/bindings.enc`、`data/cache/`（曲库和曲绘，省得服务器上现下） | `*.vbs`（服务器上重新生成） |
+
+完整包里有密钥和所有人的绑定：`dist/` 不进仓库，包别放网盘、别发群里。
+
+### 绑定库的主密钥
 
 运行数据都在 `data/`：绑定库 `bindings.enc`（加密）、主密钥 `vault.key`、曲库和素材缓存 `cache/`、日志 `logs/`。
 
-绑定库的主密钥在 Windows 上由 DPAPI 保护，**只有当初启动机器人的那个 Windows 用户在那台机器上解得开**——光拷走 `data/` 是读不出绑定的。
-迁移到别的机器时：
+主密钥在 Windows 上由 DPAPI 保护，**只有当初启动机器人的那个 Windows 用户在那台机器上解得开**——光拷走 `data/` 是读不出绑定的。
+打完整包时会把它解开，写进包里 `.env` 的 `ANNA_VAULT_KEY`。服务器上用的就是这个值，不再用 DPAPI：开机自启的计划任务里用不了 DPAPI，
+云服务器在控制台重置密码也会让 DPAPI 封过的东西再也解不开。
 
-1. 在旧机器上运行 `npm run vault-key -- --export`，得到 `ANNA_VAULT_KEY=...`（这个值能解开所有绑定，别外传）
-2. 把整个 `data/` 拷到新机器，并在新机器的 `.env` 里填上 `ANNA_VAULT_KEY`
-
+不用安装包、手动迁移的话：在旧机器上运行 `npm run vault-key -- --export`，把导出的值填进新机器的 `.env`，再把 `data/` 拷过去。
 非 Windows 系统一律用 `ANNA_VAULT_KEY`。
 
 ## 开发

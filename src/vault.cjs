@@ -207,4 +207,4 @@ async function openVault({ file, key, log = () => {} } = {}) {
   };
 }
 
-module.exports = { openVault, loadMasterKey, encrypt, decrypt, dpapi, keyFromBase64 };
+module.exports = { openVault, loadMasterKey, encrypt, decrypt, dpapi, keyFromBase64, powerShellError };
