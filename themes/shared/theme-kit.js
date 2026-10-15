@@ -58,8 +58,9 @@
     constant: (value) => (Number(value) || 0).toFixed(1),
     // 1007725 → "1,007,725"
     score: (value) => Number(value || 0).toLocaleString("en-US"),
-    // 单曲 Rating 截到两位小数：17.5225 → "17.52"
-    rating: (value) => (Math.floor((Number(value) || 0) * 100) / 100).toFixed(2),
+    // 单曲 Rating 截到两位小数：17.5225 → "17.52"。加一点容差：几十首相加再平均的浮点误差会把 16.85 算成 16.8499999…，
+    // 直接截断就成了 16.84（落雪前端的 truncateChunithmValue 也是这么处理的）
+    rating: (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) / 100).toFixed(2),
   };
 
   window.addEventListener("error", (event) => fail(event.error || event.message));

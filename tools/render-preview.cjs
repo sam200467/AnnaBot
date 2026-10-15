@@ -5,6 +5,7 @@
 // 用法：npm run preview -- <主题名> [数据文件] [--out 输出路径] [--scale 2]
 //   数据文件默认 themes/<主题>/examples/preview-data.json
 //   输出默认   themes/<主题>/previews/preview.png（previews/ 不进仓库，里面有落雪的曲绘）
+//   输出路径以 .jpg / .jpeg 结尾就出 JPEG（质量 76，跟 /b50 发出去的一样）。纹理多的主题出 PNG 能有十几 MB。
 // 数据里的 "lxns:jacket/407" 这类引用会换成本地缓存的落雪素材，没缓存就先下载。
 // 改 CSS 时一遍遍出图太慢，用 npm run theme -- <主题名> 开实时预览，刷新浏览器就能看到。
 
@@ -36,8 +37,9 @@ async function main() {
   const assets = createAssets({ cacheDir: path.join(config.workDir, "cache", "assets"), log: console.log });
   const data = await resolveAssetRefs(readExampleData(themesDir, theme, dataFile), (kind, id) => assets.fileUrl(kind, id));
   const renderer = createRenderer({ themesDir, browserPath: config.browserPath, scale: config.renderScale, log: console.log });
-  const image = await renderer.render(theme, data, { ...(scale ? { scale } : {}) });
-  const target = path.resolve(out || path.join(themesDir, theme, "previews", "preview." + (image.format === "jpeg" ? "jpg" : "png")));
+  const jpeg = /\.jpe?g$/i.test(out || "");
+  const image = await renderer.render(theme, data, { ...(scale ? { scale } : {}), ...(jpeg ? { format: "jpeg", quality: 76 } : {}) });
+  const target = path.resolve(out || path.join(themesDir, theme, "previews", "preview.png"));
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, image.buffer);
   console.log("已保存：" + target);

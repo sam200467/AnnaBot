@@ -6,9 +6,11 @@
 themes/
 ├─ shared/
 │  ├─ theme-kit.js      所有主题都要引入的小工具（拿数据、等加载完、告诉渲染器可以截图）
-│  ├─ fonts/            几个主题共用的字体（自己准备，不进仓库）
+│  ├─ fonts.css         共用字体的别名（Anna Hand / Anna Script / Anna Caps / Anna Serif / Anna Mincho / Anna Song），主题引入它就能用
+│  ├─ fonts/            上面那些字体的文件（自己准备，不进仓库）
 │  └─ icons/            几个主题共用的图标：难度、评级、FC/AJ、CLEAR（自己准备，不进仓库）
 ├─ _example/            演示用的主题，新主题从它复制
+├─ best/                /b50、/b30 成绩图（西比拉精灵记风格，设计说明见它的 README）
 └─ <主题名>/
    ├─ renderer/         theme.html / theme.css / theme.js —— 正式出图用的就是这三个
    ├─ assets/           这个主题自己的背景图、装饰（自己准备，不进仓库）
@@ -46,7 +48,8 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
 - **落雪的图**（曲绘、角色、名牌版、称号、地图头像）：功能代码用 `assets.fileUrls(...)` 换成本地 `file://` 地址放进数据，
   主题里直接当 `src` 用。不要在主题里写落雪的网址 —— 落雪的素材服务器很慢，一张图能卡住整张图。
 - **主题自己的素材**：放 `assets/`，在 CSS / HTML 里用相对路径（`../assets/background.png`）。
-- **共用的素材**：`../../shared/icons/...`、`../../shared/fonts/...`，命名约定见那两个目录的 README。
+- **共用的素材**：`../../shared/icons/...`，命名约定见那个目录的 README。字体不直接引文件，引入 `../../shared/fonts.css` 用里面的别名，
+  清单见 `shared/fonts/README.md`。
 
 ## 开发流程
 

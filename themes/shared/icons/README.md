@@ -11,6 +11,10 @@
 | `full_combo/` | `alljusticecritical` `alljustice` `fullcombo` | `full_combo`（没有时是 null） |
 | `clear/` | `catastrophy` `absolute` `brave` `hard` `clear` `failed` | `clear` |
 | `full_chain/` | `fullchain`（铂）`fullchain2`（金） | `full_chain`（没有时是 null） |
+| `class_emblem/base/`、`class_emblem/medal/` | `1.webp`～`6.webp`（CLASS I～V、∞） | 玩家信息的 `class_emblem.base`（缎带）、`class_emblem.medal`（勋章），0 是没有 |
+
+段位图标落雪的素材服务器上没有，是从落雪前端仓库拿的（github.com/Lxns-Network/maimai-prober-frontend 的 `public/assets/chunithm/class_emblem/`），
+缎带 278×80、勋章 184×140。落雪网页上是缎带在下、勋章居中压在上面。
 
 主题里这样用：`"../../shared/icons/rank/" + score.rank + ".png"`。
 

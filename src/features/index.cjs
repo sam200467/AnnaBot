@@ -5,6 +5,7 @@
 module.exports = [
   ...require("./binding.cjs"),
   require("./info.cjs"),
+  ...require("./best.cjs"),
   require("./help.cjs"),
   ...require("./status.cjs"),
   require("./example-image.cjs"),

@@ -66,7 +66,7 @@ function createMockLxns(options = {}) {
     if (rest === "") return ok(res, playerView(p));
     if (viaDev && !p.privacy.scores && rest !== "/trend") return fail(res, 403, "allow third party fetch scores is disabled");
     if (rest === "/bests" && query.get("song_id")) return ok(res, p.scores.filter((s) => String(s.id) === query.get("song_id")));
-    if (rest === "/bests") return ok(res, { bests: p.scores.slice(0, 30), selections: [], new_bests: [] });
+    if (rest === "/bests") return ok(res, p.bests || { bests: p.scores.slice(0, 30), selections: [], new_bests: [] });
     if (rest === "/scores") return ok(res, viaDev ? p.scores.map(({ score: _s, rating: _r, over_power: _o, ...simple }) => simple) : p.scores);
     if (rest === "/recents") return ok(res, p.scores.slice(0, 50));
     if (rest === "/trend") {
@@ -172,11 +172,13 @@ function createMockLxns(options = {}) {
     stop() {
       return new Promise((resolve) => server.close(() => resolve()));
     },
-    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores } = {}) {
+    // bests：/bests 原样返回的 { bests, new_bests, selections }，不给就拿 scores 的前 30 凑
+    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests } = {}) {
       const p = {
         friendCode: String(friendCode), name, rating,
         privacy: { player: true, scores: true, history: false, ...privacy },
         scores: scores || [score(407, 3, 1007725), score(3, 3, 1009000)],
+        bests: bests || null,
       };
       state.players.set(String(friendCode), p);
       return p;

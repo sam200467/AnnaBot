@@ -57,6 +57,22 @@ npm run check:lxns               落雪接口连通性检查
 4. 文案写进 `src/voice.cjs`，功能代码里不直接写句子。
 5. 测试：在 `test/` 加用例（端到端的写法看 `test/bot.test.cjs`），`npm test` 全过；再用 `npm run try` 拿真数据跑一遍、看图。
 
+## 出图的视觉风格
+
+第一个出图功能 `/b50` `/b30`（`src/features/best.cjs` + `themes/best/`）定下了 Anna 出图的样子：中二节奏「西比拉精灵记」
+那种阴沉的暗色幻想风 —— 最外面一个洛可可金色画框、框里烧焦撕边的羊皮纸、上面五位巫女下面火烧的战场、旧纸片卡片、
+封蜡评级、缎带章节名、手写的字。设计说明在 `themes/best/README.md`，新的出图主题沿用同一套：
+
+- 正文只用一种手写字体：霞鹜文楷 Medium（`themes/shared/fonts.css` 的 `Anna Hand`，写成 `"Anna Hand", "Segoe UI Symbol", serif`）。
+  它一个字体就有简体、繁体、日文汉字、假名、西文，曲名混排时大小、笔迹才对得齐 —— 之前几种字体叠着用（Segoe Script、
+  辰宇落雁體、华文楷体补假名），作者嫌大小不统一。别再往同一段字里叠别的字体
+- 作者另外指定了几处纯数字、纯西文用 Segoe Script（`Anna Script`），跟正文区分开：单曲分数、定数、单曲 Rating（定数和 Rating 差不多大）、页脚格言
+- 字要够大：作者两次嫌字小（名牌版、Rating 那几格的大小是他认可的参照）；标签、说明能省就省（第一版的大标题和说明文字被删了）
+- 难度用颜料色（铜绿、赭黄、朱红、紫、黑红），不用游戏里的亮色；画框、撕边、封蜡、缎带、装饰线、柱状图可以直接从
+  `themes/best/renderer/theme.js` 拿（画框素材 `themes/best/assets/frame.png`，拼法见 `FRAME`）
+- 纹理多的图出 JPEG（`renderer.render(主题, 数据, { format: "jpeg", quality: 76 })`）：B50 出 PNG 要 18 MB，
+  超过 QQ 的 8 MB 上限；JPEG 质量 76 约 4 MB（82 就有 4.7 MB 了）。作者要求单张图在 5 MB 以内
+
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
 - 基址 `https://maimai.lxns.net/api/v0/`，路径里游戏写 `chunithm`。公共接口直接返回数据；开发者/玩家接口包一层 `{ success, code, message, data }`，`lxns.cjs` 已解包。
@@ -81,7 +97,8 @@ npm run check:lxns               落雪接口连通性检查
 ## 底座层面还没做的
 
 - 真 QQ 联调：还没有 QQ 机器人凭据，`npm start` 没在真平台上跑过。先沙箱，重点看 `/授权` 的链接能不能发出去。
-- 曲绘预下载：B30 这类图第一次出时要现下 50 张曲绘，会慢。落雪素材限频，预下载要低并发、慢慢来。
+- 曲绘预下载：B50 这类图第一次出时要现下 50 张曲绘，会慢（2026-10-14 实测：50 张都没缓存时要等 40 秒左右）。
+  落雪素材限频，预下载要低并发、慢慢来。
 - 角色聊天：`bot.cjs` 留了 `deps.chat` 钩子（@ 了 Anna 但不是指令时调用），人设定了以后再接。
 
 ## 提交

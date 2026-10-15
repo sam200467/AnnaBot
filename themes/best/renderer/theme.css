@@ -1,0 +1,689 @@
+/* B30 / B50 成绩图：西比拉精灵记（シビュラ精霊記）风格。
+ *
+ * 整张图是一幅镶在金框里的画：最外面是洛可可金色画框（assets/frame.png，theme.js 拼的），
+ * 框里一圈羊皮纸，画面的边缘撕裂、烧焦 —— 跟这个系列所有曲绘一样。
+ * 画里上半截是五位巫女（assets/sibyls.webp），往下沉进黑暗；最底下是着火的战场（assets/battlefield.webp）。
+ * 每首歌是一张钉在上面的旧纸片，难度用颜料色（铜绿、赭黄、朱红、紫、黑红）而不是游戏里的亮色。
+ * 字是手写的，全图只用霞鹜文楷一种字体（别名 Anna Hand，见 ../../shared/fonts.css）：曲名里中日英混排也对得齐。
+ * 纹理全是 SVG 噪声和渐变现画的；assets/ 里的场景图缺了也能出图（只是少一层背景）。
+ */
+
+:root {
+  --ink: #2b190d;          /* 褐墨：纸上的字 */
+  --blood: #7a1a14;        /* 干掉的血色：单曲 Rating */
+  --parch: #dcc7a0;        /* 羊皮纸色：暗处的字 */
+  --gold: #c9a35e;
+  --night: #120d0b;
+
+  /* 全图一种字体：霞鹜文楷（简体、繁体、日文汉字、假名、西文都是同一种手写笔迹）。它只缺 ✪，由 Segoe UI Symbol 补 */
+  --hand: "Anna Hand", "Segoe UI Symbol", serif;
+
+  /* 细颗粒：纸的纤维和斑点 */
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.13  0 0 0 0 0.05  1.25 0 0 0 -0.5'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  /* 大块的水渍、霉斑 */
+  --mottle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='640' height='640'><filter id='m' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='5' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.33  0 0 0 0 0.2  0 0 0 0 0.08  1.6 0 0 0 -0.62'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  /* 暗处的烟：给深色画面加一点颗粒感 */
+  --soot: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='s' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.72  0 0 0 0 0.55  0.9 0 0 0 -0.45'/></filter><rect width='100%25' height='100%25' filter='url(%23s)'/></svg>");
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: fit-content;
+  background: var(--night);
+  font-family: var(--hand);
+  color: var(--parch);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 外框：金色画框（theme.js 拼的），框外是暗色的墙，框里一圈羊皮纸 ──
+   页面的 padding 是给画框留的位置，由 theme.js 按画框的尺寸算好写上 */
+.page {
+  position: relative;
+  width: fit-content;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, #241a15, #120c0a 80%);
+}
+
+.gilt-box { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+.gilt { position: absolute; display: block; max-width: none; object-fit: fill; }
+/* 平直线脚：一段一段铺在 .gilt-run 里，单数段上下翻过来；横边是整条转 90° */
+.gilt-run { position: absolute; overflow: hidden; transform-origin: 0 0; }
+.gilt.flip { transform: scaleY(-1); }
+/* 雕花两头渐隐，叠在下面拉长的线脚上看不出接缝 */
+.gilt.fade-x { -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+.gilt.fade-y { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
+.gilt[class*="fade-t"], .gilt[class*="fade-b"] { -webkit-mask-composite: source-in; mask-composite: intersect; }
+.gilt.fade-tl { -webkit-mask-image: linear-gradient(to right, #000 84%, transparent), linear-gradient(to bottom, #000 84%, transparent); mask-image: linear-gradient(to right, #000 84%, transparent), linear-gradient(to bottom, #000 84%, transparent); }
+.gilt.fade-tr { -webkit-mask-image: linear-gradient(to left, #000 84%, transparent), linear-gradient(to bottom, #000 84%, transparent); mask-image: linear-gradient(to left, #000 84%, transparent), linear-gradient(to bottom, #000 84%, transparent); }
+.gilt.fade-bl { -webkit-mask-image: linear-gradient(to right, #000 84%, transparent), linear-gradient(to top, #000 84%, transparent); mask-image: linear-gradient(to right, #000 84%, transparent), linear-gradient(to top, #000 84%, transparent); }
+.gilt.fade-br { -webkit-mask-image: linear-gradient(to left, #000 84%, transparent), linear-gradient(to top, #000 84%, transparent); mask-image: linear-gradient(to left, #000 84%, transparent), linear-gradient(to top, #000 84%, transparent); }
+
+.frame {
+  position: relative;
+  padding: 12px;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(74, 40, 14, 0.55) 100%),
+    var(--mottle),
+    var(--grain),
+    linear-gradient(170deg, #e2cfa8, #cdb185 45%, #d6be93 70%, #bb9a6c);
+  background-size: auto, 640px 640px, 220px 220px, auto;
+  /* 画框压在纸边上的影子 */
+  box-shadow: inset 0 0 0 1px rgba(40, 20, 6, 0.6), inset 0 0 12px 3px rgba(40, 20, 6, 0.55);
+}
+
+/* 撕开的洞：clip-path 由 theme.js 按实际大小生成（锯齿边） */
+.rim { filter: drop-shadow(0 0 2px rgba(38, 17, 4, 0.95)) drop-shadow(0 0 10px rgba(96, 46, 12, 0.75)); }
+
+.canvas {
+  position: relative;
+  width: 1824px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 55%, rgba(70, 36, 66, 0.3), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 90% 60%, rgba(110, 30, 26, 0.2), transparent 70%),
+    linear-gradient(180deg, #1a1210 0%, #120c0b 40%, #150e0e 100%);
+}
+
+/* 颗粒感盖在所有东西上面；overlay 混合只改明暗，不会把字盖脏 */
+.canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--soot);
+  background-size: 360px 360px;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* 页眉：五位巫女（assets/sibyls.webp）。原图只有 708 像素见方，放大了会糊，
+   所以压暗、褪一点色、蒙上颗粒，当成远处的壁画看；往下渐隐进黑暗里 */
+.scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: brightness(0.6) saturate(0.72) sepia(0.32) contrast(1.06);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 96%);
+}
+
+/* 页脚：着火的战场（assets/battlefield.webp），从黑暗里浮上来。
+   原图四周自带一圈羊皮纸边，用 object-view-box 裁掉，只留画面 */
+.ground {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: 50% 100%;
+  object-view-box: inset(5% 2% 9% 2%);
+  filter: brightness(0.9) saturate(0.95) contrast(1.05);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 52%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 52%);
+}
+
+.smoke {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 700px;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, transparent 40%, rgba(14, 9, 8, 0.55) 100%),
+    linear-gradient(180deg, rgba(14, 9, 8, 0.35), rgba(14, 9, 8, 0.1) 30%, rgba(14, 9, 8, 0.25) 70%);
+}
+
+.embers { position: absolute; inset: 0 0 auto 0; height: 640px; pointer-events: none; }
+.embers.low { inset: auto 0 0 0; height: 560px; }
+.embers i {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd59a 0%, #ff8a3d 35%, rgba(226, 105, 45, 0) 70%);
+  mix-blend-mode: screen;
+}
+
+/* 法阵：金线，圆心在柱状图偏右上，外圈从图表板子的上边、右边露出来；板子是半透明的，里面也透得出来。
+   板子下面那截渐隐掉，不跟第一章的缎带、装饰线打架 */
+.sigil {
+  position: absolute;
+  left: 150px;
+  top: -200px;
+  width: 740px;
+  height: 740px;
+  color: #e9c57c;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 6px rgba(226, 160, 80, 0.5));
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 91%);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 91%);
+}
+.sigil text { font-family: "Segoe UI Historic", "Noto Sans Runic", serif; font-size: 15px; letter-spacing: 3px; fill: currentColor; }
+
+/* ── 页眉 ── */
+.head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 34px;
+  padding: 60px 56px 40px 56px;
+}
+
+/* 柱状图：一块暗色的板子，跟右边 Rating 的格子一个做法 */
+.chart {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 22px 10px 16px;
+  border: 1px solid rgba(201, 163, 94, 0.6);
+  background: linear-gradient(180deg, rgba(30, 19, 15, 0.7), rgba(16, 10, 8, 0.8));
+  box-shadow: inset 0 0 0 3px rgba(20, 12, 10, 0.7), inset 0 0 0 4px rgba(201, 163, 94, 0.22), 0 10px 22px rgba(0, 0, 0, 0.55);
+}
+.chart-head { display: flex; align-items: baseline; justify-content: space-between; padding-left: 8px; }
+.chart-title b { font-family: var(--hand); font-weight: 700; font-size: 32px; color: #f1dca6; margin-right: 14px; }
+.chart-title span { font-size: 23px; color: rgba(232, 214, 180, 0.8); }
+.chart-legend { display: flex; align-items: center; gap: 8px; font-size: 21px; color: rgba(232, 214, 180, 0.8); }
+.chart-legend .swatch { width: 15px; height: 15px; margin-left: 10px; box-shadow: 0 0 0 1px rgba(30, 14, 4, 0.9); }
+.swatch.old { background: linear-gradient(180deg, #f7e6b4, #d9ab57 40%, #8a5a22); }
+.swatch.new { background: linear-gradient(180deg, #ffc794, #d75a33 40%, #7a1d12); }
+
+.chart-plot { flex: 1; display: block; width: 100%; min-height: 240px; margin-top: 4px; overflow: visible; }
+/* 网格要看得清：每一栏的纵轴只跨零点几分，靠网格才读得出柱子差多少 */
+.chart-plot .grid-lines line { stroke: rgba(226, 190, 120, 0.36); stroke-width: 1.1; stroke-dasharray: 4 4; }
+.chart-plot .tick { font-family: var(--hand); font-size: 16px; fill: rgba(226, 190, 120, 0.85); text-anchor: end; dominant-baseline: middle; }
+.chart-plot .tick.right { text-anchor: start; }
+.chart-plot .rank { font-family: var(--hand); font-size: 15px; fill: rgba(214, 178, 108, 0.55); text-anchor: middle; }
+.chart-plot .empty { font-family: var(--hand); font-size: 26px; fill: rgba(214, 178, 108, 0.6); text-anchor: middle; dominant-baseline: middle; }
+.chart-plot .bars rect { stroke: rgba(30, 14, 4, 0.85); stroke-width: 0.8; }
+.chart-plot .baseline { stroke: rgba(214, 178, 108, 0.55); stroke-width: 1.2; }
+.chart-plot .average { stroke: #f39a6b; stroke-width: 1.8; stroke-dasharray: 7 4; }
+.chart-plot .average-label {
+  font-family: var(--hand);
+  font-size: 21px;
+  font-weight: 700;
+  fill: #ffe0bd;
+  text-anchor: end;
+  paint-order: stroke;
+  stroke: rgba(14, 8, 6, 0.92);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+/* 名牌版：落雪的 plate 图，文字照游戏里的位置叠上去 */
+.identity { width: 548px; flex: none; }
+
+.plate {
+  position: relative;
+  width: 548px;
+  height: 217px;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.7));
+}
+.plate-img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.plate.empty {
+  border: 1px solid rgba(201, 163, 94, 0.6);
+  background: var(--grain), linear-gradient(160deg, #d9c49c, #b9996b);
+  background-size: 220px 220px, auto;
+  box-shadow: inset 0 0 26px rgba(70, 36, 10, 0.7);
+}
+
+.trophy {
+  position: absolute;
+  left: 33%;
+  right: 5.5%;
+  top: 13%;
+  height: 19%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 3px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #2a1a10;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.trophy span { display: inline-block; transform-origin: center; }
+.trophy.normal { background: linear-gradient(180deg, #f2ece0, #cfc6b4); }
+.trophy.silver { background: linear-gradient(180deg, #f4f6f8, #b9c0c8 55%, #9aa3ad); }
+.trophy.gold { background: linear-gradient(180deg, #fff1b8, #e3b951 55%, #b8862a); }
+.trophy.platina { background: linear-gradient(180deg, #fffdf2, #eadfb6 50%, #c7b98a); }
+.trophy.rainbow, .trophy.ultima, .trophy.image {
+  background: linear-gradient(90deg, #f6c4c4, #f5e3b0, #c9ebc0, #bfe1ef, #d6c6ef, #f3c4dd);
+}
+.trophy.ultima { color: #f5e6d0; background: linear-gradient(180deg, #4b1416, #1b0b0c); }
+
+.plate-name {
+  position: absolute;
+  left: 34%;
+  right: 6%;
+  top: 41%;
+  height: 26%;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: #2a170b;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* 「★1 Lv.46 名字」：Lv. 是小字，星数和等级数字跟名字差不多大 */
+.level { display: flex; align-items: baseline; flex: none; font-family: var(--hand); font-weight: 700; color: #4a2f1c; }
+.level .star { font-size: 24px; color: #b0302f; margin-right: 12px; }
+.level small { font-size: 18px; margin-right: 3px; }
+.level b { font-size: 34px; }
+.name { font-weight: 700; font-size: 36px; line-height: 1.25; transform-origin: left center; display: inline-block; }
+
+.ledger { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+
+/* 头像和挂在下面的段位勋章 */
+.portrait { position: relative; flex: none; }
+.emblem {
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  z-index: 2;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.7));
+}
+.emblem .base { display: block; height: 30px; }
+.emblem .medal { display: block; height: 54px; }
+.emblem .base + .medal { position: absolute; }
+
+/* 角色头像：金圈奖章 */
+.medallion {
+  position: relative;
+  flex: none;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(from 200deg, #8e6a33, #f1dca6, #a77a3b, #e8cd8d, #8e6a33);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(50, 25, 5, 0.8);
+}
+.medallion::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px rgba(40, 20, 5, 0.85), inset 0 0 14px rgba(0, 0, 0, 0.55);
+}
+.chara { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #2a1c16; }
+.medallion.empty .chara { visibility: hidden; }
+/* 没有角色图：暗底上一颗星（图片藏起来以后它的暗底也没了，这里自己垫一个） */
+.medallion.empty::before {
+  content: "✦";
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #2a1c16;
+  font-family: "Segoe UI Symbol", serif;
+  font-size: 34px;
+  color: rgba(214, 178, 108, 0.7);
+}
+
+.stats { flex: 1; display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 10px; }
+.stat {
+  position: relative;
+  padding: 8px 10px 8px;
+  border: 1px solid rgba(201, 163, 94, 0.55);
+  background: linear-gradient(180deg, rgba(40, 26, 20, 0.88), rgba(20, 12, 10, 0.92));
+  box-shadow: inset 0 0 0 3px rgba(20, 12, 10, 0.9), inset 0 0 0 4px rgba(201, 163, 94, 0.22), 0 6px 14px rgba(0, 0, 0, 0.55);
+  text-align: center;
+}
+.stat dt { font-family: var(--hand); font-size: 16px; color: rgba(222, 186, 116, 0.95); line-height: 1.2; }
+.stat dt small { display: block; font-family: var(--hand); font-size: 14px; color: rgba(220, 199, 160, 0.66); }
+.stat dd { margin-top: 2px; font-family: var(--hand); font-weight: 700; font-size: 33px; line-height: 1.2; color: #f1e2bf; }
+.stat.main dd { font-size: 42px; }
+
+/* 玩家 Rating 的颜色档（游戏里的分档，颜色换成暗一点的金属和颜料） */
+.tier-rainbow dd {
+  background: linear-gradient(100deg, #f3b8c8 0%, #f6dfa0 25%, #b9e3b8 50%, #a9d4ea 72%, #cdb6ef 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tier-platina dd { color: #f3ead0; }
+.tier-gold dd { color: #e9be5c; }
+.tier-silver dd { color: #c9cfd6; }
+.tier-bronze dd { color: #c48a52; }
+.tier-low dd { color: #d9c9a8; }
+
+/* ── 章节 ── */
+.chapters { position: relative; z-index: 2; padding: 0 30px; }
+.chapters, .colophon { isolation: isolate; }
+.chapter + .chapter { margin-top: 34px; }
+
+/* 两栏的交界：一整排花饰（花、卷草交替，theme.js 的 drawFrieze 排）。assets/ornament.png 只当形状用，
+   填主题的金色，盖一层纸纹让它旧一点。投影放在外层：drop-shadow 要在遮罩之后算，不然投的是整个方块的影子 */
+.chapter.joined { margin-top: 34px; }
+.frieze { position: relative; margin: 0 0 8px; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.8)); }
+.frieze-piece {
+  position: absolute;
+  top: 0;
+  background: var(--grain), linear-gradient(180deg, #f6e3ad 0%, #dcb468 38%, #a87b3c 72%, #7a5424 100%);
+  background-size: 220px 220px, auto;
+  -webkit-mask-image: url("../assets/ornament.png");
+  mask-image: url("../assets/ornament.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.frieze-piece.flip { transform: scaleX(-1); }
+
+.chapter-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98px;
+  margin: 0 4px 20px;
+}
+.chapter-head .orn { width: 300px; height: 26px; color: rgba(214, 178, 108, 0.8); }
+.chapter-head .orn svg { display: block; width: 100%; height: 100%; }
+.chapter-head .orn.mirror { transform: scaleX(-1); }
+.chapter-name { display: flex; flex-direction: column; align-items: center; margin: 0 6px; }
+.chapter-name .zh { font-family: var(--hand); font-weight: 700; font-size: 26px; letter-spacing: 0.4em; margin-right: -0.4em; color: rgba(236, 220, 188, 0.88); }
+
+/* 缎带横幅：SVG 里沿弧线写字 */
+.chapter-ribbon { width: 380px; height: 72px; margin-top: 2px; filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.6)); }
+.chapter-ribbon svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.chapter-ribbon text { font-family: var(--hand); font-weight: 700; font-size: 31px; letter-spacing: 0.06em; fill: #34200f; }
+
+.chapter-side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--hand);
+  font-size: 22px;
+  line-height: 1.5;
+  color: rgba(226, 206, 168, 0.8);
+}
+.chapter-side.left { left: 0; }
+.chapter-side.right { right: 0; text-align: right; }
+.chapter-side b { font-family: var(--hand); font-weight: 700; font-size: 28px; color: #f1e2bf; margin: 0 4px 0 8px; }
+.chapter-side.left b { margin-left: 0; }
+
+.grid { list-style: none; display: grid; grid-template-columns: repeat(5, 340px); gap: 18px 16px; justify-content: space-between; }
+
+/* ── 卡片：一张烧过边的旧纸 ── */
+.card {
+  position: relative;
+  height: 172px;
+  filter: drop-shadow(0 7px 9px rgba(0, 0, 0, 0.62));
+}
+
+.card .paper {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, transparent 30%, var(--wash) 100%),
+    radial-gradient(ellipse 60% 70% at var(--sx, 20%) var(--sy, 30%), rgba(122, 78, 34, 0.22), transparent 70%),
+    var(--mottle),
+    var(--grain),
+    linear-gradient(180deg, #d5bf96, #bea276);
+  background-size: auto, auto, 640px 640px, 220px 220px, auto;
+  background-position: 0 0, 0 0, var(--mx, 0) var(--my, 0), var(--gx, 0) var(--gy, 0), 0 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(70, 38, 12, 0.6),
+    inset 0 0 16px 4px rgba(84, 40, 10, 0.68),
+    inset 0 0 46px rgba(62, 28, 6, 0.38);
+}
+
+.jacket {
+  position: absolute;
+  left: 13px;
+  top: 30px;
+  width: 112px;
+  height: 112px;
+  background: #2a1c16;
+  box-shadow: 0 0 0 2px var(--frame), 0 0 0 3px rgba(30, 14, 4, 0.85), 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+.jacket img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92) contrast(1.02); }
+.jacket::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 10px rgba(40, 18, 4, 0.45); }
+
+.idx {
+  position: absolute;
+  left: 6px;
+  top: 21px;
+  z-index: 2;
+  min-width: 34px;
+  height: 25px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 16px;
+  color: #f1dca6;
+  background: linear-gradient(180deg, #3b2418, #1d100b);
+  box-shadow: 0 0 0 1px rgba(201, 163, 94, 0.7), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.new-tag {
+  position: absolute;
+  left: 80px;
+  top: 23px;
+  z-index: 2;
+  padding: 0 6px;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  color: #fff1d6;
+  background: linear-gradient(180deg, #d75a33, #7a1d12);
+  box-shadow: 0 0 0 1px rgba(40, 10, 4, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* 评级：封蜡印章。形状（不规则的蜡边）由 theme.js 生成 */
+.seal {
+  position: absolute;
+  left: 91px;
+  top: 111px;
+  z-index: 3;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
+}
+.seal .wax {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 38% 32%, var(--wax-hi) 0%, var(--wax) 45%, var(--wax-lo) 100%);
+}
+.seal .wax::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.55), inset 0 -1px 1px rgba(255, 220, 190, 0.25);
+}
+.seal span {
+  position: relative;
+  font-family: var(--hand);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--wax-text);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 230, 200, 0.25);
+}
+.seal.sssp { --wax: #8f1b1d; --wax-hi: #d0504a; --wax-lo: #4c0809; --wax-text: #ffe2a6; }
+.seal.sss { --wax: #861c1f; --wax-hi: #bf4a45; --wax-lo: #460a0b; --wax-text: #f6dcc1; }
+.seal.ssp, .seal.ss { --wax: #5d2a4e; --wax-hi: #9a5a86; --wax-lo: #2e0f27; --wax-text: #f0d9e6; }
+.seal.sp, .seal.s { --wax: #2f4a5c; --wax-hi: #6a8ea6; --wax-lo: #142533; --wax-text: #dfeaf2; }
+.seal.low { --wax: #4c3b2c; --wax-hi: #85705a; --wax-lo: #251a12; --wax-text: #e8dccb; }
+
+.body {
+  position: absolute;
+  left: 138px;
+  right: 12px;
+  top: 12px;
+  bottom: 11px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 曲名：曲绘右边那一栏的第一行，只写一行、字要大（作者说少显示几个字也无所谓）。
+   放不下先稍微缩一点（theme.js 的 fitText，最小 23px），再放不下就用省略号 */
+.title-line {
+  height: 34px;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 34px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 分数、定数、单曲 Rating 用 Segoe Script（作者指定：数字跟正文的楷书区分开）。定数和 Rating 差不多大 */
+.score {
+  margin-top: 2px;
+  font-family: "Anna Script", var(--hand);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #3a2212;
+}
+
+/* 通关标记：实心的颜料色小牌子。FC/AJ/AJC 是金属（铜、金、珠光），通关等级是剪了燕尾的缎带签 */
+.marks { display: flex; gap: 5px; height: 24px; margin-top: 6px; padding-left: 5px; overflow: hidden; }
+.mark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #fff3dc;
+  border-radius: 2px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35);
+}
+.mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
+.mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.mark.tag { padding-right: 16px; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%); }
+.mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
+.mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
+.mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }
+.mark.catastrophy { color: #f5d68e; background: linear-gradient(180deg, #3a1a1a, #080303); }
+.mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
+.mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
+
+.foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; padding-left: 10px; }
+.const { font-family: "Anna Script", var(--hand); font-weight: 700; font-size: 28px; line-height: 1.2; color: var(--diff-ink); white-space: nowrap; }
+.const i { font-style: normal; margin-left: 5px; color: rgba(91, 61, 38, 0.7); }
+.rating { flex: none; font-family: "Anna Script", var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--blood); }
+
+/* 曲绘底部的难度条 */
+.band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 23px;
+  padding: 0 0 0 7px;
+  display: flex;
+  align-items: center;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #fff4dc;
+  background: linear-gradient(90deg, var(--band) 0%, var(--band) 55%, transparent 100%);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 空位：还没写上字的纸 */
+.card.empty { filter: none; }
+.card.empty .paper { opacity: 0.1; }
+.card.empty .void {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--hand);
+  font-size: 21px;
+  letter-spacing: 0.2em;
+  color: rgba(214, 178, 108, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(214, 178, 108, 0.16);
+}
+
+/* 落雪上没有这张曲绘：暗底上一颗菱形 */
+.jacket.missing::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid rgba(214, 178, 108, 0.5);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.jacket.missing img { visibility: hidden; }
+
+/* 难度：颜料色。--frame 曲绘的框，--wash 纸右侧的晕染，--diff-ink 字 */
+.d0 { --band: rgba(47, 98, 52, 0.92); --frame: #4f8b52; --wash: rgba(79, 139, 82, 0.3); --diff-ink: #2f5a31; }
+.d1 { --band: rgba(150, 100, 14, 0.92); --frame: #c28b25; --wash: rgba(194, 139, 37, 0.3); --diff-ink: #7a5208; }
+.d2 { --band: rgba(140, 34, 28, 0.92); --frame: #b4362f; --wash: rgba(180, 54, 47, 0.3); --diff-ink: #8a231c; }
+.d3 { --band: rgba(92, 36, 116, 0.92); --frame: #7c3a95; --wash: rgba(124, 58, 149, 0.3); --diff-ink: #55216b; }
+.d4 { --band: rgba(16, 6, 7, 0.94); --frame: #9b1219; --wash: rgba(26, 8, 10, 0.42); --diff-ink: #1a0a0b; }
+.d4 .jacket { box-shadow: 0 0 0 2px #120607, 0 0 0 3px #9b1219, 0 0 0 4px rgba(30, 14, 4, 0.85), 0 3px 6px rgba(0, 0, 0, 0.5); }
+
+/* ── 页脚：落在战场的火光上，只留格言和落款 ── */
+.colophon { position: relative; z-index: 2; padding: 92px 64px 58px; text-align: center; }
+/* 火光太亮，字后面垫一团烟 */
+.colophon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  width: 1240px;
+  height: 250px;
+  transform: translateX(-50%);
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(12, 7, 6, 0.72), rgba(12, 7, 6, 0.35) 55%, transparent 75%);
+}
+
+.motto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  font-family: "Anna Script", var(--hand);
+  font-weight: 700;
+  font-size: 76px;
+  line-height: 1.3;
+  color: #f1dca6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 18px rgba(0, 0, 0, 0.8);
+}
+/* 格言一行写完：放不下时让两边的装饰线变短，字不换行 */
+.motto-text { flex: none; white-space: nowrap; }
+.motto [data-ornament] { flex: 0 1 340px; min-width: 150px; height: 34px; color: rgba(241, 220, 166, 0.85); filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9)); }
+.motto [data-ornament] svg { display: block; width: 100%; height: 100%; }
+.motto .mirror { transform: scaleX(-1); }
+.credit {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: rgba(241, 226, 191, 0.9);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 0, 0, 0.8);
+}

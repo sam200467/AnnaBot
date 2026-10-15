@@ -85,12 +85,17 @@ async function main() {
     if (group) await bot.handleEvent("GROUP_AT_MESSAGE_CREATE", { id, group_openid: "TRY_GROUP", author: { member_openid: user }, content: " " + command });
     else await bot.handleEvent("C2C_MESSAGE_CREATE", { id, author: { user_openid: user }, content: command });
     for (const { body } of qq.state.sent.slice(before)) {
-      if (body.msg_type === 7) continue;
+      if (body.msg_type === 7) {
+        if (String(body.content || "").trim()) console.log("  [图注] " + body.content);
+        continue;
+      }
       console.log(String(body.markdown?.content ?? body.content).replace(/^/gm, "  "));
     }
     for (const upload of qq.state.uploads.slice(uploadsBefore)) {
-      const file = path.join(tryDir, "image-" + (++images) + ".png");
-      fs.writeFileSync(file, Buffer.from(upload.body.file_data, "base64"));
+      const buffer = Buffer.from(upload.body.file_data, "base64");
+      // 成绩图这类纹理多的图出的是 JPEG，扩展名跟着内容走
+      const file = path.join(tryDir, "image-" + (++images) + (buffer[0] === 0xff && buffer[1] === 0xd8 ? ".jpg" : ".png"));
+      fs.writeFileSync(file, buffer);
       console.log("  [图片] " + file);
     }
   }

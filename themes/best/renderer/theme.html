@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page" class="page">
+    <!-- 最外面是金色画框（theme.js 拼出来，放在 #gilt 里）；框里一圈羊皮纸（.frame），rim 负责烧焦的边，
+         canvas 是撕开的洞（clip-path 由 theme.js 生成） -->
+    <div class="frame">
+      <div class="rim">
+        <div id="canvas" class="canvas">
+          <img id="scene" class="scene" src="../assets/sibyls.webp" alt="">
+          <img id="ground" class="ground" src="../assets/battlefield.webp" alt="">
+          <div class="smoke"></div>
+          <div id="embers" class="embers"></div>
+          <div id="sparks" class="embers low"></div>
+          <svg id="sigil" class="sigil" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+
+          <header class="head">
+            <section class="chart">
+              <div class="chart-head">
+                <span id="chart-title" class="chart-title"></span>
+                <span id="chart-legend" class="chart-legend"></span>
+              </div>
+              <svg id="chart" class="chart-plot" aria-hidden="true"></svg>
+            </section>
+
+            <section class="identity">
+              <div id="plate" class="plate">
+                <img id="plate-img" class="plate-img" alt="">
+                <div id="trophy" class="trophy"></div>
+                <div class="plate-name"><span id="level" class="level"></span><span id="name" class="name"></span></div>
+              </div>
+              <div class="ledger">
+                <div class="portrait">
+                  <div class="medallion"><img id="chara" class="chara" alt=""></div>
+                  <div id="emblem" class="emblem"></div>
+                </div>
+                <dl id="stats" class="stats"></dl>
+              </div>
+            </section>
+          </header>
+
+          <div id="chapters" class="chapters"></div>
+
+          <footer class="colophon">
+            <div class="motto"><span data-ornament="tail"></span><span class="motto-text">Spes animam tenet</span><span data-ornament="tail" class="mirror"></span></div>
+            <p id="credit" class="credit"></p>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div id="gilt" class="gilt-box" aria-hidden="true"></div>
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

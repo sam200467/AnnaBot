@@ -7,7 +7,8 @@
 const { LxnsError } = require("./lxns.cjs");
 const { OAuthError } = require("./lxns-oauth.cjs");
 
-const formatRating = (value) => (Math.floor((Number(value) || 0) * 100) / 100).toFixed(2);
+// 截到两位小数，容差的道理见 themes/shared/theme-kit.js 的 format.rating
+const formatRating = (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) / 100).toFixed(2);
 
 const V = {
   unknownCommand: "没有这个指令哦，发「/帮助」看看我能做什么。",
@@ -49,6 +50,11 @@ const V = {
   jobQueueFull: "现在排队的人太多了，过一会儿再来吧。",
   jobFailed: (reason) => "这张图没生成出来：" + reason,
   imageTooLate: "图生成好了，但已经超过 QQ 允许回复的时间，发不出去了。再发一次指令吧。",
+
+  // ── /b30 ──
+  // 好友码绑定只看得到新曲前 20：新曲挤进前 30 的超过 20 首时，第 21 首往后的可能没算进来
+  bestMaybeIncomplete: (canAuthorize) => "新曲进了前 30 的不止 20 首，落雪只给了新曲前 20，这张图可能漏了几首。" +
+    (canAuthorize ? "发「/授权」后按全部成绩算，就不会漏了。" : ""),
 
   // ── /信息 ──
   info: (player, api) => [

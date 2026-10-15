@@ -1,0 +1,74 @@
+/* 共用字体的别名。主题里 <link rel="stylesheet" href="../../shared/fonts.css"> 后直接用下面这几个名字。
+ *
+ * 每个别名先找本机装好的字体（local），没有再读 themes/shared/fonts/ 里的文件（作者自己准备，不进仓库，清单见那里的 README）。
+ * 两边都没有时浏览器退回 font-family 里写在后面的字体，图照样出得来，只是不好看。
+ *
+ *   Anna Hand     霞鹜文楷 Medium：手写楷书，Anna 出图的正文字体
+ *   Anna Script   Segoe Script：手写西文，只用在数字和格言这种纯西文的地方（best 主题的分数、定数、单曲 Rating、格言）
+ *   Anna Caps     Cinzel：罗马碑刻体大写
+ *   Anna Serif    Cormorant Infant：Garamond 一路的西文衬线
+ *   Anna Mincho   游明朝（Windows 自带）/ Noto Serif JP：日文明朝
+ *   Anna Song     Noto Serif SC（思源宋体）：中文宋体，可变字重 200～900
+ *
+ * 为什么是霞鹜文楷：曲名里中文、日文、西文混着来，几种字体叠着用时大小、笔迹总对不齐（试过 Segoe Script + 辰宇落雁體 + 楷体补假名，
+ * 作者嫌乱）。文楷一个字体就有简体、繁体、日文写法的汉字、假名、西文和希腊字母，2026-10-15 拿落雪曲库的 1458 个曲名查过，
+ * 只缺 ✪ 一个字，写 font-family 时在后面跟一个 "Segoe UI Symbol" 就够了。
+ */
+
+/* 只有 Medium 一个字重：声明成 100～900 都用它，浏览器就不会再自己描粗（仿粗体会糊） */
+@font-face {
+  font-family: "Anna Hand";
+  font-weight: 100 900;
+  src: local("LXGW WenKai Medium"), local("LXGWWenKai-Medium"), url("fonts/LXGWWenKai-Medium.ttf") format("truetype");
+}
+
+/* Segoe Script（Windows 自带，微软的字体不能拷出来用，所以只有 local）。best 主题里单曲分数、定数、单曲 Rating
+   和页脚格言用它：作者要这几处的数字、拉丁文跟正文的楷书区分开。只写西文和数字，不跟文楷混在同一段字里 */
+@font-face {
+  font-family: "Anna Script";
+  font-weight: 100 600;
+  src: local("Segoe Script"), local("SegoeScript");
+}
+
+@font-face {
+  font-family: "Anna Script";
+  font-weight: 700 900;
+  src: local("Segoe Script Bold"), local("SegoeScript-Bold");
+}
+
+@font-face {
+  font-family: "Anna Caps";
+  src: local("Cinzel Regular"), local("Cinzel-Regular"), url("fonts/Cinzel-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Anna Serif";
+  font-weight: 500;
+  src: local("Cormorant Infant Medium"), local("CormorantInfant-Medium"), url("fonts/CormorantInfant-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Anna Serif";
+  font-weight: 500;
+  font-style: italic;
+  src: local("Cormorant Infant Medium Italic"), local("CormorantInfant-MediumItalic"), url("fonts/CormorantInfant-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Anna Serif";
+  font-weight: 700;
+  font-style: italic;
+  src: local("Cormorant Infant Bold Italic"), local("CormorantInfant-BoldItalic"), url("fonts/CormorantInfant-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Anna Mincho";
+  src: local("Yu Mincho Regular"), local("YuMincho-Regular"), local("Yu Mincho"),
+    url("fonts/NotoSerifJP-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Anna Song";
+  font-weight: 200 900;
+  src: local("Noto Serif SC"), url("fonts/NotoSerifSC-VF.ttf") format("truetype");
+}
