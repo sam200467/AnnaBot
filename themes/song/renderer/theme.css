@@ -65,7 +65,10 @@ body {
   box-shadow: inset 0 0 0 1px rgba(40, 20, 6, 0.6), inset 0 0 12px 3px rgba(40, 20, 6, 0.55);
 }
 
-.rim { filter: drop-shadow(0 0 2px rgba(38, 17, 4, 0.95)) drop-shadow(0 0 10px rgba(96, 46, 12, 0.75)); }
+/* 撕开的洞：clip-path 由 theme.js 按大小生成（锯齿边）。洞边烧焦的影子画在 .rim-shadow 这张图上，垫在洞的下面
+   （以前是 .rim 上两层 drop-shadow，没有显卡时太慢，见 theme.js 的 castShadow） */
+.rim { position: relative; }
+.rim-shadow { position: absolute; pointer-events: none; }
 
 /* 16:10 横版，跟 MiaBot 的单曲图一个比例；油画原图 3597×2293 也差不多是这个比例，几乎不用裁 */
 .canvas {
@@ -224,8 +227,8 @@ body {
   min-height: 0;
   max-height: 152px;
   display: grid;
-  /* 难度 | 分数 | 封蜡 | 标记 | Rating。分数那栏定宽、Rating 那栏吃掉剩下的宽度（数字靠右），
-     封蜡和标记就整体往左靠，跟 Rating 之间空出一段：标记紧挨着 Rating 时，CATASTROPHY 这种长签看着跟数字挤在一起（作者 2026-10-16） */
+  /* 难度 | 分数 | 封印 | 标记 | Rating。分数那栏定宽、Rating 那栏吃掉剩下的宽度（数字靠右），
+     封印和标记就整体往左靠，跟 Rating 之间空出一段：标记紧挨着 Rating 时，CATASTROPHY 这种长签看着跟数字挤在一起（作者 2026-10-16） */
   grid-template-columns: 210px 426px 88px 180px minmax(0, 1fr);
   align-items: center;
 }

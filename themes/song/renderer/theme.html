@@ -8,9 +8,11 @@
 </head>
 <body>
   <main id="page" class="page">
-    <!-- 跟 /b50 一样：最外面金框（theme.js 拼，放在 #gilt 里），框里一圈羊皮纸，canvas 是撕开的洞 -->
+    <!-- 跟 /b50 一样：最外面金框（theme.js 拼，放在 #gilt 里），框里一圈羊皮纸，rim-shadow 是烧焦的边（theme.js 画的影子图），
+         canvas 是撕开的洞 -->
     <div class="frame">
       <div class="rim">
+        <img id="rim-shadow" class="rim-shadow" alt="">
         <div id="canvas" class="canvas">
           <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
           <div id="smudge" class="smudge"></div>
