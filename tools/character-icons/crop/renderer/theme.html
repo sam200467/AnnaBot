@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <!-- tools/character-icons.cjs 用的页面，借出图的无头浏览器截头像（不是给玩家看的主题）。
+       单个头像：data = { src, crop: [左, 上, 边长]（原图像素）, size }，截出 size 见方的一块；
+       总览图：data = { sheet: [{ name, src, crop }] }，一排六个，头像裁成跟 /单曲 一样的圆章，看位置对不对 -->
+  <link rel="stylesheet" href="../../../../themes/shared/fonts.css">
+  <script src="../../../../themes/shared/theme-kit.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #1d1512; }
+    /* 透明底的立绘截出来，空的地方是这层暗底，跟 /单曲 圆章里头像底下的颜色一个调子 */
+    .icon { position: relative; overflow: hidden; background: radial-gradient(circle at 50% 38%, #4b3a30, #1d1512 78%); }
+    .icon img { position: absolute; display: block; max-width: none; }
+    .sheet { display: grid; grid-template-columns: repeat(6, 210px); gap: 18px 12px; padding: 20px; font-family: "Anna Hand", serif; color: #f3e3c3; }
+    .sheet figure { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .sheet .icon { width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 0 0 4px #c9a35e; }
+    .sheet figcaption { font-size: 17px; line-height: 1.25; text-align: center; }
+  </style>
+</head>
+<body>
+  <main id="root"></main>
+  <script>
+  (function () {
+    "use strict";
+    const data = ThemeKit.data();
+    const root = document.getElementById("root");
+
+    // 把原图放大，让裁剪框正好铺满 size 见方的格子
+    function icon(src, crop, size) {
+      const box = document.createElement("div");
+      box.className = "icon";
+      box.style.width = box.style.height = size + "px";
+      const img = document.createElement("img");
+      img.alt = "";
+      const k = size / crop[2];
+      img.addEventListener("load", () => { img.style.width = img.naturalWidth * k + "px"; }, { once: true });
+      img.addEventListener("error", () => ThemeKit.fail("图片打不开：" + src), { once: true });
+      img.style.left = -crop[0] * k + "px";
+      img.style.top = -crop[1] * k + "px";
+      img.src = src;
+      box.append(img);
+      return box;
+    }
+
+    if (data.sheet) {
+      root.className = "sheet";
+      for (const item of data.sheet) {
+        const figure = document.createElement("figure");
+        const caption = document.createElement("figcaption");
+        caption.textContent = item.name;
+        figure.append(icon(item.src, item.crop, 150), caption);
+        root.append(figure);
+      }
+      ThemeKit.done({ element: root });
+    } else {
+      root.append(icon(data.src, data.crop, data.size));
+      ThemeKit.done({ size: { width: data.size, height: data.size } });
+    }
+  })();
+  </script>
+</body>
+</html>

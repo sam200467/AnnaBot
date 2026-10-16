@@ -8,15 +8,14 @@
     "version": "CHUNITHM",
     "releaseJP": "2015-07-16",
     "jacket": "lxns:jacket/3",
-    "character": null
+    "characters": []
   },
   "charts": [
-    { "levelIndex": 0, "level": "4", "constant": 4.0, "designer": "ロシェ＠ペンギン", "notes": 333, "score": null },
-    { "levelIndex": 1, "level": "6", "constant": 6.0, "designer": "Jack", "notes": 541, "score": 1008833, "rank": "sss", "clear": "clear", "fullCombo": "fullcombo", "fullChain": null, "rating": 8.13 },
-    { "levelIndex": 2, "level": "10", "constant": 10.0, "designer": "Techno Kitchen", "notes": 1051, "score": 1009120, "rank": "sssp", "clear": "absolute", "fullCombo": "alljustice", "fullChain": "fullchain", "rating": 12.15 },
-    { "levelIndex": 3, "level": "12+", "constant": 12.5, "designer": "ロシェ＠ペンギン", "notes": 960, "score": 1007725, "rank": "sss", "clear": "catastrophy", "fullCombo": "fullcombo", "fullChain": null, "rating": 14.52 },
-    { "levelIndex": 4, "level": "13+", "constant": 13.7, "designer": "Redarrow", "notes": 1626, "score": 996512, "rank": "sp", "clear": "clear", "fullCombo": null, "fullChain": null, "rating": 14.56 }
+    {"levelIndex": 0, "level": "4", "constant": 4, "designer": "ロシェ＠ペンギン", "notes": 333, "score": null},
+    {"levelIndex": 1, "level": "6", "constant": 6, "designer": "Jack", "notes": 541, "score": 1008833, "rank": "sss", "clear": "clear", "fullCombo": "fullcombo", "fullChain": null, "rating": 8.13},
+    {"levelIndex": 2, "level": "10", "constant": 10, "designer": "Techno Kitchen", "notes": 1051, "score": 1009120, "rank": "sssp", "clear": "absolute", "fullCombo": "alljustice", "fullChain": "fullchain", "rating": 12.15},
+    {"levelIndex": 3, "level": "12+", "constant": 12.5, "designer": "ロシェ＠ペンギン", "notes": 960, "score": 1007725, "rank": "sss", "clear": "catastrophy", "fullCombo": "fullcombo", "fullChain": null, "rating": 14.52},
+    {"levelIndex": 4, "level": "13+", "constant": 13.7, "designer": "Redarrow", "notes": 1626, "score": 996512, "rank": "sp", "clear": "clear", "fullCombo": null, "fullChain": null, "rating": 14.56}
   ],
-  "player": "测试玩家",
   "time": "2026-10-16 12:00"
 }

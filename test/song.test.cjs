@@ -17,7 +17,8 @@ const { createCatalog } = require("../src/catalog.cjs");
 const { createAssets } = require("../src/assets.cjs");
 const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
-const { loadSongExtras } = require("../src/song-extras.cjs");
+const { pathToFileURL } = require("node:url");
+const { loadSongExtras, jpIconName, jpIconFile } = require("../src/song-extras.cjs");
 const { V } = require("../src/voice.cjs");
 const { buildData, attachAssets, MAX_CANDIDATES } = require("../src/features/song.cjs");
 
@@ -56,7 +57,11 @@ const sc = (id, level_index, score, extra = {}) => ({
 
 const extras = {
   get: (id) => ({
-    850: { releaseJP: "2019-12-19", characters: [{ name: "国服没有的角色", id: null }, { name: "ティータ・アヴェニアス", id: 8790 }] },
+    850: { releaseJP: "2019-12-19", characters: [
+      { name: "国服没有的角色", id: null },
+      { name: "ティータ・アヴェニアス", id: 8790 },
+      { name: "ティータ・アヴェニアス／混乱の業火", id: null, face: 8790 },   // 国服没这张卡，借同一个人的头像
+    ] },
     3: { releaseJP: "2015-07-16", characters: [{ name: "只有名字", id: null }] },
   })[id] || null,
 };
@@ -80,11 +85,15 @@ test("buildData：难度按顺序；同一谱面留最高分；没打过的 scor
     sc(850, 0, 1009950, { rank: "sssp", full_combo: "alljusticecritical", full_chain: "fullchain2", rating: 5.15 }),
     sc(850, 3, 1006234, { rank: "ssp", clear: "brave", rating: 15.44 }),
   ];
-  const data = buildData({ song, scores, catalog, extras, playerName: "测试玩家", now: new Date("2026-10-16T04:00:00Z") });
+  const data = buildData({ song, scores, catalog, extras, now: new Date("2026-10-16T04:00:00Z") });
   assert.deepEqual(data.song, {
     id: 850, title: "《混乱》 ～ Muspell", artist: "Norn", genre: "原创", bpm: 165, version: "CRYSTAL", releaseJP: "2019-12-19",
     jacketId: 850, jacket: null,
-    character: { name: "ティータ・アヴェニアス", id: 8790, icon: null },   // 好几个时先挑落雪认得的
+    characters: [   // 好几个时都留着、按原来的顺序
+      { name: "国服没有的角色", id: null, face: null, icon: null },
+      { name: "ティータ・アヴェニアス", id: 8790, face: null, icon: null },
+      { name: "ティータ・アヴェニアス／混乱の業火", id: null, face: 8790, icon: null },
+    ],
   });
   assert.deepEqual(data.charts.map((c) => c.levelIndex), [0, 1, 2, 3]);
   assert.deepEqual(data.charts[1], { levelIndex: 1, level: "6", constant: 6, designer: "ぴちネコ", notes: 603, score: null });
@@ -93,7 +102,7 @@ test("buildData：难度按顺序；同一谱面留最高分；没打过的 scor
     score: 1008120, rank: "sss", clear: "hard", fullCombo: "fullcombo", fullChain: null, rating: 13.06,
   });
   assert.equal(data.charts[0].fullChain, "fullchain2");
-  assert.equal(data.player, "测试玩家");
+  assert.equal("player" in data, false, "图上不写玩家名");
   assert.equal(data.time, "2026-10-16 12:00");
 });
 
@@ -102,26 +111,37 @@ test("buildData：WE 曲绘用原曲、写属性和星级，对应角色用原�
   const we = buildData({ song: catalog.getSong(8020), scores: [], catalog, extras });
   assert.equal(we.song.jacketId, 3);
   assert.equal(we.song.version, "CHUNITHM");
-  assert.deepEqual(we.song.character, { name: "只有名字", id: null, icon: null });
+  assert.deepEqual(we.song.characters, [{ name: "只有名字", id: null, face: null, icon: null }]);
   assert.deepEqual(we.charts, [{ levelIndex: 5, level: "0", constant: null, designer: "x", notes: null, score: null, kanji: "戻", star: 4 }]);
   // 没有附加信息表也照样出数据
   const plain = buildData({ song: catalog.getSong(3), scores: [], catalog });
   assert.equal(plain.song.releaseJP, null);
-  assert.equal(plain.song.character, null);
+  assert.deepEqual(plain.song.characters, []);
 });
 
-test("attachAssets：曲绘和落雪认得的角色头像换成本地地址；不认得的角色不去要图", async () => {
+test("attachAssets：曲绘和头像换成本地地址；借来的头像也要、同一张只要一次；落雪没有的用截好的日服头像，没截就只写名字", async (t) => {
   const asked = [];
   const assets = { fileUrls: async (items) => { asked.push(...items); return items.map(([kind, id]) => "file:///" + kind + "/" + id + ".png"); } };
-  const data = { song: { jacketId: 850, jacket: null, character: { name: "ティータ", id: 8790, icon: null } } };
-  await attachAssets(data, assets);
-  assert.deepEqual(asked, [["jacket", 850], ["character", 8790]]);
+  const jpIconDir = fs.mkdtempSync(path.join(os.tmpdir(), "anna-jp-icons-"));
+  t.after(() => fs.rmSync(jpIconDir, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(jpIconDir, jpIconName("截好头像的")), PNG);
+  const data = { song: { jacketId: 850, jacket: null, characters: [
+    { name: "ティータ", id: 8790, face: null, icon: null },
+    { name: "ティータ／别的卡", id: null, face: 8790, icon: null },
+    { name: "借头像的", id: null, face: 510, icon: null },
+    { name: "截好头像的", id: null, face: null, icon: null },
+    { name: "只有名字", id: null, face: null, icon: null },
+  ] } };
+  await attachAssets(data, assets, { jpIconDir });
+  assert.deepEqual(asked, [["jacket", 850], ["character", 8790], ["character", 510]]);
   assert.equal(data.song.jacket, "file:///jacket/850.png");
-  assert.equal(data.song.character.icon, "file:///character/8790.png");
-  const nameOnly = { song: { jacketId: 3, jacket: null, character: { name: "只有名字", id: null, icon: null } } };
-  await attachAssets(nameOnly, assets);
-  assert.deepEqual(asked.slice(2), [["jacket", 3]]);
-  assert.equal(nameOnly.song.character.icon, null);
+  const icons = data.song.characters.map((c) => c.icon);
+  assert.deepEqual(icons.slice(0, 3), ["file:///character/8790.png", "file:///character/8790.png", "file:///character/510.png"]);
+  assert.equal(icons[3], pathToFileURL(path.join(jpIconDir, jpIconName("截好头像的"))).href);
+  assert.equal(icons[4], null);
+  const none = { song: { jacketId: 3, jacket: null, characters: [] } };
+  await attachAssets(none, assets, { jpIconDir });
+  assert.deepEqual(asked.slice(3), [["jacket", 3]]);
 });
 
 // ── 端到端 ──
@@ -193,17 +213,18 @@ test("/单曲 端到端：没绑定先提示；不写曲名给用法；找不到
   assert.equal(own.theme, "song");
   assert.deepEqual([own.options.format, own.options.quality], ["jpeg", 76]);
   assert.equal(own.data.song.id, 850);
-  assert.equal(own.data.player, "测试玩家");
   assert.match(own.data.song.jacket, /^file:\/\/.*jacket[\\/]850\.png$/);
-  assert.match(own.data.song.character.icon, /^file:\/\/.*character[\\/]8790\.png$/);
+  const icons = own.data.song.characters.map((c) => c.icon);
+  assert.equal(icons[0], null);
+  assert.match(icons[1], /^file:\/\/.*character[\\/]8790\.png$/);
+  assert.equal(icons[2], icons[1], "借来的头像是同一张");
   assert.deepEqual(own.data.charts.map((c) => c.score), [null, null, null, 1006234]);
 
   // U1 @ U2：查 U2 的，只走开发者接口
   const before = s.lx.state.requests.length;
   await s.group("<@BOT> <@U2> /单曲 id850", { mentions: [BOT, { id: "U2", member_openid: "U2" }] });
   const other = s.renders.at(-1);
-  assert.equal(other.data.player, "另一位");
-  assert.deepEqual(other.data.charts.map((c) => c.score), [1009950, null, null, null]);
+  assert.deepEqual(other.data.charts.map((c) => c.score), [1009950, null, null, null]);   // 是 U2 的成绩
   const asked = s.lx.state.requests.slice(before).filter((request) => request.path.includes("song_id=850"));
   assert.ok(asked.length && asked.every((request) => request.auth === "dev"));
 });
@@ -218,11 +239,11 @@ function exampleData(file) {
 }
 
 // 画布 1824×1140 + 四边羊皮纸 12 + 画框（左 97、右 95、上 97、下 95，按画框原图量的尺寸算，见 theme.js 的 framePadding）
-test("song 主题：原创曲、五个难度两份示例数据都能出图，2040×1356", { skip }, async (t) => {
+test("song 主题：原创曲、五个难度、六个对应角色三份示例数据都能出图，2040×1356", { skip }, async (t) => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
-  for (const file of ["preview-data.json", "ultima.json"]) {
+  for (const file of ["preview-data.json", "ultima.json", "characters.json"]) {
     const out = await renderer.render("song", exampleData(file), { width: 2100, height: 1400, format: "jpeg" });
     assert.deepEqual([out.width, out.height], [2040, 1356], file);
   }
@@ -239,6 +260,12 @@ test("附加信息表：读得到就按 ID 给，文件缺了不报错", () => {
     assert.deepEqual(table.get(850), { releaseJP: "2019-12-19" });
     assert.equal(table.get(1), null);
     assert.equal(loadSongExtras(path.join(dir, "missing.json")).get(850), null);
+    // 日服头像的文件名：角色名 NFKC 后的 sha1 前 12 位（全角半角写法算同一个），没截的给 null
+    assert.match(jpIconName("ジェミニ・α"), /^[0-9a-f]{12}\.png$/);
+    assert.equal(jpIconName("ＮＡＯＫＩ"), jpIconName("NAOKI"));
+    assert.equal(jpIconFile("NAOKI", dir), null);
+    fs.writeFileSync(path.join(dir, jpIconName("NAOKI")), "png");
+    assert.equal(jpIconFile("NAOKI", dir), path.join(dir, jpIconName("NAOKI")));
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

@@ -13,6 +13,7 @@
   --ember: #f08a5a;        /* 单曲 Rating：深底上的血色看不清，用余烬的橙红 */
   --night: #120d0b;
   --hand: "Anna Hand", "Segoe UI Symbol", serif;
+  --hand-bold: "Anna Hand Bold", "Segoe UI Symbol", serif;
   --script: "Anna Script", var(--hand);
   --gilt: linear-gradient(135deg, #f3dc98, #9a6c26 32%, #ecca78 52%, #75501c 78%, #d4ae5e);
 
@@ -137,17 +138,18 @@ body {
 .veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(14, 9, 8, 0.6) 0%, rgba(14, 9, 8, 0.51) 50%, rgba(14, 9, 8, 0) 64%);
+  background: linear-gradient(to right, rgba(14, 9, 8, 0.6) 0%, rgba(14, 9, 8, 0.51) 55%, rgba(14, 9, 8, 0) 70%);
   pointer-events: none;
 }
 
 /* ── 正文 ── */
+/* 宽 1100：原来 1000，作者 2026-10-16 让右边界再往右挪，挡住一点立绘也没关系（字放大以后也要这点宽度） */
 .content {
   position: absolute;
   left: 56px;
   top: 46px;
   bottom: 30px;
-  width: 1000px;
+  width: 1100px;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -192,22 +194,26 @@ body {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 
-/* 版本、分类、BPM、ID 四个小格 */
+/* 版本、分类、BPM、ID 四个小格。标签原来 18px，作者 2026-10-16 嫌小 */
 .facts { display: flex; gap: 12px; margin-top: 20px; }
 .fact { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 7px 18px 8px; }
-.fact dt { font-size: 18px; line-height: 1.2; color: rgba(214, 186, 132, 0.85); }
-.fact dd { font-size: 29px; line-height: 1.25; color: var(--cream); white-space: nowrap; }
+.fact dt { font-size: 22px; line-height: 1.2; color: #d6ba84; }
+.fact dd { font-size: 31px; line-height: 1.25; color: var(--cream); white-space: nowrap; }
 .fact.wide { flex: 1; overflow: hidden; }
 .fact.wide dd { overflow: hidden; text-overflow: ellipsis; }
 
-/* 对应角色（原创曲才有）：落雪的角色头像（128 见方）套一圈金边，跟名字一行；日服上线日期靠右 */
-.kin { display: flex; align-items: center; gap: 14px; margin-top: auto; min-height: 72px; }
-.kin .face { flex: none; width: 68px; height: 68px; border-radius: 50%; padding: 3px; background: var(--gilt); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+/* 对应角色：落雪的角色头像（128 见方）套一圈金边，好几个时叠着放，后面跟名字；日服上线日期靠右 */
+.kin { display: flex; align-items: center; gap: 14px; margin-top: auto; min-height: 78px; }
+.kin .faces { flex: none; display: flex; }
+.kin .face { position: relative; flex: none; width: 72px; height: 72px; border-radius: 50%; padding: 3px; background: var(--gilt); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+.kin .face + .face { margin-left: -22px; }
+.kin .faces.many .face + .face { margin-left: -32px; }   /* 四个以上叠紧一点，给名字留地方 */
 .kin .face img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1d1512; }
-.kin .who { font-size: 28px; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); }
-.kin .who small { display: block; font-size: 18px; color: rgba(214, 186, 132, 0.85); }
-.kin .date { margin-left: auto; text-align: right; font-size: 18px; color: rgba(214, 186, 132, 0.85); white-space: nowrap; }
-.kin .date b { display: block; font-weight: 400; font-size: 28px; color: var(--cream); }
+.kin .who { flex: 0 1 auto; min-width: 0; color: var(--cream); text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); }
+.kin .who small, .kin .date small { display: block; font-size: 22px; line-height: 1.25; color: #d6ba84; }
+.kin .names { display: block; font-size: 30px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kin .date { flex: none; margin-left: auto; text-align: right; white-space: nowrap; }
+.kin .date b { display: block; font-weight: 400; font-size: 30px; line-height: 1.3; color: var(--cream); }
 
 /* ── 一行一个难度 ── */
 /* 行高最多 152：四五个难度时正好铺满；WORLD'S END 只有一行，不拉成一整块大铁板，从上往下排 */
@@ -220,30 +226,38 @@ body {
   display: grid;
   /* 难度 | 分数 | 封蜡 | 标记 | Rating。分数那栏定宽、Rating 那栏吃掉剩下的宽度（数字靠右），
      封蜡和标记就整体往左靠，跟 Rating 之间空出一段：标记紧挨着 Rating 时，CATASTROPHY 这种长签看着跟数字挤在一起（作者 2026-10-16） */
-  grid-template-columns: 176px 376px 88px 180px minmax(0, 1fr);
+  grid-template-columns: 210px 426px 88px 180px minmax(0, 1fr);
   align-items: center;
 }
 
-/* 难度：颜料色的一块，写难度名和定数（定数用 Segoe Script，跟 /b50 一样） */
+/* 难度：颜料色的一块，写难度名和定数（定数用 Segoe Script，跟 /b50 一样）。
+   难度名原来 19px、跟定数贴着，作者 2026-10-16 让字放大、两行拉开（这一栏 210 宽：200 时 WORLD'S END 顶到右边） */
 .tag {
   align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 18px;
+  gap: 8px;
+  padding: 0 16px;
   background: var(--band);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 236, 200, 0.18);
 }
-.tag span { font-size: 19px; letter-spacing: 0.06em; line-height: 1.2; color: rgba(255, 240, 214, 0.86); }
+.tag span { font-size: 24px; letter-spacing: 0.03em; line-height: 1.2; white-space: nowrap; color: #fff0d6; }
 .tag b { font-family: var(--script); font-weight: 700; font-size: 44px; line-height: 1.15; color: #fff3dc; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45); }
 .tag em { font-style: normal; font-size: 22px; color: #fff3dc; }
 
 .main { min-width: 0; padding: 0 22px 0 24px; }
 .score { font-family: var(--script); font-weight: 700; font-size: 48px; line-height: 1.15; color: var(--cream); white-space: nowrap; }
-.meta { margin-top: 2px; font-size: 21px; line-height: 1.3; color: rgba(214, 186, 132, 0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.meta b { font-weight: 400; color: rgba(243, 227, 195, 0.92); }
+/* 物量、谱师：作者 2026-10-16 两次让放大，第二次还要加粗、跟分数拉开 */
+.meta { margin-top: 10px; font-size: 27px; line-height: 1.3; color: #d6ba84; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta b { font-weight: 700; color: #f3e3c3; }
 
-/* 评级是一枚封蜡（照搬 /b50，放大） */
+/* 加粗：作者 2026-10-16 要加粗的几处（四个小格和对应角色、日服上线的标签，难度名，物量谱师那行）。
+   文楷只有 Medium 一个字重，跟 best 主题一样用 fonts.css 的 Anna Hand Bold（让浏览器在 Medium 上描粗，说明见那里） */
+.fact dt, .kin small, .tag span, .meta { font-family: var(--hand-bold); font-weight: 700; }
+
+/* 评级是一枚金属封印（照搬 /b50 的，放大到 80）。原来是红蜡、紫蜡，SSS 跟 EXPERT 的朱红、SS 跟 MASTER 的紫分不清，
+   作者 2026-10-16 在 /b50 那边改成金属：SSS+ 带一层虹彩的金、SSS 金、SS+/SS 银、S+/S 铜，AAA 往下是发黑的铁，这里跟着换 */
 .seal {
   position: relative;
   justify-self: center;
@@ -254,14 +268,26 @@ body {
   justify-content: center;
   filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
 }
-.seal .wax { position: absolute; inset: 0; background: radial-gradient(circle at 38% 32%, var(--wax-hi) 0%, var(--wax) 45%, var(--wax-lo) 100%); }
-.seal .wax::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.55), inset 0 -1px 1px rgba(255, 220, 190, 0.25); }
-.seal span { position: relative; font-weight: 700; font-size: 22px; letter-spacing: -0.03em; color: var(--wax-text); text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 230, 200, 0.25); }
-.seal.sssp { --wax: #8f1b1d; --wax-hi: #d0504a; --wax-lo: #4c0809; --wax-text: #ffe2a6; }
-.seal.sss { --wax: #861c1f; --wax-hi: #bf4a45; --wax-lo: #460a0b; --wax-text: #f6dcc1; }
-.seal.ssp, .seal.ss { --wax: #5d2a4e; --wax-hi: #9a5a86; --wax-lo: #2e0f27; --wax-text: #f0d9e6; }
-.seal.sp, .seal.s { --wax: #2f4a5c; --wax-hi: #6a8ea6; --wax-lo: #142533; --wax-text: #dfeaf2; }
-.seal.low { --wax: #4c3b2c; --wax-hi: #85705a; --wax-lo: #251a12; --wax-text: #e8dccb; }
+/* 金属的光泽是一圈锥形渐变（亮暗交替），左上角一点高光，边上压暗一圈，看起来是鼓起来的一枚 */
+.seal .wax {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 38%),
+    radial-gradient(circle, rgba(0, 0, 0, 0) 58%, rgba(30, 16, 4, 0.38) 100%),
+    var(--metal);
+}
+/* 压出来的一道圈 */
+.seal .wax::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 -1px 1px rgba(255, 255, 255, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3); }
+.seal span { position: relative; font-family: var(--hand-bold); font-weight: 700; font-size: 22px; letter-spacing: -0.03em; color: var(--seal-ink); text-shadow: 0 1px 0 rgba(255, 248, 225, 0.5); }
+.seal.sssp { --metal: conic-gradient(from 210deg, #d6ac55, #fff2c0, #f2c3d5, #fff0b3, #c3e8c8, #b9dbf0, #dccafa, #ffe6a0, #d6ac55); --seal-ink: #4a2a06; }
+.seal.sss { --metal: conic-gradient(from 210deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c, #ebcf86, #98702a); --seal-ink: #3d2405; }
+.seal.ssp, .seal.ss { --metal: conic-gradient(from 210deg, #79818a, #f3f5f7, #9fa7af, #ffffff, #838b94, #dbe0e5, #79818a); --seal-ink: #232930; }
+.seal.sp, .seal.s { --metal: conic-gradient(from 210deg, #784522, #e9b07d, #9a5e32, #f4c699, #7f4e29, #d49862, #784522); --seal-ink: #2b1205; }
+/* AAA 往下是发黑的铁，浅色字：要一眼看出比银的 SS 低一档 */
+.seal.low { --metal: conic-gradient(from 210deg, #24211f, #5a554f, #2e2b28, #6a645c, #24211f); --seal-ink: #ece4d6; }
+.seal.low .wax { background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 38%), var(--metal); }
+.seal.low span { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6); }
 
 /* 通关标记：实心的小牌子（照搬 /b50），竖着叠，FC/AJ 在上 */
 .marks { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-left: 8px; }
@@ -304,7 +330,7 @@ body {
 .d4 .tag { box-shadow: inset 0 0 0 2px #9b1219, inset 0 1px 0 rgba(255, 236, 200, 0.18); }
 .d5 { --band: linear-gradient(180deg, #5a4a26, #2a210f); }
 
-.credit { flex: none; font-size: 19px; line-height: 1.3; color: rgba(214, 186, 132, 0.7); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); }
+.credit { flex: none; font-size: 26px; line-height: 1.3; color: rgba(214, 186, 132, 0.7); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); }
 
 /* ── 底板：拉丝的黑铁板，金色描边，四角各一颗铆钉 ── */
 .plate {

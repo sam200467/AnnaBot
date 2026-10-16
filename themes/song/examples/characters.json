@@ -1,0 +1,27 @@
+{
+  "song": {
+    "id": 406,
+    "title": "相思創愛",
+    "artist": "伊東歌詞太郎・ろん×まらしぃ",
+    "genre": "音击舞萌",
+    "bpm": 195,
+    "version": "STAR",
+    "releaseJP": "2017-09-07",
+    "jacket": "lxns:jacket/406",
+    "characters": [
+      {"name": "葛葉 ツカサ／リンネ", "icon": null},
+      {"name": "鹿乃川 律／リンネ", "icon": "lxns:character/2470"},
+      {"name": "鈴乃音 舞／リンネ", "icon": "lxns:character/2480"},
+      {"name": "狗谷 愛／リンネ", "icon": "lxns:character/2490"},
+      {"name": "葛葉 空／リンネ", "icon": "lxns:character/2500"},
+      {"name": "葛葉 銀", "icon": "lxns:character/2510"}
+    ]
+  },
+  "charts": [
+    {"levelIndex": 0, "level": "3", "constant": 3, "designer": "ミストルティン", "notes": 426, "score": null},
+    {"levelIndex": 1, "level": "6", "constant": 6, "designer": "ぴちネコ", "notes": 785, "score": null},
+    {"levelIndex": 2, "level": "9+", "constant": 9.5, "designer": "ぴちネコ", "notes": 1253, "score": 1007820, "rank": "sss", "clear": "clear", "fullCombo": "fullcombo", "fullChain": null, "rating": 11.53},
+    {"levelIndex": 3, "level": "12+", "constant": 12.9, "designer": "ミストルティン", "notes": 1674, "score": 1004211, "rank": "ss", "clear": "hard", "fullCombo": null, "fullChain": null, "rating": 14.32}
+  ],
+  "time": "2026-10-16 12:00"
+}

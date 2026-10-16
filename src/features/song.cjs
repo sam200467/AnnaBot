@@ -5,13 +5,16 @@
 //   @某人 /单曲 曲名     看别人的（走开发者接口，受对方在落雪的「允许第三方读取」开关管）
 //
 // 成绩用落雪的 /bests?song_id=：这首歌所有谱面的最好成绩，好友码绑定也带分数（不用授权）。
-// 曲目信息来自曲库（物量要曲库带 notes 拉，见 catalog.cjs）；日服上线日期和原创曲的对应角色来自 song-extras.cjs。
+// 曲目信息来自曲库（物量要曲库带 notes 拉，见 catalog.cjs）；日服上线日期和对应角色来自 song-extras.cjs。
 // 主题吃的数据形状见 themes/song/examples/preview-data.json。buildData 是纯函数，测试和示例数据都用它。
 
+const { pathToFileURL } = require("node:url");
 const { rankOf, stamp } = require("./best.cjs");
+const { jpIconFile } = require("../song-extras.cjs");
 
 const WORLDS_END = 5;
 const MAX_CANDIDATES = 8;
+const MAX_CHARACTERS = 6;   // 2026-10-16 最多的一首是 6 个（相思創愛、天国と地獄）
 
 // 同一张谱面有好几条时留分数最高的
 function bestByLevel(scores) {
@@ -25,13 +28,19 @@ function bestByLevel(scores) {
   return best;
 }
 
-// 对应角色：只有原创曲有，WE 版用原曲的。好几个时先挑落雪认得的（有头像），都不认得就取第一个、只写名字
-function characterOf(song, extras, catalog) {
+// 对应角色（原创、彩绿、音击舞萌的曲子才有），WE 版用原曲的。好几个时都留着，图上头像叠着放、名字连着写。
+// 头像：落雪有这张卡就用它（id）；国服只缺这一张卡的，借同一个人别的卡（face，见 tools/build-song-extras.cjs）；
+// 落雪里根本没这个人的，用从 wikiwiki 立绘上截的头像（attachAssets 里找），没截就只写名字
+function charactersOf(song, extras, catalog) {
   const own = extras?.get(song.id)?.characters;
   const origin = catalog.isWorldsEnd(song) ? extras?.get(catalog.jacketId(song))?.characters : null;
   const list = (own?.length ? own : origin) || [];
-  const pick = list.find((chara) => Number.isInteger(chara.id)) || list[0];
-  return pick ? { name: pick.name, id: Number.isInteger(pick.id) ? pick.id : null, icon: null } : null;
+  return list.slice(0, MAX_CHARACTERS).map((chara) => ({
+    name: chara.name,
+    id: Number.isInteger(chara.id) ? chara.id : null,
+    face: Number.isInteger(chara.face) ? chara.face : null,
+    icon: null,
+  }));
 }
 
 function chartView(chart, score) {
@@ -57,8 +66,9 @@ function chartView(chart, score) {
   return view;
 }
 
-// song：曲库里的曲目；scores：落雪 /bests?song_id= 的结果；extras：song-extras.cjs；playerName：图底下写这是谁的成绩
-function buildData({ song, scores, catalog, extras = null, playerName = "", now = new Date() }) {
+// song：曲库里的曲目；scores：落雪 /bests?song_id= 的结果；extras：song-extras.cjs。
+// 图上不写玩家名（作者 2026-10-16 让页脚去掉的）
+function buildData({ song, scores, catalog, extras = null, now = new Date() }) {
   const byLevel = bestByLevel(scores);
   const charts = [...(song.difficulties || [])]
     .sort((a, b) => a.difficulty - b.difficulty)
@@ -75,22 +85,29 @@ function buildData({ song, scores, catalog, extras = null, playerName = "", now 
       releaseJP: extras?.get(song.id)?.releaseJP || null,
       jacketId: catalog.jacketId(song),
       jacket: null,   // 出图前换成本地 file:// 地址（attachAssets）
-      character: characterOf(song, extras, catalog),
+      characters: charactersOf(song, extras, catalog),
     },
     charts,
-    player: playerName,
     time: stamp(now),
   };
 }
 
-// 曲绘、角色头像换成本地 file:// 地址（落雪素材慢，只在出图队列里调）
-async function attachAssets(data, assets) {
-  const character = data.song.character;
-  const items = [["jacket", data.song.jacketId]];
-  if (Number.isInteger(character?.id)) items.push(["character", character.id]);
-  const [jacket, icon] = await assets.fileUrls(items);
+// 曲绘、角色头像换成本地 file:// 地址（落雪素材慢，只在出图队列里调）。同一张头像只要一次。
+// 落雪里没这个人的，用截好的日服头像（见 song-extras.cjs 的 jpIconFile；jpIconDir 给测试换目录用）
+async function attachAssets(data, assets, { jpIconDir } = {}) {
+  const characters = data.song.characters || [];
+  const faceOf = (chara) => chara.id ?? chara.face;
+  const faces = [...new Set(characters.map(faceOf).filter(Number.isInteger))];
+  const [jacket, ...icons] = await assets.fileUrls([["jacket", data.song.jacketId], ...faces.map((id) => ["character", id])]);
   data.song.jacket = jacket;
-  if (Number.isInteger(character?.id)) character.icon = icon;
+  for (const chara of characters) {
+    const at = faces.indexOf(faceOf(chara));
+    if (at >= 0) chara.icon = icons[at] || null;
+    else {
+      const file = jpIconFile(chara.name, jpIconDir);
+      if (file) chara.icon = pathToFileURL(file).href;
+    }
+  }
   return data;
 }
 
@@ -122,7 +139,7 @@ module.exports = Object.assign({
       render: async () => {
         const { assets, renderer, songExtras } = ctx.services;
         const scores = await ctx.player.songBests(song.id);
-        const data = buildData({ song, scores, catalog, extras: songExtras, playerName: ctx.player.playerName });
+        const data = buildData({ song, scores, catalog, extras: songExtras });
         await attachAssets(data, assets);
         // 油画纹理多，跟 /b50 一样出 JPEG 质量 76：两倍图 4080×2712 约 1.3 MB。页面 2040×1356，视口给大一点
         const image = await renderer.render("song", data, { width: 2100, height: 1400, format: "jpeg", quality: 76 });

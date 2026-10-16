@@ -55,76 +55,224 @@
    "releaseJP": "2015-11-12"
   },
   "51": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "マジカルスター☆リリィ",
+     "id": 330
+    }
+   ]
   },
   "52": {
-   "releaseJP": "2016-02-04"
+   "releaseJP": "2016-02-04",
+   "characters": [
+    {
+     "name": "グラーヴェ・ノーヴァ",
+     "id": 230
+    }
+   ]
   },
   "53": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "ブリランテ",
+     "id": 220
+    }
+   ]
   },
   "59": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "荒場 流子",
+     "id": 380
+    }
+   ]
   },
   "61": {
-   "releaseJP": "2016-05-12"
+   "releaseJP": "2016-05-12",
+   "characters": [
+    {
+     "name": "アンナプルナ",
+     "id": 320
+    }
+   ]
   },
   "62": {
-   "releaseJP": "2016-03-03"
+   "releaseJP": "2016-03-03",
+   "characters": [
+    {
+     "name": "カラドリウス・ブルー",
+     "id": 150
+    }
+   ]
   },
   "63": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "G．O．D",
+     "id": 130
+    }
+   ]
   },
   "64": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "黒原 きずな",
+     "id": 440
+    }
+   ]
   },
   "65": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "TXR-メルヴィア",
+     "id": 250
+    }
+   ]
   },
   "66": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "ロックスター★アミー",
+     "id": 1920
+    }
+   ]
   },
   "67": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "棚町 ケンゴ",
+     "id": 350
+    },
+    {
+     "name": "綴 しおり",
+     "id": 351
+    }
+   ]
   },
   "68": {
-   "releaseJP": "2015-12-03"
+   "releaseJP": "2015-12-03",
+   "characters": [
+    {
+     "name": "兎音 ココ",
+     "id": 470
+    }
+   ]
   },
   "69": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "DJ-MEGA",
+     "id": 300
+    }
+   ]
   },
   "70": {
-   "releaseJP": "2015-09-10"
+   "releaseJP": "2015-09-10",
+   "characters": [
+    {
+     "name": "ルミエラ・ヴィス・アニマート",
+     "id": 30
+    }
+   ]
   },
   "71": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "NEO",
+     "id": 280
+    }
+   ]
   },
   "72": {
-   "releaseJP": "2016-03-03"
+   "releaseJP": "2016-03-03",
+   "characters": [
+    {
+     "name": "シラー・スティング",
+     "id": 120
+    }
+   ]
   },
   "73": {
-   "releaseJP": "2016-02-04"
+   "releaseJP": "2016-02-04",
+   "characters": [
+    {
+     "name": "ペンデュラム・オルタ",
+     "id": 310
+    }
+   ]
   },
   "74": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "波風 レン",
+     "id": 160
+    }
+   ]
   },
   "75": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "ノルン",
+     "id": 420
+    }
+   ]
   },
   "76": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "青の死神",
+     "id": 100
+    }
+   ]
   },
   "77": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "轟 雷音",
+     "id": 1880
+    }
+   ]
   },
   "79": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "愛野 ヒカリ",
+     "id": 450
+    }
+   ]
   },
   "80": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "フィーネ・アルトリネス",
+     "id": 20
+    }
+   ]
   },
   "82": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "ローズマリー",
+     "id": 170
+    }
+   ]
   },
   "83": {
    "releaseJP": "2015-07-16"
@@ -136,7 +284,13 @@
    "releaseJP": "2015-07-16"
   },
   "90": {
-   "releaseJP": "2016-03-03"
+   "releaseJP": "2016-03-03",
+   "characters": [
+    {
+     "name": "パピオン",
+     "id": 200
+    }
+   ]
   },
   "91": {
    "releaseJP": "2015-11-12"
@@ -151,7 +305,13 @@
    "releaseJP": "2015-10-08"
   },
   "95": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "熱砂のディース",
+     "id": 90
+    }
+   ]
   },
   "96": {
    "releaseJP": "2015-07-16"
@@ -163,34 +323,103 @@
    "releaseJP": "2015-07-16"
   },
   "99": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "葛葉 ツカサ／カルマ",
+     "id": null
+    },
+    {
+     "name": "鹿乃川 律",
+     "id": null,
+     "face": 2470
+    }
+   ]
   },
   "100": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "美嶋 はるな",
+     "id": 460
+    }
+   ]
   },
   "101": {
-   "releaseJP": "2015-09-10"
+   "releaseJP": "2015-09-10",
+   "characters": [
+    {
+     "name": "帝国魔導師 イセリア",
+     "id": 80
+    }
+   ]
   },
   "102": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "天音 エイジ",
+     "id": 1900
+    },
+    {
+     "name": "魔扉 リオ",
+     "id": null
+    }
+   ]
   },
   "103": {
-   "releaseJP": "2015-12-03"
+   "releaseJP": "2015-12-03",
+   "characters": [
+    {
+     "name": "アストライア",
+     "id": 390
+    }
+   ]
   },
   "104": {
-   "releaseJP": "2015-12-03"
+   "releaseJP": "2015-12-03",
+   "characters": [
+    {
+     "name": "鬼蝮 ユリア",
+     "id": 430
+    }
+   ]
   },
   "105": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "グレン・ヴァン・トランクイロ",
+     "id": 40
+    }
+   ]
   },
   "106": {
-   "releaseJP": "2016-05-12"
+   "releaseJP": "2016-05-12",
+   "characters": [
+    {
+     "name": "TKG-SOUSOU",
+     "id": 290
+    }
+   ]
   },
   "107": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "エクレール",
+     "id": 240
+    }
+   ]
   },
   "108": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "クレメンス・ジークハルト",
+     "id": 50
+    }
+   ]
   },
   "113": {
    "releaseJP": "2015-07-16"
@@ -247,10 +476,22 @@
    "releaseJP": "2015-12-17"
   },
   "140": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "バーニッシュ",
+     "id": 180
+    }
+   ]
   },
   "141": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "ピリオ",
+     "id": 370
+    }
+   ]
   },
   "142": {
    "releaseJP": "2015-07-16"
@@ -262,46 +503,116 @@
    "releaseJP": "2015-07-16"
   },
   "145": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "wikiChecked": true
   },
   "146": {
-   "releaseJP": "2015-12-03"
+   "releaseJP": "2015-12-03",
+   "characters": [
+    {
+     "name": "幸野 うさぎ",
+     "id": 410
+    }
+   ]
   },
   "147": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "東雲 彰",
+     "id": 360
+    },
+    {
+     "name": "東雲 りん",
+     "id": 361
+    }
+   ]
   },
   "148": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "シズマ・クロサキ",
+     "id": 10
+    }
+   ]
   },
   "149": {
    "releaseJP": "2015-11-12"
   },
   "150": {
-   "releaseJP": "2015-09-24"
+   "releaseJP": "2015-09-24",
+   "characters": [
+    {
+     "name": "御形 アリシアナ",
+     "id": 490
+    }
+   ]
   },
   "151": {
-   "releaseJP": "2015-09-10"
+   "releaseJP": "2015-09-10",
+   "characters": [
+    {
+     "name": "アルマ・ヴィス・アウダーチア",
+     "id": 60
+    }
+   ]
   },
   "152": {
-   "releaseJP": "2015-09-10"
+   "releaseJP": "2015-09-10",
+   "characters": [
+    {
+     "name": "帝国騎士 グスタフ",
+     "id": 70
+    }
+   ]
   },
   "157": {
    "releaseJP": "2015-10-08"
   },
   "158": {
-   "releaseJP": "2015-11-26"
+   "releaseJP": "2015-11-26",
+   "characters": [
+    {
+     "name": "天王洲 なずな",
+     "id": 500
+    }
+   ]
   },
   "159": {
    "releaseJP": "2015-12-17"
   },
   "160": {
-   "releaseJP": "2015-12-17"
+   "releaseJP": "2015-12-17",
+   "characters": [
+    {
+     "name": "葛葉 ツカサ／遊戯",
+     "id": null
+    },
+    {
+     "name": "鈴乃音 舞",
+     "id": null,
+     "face": 2480
+    }
+   ]
   },
   "161": {
-   "releaseJP": "2015-12-17"
+   "releaseJP": "2015-12-17",
+   "characters": [
+    {
+     "name": "小仏 凪",
+     "id": 520
+    }
+   ]
   },
   "163": {
-   "releaseJP": "2015-07-16"
+   "releaseJP": "2015-07-16",
+   "characters": [
+    {
+     "name": "常世のサツキ",
+     "id": 400
+    }
+   ]
   },
   "165": {
    "releaseJP": "2015-12-17"
@@ -319,7 +630,13 @@
    "releaseJP": "2015-12-17"
   },
   "170": {
-   "releaseJP": "2015-12-17"
+   "releaseJP": "2015-12-17",
+   "characters": [
+    {
+     "name": "箱部 なる",
+     "id": 510
+    }
+   ]
   },
   "171": {
    "releaseJP": "2016-02-04"
@@ -331,13 +648,25 @@
    "releaseJP": "2016-05-26"
   },
   "178": {
-   "releaseJP": "2015-12-03"
+   "releaseJP": "2015-12-03",
+   "characters": [
+    {
+     "name": "織原 ひめみ",
+     "id": 340
+    }
+   ]
   },
   "179": {
    "releaseJP": "2015-12-17"
   },
   "180": {
-   "releaseJP": "2015-09-10"
+   "releaseJP": "2015-09-10",
+   "characters": [
+    {
+     "name": "機神 トール",
+     "id": 110
+    }
+   ]
   },
   "181": {
    "releaseJP": "2015-12-17"
@@ -376,16 +705,39 @@
    "releaseJP": "2018-05-24"
   },
   "199": {
-   "releaseJP": "2016-02-18"
+   "releaseJP": "2016-02-18",
+   "characters": [
+    {
+     "name": "明坂 芹菜",
+     "id": 480
+    }
+   ]
   },
   "200": {
-   "releaseJP": "2016-03-17"
+   "releaseJP": "2016-03-17",
+   "wikiChecked": true
   },
   "201": {
-   "releaseJP": "2016-07-28"
+   "releaseJP": "2016-07-28",
+   "characters": [
+    {
+     "name": "RG-XIII ダインスレイヴ",
+     "id": 260
+    }
+   ]
   },
   "202": {
-   "releaseJP": "2016-03-17"
+   "releaseJP": "2016-03-17",
+   "characters": [
+    {
+     "name": "ジェミニ・α",
+     "id": null
+    },
+    {
+     "name": "ジェミニ・Ω",
+     "id": null
+    }
+   ]
   },
   "203": {
    "releaseJP": "2015-07-16"
@@ -394,7 +746,13 @@
    "releaseJP": "2015-07-16"
   },
   "205": {
-   "releaseJP": "2016-02-04"
+   "releaseJP": "2016-02-04",
+   "characters": [
+    {
+     "name": "ティエイト",
+     "id": 270
+    }
+   ]
   },
   "208": {
    "releaseJP": "2016-07-28"
@@ -412,10 +770,22 @@
    "releaseJP": "2016-04-07"
   },
   "218": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "渋沢 ノノ",
+     "id": 2010
+    }
+   ]
   },
   "219": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "リリアリス・コルチカム",
+     "id": 2050
+    }
+   ]
   },
   "220": {
    "releaseJP": "2016-04-21"
@@ -433,19 +803,43 @@
    "releaseJP": "2016-07-07"
   },
   "226": {
-   "releaseJP": "2016-03-03"
+   "releaseJP": "2016-03-03",
+   "wikiChecked": true
   },
   "227": {
-   "releaseJP": "2016-07-28"
+   "releaseJP": "2016-07-28",
+   "characters": [
+    {
+     "name": "葛葉 ツカサ／黒鎖",
+     "id": null
+    },
+    {
+     "name": "狗谷 愛",
+     "id": null,
+     "face": 2490
+    }
+   ]
   },
   "228": {
    "releaseJP": "2016-04-07"
   },
   "229": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "シュープリス",
+     "id": 1990
+    }
+   ]
   },
   "230": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "ラニウス・ヴルペクラ",
+     "id": 1970
+    }
+   ]
   },
   "232": {
    "releaseJP": "2016-02-04"
@@ -454,25 +848,51 @@
    "releaseJP": "2016-03-03"
   },
   "234": {
-   "releaseJP": "2017-07-20"
+   "releaseJP": "2017-07-20",
+   "characters": [
+    {
+     "name": "断絶の破壊神",
+     "id": 2390
+    }
+   ]
   },
   "240": {
    "releaseJP": "2016-04-21"
   },
   "245": {
-   "releaseJP": "2016-05-12"
+   "releaseJP": "2016-05-12",
+   "wikiChecked": true
   },
   "246": {
-   "releaseJP": "2016-05-12"
+   "releaseJP": "2016-05-12",
+   "wikiChecked": true
   },
   "248": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "シカトリス",
+     "id": 1940
+    }
+   ]
   },
   "249": {
-   "releaseJP": "2017-06-22"
+   "releaseJP": "2017-06-22",
+   "characters": [
+    {
+     "name": "チュウニペンギン／サウンドパレード！！",
+     "id": 2370
+    }
+   ]
   },
   "250": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "ニニカ・クロッシュ",
+     "id": 1930
+    }
+   ]
   },
   "251": {
    "releaseJP": "2016-07-07"
@@ -481,49 +901,138 @@
    "releaseJP": "2016-04-07"
   },
   "253": {
-   "releaseJP": "2017-06-22"
+   "releaseJP": "2017-06-22",
+   "characters": [
+    {
+     "name": "ステラリウス・エオン・ブリルノーヴァ",
+     "id": 2350
+    }
+   ]
   },
   "254": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "七海 あおい",
+     "id": 1860
+    }
+   ]
   },
   "256": {
-   "releaseJP": "2017-02-09"
+   "releaseJP": "2017-02-09",
+   "characters": [
+    {
+     "name": "マリアンヌ新城",
+     "id": 2280
+    }
+   ]
   },
   "257": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "黒亀 北斗",
+     "id": 2040
+    }
+   ]
   },
   "258": {
-   "releaseJP": "2017-07-20"
+   "releaseJP": "2017-07-20",
+   "characters": [
+    {
+     "name": "RG-XXX ティアマット",
+     "id": 2400
+    }
+   ]
   },
   "259": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "しゃま",
+     "id": null,
+     "face": 13810
+    },
+    {
+     "name": "ちびみるく",
+     "id": 1960
+    }
+   ]
   },
   "260": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "黄金井 竜子",
+     "id": 2020
+    }
+   ]
   },
   "261": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "ソラマチ・メメ",
+     "id": 1950
+    }
+   ]
   },
   "262": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "スザク",
+     "id": 2000
+    }
+   ]
   },
   "263": {
    "releaseJP": "2016-08-31"
   },
   "264": {
-   "releaseJP": "2016-12-01"
+   "releaseJP": "2016-12-01",
+   "characters": [
+    {
+     "name": "月鈴 白奈",
+     "id": 2070
+    }
+   ]
   },
   "265": {
-   "releaseJP": "2017-02-09"
+   "releaseJP": "2017-02-09",
+   "characters": [
+    {
+     "name": "箱部 なる／学園MVP編",
+     "id": 2450
+    }
+   ]
   },
   "266": {
-   "releaseJP": "2017-04-20"
+   "releaseJP": "2017-04-20",
+   "characters": [
+    {
+     "name": "兎音 ココ／ゲシュタルト崩壊中",
+     "id": 2300
+    }
+   ]
   },
   "267": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "高砂 瑞穂",
+     "id": 1870
+    }
+   ]
   },
   "268": {
-   "releaseJP": "2017-03-23"
+   "releaseJP": "2017-03-23",
+   "characters": [
+    {
+     "name": "御形 アリシアナ／学園MVP編",
+     "id": 2430
+    }
+   ]
   },
   "270": {
    "releaseJP": "2016-11-17"
@@ -535,13 +1044,35 @@
    "releaseJP": "2017-01-26"
   },
   "274": {
-   "releaseJP": "2017-04-20"
+   "releaseJP": "2017-04-20",
+   "characters": [
+    {
+     "name": "美嶋 はるな／夢のカケラ",
+     "id": 2320
+    }
+   ]
   },
   "276": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "星河 うた",
+     "id": 1890
+    },
+    {
+     "name": "フジキュー",
+     "id": 1891
+    }
+   ]
   },
   "277": {
-   "releaseJP": "2017-05-25"
+   "releaseJP": "2017-05-25",
+   "characters": [
+    {
+     "name": "小仏 凪／学園MVP編",
+     "id": 2460
+    }
+   ]
   },
   "278": {
    "releaseJP": "2016-09-08"
@@ -571,10 +1102,22 @@
    "releaseJP": "2016-09-08"
   },
   "288": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "characters": [
+    {
+     "name": "天野 あい",
+     "id": 1910
+    }
+   ]
   },
   "289": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "少年A",
+     "id": 2030
+    }
+   ]
   },
   "290": {
    "releaseJP": "2016-12-15"
@@ -592,7 +1135,13 @@
    "releaseJP": "2017-01-26"
   },
   "295": {
-   "releaseJP": "2017-06-22"
+   "releaseJP": "2017-06-22",
+   "characters": [
+    {
+     "name": "セリドウェン・マグメール",
+     "id": 2340
+    }
+   ]
   },
   "297": {
    "releaseJP": "2017-01-12"
@@ -622,10 +1171,22 @@
    "releaseJP": "2016-08-25"
   },
   "307": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "MDA-01【シリウス】",
+     "id": 1980
+    }
+   ]
   },
   "310": {
-   "releaseJP": "2017-06-22"
+   "releaseJP": "2017-06-22",
+   "characters": [
+    {
+     "name": "白川 虎之助",
+     "id": 2360
+    }
+   ]
   },
   "316": {
    "releaseJP": "2016-09-08"
@@ -667,43 +1228,109 @@
    "releaseJP": "2016-12-15"
   },
   "330": {
-   "releaseJP": "2016-08-25"
+   "releaseJP": "2016-08-25",
+   "wikiChecked": true
   },
   "331": {
-   "releaseJP": "2016-10-20"
+   "releaseJP": "2016-10-20",
+   "characters": [
+    {
+     "name": "月鈴 那知",
+     "id": 2060
+    }
+   ]
   },
   "332": {
-   "releaseJP": "2016-12-15"
+   "releaseJP": "2016-12-15",
+   "characters": [
+    {
+     "name": "葛葉 ツカサ／空威",
+     "id": null
+    },
+    {
+     "name": "葛葉 空",
+     "id": null,
+     "face": 2500
+    }
+   ]
   },
   "333": {
-   "releaseJP": "2020-10-01"
+   "releaseJP": "2020-10-01",
+   "characters": [
+    {
+     "name": "しゃま",
+     "id": null,
+     "face": 13810
+    },
+    {
+     "name": "ちびみるく",
+     "id": 1960
+    }
+   ]
   },
   "334": {
    "releaseJP": "2017-02-09"
   },
   "335": {
-   "releaseJP": "2017-07-20"
+   "releaseJP": "2017-07-20",
+   "characters": [
+    {
+     "name": "MDA-21【レグルス】",
+     "id": 2380
+    }
+   ]
   },
   "336": {
    "releaseJP": "2016-09-21"
   },
   "337": {
-   "releaseJP": "2017-04-20"
+   "releaseJP": "2017-04-20",
+   "characters": [
+    {
+     "name": "天王洲 なずな／学園MVP編",
+     "id": 2440
+    }
+   ]
   },
   "338": {
-   "releaseJP": "2017-06-22"
+   "releaseJP": "2017-06-22",
+   "characters": [
+    {
+     "name": "明坂 芹菜／学園MVP編",
+     "id": 2420
+    }
+   ]
   },
   "339": {
-   "releaseJP": "2017-02-09"
+   "releaseJP": "2017-02-09",
+   "characters": [
+    {
+     "name": "舞園 星斗",
+     "id": 2260
+    }
+   ]
   },
   "340": {
-   "releaseJP": "2017-07-06"
+   "releaseJP": "2017-07-06",
+   "wikiChecked": true
   },
   "341": {
-   "releaseJP": "2017-04-20"
+   "releaseJP": "2017-04-20",
+   "characters": [
+    {
+     "name": "葉和 とれび",
+     "id": 2310
+    }
+   ]
   },
   "342": {
-   "releaseJP": "2017-04-20"
+   "releaseJP": "2017-04-20",
+   "characters": [
+    {
+     "name": "八咫烏 鋼太郎",
+     "id": 2330
+    }
+   ]
   },
   "354": {
    "releaseJP": "2017-04-06"
@@ -787,34 +1414,140 @@
    "releaseJP": "2017-04-06"
   },
   "396": {
-   "releaseJP": "2017-05-11"
+   "releaseJP": "2017-05-11",
+   "wikiChecked": true
   },
   "397": {
-   "releaseJP": "2017-04-27"
+   "releaseJP": "2017-04-27",
+   "wikiChecked": true
   },
   "398": {
-   "releaseJP": "2017-06-29"
+   "releaseJP": "2017-06-29",
+   "characters": [
+    {
+     "name": "葛葉 銀",
+     "id": 2510
+    },
+    {
+     "name": "三鹿 ナルキ／リンネ",
+     "id": null
+    },
+    {
+     "name": "麝香猫 キヌ／リンネ",
+     "id": null
+    },
+    {
+     "name": "黒鉄 そうく／リンネ",
+     "id": null
+    },
+    {
+     "name": "熊野 烏丸／リンネ",
+     "id": null
+    },
+    {
+     "name": "無限目鬼",
+     "id": null
+    }
+   ]
   },
   "399": {
-   "releaseJP": "2017-02-09"
+   "releaseJP": "2017-02-09",
+   "characters": [
+    {
+     "name": "愛野 ヒカリ／最愛の光",
+     "id": 2270
+    }
+   ]
   },
   "402": {
-   "releaseJP": "2017-08-03"
+   "releaseJP": "2017-08-03",
+   "characters": [
+    {
+     "name": "餓鬼ちゃん -鹿-",
+     "id": null
+    },
+    {
+     "name": "コトワレ",
+     "id": null
+    }
+   ]
   },
   "403": {
-   "releaseJP": "2017-08-03"
+   "releaseJP": "2017-08-03",
+   "characters": [
+    {
+     "name": "猫鈴 -猫-",
+     "id": null
+    },
+    {
+     "name": "女郎蜘蛛",
+     "id": null
+    }
+   ]
   },
   "404": {
-   "releaseJP": "2017-08-03"
+   "releaseJP": "2017-08-03",
+   "characters": [
+    {
+     "name": "狗呂 -犬-",
+     "id": null
+    },
+    {
+     "name": "鬼カベ",
+     "id": null
+    }
+   ]
   },
   "405": {
-   "releaseJP": "2017-08-03"
+   "releaseJP": "2017-08-03",
+   "characters": [
+    {
+     "name": "カラス丸 -鳥-",
+     "id": null
+    },
+    {
+     "name": "口裂けザル",
+     "id": null
+    }
+   ]
   },
   "406": {
-   "releaseJP": "2017-09-07"
+   "releaseJP": "2017-09-07",
+   "characters": [
+    {
+     "name": "葛葉 ツカサ／リンネ",
+     "id": null
+    },
+    {
+     "name": "鹿乃川 律／リンネ",
+     "id": 2470
+    },
+    {
+     "name": "鈴乃音 舞／リンネ",
+     "id": 2480
+    },
+    {
+     "name": "狗谷 愛／リンネ",
+     "id": 2490
+    },
+    {
+     "name": "葛葉 空／リンネ",
+     "id": 2500
+    },
+    {
+     "name": "葛葉 銀",
+     "id": 2510
+    }
+   ]
   },
   "407": {
-   "releaseJP": "2017-07-20"
+   "releaseJP": "2017-07-20",
+   "characters": [
+    {
+     "name": "オメガ・クィントゥス",
+     "id": 2410
+    }
+   ]
   },
   "409": {
    "releaseJP": "2017-02-09"
@@ -823,10 +1556,17 @@
    "releaseJP": "2017-03-09"
   },
   "413": {
-   "releaseJP": "2018-07-19"
+   "releaseJP": "2018-07-19",
+   "wikiChecked": true
   },
   "414": {
-   "releaseJP": "2017-02-09"
+   "releaseJP": "2017-02-09",
+   "characters": [
+    {
+     "name": "エクレール・エヴァンジール",
+     "id": 2290
+    }
+   ]
   },
   "416": {
    "releaseJP": "2017-02-23"
@@ -847,43 +1587,111 @@
    "releaseJP": "2019-12-19"
   },
   "430": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "wikiChecked": true
   },
   "431": {
-   "releaseJP": "2017-10-19"
+   "releaseJP": "2017-10-19",
+   "wikiChecked": true
   },
   "432": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "マゼラン・マゼラン",
+     "id": 3180
+    }
+   ]
   },
   "433": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "清瀧 藍",
+     "id": 3230
+    }
+   ]
   },
   "434": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "牧野 もこ",
+     "id": 3250
+    }
+   ]
   },
   "435": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "暁 凶香",
+     "id": 3260
+    }
+   ]
   },
   "436": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "戯曲のフォルネウス",
+     "id": 3220
+    }
+   ]
   },
   "437": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "トリスメギストス",
+     "id": 3210
+    }
+   ]
   },
   "438": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "ソウル・ブラザーズ",
+     "id": 3240
+    }
+   ]
   },
   "439": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "純白の歌闘士 ユーリス",
+     "id": 3190
+    }
+   ]
   },
   "440": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "観音寺 にこる",
+     "id": 3200
+    }
+   ]
   },
   "441": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "characters": [
+    {
+     "name": "津久井 シズノ",
+     "id": 3270
+    }
+   ]
   },
   "442": {
-   "releaseJP": "2017-10-05"
+   "releaseJP": "2017-10-05",
+   "characters": [
+    {
+     "name": "スカイフェザー",
+     "id": 3280
+    }
+   ]
   },
   "444": {
    "releaseJP": "2017-09-07"
@@ -925,25 +1733,67 @@
    "releaseJP": "2018-05-10"
   },
   "463": {
-   "releaseJP": "2017-10-05"
+   "releaseJP": "2017-10-05",
+   "characters": [
+    {
+     "name": "MIR-202【アルテミス・レナ】",
+     "id": 3290
+    }
+   ]
   },
   "464": {
-   "releaseJP": "2017-10-05"
+   "releaseJP": "2017-10-05",
+   "characters": [
+    {
+     "name": "リヒトシュッツェ",
+     "id": 3310
+    }
+   ]
   },
   "465": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "characters": [
+    {
+     "name": "ワイズマン",
+     "id": 4480
+    }
+   ]
   },
   "466": {
-   "releaseJP": "2017-10-05"
+   "releaseJP": "2017-10-05",
+   "characters": [
+    {
+     "name": "MTA-XXX【パンドラネメシス】",
+     "id": 3320
+    }
+   ]
   },
   "467": {
-   "releaseJP": "2017-10-05"
+   "releaseJP": "2017-10-05",
+   "characters": [
+    {
+     "name": "オールドブルー",
+     "id": 3300
+    }
+   ]
   },
   "468": {
-   "releaseJP": "2017-11-22"
+   "releaseJP": "2017-11-22",
+   "characters": [
+    {
+     "name": "月鈴 那知／試練の三送会編",
+     "id": 3440
+    }
+   ]
   },
   "469": {
-   "releaseJP": "2017-11-02"
+   "releaseJP": "2017-11-02",
+   "characters": [
+    {
+     "name": "アシェル＆シメオン",
+     "id": null
+    }
+   ]
   },
   "470": {
    "releaseJP": "2017-11-02"
@@ -967,7 +1817,13 @@
    "releaseJP": "2017-11-22"
   },
   "481": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "小仏 凪／試練の三送会編",
+     "id": 3430
+    }
+   ]
   },
   "482": {
    "releaseJP": "2017-12-07"
@@ -979,46 +1835,106 @@
    "releaseJP": "2017-12-07"
   },
   "486": {
-   "releaseJP": "2017-12-07"
+   "releaseJP": "2017-12-07",
+   "wikiChecked": true
   },
   "487": {
-   "releaseJP": "2018-01-25"
+   "releaseJP": "2018-01-25",
+   "characters": [
+    {
+     "name": "箱部 なる／試練の三送会編",
+     "id": 3420
+    }
+   ]
   },
   "488": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "wikiChecked": true
   },
   "489": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "ショコラ",
+     "id": 3330
+    }
+   ]
   },
   "490": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "中曽根 秀光",
+     "id": 3350
+    }
+   ]
   },
   "491": {
-   "releaseJP": "2018-03-08"
+   "releaseJP": "2018-03-08",
+   "characters": [
+    {
+     "name": "第八皇女エルルーン",
+     "id": 4340
+    }
+   ]
   },
   "492": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "間宮 真琴",
+     "id": 3370
+    }
+   ]
   },
   "493": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "HAR-ヒロイン09【ネレイダム】",
+     "id": 3360
+    }
+   ]
   },
   "494": {
-   "releaseJP": "2017-12-21"
+   "releaseJP": "2017-12-21",
+   "characters": [
+    {
+     "name": "テルミット・ヴィエルジュ",
+     "id": 3340
+    }
+   ]
   },
   "496": {
-   "releaseJP": "2018-02-22"
+   "releaseJP": "2018-02-22",
+   "wikiChecked": true
   },
   "497": {
-   "releaseJP": "2018-02-22"
+   "releaseJP": "2018-02-22",
+   "wikiChecked": true
   },
   "498": {
-   "releaseJP": "2018-02-22"
+   "releaseJP": "2018-02-22",
+   "wikiChecked": true
   },
   "499": {
-   "releaseJP": "2018-02-22"
+   "releaseJP": "2018-02-22",
+   "characters": [
+    {
+     "name": "ルフ",
+     "id": null
+    }
+   ],
+   "wikiChecked": true
   },
   "500": {
-   "releaseJP": "2018-02-22"
+   "releaseJP": "2018-02-22",
+   "characters": [
+    {
+     "name": "御形 アリシアナ／試練の三送会編",
+     "id": 3400
+    }
+   ]
   },
   "503": {
    "releaseJP": "2018-01-11"
@@ -1048,7 +1964,8 @@
    "releaseJP": "2018-02-08"
   },
   "517": {
-   "releaseJP": "2019-03-21"
+   "releaseJP": "2019-03-21",
+   "wikiChecked": true
   },
   "524": {
    "releaseJP": "2018-01-25"
@@ -1063,13 +1980,20 @@
    "releaseJP": "2017-12-07"
   },
   "534": {
-   "releaseJP": "2018-03-08"
+   "releaseJP": "2018-03-08",
+   "characters": [
+    {
+     "name": "ティフォン",
+     "id": 4330
+    }
+   ]
   },
   "535": {
    "releaseJP": "2017-11-22"
   },
   "538": {
-   "releaseJP": "2017-08-24"
+   "releaseJP": "2017-08-24",
+   "wikiChecked": true
   },
   "540": {
    "releaseJP": "2017-08-24"
@@ -1084,13 +2008,31 @@
    "releaseJP": "2018-03-08"
   },
   "550": {
-   "releaseJP": "2018-03-08"
+   "releaseJP": "2018-03-08",
+   "characters": [
+    {
+     "name": "天王洲 なずな／試練の三送会編",
+     "id": 3410
+    }
+   ]
   },
   "551": {
-   "releaseJP": "2018-03-08"
+   "releaseJP": "2018-03-08",
+   "characters": [
+    {
+     "name": "暴虐のギーゼグール",
+     "id": 4350
+    }
+   ]
   },
   "552": {
-   "releaseJP": "2018-03-08"
+   "releaseJP": "2018-03-08",
+   "characters": [
+    {
+     "name": "G．O．D／魔縁",
+     "id": 4360
+    }
+   ]
   },
   "553": {
    "releaseJP": "2018-03-22"
@@ -1108,31 +2050,75 @@
    "releaseJP": "2018-03-22"
   },
   "558": {
-   "releaseJP": "2018-05-10"
+   "releaseJP": "2018-05-10",
+   "wikiChecked": true
   },
   "559": {
-   "releaseJP": "2018-04-01"
+   "releaseJP": "2018-04-01",
+   "characters": [
+    {
+     "name": "NAOKI",
+     "id": null
+    }
+   ]
   },
   "564": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "明坂 芹菜／試練の三送会編",
+     "id": 3390
+    }
+   ]
   },
   "565": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "ペンデラ",
+     "id": 4370
+    }
+   ]
   },
   "566": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "ミミ",
+     "id": 4380
+    }
+   ]
   },
   "567": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "シロタ",
+     "id": 4390
+    }
+   ]
   },
   "568": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "ゴマネ",
+     "id": 4400
+    }
+   ]
   },
   "569": {
-   "releaseJP": "2018-04-19"
+   "releaseJP": "2018-04-19",
+   "characters": [
+    {
+     "name": "パンタパンタ",
+     "id": 4410
+    }
+   ]
   },
   "570": {
-   "releaseJP": "2018-04-26"
+   "releaseJP": "2018-04-26",
+   "wikiChecked": true
   },
   "572": {
    "releaseJP": "2018-05-10"
@@ -1156,16 +2142,40 @@
    "releaseJP": "2018-08-23"
   },
   "587": {
-   "releaseJP": "2018-06-21"
+   "releaseJP": "2018-06-21",
+   "characters": [
+    {
+     "name": "月鈴 白奈／試練の三送会編",
+     "id": 3450
+    }
+   ]
   },
   "588": {
-   "releaseJP": "2018-06-21"
+   "releaseJP": "2018-06-21",
+   "characters": [
+    {
+     "name": "美嶋 はるな／淡い約束",
+     "id": 4420
+    }
+   ]
   },
   "589": {
-   "releaseJP": "2018-06-21"
+   "releaseJP": "2018-06-21",
+   "characters": [
+    {
+     "name": "兎音 ココ／夏だ！海だ！夏期講習だ！",
+     "id": 4430
+    }
+   ]
   },
   "590": {
-   "releaseJP": "2018-06-21"
+   "releaseJP": "2018-06-21",
+   "characters": [
+    {
+     "name": "愛野 ヒカリ／サンシャインサマー",
+     "id": 4440
+    }
+   ]
   },
   "593": {
    "releaseJP": "2018-07-05"
@@ -1183,10 +2193,12 @@
    "releaseJP": "2018-10-11"
   },
   "600": {
-   "releaseJP": "2018-07-19"
+   "releaseJP": "2018-07-19",
+   "wikiChecked": true
   },
   "601": {
-   "releaseJP": "2018-07-19"
+   "releaseJP": "2018-07-19",
+   "wikiChecked": true
   },
   "604": {
    "releaseJP": "2019-04-11"
@@ -1201,19 +2213,44 @@
    "releaseJP": "2018-08-02"
   },
   "614": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "wikiChecked": true
   },
   "615": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "characters": [
+    {
+     "name": "MIR-203【セレネ・シェリル】",
+     "id": 4450
+    }
+   ]
   },
   "616": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "characters": [
+    {
+     "name": "MIR-201【ヘカティ・ベアトリクス】",
+     "id": 4460
+    }
+   ]
   },
   "617": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "characters": [
+    {
+     "name": "エリスネメシス",
+     "id": 4470
+    }
+   ]
   },
   "618": {
-   "releaseJP": "2018-09-06"
+   "releaseJP": "2018-09-06",
+   "characters": [
+    {
+     "name": "グランレイス",
+     "id": 4490
+    }
+   ]
   },
   "619": {
    "releaseJP": "2019-03-07"
@@ -1240,7 +2277,17 @@
    "releaseJP": "2018-10-04"
   },
   "633": {
-   "releaseJP": "2018-07-19"
+   "releaseJP": "2018-07-19",
+   "characters": [
+    {
+     "name": "葛葉 芒蘭",
+     "id": 5411
+    },
+    {
+     "name": "葛葉 保名",
+     "id": null
+    }
+   ]
   },
   "635": {
    "releaseJP": "2018-10-04"
@@ -1312,130 +2359,372 @@
    "releaseJP": "2019-03-07"
   },
   "683": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "五十嵐 撫子",
+     "id": null,
+     "face": 11120
+    }
+   ]
   },
   "684": {
-   "releaseJP": "2018-12-06"
+   "releaseJP": "2018-12-06",
+   "characters": [
+    {
+     "name": "箱部 なる／波瀾の新入生編",
+     "id": null,
+     "face": 510
+    },
+    {
+     "name": "月鈴 白奈／波瀾の新入生編",
+     "id": null,
+     "face": 2070
+    }
+   ]
   },
   "685": {
-   "releaseJP": "2019-01-10"
+   "releaseJP": "2019-01-10",
+   "characters": [
+    {
+     "name": "明坂 芹菜／波瀾の新入生編",
+     "id": null,
+     "face": 480
+    },
+    {
+     "name": "小仏 凪／波瀾の新入生編",
+     "id": null,
+     "face": 520
+    }
+   ]
   },
   "686": {
-   "releaseJP": "2019-02-07"
+   "releaseJP": "2019-02-07",
+   "characters": [
+    {
+     "name": "御形 アリシアナ／波瀾の新入生編",
+     "id": null,
+     "face": 490
+    },
+    {
+     "name": "天王洲 なずな／波瀾の新入生編",
+     "id": null,
+     "face": 500
+    }
+   ]
   },
   "688": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "高橋 早苗",
+     "id": 6210
+    }
+   ]
   },
   "689": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "橘 伸吾",
+     "id": 6220
+    }
+   ]
   },
   "690": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "ダオ・トッテナ",
+     "id": 6230
+    }
+   ]
   },
   "691": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "アーリア・ネージュ",
+     "id": 6240
+    }
+   ]
   },
   "692": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "新井 桃子",
+     "id": 6250
+    }
+   ]
   },
   "693": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "ネルネ＆ツムネ",
+     "id": 6260
+    }
+   ]
   },
   "694": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "ナージャ・ベルリオーズ",
+     "id": 6270
+    }
+   ]
   },
   "695": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "後藤田 杏",
+     "id": 6280
+    }
+   ]
   },
   "696": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "シラタキ",
+     "id": 6290
+    }
+   ]
   },
   "697": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "characters": [
+    {
+     "name": "シルヴィアス",
+     "id": 6300
+    }
+   ]
   },
   "698": {
-   "releaseJP": "2018-11-08"
+   "releaseJP": "2018-11-08",
+   "characters": [
+    {
+     "name": "ルミエラ・ヴィス・アニマート／セイクリッドフォトン",
+     "id": 6310
+    }
+   ]
   },
   "699": {
-   "releaseJP": "2018-11-08"
+   "releaseJP": "2018-11-08",
+   "characters": [
+    {
+     "name": "八咫烏 鋼太郎／慰めの天使",
+     "id": 4520
+    }
+   ]
   },
   "700": {
-   "releaseJP": "2018-11-08"
+   "releaseJP": "2018-11-08",
+   "characters": [
+    {
+     "name": "ニニカ・クロッシュ／無意識との対話",
+     "id": 6320
+    }
+   ]
   },
   "701": {
-   "releaseJP": "2018-11-08"
+   "releaseJP": "2018-11-08",
+   "characters": [
+    {
+     "name": "MDA-21【レグルス／フォースリベレイター】",
+     "id": 6340
+    }
+   ]
   },
   "702": {
-   "releaseJP": "2018-11-08"
+   "releaseJP": "2018-11-08",
+   "characters": [
+    {
+     "name": "アストライア／女神の微笑み",
+     "id": 6330
+    }
+   ]
   },
   "703": {
-   "releaseJP": "2019-01-24"
+   "releaseJP": "2019-01-24",
+   "characters": [
+    {
+     "name": "新田 ちえ",
+     "id": 6350
+    }
+   ]
   },
   "704": {
-   "releaseJP": "2019-01-24"
+   "releaseJP": "2019-01-24",
+   "characters": [
+    {
+     "name": "マリーメイア・クレスケンス",
+     "id": 6360
+    }
+   ]
   },
   "705": {
-   "releaseJP": "2019-01-24"
+   "releaseJP": "2019-01-24",
+   "characters": [
+    {
+     "name": "ハイパーネットゲーマーアルテラ",
+     "id": 6370
+    }
+   ]
   },
   "706": {
-   "releaseJP": "2019-01-24"
+   "releaseJP": "2019-01-24",
+   "characters": [
+    {
+     "name": "モガラ様",
+     "id": 6380
+    }
+   ]
   },
   "707": {
-   "releaseJP": "2019-01-24"
+   "releaseJP": "2019-01-24",
+   "characters": [
+    {
+     "name": "三田 ナナコ",
+     "id": 6390
+    }
+   ]
   },
   "708": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "characters": [
+    {
+     "name": "XES-72【ディアナ・プリメーラ】",
+     "id": 6410
+    }
+   ]
   },
   "710": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "characters": [
+    {
+     "name": "ソルナ",
+     "id": 6420
+    }
+   ]
   },
   "711": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "characters": [
+    {
+     "name": "Dr.ユバル・ホルミスダス",
+     "id": 6430
+    }
+   ]
   },
   "712": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "characters": [
+    {
+     "name": "憎悪の戦神 アレウス",
+     "id": 6440
+    }
+   ]
   },
   "713": {
-   "releaseJP": "2018-10-25"
+   "releaseJP": "2018-10-25",
+   "wikiChecked": true
   },
   "715": {
-   "releaseJP": "2019-03-21"
+   "releaseJP": "2019-03-21",
+   "wikiChecked": true
   },
   "716": {
-   "releaseJP": "2019-03-21"
+   "releaseJP": "2019-03-21",
+   "wikiChecked": true
   },
   "717": {
-   "releaseJP": "2019-03-21"
+   "releaseJP": "2019-03-21",
+   "wikiChecked": true
   },
   "720": {
    "releaseJP": "2018-10-25"
   },
   "721": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "characters": [
+    {
+     "name": "XGN-72【ルナ・ノーヴァ】",
+     "id": 6400
+    }
+   ]
   },
   "722": {
-   "releaseJP": "2019-02-21"
+   "releaseJP": "2019-02-21",
+   "wikiChecked": true
   },
   "729": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "萩原 七々瀬",
+     "id": null,
+     "face": 11130
+    }
+   ]
   },
   "730": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "731": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "リラ",
+     "id": 7600
+    }
+   ]
   },
   "732": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "コニー",
+     "id": 7610
+    }
+   ]
   },
   "733": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "鬼蝮 アイリ",
+     "id": 7620
+    }
+   ]
   },
   "734": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "哲学主 ジェフティ",
+     "id": 7630
+    }
+   ]
   },
   "735": {
-   "releaseJP": "2019-04-11"
+   "releaseJP": "2019-04-11",
+   "characters": [
+    {
+     "name": "Dr.メト・バサナテル",
+     "id": 7640
+    }
+   ]
   },
   "736": {
    "releaseJP": "2019-04-25"
@@ -1465,7 +2754,14 @@
    "releaseJP": "2019-05-09"
   },
   "746": {
-   "releaseJP": "2019-05-09"
+   "releaseJP": "2019-05-09",
+   "characters": [
+    {
+     "name": "月鈴 白奈／波瀾の新入生編",
+     "id": null,
+     "face": 2070
+    }
+   ]
   },
   "749": {
    "releaseJP": "2019-05-23"
@@ -1483,22 +2779,53 @@
    "releaseJP": "2019-07-26"
   },
   "754": {
-   "releaseJP": "2019-06-06"
+   "releaseJP": "2019-06-06",
+   "characters": [
+    {
+     "name": "月鈴 那知",
+     "id": 2060
+    }
+   ]
   },
   "755": {
-   "releaseJP": "2019-06-06"
+   "releaseJP": "2019-06-06",
+   "characters": [
+    {
+     "name": "美嶋 はるな／放課後の天使",
+     "id": 7650
+    }
+   ]
   },
   "756": {
-   "releaseJP": "2019-06-06"
+   "releaseJP": "2019-06-06",
+   "characters": [
+    {
+     "name": "兎音 ココ／受験相談室",
+     "id": 7660
+    }
+   ]
   },
   "757": {
-   "releaseJP": "2019-06-06"
+   "releaseJP": "2019-06-06",
+   "characters": [
+    {
+     "name": "愛野 ヒカリ／最強の花嫁",
+     "id": 7670
+    }
+   ]
   },
   "760": {
    "releaseJP": "2019-06-20"
   },
   "762": {
-   "releaseJP": "2019-06-20"
+   "releaseJP": "2019-06-20",
+   "characters": [
+    {
+     "name": "九條 楓",
+     "id": 12950
+    }
+   ],
+   "wikiChecked": true
   },
   "764": {
    "releaseJP": "2019-07-04"
@@ -1507,7 +2834,8 @@
    "releaseJP": "2019-07-04"
   },
   "766": {
-   "releaseJP": "2019-07-04"
+   "releaseJP": "2019-07-04",
+   "wikiChecked": true
   },
   "768": {
    "releaseJP": "2019-07-11"
@@ -1522,16 +2850,35 @@
    "releaseJP": "2019-08-08"
   },
   "774": {
-   "releaseJP": "2019-08-08"
+   "releaseJP": "2019-08-08",
+   "wikiChecked": true
   },
   "775": {
-   "releaseJP": "2019-08-08"
+   "releaseJP": "2019-08-08",
+   "characters": [
+    {
+     "name": "Dr.テオ・メルキオル",
+     "id": 7690
+    }
+   ]
   },
   "776": {
-   "releaseJP": "2019-08-08"
+   "releaseJP": "2019-08-08",
+   "characters": [
+    {
+     "name": "ヴェルゼビュートネメシス",
+     "id": 7700
+    }
+   ]
   },
   "777": {
-   "releaseJP": "2019-08-08"
+   "releaseJP": "2019-08-08",
+   "characters": [
+    {
+     "name": "テスタメントネメシス",
+     "id": 7710
+    }
+   ]
   },
   "780": {
    "releaseJP": "2019-08-22"
@@ -1543,22 +2890,54 @@
    "releaseJP": "2019-08-22"
   },
   "783": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "wikiChecked": true
   },
   "784": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ],
+   "wikiChecked": true
   },
   "785": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "characters": [
+    {
+     "name": "京極院 桜花",
+     "id": 7720
+    }
+   ]
   },
   "786": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "characters": [
+    {
+     "name": "クーデルカ・プルミエール",
+     "id": 7730
+    }
+   ]
   },
   "787": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "characters": [
+    {
+     "name": "ジョニー・サイアスティン",
+     "id": 7740
+    }
+   ]
   },
   "788": {
-   "releaseJP": "2019-09-05"
+   "releaseJP": "2019-09-05",
+   "characters": [
+    {
+     "name": "不動 絶音",
+     "id": 7750
+    }
+   ]
   },
   "791": {
    "releaseJP": "2019-09-19"
@@ -1585,13 +2964,27 @@
    "releaseJP": "2019-09-19"
   },
   "802": {
-   "releaseJP": "2019-07-26"
+   "releaseJP": "2019-07-26",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "803": {
-   "releaseJP": "2019-08-08"
+   "releaseJP": "2019-08-08",
+   "characters": [
+    {
+     "name": "裁定者 セラフィータ",
+     "id": 7680
+    }
+   ]
   },
   "804": {
-   "releaseJP": "2019-07-04"
+   "releaseJP": "2019-07-04",
+   "wikiChecked": true
   },
   "806": {
    "releaseJP": "2019-10-10"
@@ -1612,37 +3005,95 @@
    "releaseJP": "2019-10-24"
   },
   "821": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "wikiChecked": true
   },
   "822": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "ルフ",
+     "id": null
+    }
+   ],
+   "wikiChecked": true
   },
   "823": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ],
+   "wikiChecked": true
   },
   "824": {
-   "releaseJP": "2020-01-09"
+   "releaseJP": "2020-01-09",
+   "wikiChecked": true
   },
   "825": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "No.13_サジ",
+     "id": 8660
+    }
+   ]
   },
   "826": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "No.9_ニナ",
+     "id": 8670
+    }
+   ]
   },
   "827": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "イングリット・オーリック・コーネル",
+     "id": 8690
+    }
+   ]
   },
   "828": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "舞浜 優芽",
+     "id": 8680
+    }
+   ]
   },
   "829": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "宍戸 美鈴",
+     "id": 8700
+    }
+   ]
   },
   "830": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "パトリオット",
+     "id": 8710
+    }
+   ]
   },
   "831": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "characters": [
+    {
+     "name": "ジーン・ザイン",
+     "id": 8720
+    }
+   ]
   },
   "832": {
    "releaseJP": "2019-10-24"
@@ -1651,22 +3102,58 @@
    "releaseJP": "2019-10-24"
   },
   "834": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "鬼蝮 ユリア／サーヴァントマスター",
+     "id": 8730
+    }
+   ]
   },
   "835": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "ステラリウス／デモンズクライ",
+     "id": 8740
+    }
+   ]
   },
   "836": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "リヒトシュッツェ／ラストサクリファイス",
+     "id": 8750
+    }
+   ]
   },
   "837": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "青の死神／命脈を刈り取る刃",
+     "id": 8760
+    }
+   ]
   },
   "838": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "マゼラン・マゼラン／ラブリーハンター",
+     "id": 8770
+    }
+   ]
   },
   "839": {
-   "releaseJP": "2019-11-07"
+   "releaseJP": "2019-11-07",
+   "characters": [
+    {
+     "name": "パンタパンタ／ビューティフルドリーム",
+     "id": 8780
+    }
+   ]
   },
   "840": {
    "releaseJP": "2019-11-21"
@@ -1693,34 +3180,87 @@
    "releaseJP": "2019-12-05"
   },
   "849": {
-   "releaseJP": "2019-12-05"
+   "releaseJP": "2019-12-05",
+   "characters": [
+    {
+     "name": "葛城 華",
+     "id": null,
+     "face": 11140
+    }
+   ]
   },
   "850": {
-   "releaseJP": "2019-12-19"
+   "releaseJP": "2019-12-19",
+   "characters": [
+    {
+     "name": "ティータ・アヴェニアス",
+     "id": 8790
+    }
+   ]
   },
   "851": {
-   "releaseJP": "2019-12-19"
+   "releaseJP": "2019-12-19",
+   "characters": [
+    {
+     "name": "ミァン・テルスウラス",
+     "id": 8800
+    }
+   ]
   },
   "852": {
-   "releaseJP": "2019-12-19"
+   "releaseJP": "2019-12-19",
+   "characters": [
+    {
+     "name": "シエロ・メーヴェ",
+     "id": 8810
+    }
+   ]
   },
   "853": {
-   "releaseJP": "2019-12-19"
+   "releaseJP": "2019-12-19",
+   "characters": [
+    {
+     "name": "ジュナ・サラキア",
+     "id": 8820
+    }
+   ]
   },
   "854": {
-   "releaseJP": "2019-12-19"
+   "releaseJP": "2019-12-19",
+   "characters": [
+    {
+     "name": "聖女 アンナ・マルグレーテ",
+     "id": 8830
+    }
+   ]
   },
   "859": {
-   "releaseJP": "2020-01-09"
+   "releaseJP": "2020-01-09",
+   "characters": [
+    {
+     "name": "小野 美苗",
+     "id": null,
+     "face": 11150
+    }
+   ],
+   "wikiChecked": true
   },
   "860": {
-   "releaseJP": "2019-10-24"
+   "releaseJP": "2019-10-24",
+   "wikiChecked": true
   },
   "863": {
    "releaseJP": "2020-01-23"
   },
   "865": {
-   "releaseJP": "2020-01-23"
+   "releaseJP": "2020-01-23",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "867": {
    "releaseJP": "2020-02-06"
@@ -1750,22 +3290,53 @@
    "releaseJP": "2020-02-20"
   },
   "877": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "characters": [
+    {
+     "name": "セーレ・ヘイズ",
+     "id": 8840
+    }
+   ]
   },
   "878": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "characters": [
+    {
+     "name": "全天の支配者 シエル",
+     "id": null
+    }
+   ]
   },
   "879": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "characters": [
+    {
+     "name": "埋葬者 ストゥム",
+     "id": 8860
+    }
+   ]
   },
   "880": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "characters": [
+    {
+     "name": "再生者 ディアン",
+     "id": 8870
+    }
+   ]
   },
   "881": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "characters": [
+    {
+     "name": "黄泉の盟主 ネルガル",
+     "id": 8880
+    }
+   ]
   },
   "882": {
-   "releaseJP": "2020-03-05"
+   "releaseJP": "2020-03-05",
+   "wikiChecked": true
   },
   "885": {
    "releaseJP": "2020-03-19"
@@ -1792,13 +3363,26 @@
    "releaseJP": "2020-06-18"
   },
   "896": {
-   "releaseJP": "2020-07-02"
+   "releaseJP": "2020-07-02",
+   "characters": [
+    {
+     "name": "藍原 椿",
+     "id": 10090
+    }
+   ]
   },
   "897": {
-   "releaseJP": "2020-07-02"
+   "releaseJP": "2020-07-02",
+   "characters": [
+    {
+     "name": "三角 葵",
+     "id": 10060
+    }
+   ]
   },
   "899": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "wikiChecked": true
   },
   "900": {
    "releaseJP": "2020-01-23"
@@ -1816,25 +3400,84 @@
    "releaseJP": "2020-07-16"
   },
   "912": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "小仏 凪／決意の夏合宿編",
+     "id": null,
+     "face": 520
+    },
+    {
+     "name": "月鈴 白奈／決意の夏合宿編",
+     "id": null,
+     "face": 2070
+    }
+   ]
   },
   "913": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "wikiChecked": true
   },
   "914": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "アウル",
+     "id": 9990
+    },
+    {
+     "name": "ニック",
+     "id": 10010
+    },
+    {
+     "name": "リッツ",
+     "id": 10000
+    },
+    {
+     "name": "エリー",
+     "id": 10020
+    },
+    {
+     "name": "ヒュド・ルー",
+     "id": 10030
+    }
+   ]
   },
   "915": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "クラウン",
+     "id": 10100
+    }
+   ]
   },
   "916": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "セラフィナ・ヴィス・アニマート",
+     "id": 10110
+    }
+   ]
   },
   "917": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "紫藤 流星",
+     "id": 10120
+    }
+   ]
   },
   "918": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "創造神 イデア",
+     "id": 10130
+    }
+   ]
   },
   "922": {
    "releaseJP": "2020-07-16"
@@ -1846,7 +3489,19 @@
    "releaseJP": "2020-11-26"
   },
   "928": {
-   "releaseJP": "2020-08-06"
+   "releaseJP": "2020-08-06",
+   "characters": [
+    {
+     "name": "御形 アリシアナ／決意の夏合宿編",
+     "id": null,
+     "face": 490
+    },
+    {
+     "name": "箱部 なる／決意の夏合宿編",
+     "id": null,
+     "face": 510
+    }
+   ]
   },
   "929": {
    "releaseJP": "2020-10-15"
@@ -1864,19 +3519,49 @@
    "releaseJP": "2020-10-15"
   },
   "934": {
-   "releaseJP": "2020-07-16"
+   "releaseJP": "2020-07-16",
+   "characters": [
+    {
+     "name": "月鈴 白奈",
+     "id": 2070
+    }
+   ]
   },
   "935": {
-   "releaseJP": "2020-08-06"
+   "releaseJP": "2020-08-06",
+   "characters": [
+    {
+     "name": "御手洗 千里",
+     "id": 10140
+    }
+   ]
   },
   "936": {
-   "releaseJP": "2020-08-06"
+   "releaseJP": "2020-08-06",
+   "characters": [
+    {
+     "name": "アンプルール",
+     "id": 10150
+    }
+   ]
   },
   "937": {
-   "releaseJP": "2020-08-06"
+   "releaseJP": "2020-08-06",
+   "characters": [
+    {
+     "name": "エルザ・フォン・オーディット",
+     "id": 10160
+    }
+   ]
   },
   "938": {
-   "releaseJP": "2020-08-06"
+   "releaseJP": "2020-08-06",
+   "characters": [
+    {
+     "name": "精神科医 東海林 伊周",
+     "id": 10170
+    }
+   ]
   },
   "939": {
    "releaseJP": "2020-12-24"
@@ -1897,22 +3582,59 @@
    "releaseJP": "2020-09-17"
   },
   "945": {
-   "releaseJP": "2020-09-03"
+   "releaseJP": "2020-09-03",
+   "characters": [
+    {
+     "name": "明坂 芹菜／決意の夏合宿編",
+     "id": null,
+     "face": 480
+    },
+    {
+     "name": "天王洲 なずな／決意の夏合宿編",
+     "id": null,
+     "face": 500
+    }
+   ]
   },
   "946": {
-   "releaseJP": "2020-09-17"
+   "releaseJP": "2020-09-17",
+   "wikiChecked": true
   },
   "947": {
-   "releaseJP": "2020-09-17"
+   "releaseJP": "2020-09-17",
+   "characters": [
+    {
+     "name": "知雲 ひばり",
+     "id": 10180
+    }
+   ]
   },
   "948": {
-   "releaseJP": "2020-09-17"
+   "releaseJP": "2020-09-17",
+   "characters": [
+    {
+     "name": "伊賀崎ノ楠子",
+     "id": 10190
+    }
+   ]
   },
   "949": {
-   "releaseJP": "2020-09-17"
+   "releaseJP": "2020-09-17",
+   "characters": [
+    {
+     "name": "天稲荷 コテツ",
+     "id": 10200
+    }
+   ]
   },
   "950": {
-   "releaseJP": "2020-09-17"
+   "releaseJP": "2020-09-17",
+   "characters": [
+    {
+     "name": "大天使 ユリア",
+     "id": 10210
+    }
+   ]
   },
   "953": {
    "releaseJP": "2020-08-20"
@@ -1930,10 +3652,12 @@
    "releaseJP": "2020-10-29"
   },
   "960": {
-   "releaseJP": "2020-10-01"
+   "releaseJP": "2020-10-01",
+   "wikiChecked": true
   },
   "961": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "wikiChecked": true
   },
   "962": {
    "releaseJP": "2020-09-03"
@@ -1942,34 +3666,84 @@
    "releaseJP": "2020-07-22"
   },
   "967": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "wikiChecked": true
   },
   "968": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "wikiChecked": true
   },
   "969": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "characters": [
+    {
+     "name": "セシャト・シャフトリッヒ",
+     "id": 10220
+    }
+   ]
   },
   "970": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "characters": [
+    {
+     "name": "古き混沌の巨人",
+     "id": 10230
+    }
+   ]
   },
   "971": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "characters": [
+    {
+     "name": "憎悪の始まりたる古竜",
+     "id": 10240
+    }
+   ]
   },
   "972": {
-   "releaseJP": "2020-11-12"
+   "releaseJP": "2020-11-12",
+   "characters": [
+    {
+     "name": "導師 ミィム・ミクラー",
+     "id": 10250
+    }
+   ]
   },
   "973": {
-   "releaseJP": "2020-11-26"
+   "releaseJP": "2020-11-26",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ]
   },
   "974": {
-   "releaseJP": "2020-11-26"
+   "releaseJP": "2020-11-26",
+   "characters": [
+    {
+     "name": "藤沢 柚子",
+     "id": 10050
+    }
+   ]
   },
   "975": {
-   "releaseJP": "2020-11-26"
+   "releaseJP": "2020-11-26",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ]
   },
   "976": {
-   "releaseJP": "2020-11-26"
+   "releaseJP": "2020-11-26",
+   "characters": [
+    {
+     "name": "結城 莉玖",
+     "id": 10080
+    }
+   ]
   },
   "978": {
    "releaseJP": "2020-08-06"
@@ -1984,7 +3758,13 @@
    "releaseJP": "2020-12-10"
   },
   "982": {
-   "releaseJP": "2020-12-10"
+   "releaseJP": "2020-12-10",
+   "characters": [
+    {
+     "name": "古き破壊者 ベルゲルミル",
+     "id": 10260
+    }
+   ]
   },
   "983": {
    "releaseJP": "2021-01-07"
@@ -1996,22 +3776,58 @@
    "releaseJP": "2021-01-07"
   },
   "989": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "遠夜 灯",
+     "id": 11230
+    }
+   ]
   },
   "990": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "美咲 杏奈",
+     "id": 11240
+    }
+   ]
   },
   "991": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "ラトーナ・ヘイズ",
+     "id": 11250
+    }
+   ]
   },
   "992": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "ポメ太",
+     "id": 11260
+    }
+   ]
   },
   "993": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "向来 隼",
+     "id": 11270
+    }
+   ]
   },
   "994": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "イゼヴェル・ヤグルーシュ",
+     "id": 11280
+    }
+   ]
   },
   "997": {
    "releaseJP": "2021-01-21"
@@ -2041,31 +3857,76 @@
    "releaseJP": "2021-01-21"
   },
   "1009": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "wikiChecked": true
   },
   "1010": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "1011": {
-   "releaseJP": "2021-01-21"
+   "releaseJP": "2021-01-21",
+   "wikiChecked": true
   },
   "1012": {
-   "releaseJP": "2021-02-04"
+   "releaseJP": "2021-02-04",
+   "characters": [
+    {
+     "name": "藤堂 陽南袴",
+     "id": 11170
+    }
+   ]
   },
   "1013": {
-   "releaseJP": "2021-02-04"
+   "releaseJP": "2021-02-04",
+   "characters": [
+    {
+     "name": "織原 ひめみ／星の海へ",
+     "id": 11290
+    }
+   ]
   },
   "1014": {
-   "releaseJP": "2021-02-04"
+   "releaseJP": "2021-02-04",
+   "characters": [
+    {
+     "name": "七海 あおい／夢の合わさる場所で",
+     "id": 11300
+    }
+   ]
   },
   "1015": {
-   "releaseJP": "2021-02-04"
+   "releaseJP": "2021-02-04",
+   "characters": [
+    {
+     "name": "娯楽の守護者 スカイフェザー",
+     "id": 11310
+    }
+   ]
   },
   "1016": {
-   "releaseJP": "2021-02-04"
+   "releaseJP": "2021-02-04",
+   "characters": [
+    {
+     "name": "真なる奏者 シルヴィアス",
+     "id": 8920
+    }
+   ]
   },
   "1017": {
-   "releaseJP": "2021-03-18"
+   "releaseJP": "2021-03-18",
+   "characters": [
+    {
+     "name": "メーネ・テルセーラ",
+     "id": 11320
+    }
+   ]
   },
   "1019": {
    "releaseJP": "2021-02-18"
@@ -2089,34 +3950,79 @@
    "releaseJP": "2021-03-04"
   },
   "1028": {
-   "releaseJP": "2021-03-04"
+   "releaseJP": "2021-03-04",
+   "characters": [
+    {
+     "name": "桔梗 小夜曲",
+     "id": 11180
+    }
+   ]
   },
   "1029": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "characters": [
+    {
+     "name": "ルチア・レ・ベルナデート",
+     "id": 11370
+    }
+   ]
   },
   "1030": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "characters": [
+    {
+     "name": "ミァン・クレスターニ",
+     "id": 11340
+    }
+   ]
   },
   "1031": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "characters": [
+    {
+     "name": "システィーナ・メーヴェ",
+     "id": 11360
+    }
+   ]
   },
   "1032": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "characters": [
+    {
+     "name": "ジュナ・フェリクス",
+     "id": 11350
+    }
+   ]
   },
   "1033": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "characters": [
+    {
+     "name": "ウェスタ・グロリオサ・フォティア",
+     "id": 11330
+    }
+   ]
   },
   "1035": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "wikiChecked": true
   },
   "1037": {
-   "releaseJP": "2021-04-01"
+   "releaseJP": "2021-04-01",
+   "wikiChecked": true
   },
   "1038": {
-   "releaseJP": "2022-03-03"
+   "releaseJP": "2022-03-03",
+   "wikiChecked": true
   },
   "1039": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "御形 アリシアナ",
+     "id": 490
+    }
+   ]
   },
   "1040": {
    "releaseJP": "2021-03-18"
@@ -2140,37 +4046,94 @@
    "releaseJP": "2021-05-13"
   },
   "1056": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "wikiChecked": true
   },
   "1057": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "芒崎 奏",
+     "id": 11160
+    }
+   ]
   },
   "1058": {
-   "releaseJP": "2021-12-16"
+   "releaseJP": "2021-12-16",
+   "wikiChecked": true
   },
   "1059": {
-   "releaseJP": "2021-08-05"
+   "releaseJP": "2021-08-05",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "1060": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "水戸 雫",
+     "id": 11380
+    }
+   ]
   },
   "1061": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "高須 らいむ",
+     "id": 11390
+    }
+   ]
   },
   "1062": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "御影 昴",
+     "id": 11400
+    }
+   ]
   },
   "1063": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "リー・メイメイ",
+     "id": 11410
+    }
+   ]
   },
   "1064": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "トラ吉",
+     "id": 11420
+    }
+   ]
   },
   "1065": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "百鬼 煌星",
+     "id": 11830
+    }
+   ]
   },
   "1066": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "風焔",
+     "id": 11440
+    }
+   ]
   },
   "1067": {
    "releaseJP": "2021-05-27"
@@ -2194,52 +4157,138 @@
    "releaseJP": "2021-06-10"
   },
   "1074": {
-   "releaseJP": "2021-06-10"
+   "releaseJP": "2021-06-10",
+   "wikiChecked": true
   },
   "1075": {
-   "releaseJP": "2021-05-13"
+   "releaseJP": "2021-05-13",
+   "characters": [
+    {
+     "name": "ヨナ・ライゼ",
+     "id": 11450
+    }
+   ]
   },
   "1076": {
-   "releaseJP": "2021-09-16"
+   "releaseJP": "2021-09-16",
+   "characters": [
+    {
+     "name": "レナ・イシュメイル",
+     "id": 11460
+    }
+   ]
   },
   "1077": {
-   "releaseJP": "2021-09-16"
+   "releaseJP": "2021-09-16",
+   "characters": [
+    {
+     "name": "ギデオン・ライゼ",
+     "id": 11470
+    }
+   ]
   },
   "1078": {
-   "releaseJP": "2021-09-16"
+   "releaseJP": "2021-09-16",
+   "characters": [
+    {
+     "name": "サウル・カイム",
+     "id": 11480
+    }
+   ]
   },
   "1079": {
-   "releaseJP": "2021-09-16"
+   "releaseJP": "2021-09-16",
+   "characters": [
+    {
+     "name": "ブルー・スタイン",
+     "id": 11700
+    }
+   ]
   },
   "1081": {
-   "releaseJP": "2021-07-08"
+   "releaseJP": "2021-07-08",
+   "wikiChecked": true
   },
   "1082": {
-   "releaseJP": "2021-07-08"
+   "releaseJP": "2021-07-08",
+   "wikiChecked": true
   },
   "1083": {
-   "releaseJP": "2021-07-08"
+   "releaseJP": "2021-07-08",
+   "wikiChecked": true
   },
   "1084": {
-   "releaseJP": "2021-07-08"
+   "releaseJP": "2021-07-08",
+   "characters": [
+    {
+     "name": "アウル",
+     "id": 9990
+    },
+    {
+     "name": "ニック",
+     "id": 10010
+    },
+    {
+     "name": "リッツ",
+     "id": 10000
+    },
+    {
+     "name": "エリー",
+     "id": 10020
+    },
+    {
+     "name": "ヒュド・ルー",
+     "id": 10030
+    }
+   ]
   },
   "1085": {
    "releaseJP": "2021-05-13"
   },
   "1086": {
-   "releaseJP": "2021-09-30"
+   "releaseJP": "2021-09-30",
+   "characters": [
+    {
+     "name": "創始者 カイン",
+     "id": 11500
+    }
+   ]
   },
   "1087": {
-   "releaseJP": "2021-06-24"
+   "releaseJP": "2021-06-24",
+   "characters": [
+    {
+     "name": "井之原 小星",
+     "id": 11020
+    }
+   ]
   },
   "1088": {
-   "releaseJP": "2021-06-24"
+   "releaseJP": "2021-06-24",
+   "characters": [
+    {
+     "name": "柏木 咲姫",
+     "id": 11030
+    }
+   ]
   },
   "1089": {
-   "releaseJP": "2021-06-24"
+   "releaseJP": "2021-06-24",
+   "characters": [
+    {
+     "name": "桜井 春菜",
+     "id": 11040
+    }
+   ]
   },
   "1090": {
-   "releaseJP": "2021-06-24"
+   "releaseJP": "2021-06-24",
+   "characters": [
+    {
+     "name": "早乙女 彩華",
+     "id": 11050
+    }
+   ]
   },
   "1091": {
    "releaseJP": "2021-02-04"
@@ -2248,7 +4297,13 @@
    "releaseJP": "2021-04-28"
   },
   "1094": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "バテシバ・アヒトフェル",
+     "id": 11430
+    }
+   ]
   },
   "1096": {
    "releaseJP": "2021-06-24"
@@ -2260,28 +4315,72 @@
    "releaseJP": "2021-01-21"
   },
   "1100": {
-   "releaseJP": "2021-09-16"
+   "releaseJP": "2021-09-16",
+   "characters": [
+    {
+     "name": "ミリアム・ベミドバル",
+     "id": 11490
+    }
+   ]
   },
   "1101": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "characters": [
+    {
+     "name": "エヴェリーナ",
+     "id": 13310
+    }
+   ]
   },
   "1102": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "characters": [
+    {
+     "name": "灰飾 カナエ",
+     "id": 13320
+    }
+   ]
   },
   "1103": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "characters": [
+    {
+     "name": "ヴィンデット・ジャン・ラディオール",
+     "id": 13330
+    }
+   ]
   },
   "1104": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "characters": [
+    {
+     "name": "巫黒 ユリ",
+     "id": 13340
+    }
+   ]
   },
   "1105": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "characters": [
+    {
+     "name": "姫月 るーな",
+     "id": 13350
+    }
+   ]
   },
   "1106": {
-   "releaseJP": "2021-08-05"
+   "releaseJP": "2021-08-05",
+   "wikiChecked": true
   },
   "1107": {
-   "releaseJP": "2022-09-01"
+   "releaseJP": "2022-09-01",
+   "characters": [
+    {
+     "name": "三角 葵",
+     "id": 10060
+    }
+   ],
+   "wikiChecked": true
   },
   "2010": {
    "releaseJP": "2021-11-04"
@@ -2365,70 +4464,192 @@
    "releaseJP": "2021-11-04"
   },
   "2048": {
-   "releaseJP": "2021-08-05"
+   "releaseJP": "2021-08-05",
+   "wikiChecked": true
   },
   "2049": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "井之原 小星",
+     "id": 11020
+    }
+   ],
+   "wikiChecked": true
   },
   "2050": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "wikiChecked": true
   },
   "2052": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "メギド・ゴグ",
+     "id": 11770
+    }
+   ]
   },
   "2053": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "エイハヴ",
+     "id": 11780
+    }
+   ]
   },
   "2054": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "オネスト・クンツァイト",
+     "id": 11800
+    }
+   ]
   },
   "2055": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "縁",
+     "id": 11810
+    }
+   ]
   },
   "2056": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "ユグドラシル",
+     "id": 11820
+    }
+   ]
   },
   "2057": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "淀川 沙音瑠",
+     "id": 14290
+    }
+   ]
   },
   "2058": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "土呂城 ゆい",
+     "id": 11850
+    }
+   ]
   },
   "2059": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "愛野 ヒカリ／最盛のエール",
+     "id": 11860
+    }
+   ]
   },
   "2060": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "不来方 とあ",
+     "id": 11790
+    }
+   ]
   },
   "2061": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "マゼラン・マゼラン／コズミックラバー",
+     "id": 11880
+    },
+    {
+     "name": "ミゼラン・ミゼラン",
+     "id": 11881
+    }
+   ]
   },
   "2062": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "九十九 宗治郎",
+     "id": null
+    }
+   ]
   },
   "2063": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "荒場 流子／NEW GAME",
+     "id": 11900
+    }
+   ]
   },
   "2064": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "メリム",
+     "id": 11910
+    }
+   ]
   },
   "2065": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "リタ・カールステット",
+     "id": 11920
+    }
+   ]
   },
   "2066": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "シマッチ",
+     "id": 11930
+    }
+   ]
   },
   "2067": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "ちずこ",
+     "id": 11940
+    }
+   ]
   },
   "2068": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "コタロー",
+     "id": 11950
+    }
+   ]
   },
   "2069": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "ポン助",
+     "id": 11960
+    }
+   ]
   },
   "2077": {
-   "releaseJP": "2021-07-21"
+   "releaseJP": "2021-07-21",
+   "wikiChecked": true
   },
   "2079": {
    "releaseJP": "2021-09-02"
@@ -2440,7 +4661,8 @@
    "releaseJP": "2021-09-02"
   },
   "2082": {
-   "releaseJP": "2021-09-02"
+   "releaseJP": "2021-09-02",
+   "wikiChecked": true
   },
   "2083": {
    "releaseJP": "2021-10-07"
@@ -2461,25 +4683,57 @@
    "releaseJP": "2021-09-30"
   },
   "2090": {
-   "releaseJP": "2021-12-23"
+   "releaseJP": "2021-12-23",
+   "characters": [
+    {
+     "name": "原初の巫女アヴェニアス",
+     "id": 12980
+    }
+   ]
   },
   "2091": {
-   "releaseJP": "2021-12-23"
+   "releaseJP": "2021-12-23",
+   "characters": [
+    {
+     "name": "原初の巫女テルスウラス",
+     "id": 12990
+    }
+   ]
   },
   "2092": {
-   "releaseJP": "2021-12-23"
+   "releaseJP": "2021-12-23",
+   "characters": [
+    {
+     "name": "原初の巫女メーヴェ",
+     "id": 13000
+    }
+   ]
   },
   "2093": {
-   "releaseJP": "2021-12-23"
+   "releaseJP": "2021-12-23",
+   "characters": [
+    {
+     "name": "原初の巫女サラキア",
+     "id": 13010
+    }
+   ]
   },
   "2094": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "wikiChecked": true
   },
   "2096": {
    "releaseJP": "2022-01-20"
   },
   "2099": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ],
+   "wikiChecked": true
   },
   "2101": {
    "releaseJP": "2021-10-21"
@@ -2491,22 +4745,43 @@
    "releaseJP": "2021-10-21"
   },
   "2105": {
-   "releaseJP": "2021-12-09"
+   "releaseJP": "2021-12-09",
+   "wikiChecked": true
   },
   "2106": {
-   "releaseJP": "2021-08-05"
+   "releaseJP": "2021-08-05",
+   "wikiChecked": true
   },
   "2108": {
-   "releaseJP": "2021-11-25"
+   "releaseJP": "2021-11-25",
+   "characters": [
+    {
+     "name": "九條 楓",
+     "id": 12950
+    }
+   ]
   },
   "2109": {
-   "releaseJP": "2021-11-25"
+   "releaseJP": "2021-11-25",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ]
   },
   "2110": {
-   "releaseJP": "2021-11-25"
+   "releaseJP": "2021-11-25",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ]
   },
   "2111": {
-   "releaseJP": "2021-11-25"
+   "releaseJP": "2021-11-25",
+   "wikiChecked": true
   },
   "2114": {
    "releaseJP": "2021-12-09"
@@ -2515,22 +4790,53 @@
    "releaseJP": "2021-12-09"
   },
   "2116": {
-   "releaseJP": "2022-01-06"
+   "releaseJP": "2022-01-06",
+   "wikiChecked": true
   },
   "2117": {
-   "releaseJP": "2022-02-17"
+   "releaseJP": "2022-02-17",
+   "characters": [
+    {
+     "name": "ゼファー・ニアルデ",
+     "id": 13020
+    }
+   ]
   },
   "2118": {
-   "releaseJP": "2022-02-17"
+   "releaseJP": "2022-02-17",
+   "characters": [
+    {
+     "name": "ソロ・モーニア",
+     "id": 13030
+    }
+   ]
   },
   "2119": {
-   "releaseJP": "2022-02-17"
+   "releaseJP": "2022-02-17",
+   "characters": [
+    {
+     "name": "ミスラ・テルセーラ",
+     "id": 13040
+    }
+   ]
   },
   "2120": {
-   "releaseJP": "2022-02-17"
+   "releaseJP": "2022-02-17",
+   "characters": [
+    {
+     "name": "ヨアキム・イヤムル",
+     "id": 13050
+    }
+   ]
   },
   "2121": {
-   "releaseJP": "2022-02-17"
+   "releaseJP": "2022-02-17",
+   "characters": [
+    {
+     "name": "ニア・ユーディット",
+     "id": 13060
+    }
+   ]
   },
   "2122": {
    "releaseJP": "2021-12-23"
@@ -2566,10 +4872,17 @@
    "releaseJP": "2022-09-29"
   },
   "2134": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "wikiChecked": true
   },
   "2135": {
-   "releaseJP": "2021-11-04"
+   "releaseJP": "2021-11-04",
+   "characters": [
+    {
+     "name": "サルゴン・フェルネス",
+     "id": 11870
+    }
+   ]
   },
   "2137": {
    "releaseJP": "2021-11-04"
@@ -2581,16 +4894,26 @@
    "releaseJP": "2021-11-04"
   },
   "2144": {
-   "releaseJP": "2021-12-09"
+   "releaseJP": "2021-12-09",
+   "wikiChecked": true
   },
   "2145": {
-   "releaseJP": "2022-01-06"
+   "releaseJP": "2022-01-06",
+   "wikiChecked": true
   },
   "2146": {
-   "releaseJP": "2022-02-03"
+   "releaseJP": "2022-02-03",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "2147": {
-   "releaseJP": "2022-04-01"
+   "releaseJP": "2022-04-01",
+   "wikiChecked": true
   },
   "2148": {
    "releaseJP": "2022-02-03"
@@ -2626,31 +4949,75 @@
    "releaseJP": "2022-03-03"
   },
   "2160": {
-   "releaseJP": "2022-03-03"
+   "releaseJP": "2022-03-03",
+   "wikiChecked": true
   },
   "2161": {
-   "releaseJP": "2022-03-03"
+   "releaseJP": "2022-03-03",
+   "characters": [
+    {
+     "name": "アイザック・ドミナンスⅤⅢ",
+     "id": 13530
+    }
+   ]
   },
   "2162": {
-   "releaseJP": "2022-03-24"
+   "releaseJP": "2022-03-24",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ]
   },
   "2163": {
-   "releaseJP": "2022-03-24"
+   "releaseJP": "2022-03-24",
+   "characters": [
+    {
+     "name": "柏木 美亜",
+     "id": 13550
+    }
+   ]
   },
   "2164": {
-   "releaseJP": "2022-03-24"
+   "releaseJP": "2022-03-24",
+   "characters": [
+    {
+     "name": "東雲 つむぎ",
+     "id": 13560
+    }
+   ]
   },
   "2165": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "金のでらっくま像",
+     "id": null
+    }
+   ]
   },
   "2168": {
    "releaseJP": "2022-04-01"
   },
   "2170": {
-   "releaseJP": "2022-02-03"
+   "releaseJP": "2022-02-03",
+   "characters": [
+    {
+     "name": "エリー",
+     "id": 10020
+    }
+   ]
   },
   "2171": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ],
+   "wikiChecked": true
   },
   "2172": {
    "releaseJP": "2022-04-14"
@@ -2686,46 +5053,110 @@
    "releaseJP": "2022-04-14"
   },
   "2186": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "wikiChecked": true
   },
   "2187": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "天月-あまつき-／タイムカプセル",
+     "id": 14280
+    }
+   ]
   },
   "2188": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "黒須 紘",
+     "id": 14300
+    }
+   ]
   },
   "2189": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "藍沢 奏雨",
+     "id": 14310
+    }
+   ]
   },
   "2190": {
-   "releaseJP": "2022-04-14"
+   "releaseJP": "2022-04-14",
+   "characters": [
+    {
+     "name": "ミカ・ドミナンスⅢ",
+     "id": 14320
+    }
+   ]
   },
   "2191": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "characters": [
+    {
+     "name": "しゃま／UNiVERSE",
+     "id": 13810
+    },
+    {
+     "name": "みるく／UNiVERSE",
+     "id": 13820
+    }
+   ]
   },
   "2192": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "wikiChecked": true
   },
   "2193": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "wikiChecked": true
   },
   "2194": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "wikiChecked": true
   },
   "2195": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "characters": [
+    {
+     "name": "黒姫",
+     "id": 19080
+    }
+   ]
   },
   "2196": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "characters": [
+    {
+     "name": "HAR-ヒロイン09【ネレイダム／メタモルフォーゼ】",
+     "id": 14440
+    }
+   ]
   },
   "2197": {
-   "releaseJP": "2022-04-28"
+   "releaseJP": "2022-04-28",
+   "characters": [
+    {
+     "name": "リリアリス・コルチカム／エターナルメイデン",
+     "id": 14450
+    }
+   ]
   },
   "2198": {
-   "releaseJP": "2022-05-12"
+   "releaseJP": "2022-05-12",
+   "wikiChecked": true
   },
   "2199": {
-   "releaseJP": "2022-05-12"
+   "releaseJP": "2022-05-12",
+   "characters": [
+    {
+     "name": "柏木 咲姫",
+     "id": 11030
+    }
+   ],
+   "wikiChecked": true
   },
   "2202": {
    "releaseJP": "2022-05-26"
@@ -2737,22 +5168,48 @@
    "releaseJP": "2022-05-26"
   },
   "2205": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "wikiChecked": true
   },
   "2206": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "wikiChecked": true
   },
   "2207": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "characters": [
+    {
+     "name": "モーガン・フェール",
+     "id": 14330
+    }
+   ]
   },
   "2208": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "characters": [
+    {
+     "name": "EMANON",
+     "id": 14340
+    }
+   ]
   },
   "2209": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "characters": [
+    {
+     "name": "エヴァ・ラグエル",
+     "id": 14350
+    }
+   ]
   },
   "2210": {
-   "releaseJP": "2022-06-09"
+   "releaseJP": "2022-06-09",
+   "characters": [
+    {
+     "name": "闇よりも深い黒に染まるバーニッシュ",
+     "id": 14360
+    }
+   ]
   },
   "2214": {
    "releaseJP": "2022-06-23"
@@ -2764,13 +5221,28 @@
    "releaseJP": "2022-07-07"
   },
   "2219": {
-   "releaseJP": "2022-07-07"
+   "releaseJP": "2022-07-07",
+   "wikiChecked": true
   },
   "2220": {
-   "releaseJP": "2022-07-07"
+   "releaseJP": "2022-07-07",
+   "characters": [
+    {
+     "name": "イロドリミドリ／色彩過剰のダイアリーミュージック",
+     "id": null
+    }
+   ],
+   "wikiChecked": true
   },
   "2221": {
-   "releaseJP": "2022-07-07"
+   "releaseJP": "2022-07-07",
+   "characters": [
+    {
+     "name": "柏木 咲姫",
+     "id": 11030
+    }
+   ],
+   "wikiChecked": true
   },
   "2222": {
    "releaseJP": "2022-07-21"
@@ -2785,49 +5257,107 @@
    "releaseJP": "2022-07-21"
   },
   "2227": {
-   "releaseJP": "2022-07-21"
+   "releaseJP": "2022-07-21",
+   "wikiChecked": true
   },
   "2228": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "wikiChecked": true
   },
   "2229": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "characters": [
+    {
+     "name": "しゃま",
+     "id": null,
+     "face": 13810
+    },
+    {
+     "name": "ちびみるく",
+     "id": 1960
+    }
+   ]
   },
   "2230": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "characters": [
+    {
+     "name": "ダンディ",
+     "id": 14370
+    }
+   ]
   },
   "2231": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "characters": [
+    {
+     "name": "ロト・トゥエルヴ",
+     "id": 14380
+    }
+   ]
   },
   "2232": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "characters": [
+    {
+     "name": "マードゥク・アニマート",
+     "id": 14390
+    }
+   ]
   },
   "2233": {
-   "releaseJP": "2022-08-04"
+   "releaseJP": "2022-08-04",
+   "characters": [
+    {
+     "name": "カイナン・メルヴィアス",
+     "id": 14400
+    }
+   ]
   },
   "2234": {
    "releaseJP": "2022-08-18"
   },
   "2235": {
-   "releaseJP": "2022-08-18"
+   "releaseJP": "2022-08-18",
+   "wikiChecked": true
   },
   "2236": {
-   "releaseJP": "2022-08-18"
+   "releaseJP": "2022-08-18",
+   "wikiChecked": true
   },
   "2237": {
-   "releaseJP": "2022-08-18"
+   "releaseJP": "2022-08-18",
+   "wikiChecked": true
   },
   "2238": {
-   "releaseJP": "2022-08-18"
+   "releaseJP": "2022-08-18",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ]
   },
   "2239": {
    "releaseJP": "2022-09-01"
   },
   "2240": {
-   "releaseJP": "2022-09-01"
+   "releaseJP": "2022-09-01",
+   "characters": [
+    {
+     "name": "マルクトの女神",
+     "id": 14410
+    }
+   ]
   },
   "2241": {
-   "releaseJP": "2022-09-01"
+   "releaseJP": "2022-09-01",
+   "characters": [
+    {
+     "name": "覚醒者バシアン",
+     "id": 14420
+    }
+   ]
   },
   "2244": {
    "releaseJP": "2022-09-15"
@@ -2836,7 +5366,8 @@
    "releaseJP": "2022-09-15"
   },
   "2246": {
-   "releaseJP": "2022-09-15"
+   "releaseJP": "2022-09-15",
+   "wikiChecked": true
   },
   "2247": {
    "releaseJP": "2022-05-12"
@@ -2881,40 +5412,110 @@
    "releaseJP": "2022-10-13"
   },
   "2268": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "wikiChecked": true
   },
   "2269": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "アウル",
+     "id": 9990
+    }
+   ]
   },
   "2270": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "百合咲ミカ",
+     "id": 22080
+    }
+   ],
+   "wikiChecked": true
   },
   "2271": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ],
+   "wikiChecked": true
   },
   "2272": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "東雲 つむぎ",
+     "id": 13560
+    }
+   ],
+   "wikiChecked": true
   },
   "2273": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "冴川 芽依",
+     "id": 14930
+    }
+   ]
   },
   "2274": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "神園 零",
+     "id": 14940
+    }
+   ]
   },
   "2275": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "ヴァン",
+     "id": 14950
+    }
+   ]
   },
   "2276": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "幡桐 こよみ",
+     "id": 14960
+    }
+   ]
   },
   "2277": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "チキ＆ウリシュ",
+     "id": 14970
+    }
+   ]
   },
   "2278": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "ティリー・キャクストン",
+     "id": 14980
+    }
+   ]
   },
   "2279": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "フリーシア・ベイヤード",
+     "id": 14990
+    }
+   ]
   },
   "2285": {
    "releaseJP": "2022-10-27"
@@ -2932,16 +5533,47 @@
    "releaseJP": "2022-10-27"
   },
   "2293": {
-   "releaseJP": "2022-11-10"
+   "releaseJP": "2022-11-10",
+   "characters": [
+    {
+     "name": "小仏 凪／途惑いのクリスマス編",
+     "id": 14830
+    },
+    {
+     "name": "五十嵐 撫子／途惑いのクリスマス編",
+     "id": 14860
+    }
+   ]
   },
   "2294": {
-   "releaseJP": "2022-10-13"
+   "releaseJP": "2022-10-13",
+   "characters": [
+    {
+     "name": "井之原 小星",
+     "id": 11020
+    }
+   ],
+   "wikiChecked": true
   },
   "2295": {
-   "releaseJP": "2022-11-10"
+   "releaseJP": "2022-11-10",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2296": {
-   "releaseJP": "2022-11-10"
+   "releaseJP": "2022-11-10",
+   "characters": [
+    {
+     "name": "東雲 つむぎ",
+     "id": 13560
+    }
+   ],
+   "wikiChecked": true
   },
   "2297": {
    "releaseJP": "2023-10-26"
@@ -2974,22 +5606,54 @@
    "releaseJP": "2023-02-09"
   },
   "2307": {
-   "releaseJP": "2022-12-08"
+   "releaseJP": "2022-12-08",
+   "wikiChecked": true
   },
   "2309": {
-   "releaseJP": "2023-11-22"
+   "releaseJP": "2023-11-22",
+   "characters": [
+    {
+     "name": "藍原 椿",
+     "id": 10090
+    }
+   ],
+   "wikiChecked": true
   },
   "2310": {
-   "releaseJP": "2022-12-22"
+   "releaseJP": "2022-12-22",
+   "characters": [
+    {
+     "name": "安倍 八雲",
+     "id": 15390
+    }
+   ]
   },
   "2311": {
-   "releaseJP": "2022-12-22"
+   "releaseJP": "2022-12-22",
+   "characters": [
+    {
+     "name": "小鳥遊 えりか",
+     "id": 15400
+    }
+   ]
   },
   "2312": {
-   "releaseJP": "2022-12-22"
+   "releaseJP": "2022-12-22",
+   "characters": [
+    {
+     "name": "神開 つかさ",
+     "id": 15410
+    }
+   ]
   },
   "2313": {
-   "releaseJP": "2022-12-22"
+   "releaseJP": "2022-12-22",
+   "characters": [
+    {
+     "name": "薬研堀 ユウ",
+     "id": 15420
+    }
+   ]
   },
   "2314": {
    "releaseJP": "2023-01-12"
@@ -3007,10 +5671,27 @@
    "releaseJP": "2023-01-12"
   },
   "2319": {
-   "releaseJP": "2023-01-12"
+   "releaseJP": "2023-01-12",
+   "characters": [
+    {
+     "name": "箱部 なる／途惑いのクリスマス編",
+     "id": 14840
+    },
+    {
+     "name": "小野 美苗／途惑いのクリスマス編",
+     "id": 14890
+    }
+   ]
   },
   "2320": {
-   "releaseJP": "2023-01-12"
+   "releaseJP": "2023-01-12",
+   "characters": [
+    {
+     "name": "藍原 椿",
+     "id": 10090
+    }
+   ],
+   "wikiChecked": true
   },
   "2322": {
    "releaseJP": "2023-01-26"
@@ -3022,10 +5703,23 @@
    "releaseJP": "2023-01-26"
   },
   "2326": {
-   "releaseJP": "2023-02-27"
+   "releaseJP": "2023-02-27",
+   "characters": [
+    {
+     "name": "ちびみるく",
+     "id": 1960
+    }
+   ]
   },
   "2327": {
-   "releaseJP": "2023-02-27"
+   "releaseJP": "2023-02-27",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "2328": {
    "releaseJP": "2022-12-08"
@@ -3043,25 +5737,72 @@
    "releaseJP": "2022-12-08"
   },
   "2333": {
-   "releaseJP": "2023-02-09"
+   "releaseJP": "2023-02-09",
+   "characters": [
+    {
+     "name": "明坂 芹菜",
+     "id": 480
+    },
+    {
+     "name": "箱部 なる",
+     "id": 510
+    }
+   ]
   },
   "2334": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "2336": {
-   "releaseJP": "2023-02-22"
+   "releaseJP": "2023-02-22",
+   "characters": [
+    {
+     "name": "エリシャ・ムルシア",
+     "id": 15600
+    }
+   ]
   },
   "2337": {
-   "releaseJP": "2023-02-22"
+   "releaseJP": "2023-02-22",
+   "characters": [
+    {
+     "name": "ナディン・ナタナエル",
+     "id": 15610
+    }
+   ]
   },
   "2338": {
-   "releaseJP": "2023-02-22"
+   "releaseJP": "2023-02-22",
+   "characters": [
+    {
+     "name": "ドヴェルグ",
+     "id": 15620
+    }
+   ]
   },
   "2339": {
-   "releaseJP": "2023-02-22"
+   "releaseJP": "2023-02-22",
+   "characters": [
+    {
+     "name": "アンシャール・アウダーチア",
+     "id": 15630
+    }
+   ]
   },
   "2340": {
-   "releaseJP": "2023-03-02"
+   "releaseJP": "2023-03-02",
+   "characters": [
+    {
+     "name": "エヴァ・ドミナンスXII",
+     "id": 15770
+    }
+   ]
   },
   "2343": {
    "releaseJP": "2023-03-09"
@@ -3070,10 +5811,27 @@
    "releaseJP": "2023-03-09"
   },
   "2345": {
-   "releaseJP": "2023-03-09"
+   "releaseJP": "2023-03-09",
+   "characters": [
+    {
+     "name": "月鈴 白奈／途惑いのクリスマス編",
+     "id": 14850
+    },
+    {
+     "name": "葛城 華／途惑いのクリスマス編",
+     "id": 14880
+    }
+   ]
   },
   "2346": {
-   "releaseJP": "2023-03-09"
+   "releaseJP": "2023-03-09",
+   "characters": [
+    {
+     "name": "結城 莉玖",
+     "id": 10080
+    }
+   ],
+   "wikiChecked": true
   },
   "2347": {
    "releaseJP": "2023-03-23"
@@ -3091,7 +5849,14 @@
    "releaseJP": "2023-03-23"
   },
   "2352": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2353": {
    "releaseJP": "2023-04-01"
@@ -3103,46 +5868,100 @@
    "releaseJP": "2023-04-01"
   },
   "2356": {
-   "releaseJP": "2023-04-01"
+   "releaseJP": "2023-04-01",
+   "wikiChecked": true
   },
   "2358": {
-   "releaseJP": "2022-11-10"
+   "releaseJP": "2022-11-10",
+   "wikiChecked": true
   },
   "2361": {
    "releaseJP": "2023-04-13"
   },
   "2362": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "characters": [
+    {
+     "name": "でらっくま",
+     "id": 13830
+    },
+    {
+     "name": "らん",
+     "id": 13840
+    },
+    {
+     "name": "どりー",
+     "id": 13850
+    }
+   ]
   },
   "2363": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "wikiChecked": true
   },
   "2364": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "wikiChecked": true
   },
   "2365": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ]
   },
   "2366": {
-   "releaseJP": "2023-04-26"
+   "releaseJP": "2023-04-26",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ]
   },
   "2367": {
-   "releaseJP": "2022-11-10"
+   "releaseJP": "2022-11-10",
+   "wikiChecked": true
   },
   "2368": {
-   "releaseJP": "2022-12-22"
+   "releaseJP": "2022-12-22",
+   "wikiChecked": true
   },
   "2369": {
-   "releaseJP": "2023-01-26"
+   "releaseJP": "2023-01-26",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2370": {
-   "releaseJP": "2023-02-09"
+   "releaseJP": "2023-02-09",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ],
+   "wikiChecked": true
   },
   "2371": {
-   "releaseJP": "2023-02-22"
+   "releaseJP": "2023-02-22",
+   "wikiChecked": true
   },
   "2372": {
-   "releaseJP": "2023-03-23"
+   "releaseJP": "2023-03-23",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "2381": {
    "releaseJP": "2022-11-24"
@@ -3175,31 +5994,82 @@
    "releaseJP": "2023-05-11"
   },
   "2399": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "wikiChecked": true
   },
   "2400": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ],
+   "wikiChecked": true
   },
   "2401": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "東雲 つむぎ",
+     "id": 13560
+    }
+   ],
+   "wikiChecked": true
   },
   "2403": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "ウルガレオン",
+     "id": 17570
+    }
+   ]
   },
   "2404": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "宮岸 知花",
+     "id": 17590
+    }
+   ]
   },
   "2405": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "遊馬 万里亜",
+     "id": 17610
+    }
+   ]
   },
   "2406": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "アッシュ（ASH:3-013）",
+     "id": 17600
+    }
+   ]
   },
   "2407": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "エステル・ヤグルーシュ",
+     "id": 17530
+    }
+   ]
   },
   "2408": {
-   "releaseJP": "2023-05-11"
+   "releaseJP": "2023-05-11",
+   "characters": [
+    {
+     "name": "芒崎 奏／途惑いのクリスマス編",
+     "id": 14920
+    }
+   ]
   },
   "2409": {
    "releaseJP": "2023-05-25"
@@ -3223,10 +6093,18 @@
    "releaseJP": "2023-06-08"
   },
   "2416": {
-   "releaseJP": "2023-06-08"
+   "releaseJP": "2023-06-08",
+   "wikiChecked": true
   },
   "2417": {
-   "releaseJP": "2023-06-08"
+   "releaseJP": "2023-06-08",
+   "characters": [
+    {
+     "name": "東雲 つむぎ",
+     "id": 13560
+    }
+   ],
+   "wikiChecked": true
   },
   "2418": {
    "releaseJP": "2023-06-08"
@@ -3238,25 +6116,64 @@
    "releaseJP": "2023-06-22"
   },
   "2426": {
-   "releaseJP": "2023-06-22"
+   "releaseJP": "2023-06-22",
+   "characters": [
+    {
+     "name": "藍原 椿",
+     "id": 10090
+    }
+   ],
+   "wikiChecked": true
   },
   "2427": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "characters": [
+    {
+     "name": "導師 ミィム・ミクラー／真なる世界への祈り",
+     "id": 17670
+    }
+   ]
   },
   "2428": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "characters": [
+    {
+     "name": "不来方 とあ／僕たちの約束",
+     "id": 17680
+    }
+   ],
+   "wikiChecked": true
   },
   "2429": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "characters": [
+    {
+     "name": "レナ・イシュメイル／希望の灯火",
+     "id": 17700
+    }
+   ]
   },
   "2430": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "characters": [
+    {
+     "name": "宍戸 美鈴／It’s meant to be.",
+     "id": 17690
+    }
+   ]
   },
   "2431": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "characters": [
+    {
+     "name": "ミスラ・テルセーラ／新たなる希望",
+     "id": 17710
+    }
+   ]
   },
   "2432": {
-   "releaseJP": "2023-07-06"
+   "releaseJP": "2023-07-06",
+   "wikiChecked": true
   },
   "2433": {
    "releaseJP": "2023-07-20"
@@ -3274,25 +6191,77 @@
    "releaseJP": "2023-07-20"
   },
   "2438": {
-   "releaseJP": "2023-07-20"
+   "releaseJP": "2023-07-20",
+   "characters": [
+    {
+     "name": "藤沢 柚子",
+     "id": 10050
+    }
+   ],
+   "wikiChecked": true
   },
   "2439": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "レア・エ・フラータ",
+     "id": 17550
+    }
+   ]
   },
   "2440": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "ヴォイド",
+     "id": 17520
+    }
+   ]
   },
   "2441": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "セロ・ダーウィーズ",
+     "id": 17560
+    }
+   ]
   },
   "2442": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "ニア・バテシバ",
+     "id": 17540
+    }
+   ]
   },
   "2443": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "明坂 芹菜／途惑いのクリスマス編",
+     "id": 14800
+    },
+    {
+     "name": "萩原 七々瀬／途惑いのクリスマス編",
+     "id": 14870
+    },
+    {
+     "name": "芒崎 奏",
+     "id": 11160
+    }
+   ]
   },
   "2444": {
-   "releaseJP": "2023-08-03"
+   "releaseJP": "2023-08-03",
+   "characters": [
+    {
+     "name": "早乙女 彩華",
+     "id": 11050
+    }
+   ],
+   "wikiChecked": true
   },
   "2449": {
    "releaseJP": "2023-08-31"
@@ -3301,7 +6270,14 @@
    "releaseJP": "2023-08-31"
   },
   "2451": {
-   "releaseJP": "2023-08-31"
+   "releaseJP": "2023-08-31",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "2452": {
    "releaseJP": "2023-09-14"
@@ -3313,34 +6289,117 @@
    "releaseJP": "2023-09-14"
   },
   "2455": {
-   "releaseJP": "2023-09-14"
+   "releaseJP": "2023-09-14",
+   "characters": [
+    {
+     "name": "箱部 なる",
+     "id": 510
+    },
+    {
+     "name": "藤堂 陽南袴／途惑いのクリスマス編",
+     "id": 14900
+    },
+    {
+     "name": "天王洲 なずな／途惑いのクリスマス編",
+     "id": 14820
+    }
+   ]
   },
   "2456": {
-   "releaseJP": "2023-09-14"
+   "releaseJP": "2023-09-14",
+   "characters": [
+    {
+     "name": "桜井 春菜",
+     "id": 11040
+    }
+   ],
+   "wikiChecked": true
   },
   "2457": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "炎の精霊",
+     "id": 17620
+    }
+   ]
   },
   "2458": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "土の精霊",
+     "id": 17630
+    }
+   ]
   },
   "2459": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "風の精霊",
+     "id": 17640
+    }
+   ]
   },
   "2460": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "水の精霊",
+     "id": 17650
+    }
+   ]
   },
   "2461": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "希望の巫女 ネフェシェ",
+     "id": 17660
+    }
+   ]
   },
   "2463": {
-   "releaseJP": "2023-09-28"
+   "releaseJP": "2023-09-28",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2466": {
-   "releaseJP": "2023-10-12"
+   "releaseJP": "2023-10-12",
+   "characters": [
+    {
+     "name": "小仏 凪",
+     "id": 520
+    },
+    {
+     "name": "月鈴 白奈",
+     "id": 2070
+    },
+    {
+     "name": "御形 アリシアナ／途惑いのクリスマス編",
+     "id": 14810
+    },
+    {
+     "name": "桔梗 小夜曲／途惑いのクリスマス編",
+     "id": 14910
+    }
+   ]
   },
   "2467": {
-   "releaseJP": "2023-10-12"
+   "releaseJP": "2023-10-12",
+   "characters": [
+    {
+     "name": "白法院ラグ",
+     "id": 22100
+    }
+   ],
+   "wikiChecked": true
   },
   "2468": {
    "releaseJP": "2023-10-12"
@@ -3349,13 +6408,27 @@
    "releaseJP": "2023-10-12"
   },
   "2475": {
-   "releaseJP": "2023-10-26"
+   "releaseJP": "2023-10-26",
+   "characters": [
+    {
+     "name": "ヴェーネス",
+     "id": 17580
+    }
+   ]
   },
   "2476": {
-   "releaseJP": "2023-10-26"
+   "releaseJP": "2023-10-26",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ],
+   "wikiChecked": true
   },
   "2477": {
-   "releaseJP": "2023-11-02"
+   "releaseJP": "2023-11-02",
+   "wikiChecked": true
   },
   "2478": {
    "releaseJP": "2023-11-09"
@@ -3364,22 +6437,53 @@
    "releaseJP": "2023-11-09"
   },
   "2480": {
-   "releaseJP": "2023-11-09"
+   "releaseJP": "2023-11-09",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ],
+   "wikiChecked": true
   },
   "2482": {
    "releaseJP": "2023-11-09"
   },
   "2485": {
-   "releaseJP": "2023-11-22"
+   "releaseJP": "2023-11-22",
+   "characters": [
+    {
+     "name": "井之原 小星",
+     "id": 11020
+    }
+   ],
+   "wikiChecked": true
   },
   "2486": {
-   "releaseJP": "2023-11-22"
+   "releaseJP": "2023-11-22",
+   "characters": [
+    {
+     "name": "百合咲ミカ",
+     "id": 22080
+    }
+   ]
   },
   "2487": {
-   "releaseJP": "2023-11-22"
+   "releaseJP": "2023-11-22",
+   "characters": [
+    {
+     "name": "らいむっくま",
+     "id": 17070
+    },
+    {
+     "name": "れもんっくま",
+     "id": 17080
+    }
+   ]
   },
   "2488": {
-   "releaseJP": "2023-11-22"
+   "releaseJP": "2023-11-22",
+   "wikiChecked": true
   },
   "2493": {
    "releaseJP": "2023-12-14"
@@ -3517,103 +6621,284 @@
    "releaseJP": "2024-05-23"
   },
   "2549": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "箱部 なる／卒業編",
+     "id": 18800
+    }
+   ]
   },
   "2550": {
-   "releaseJP": "2024-02-08"
+   "releaseJP": "2024-02-08",
+   "characters": [
+    {
+     "name": "天王洲 なずな／卒業編",
+     "id": 18810
+    }
+   ]
   },
   "2552": {
-   "releaseJP": "2024-05-09"
+   "releaseJP": "2024-05-09",
+   "characters": [
+    {
+     "name": "月鈴 白奈／卒業編",
+     "id": 18850
+    }
+   ]
   },
   "2553": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "星咲 あかり＆式宮 舞菜",
+     "id": null,
+     "face": 19130
+    }
+   ],
+   "wikiChecked": true
   },
   "2554": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "日向 千夏",
+     "id": 13540
+    }
+   ],
+   "wikiChecked": true
   },
   "2555": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "wikiChecked": true
   },
   "2556": {
-   "releaseJP": "2024-02-29"
+   "releaseJP": "2024-02-29",
+   "wikiChecked": true
   },
   "2557": {
-   "releaseJP": "2024-02-08"
+   "releaseJP": "2024-02-08",
+   "characters": [
+    {
+     "name": "九條 楓",
+     "id": 12950
+    }
+   ],
+   "wikiChecked": true
   },
   "2559": {
-   "releaseJP": "2024-03-07"
+   "releaseJP": "2024-03-07",
+   "characters": [
+    {
+     "name": "早乙女 彩華",
+     "id": 11050
+    }
+   ]
   },
   "2560": {
-   "releaseJP": "2024-04-11"
+   "releaseJP": "2024-04-11",
+   "wikiChecked": true
   },
   "2561": {
-   "releaseJP": "2024-06-06"
+   "releaseJP": "2024-06-06",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2562": {
-   "releaseJP": "2024-06-06"
+   "releaseJP": "2024-06-06",
+   "characters": [
+    {
+     "name": "皇城 セツナ＆式宮 碧音",
+     "id": null,
+     "face": 19140
+    }
+   ],
+   "wikiChecked": true
   },
   "2563": {
-   "releaseJP": "2024-06-06"
+   "releaseJP": "2024-06-06",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ],
+   "wikiChecked": true
   },
   "2564": {
-   "releaseJP": "2024-06-06"
+   "releaseJP": "2024-06-06",
+   "wikiChecked": true
   },
   "2565": {
-   "releaseJP": "2024-06-06"
+   "releaseJP": "2024-06-06",
+   "characters": [
+    {
+     "name": "高麗",
+     "id": 19090
+    }
+   ]
   },
   "2566": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "八月朔日 みはね",
+     "id": 18600
+    }
+   ]
   },
   "2567": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "犬公 ミミ美",
+     "id": 18610
+    }
+   ]
   },
   "2568": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "御茶ノ水 遥",
+     "id": 18630
+    }
+   ]
   },
   "2569": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "Android_type_Cleaner-2145",
+     "id": 18650
+    }
+   ]
   },
   "2570": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "ソロ・モーニア／メタヴァース適応体",
+     "id": 18660
+    }
+   ]
   },
   "2571": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "周防 パトラ",
+     "id": 20740
+    }
+   ]
   },
   "2572": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "長瀬有花／驚異の魔法",
+     "id": 18670
+    }
+   ]
   },
   "2573": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "characters": [
+    {
+     "name": "somunia／liberate",
+     "id": 18690
+    }
+   ]
   },
   "2574": {
-   "releaseJP": "2024-02-22"
+   "releaseJP": "2024-02-22",
+   "characters": [
+    {
+     "name": "ゴダイ",
+     "id": 18700
+    }
+   ]
   },
   "2575": {
-   "releaseJP": "2024-02-22"
+   "releaseJP": "2024-02-22",
+   "characters": [
+    {
+     "name": "モフマロ",
+     "id": 18710
+    }
+   ]
   },
   "2576": {
-   "releaseJP": "2024-02-22"
+   "releaseJP": "2024-02-22",
+   "characters": [
+    {
+     "name": "ヤクオン",
+     "id": 18720
+    }
+   ]
   },
   "2577": {
-   "releaseJP": "2024-02-22"
+   "releaseJP": "2024-02-22",
+   "characters": [
+    {
+     "name": "ロイ",
+     "id": 18730
+    }
+   ]
   },
   "2578": {
-   "releaseJP": "2024-02-22"
+   "releaseJP": "2024-02-22",
+   "characters": [
+    {
+     "name": "タキザワ",
+     "id": 18740
+    }
+   ]
   },
   "2579": {
-   "releaseJP": "2024-02-29"
+   "releaseJP": "2024-02-29",
+   "characters": [
+    {
+     "name": "アストライア／審判の炎",
+     "id": 18750
+    }
+   ]
   },
   "2580": {
-   "releaseJP": "2024-04-25"
+   "releaseJP": "2024-04-25",
+   "characters": [
+    {
+     "name": "エル・リベルテ",
+     "id": 18760
+    }
+   ]
   },
   "2581": {
-   "releaseJP": "2024-04-25"
+   "releaseJP": "2024-04-25",
+   "characters": [
+    {
+     "name": "ミスラ・テルセーラ／REメタヴァース",
+     "id": 18770
+    }
+   ]
   },
   "2582": {
-   "releaseJP": "2024-05-09"
+   "releaseJP": "2024-05-09",
+   "characters": [
+    {
+     "name": "バテシバ／メタヴァース異体",
+     "id": 18790
+    }
+   ]
   },
   "2583": {
-   "releaseJP": "2023-12-14"
+   "releaseJP": "2023-12-14",
+   "wikiChecked": true
   },
   "2584": {
    "releaseJP": "2024-06-20"
@@ -3640,37 +6925,95 @@
    "releaseJP": "2024-06-20"
   },
   "2596": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "御形 アリシアナ／卒業編",
+     "id": 20450
+    }
+   ]
   },
   "2597": {
-   "releaseJP": "2024-07-04"
+   "releaseJP": "2024-07-04",
+   "characters": [
+    {
+     "name": "皇城 セツナ",
+     "id": 14160
+    }
+   ],
+   "wikiChecked": true
   },
   "2598": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "wikiChecked": true
   },
   "2599": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "三角 葵",
+     "id": 10060
+    }
+   ],
+   "wikiChecked": true
   },
   "2600": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "wikiChecked": true
   },
   "2601": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "JiИ",
+     "id": 20230
+    }
+   ]
   },
   "2602": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "羽生 二三",
+     "id": 20240
+    }
+   ]
   },
   "2603": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "ライチ・アエーシュマ",
+     "id": 20250
+    }
+   ]
   },
   "2604": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "興石 甜香",
+     "id": 20260
+    }
+   ]
   },
   "2605": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "淀川 沙音瑠／たこやきデイドリーム",
+     "id": 20350
+    }
+   ]
   },
   "2606": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "ピリオ",
+     "id": 370
+    }
+   ]
   },
   "2610": {
    "releaseJP": "2024-07-04"
@@ -3679,28 +7022,70 @@
    "releaseJP": "2024-07-04"
   },
   "2612": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "ナイ／サンカヨウの子守唄",
+     "id": 20290
+    }
+   ]
   },
   "2613": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "MIR-203【セレネ・シェリル】／ウィアトル",
+     "id": 20300
+    }
+   ]
   },
   "2614": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "メリム／癒しの陽光",
+     "id": 19100
+    }
+   ]
   },
   "2615": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "ロト・トゥエルヴ／赤き死神",
+     "id": 20320
+    }
+   ]
   },
   "2616": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "覚醒者バシアン／残滓黎明",
+     "id": 20330
+    }
+   ]
   },
   "2618": {
    "releaseJP": "2024-08-01"
   },
   "2619": {
-   "releaseJP": "2024-08-01"
+   "releaseJP": "2024-08-01",
+   "characters": [
+    {
+     "name": "小仏 凪／卒業編",
+     "id": 20460
+    }
+   ]
   },
   "2620": {
-   "releaseJP": "2024-07-18"
+   "releaseJP": "2024-07-18",
+   "characters": [
+    {
+     "name": "白法院ラグ",
+     "id": 22100
+    }
+   ]
   },
   "2621": {
    "releaseJP": "2024-08-08"
@@ -3715,7 +7100,8 @@
    "releaseJP": "2024-08-08"
   },
   "2625": {
-   "releaseJP": "2024-08-22"
+   "releaseJP": "2024-08-22",
+   "wikiChecked": true
   },
   "2629": {
    "releaseJP": "2024-09-19"
@@ -3730,25 +7116,68 @@
    "releaseJP": "2024-09-19"
   },
   "2633": {
-   "releaseJP": "2024-09-19"
+   "releaseJP": "2024-09-19",
+   "characters": [
+    {
+     "name": "明坂 芹菜／卒業編",
+     "id": 20470
+    }
+   ]
   },
   "2634": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2635": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "陽川 ユエ",
+     "id": 20340
+    }
+   ]
   },
   "2636": {
-   "releaseJP": "2024-06-20"
+   "releaseJP": "2024-06-20",
+   "characters": [
+    {
+     "name": "明光澤 米子",
+     "id": 20270
+    }
+   ]
   },
   "2637": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "九蓮宝燈",
+     "id": 20360
+    }
+   ]
   },
   "2638": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "有栖川 真莉愛",
+     "id": 20370
+    }
+   ]
   },
   "2639": {
-   "releaseJP": "2024-09-05"
+   "releaseJP": "2024-09-05",
+   "characters": [
+    {
+     "name": "土呂城 ゆい／欲楽の夢",
+     "id": 20380
+    }
+   ]
   },
   "2641": {
    "releaseJP": "2024-10-03"
@@ -3760,34 +7189,85 @@
    "releaseJP": "2024-08-22"
   },
   "2644": {
-   "releaseJP": "2024-10-17"
+   "releaseJP": "2024-10-17",
+   "characters": [
+    {
+     "name": "早乙女 彩華",
+     "id": 11050
+    }
+   ],
+   "wikiChecked": true
   },
   "2645": {
-   "releaseJP": "2024-10-17"
+   "releaseJP": "2024-10-17",
+   "characters": [
+    {
+     "name": "ピュエル・バビステ",
+     "id": 20390
+    }
+   ]
   },
   "2646": {
-   "releaseJP": "2024-10-17"
+   "releaseJP": "2024-10-17",
+   "characters": [
+    {
+     "name": "リズリスヴェル",
+     "id": 20400
+    }
+   ]
   },
   "2647": {
-   "releaseJP": "2024-10-17"
+   "releaseJP": "2024-10-17",
+   "characters": [
+    {
+     "name": "ラフィン・ベネルエム",
+     "id": 20410
+    }
+   ]
   },
   "2648": {
-   "releaseJP": "2024-10-17"
+   "releaseJP": "2024-10-17",
+   "characters": [
+    {
+     "name": "コンダクター",
+     "id": 20420
+    }
+   ]
   },
   "2650": {
-   "releaseJP": "2024-10-31"
+   "releaseJP": "2024-10-31",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "2651": {
-   "releaseJP": "2024-11-14"
+   "releaseJP": "2024-11-14",
+   "characters": [
+    {
+     "name": "アレウス／天魔咆哮",
+     "id": 14520
+    }
+   ]
   },
   "2652": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "characters": [
+    {
+     "name": "ヴァルマシアゴースト",
+     "id": 20440
+    }
+   ]
   },
   "2653": {
    "releaseJP": "2024-11-14"
   },
   "2654": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "wikiChecked": true
   },
   "2657": {
    "releaseJP": "2024-07-04"
@@ -3805,10 +7285,23 @@
    "releaseJP": "2024-11-14"
   },
   "2663": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "characters": [
+    {
+     "name": "星咲 あかり",
+     "id": 10040
+    }
+   ],
+   "wikiChecked": true
   },
   "2665": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "characters": [
+    {
+     "name": "LED",
+     "id": 20160
+    }
+   ]
   },
   "2670": {
    "releaseJP": "2024-11-14"
@@ -3832,10 +7325,12 @@
    "releaseJP": "2024-10-03"
   },
   "2680": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "wikiChecked": true
   },
   "2681": {
-   "releaseJP": "2024-11-28"
+   "releaseJP": "2024-11-28",
+   "wikiChecked": true
   },
   "2683": {
    "releaseJP": "2024-12-12"
@@ -3883,40 +7378,97 @@
    "releaseJP": "2024-12-12"
   },
   "2700": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "wikiChecked": true
   },
   "2702": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "柏木 咲姫",
+     "id": 11030
+    }
+   ]
   },
   "2703": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "wikiChecked": true
   },
   "2704": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "wikiChecked": true
   },
   "2705": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "蛇狩 あこ",
+     "id": 22250
+    }
+   ]
   },
   "2706": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "柴村 ユカリ",
+     "id": 22260
+    }
+   ]
   },
   "2707": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "法月 ぴこ",
+     "id": 22270
+    }
+   ]
   },
   "2708": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "鬼蝮 ユリア／null☆nulllぱにっく",
+     "id": 22280
+    }
+   ]
   },
   "2709": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "ウィリアム・ウィンスレッド",
+     "id": 22290
+    }
+   ]
   },
   "2710": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "アイリーニ・キュリアス",
+     "id": 22300
+    }
+   ]
   },
   "2711": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "モモ＆ジジ",
+     "id": 22310
+    }
+   ]
   },
   "2712": {
-   "releaseJP": "2024-12-12"
+   "releaseJP": "2024-12-12",
+   "characters": [
+    {
+     "name": "ムッシュ・シャポー",
+     "id": 22240
+    }
+   ]
   },
   "2713": {
    "releaseJP": "2025-01-23"
@@ -3946,22 +7498,53 @@
    "releaseJP": "2025-05-08"
   },
   "2722": {
-   "releaseJP": "2025-01-09"
+   "releaseJP": "2025-01-09",
+   "characters": [
+    {
+     "name": "やまだっち",
+     "id": 22320
+    }
+   ]
   },
   "2728": {
-   "releaseJP": "2025-02-06"
+   "releaseJP": "2025-02-06",
+   "characters": [
+    {
+     "name": "アルミナ・フラム",
+     "id": 22330
+    }
+   ]
   },
   "2729": {
-   "releaseJP": "2025-02-06"
+   "releaseJP": "2025-02-06",
+   "characters": [
+    {
+     "name": "エレハイム・エルデ",
+     "id": 22340
+    }
+   ]
   },
   "2730": {
-   "releaseJP": "2025-02-06"
+   "releaseJP": "2025-02-06",
+   "characters": [
+    {
+     "name": "メア・グランディーネ",
+     "id": 22350
+    }
+   ]
   },
   "2731": {
-   "releaseJP": "2025-02-06"
+   "releaseJP": "2025-02-06",
+   "characters": [
+    {
+     "name": "リエア・リエル",
+     "id": 22360
+    }
+   ]
   },
   "2733": {
-   "releaseJP": "2025-02-06"
+   "releaseJP": "2025-02-06",
+   "wikiChecked": true
   },
   "2735": {
    "releaseJP": "2025-01-09"
@@ -3973,10 +7556,24 @@
    "releaseJP": "2025-01-09"
   },
   "2738": {
-   "releaseJP": "2025-01-23"
+   "releaseJP": "2025-01-23",
+   "characters": [
+    {
+     "name": "逢坂 茜",
+     "id": 12960
+    }
+   ],
+   "wikiChecked": true
   },
   "2739": {
-   "releaseJP": "2025-02-27"
+   "releaseJP": "2025-02-27",
+   "characters": [
+    {
+     "name": "光＆MIR-203【セレネ・シェリル】",
+     "id": 22380
+    }
+   ],
+   "wikiChecked": true
   },
   "2740": {
    "releaseJP": "2025-06-05"
@@ -3988,7 +7585,13 @@
    "releaseJP": "2025-06-05"
   },
   "2744": {
-   "releaseJP": "2025-03-06"
+   "releaseJP": "2025-03-06",
+   "characters": [
+    {
+     "name": "バーニッシュ／煉獄のグロウル",
+     "id": 22390
+    }
+   ]
   },
   "2745": {
    "releaseJP": "2025-03-19"
@@ -4003,7 +7606,14 @@
    "releaseJP": "2025-03-19"
   },
   "2749": {
-   "releaseJP": "2025-03-27"
+   "releaseJP": "2025-03-27",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "2750": {
    "releaseJP": "2025-03-06"
@@ -4024,25 +7634,57 @@
    "releaseJP": "2025-04-24"
   },
   "2763": {
-   "releaseJP": "2025-04-24"
+   "releaseJP": "2025-04-24",
+   "wikiChecked": true
   },
   "2764": {
-   "releaseJP": "2025-04-10"
+   "releaseJP": "2025-04-10",
+   "characters": [
+    {
+     "name": "リンネ",
+     "id": 22410
+    }
+   ]
   },
   "2765": {
-   "releaseJP": "2025-04-10"
+   "releaseJP": "2025-04-10",
+   "characters": [
+    {
+     "name": "ラヴィーナ・キトゥン",
+     "id": 22420
+    }
+   ]
   },
   "2766": {
-   "releaseJP": "2025-04-10"
+   "releaseJP": "2025-04-10",
+   "characters": [
+    {
+     "name": "アストル",
+     "id": 22430
+    }
+   ]
   },
   "2767": {
-   "releaseJP": "2025-04-10"
+   "releaseJP": "2025-04-10",
+   "characters": [
+    {
+     "name": "クレイ＝グ",
+     "id": 22440
+    }
+   ]
   },
   "2768": {
-   "releaseJP": "2025-06-05"
+   "releaseJP": "2025-06-05",
+   "characters": [
+    {
+     "name": "アンク",
+     "id": 22450
+    }
+   ]
   },
   "2769": {
-   "releaseJP": "2025-05-21"
+   "releaseJP": "2025-05-21",
+   "wikiChecked": true
   },
   "2771": {
    "releaseJP": "2025-05-21"
@@ -4054,16 +7696,35 @@
    "releaseJP": "2025-06-19"
   },
   "2782": {
-   "releaseJP": "2025-07-03"
+   "releaseJP": "2025-07-03",
+   "characters": [
+    {
+     "name": "井之原 小星",
+     "id": 11020
+    }
+   ],
+   "wikiChecked": true
   },
   "2783": {
-   "releaseJP": "2025-07-03"
+   "releaseJP": "2025-07-03",
+   "wikiChecked": true
   },
   "2784": {
-   "releaseJP": "2025-07-03"
+   "releaseJP": "2025-07-03",
+   "wikiChecked": true
   },
   "2785": {
-   "releaseJP": "2025-07-03"
+   "releaseJP": "2025-07-03",
+   "characters": [
+    {
+     "name": "白銅寺アズリ",
+     "id": 22090
+    },
+    {
+     "name": "百合咲ミカ",
+     "id": 22080
+    }
+   ]
   },
   "2787": {
    "releaseJP": "2025-05-21"
@@ -4084,13 +7745,26 @@
    "releaseJP": "2025-01-23"
   },
   "2800": {
-   "releaseJP": "2025-03-27"
+   "releaseJP": "2025-03-27",
+   "characters": [
+    {
+     "name": "高瀬 梨緒",
+     "id": 10070
+    }
+   ],
+   "wikiChecked": true
   },
   "2801": {
    "releaseJP": "2025-05-21"
   },
   "2802": {
-   "releaseJP": "2025-06-19"
+   "releaseJP": "2025-06-19",
+   "characters": [
+    {
+     "name": "ラルヴァ",
+     "id": 22970
+    }
+   ]
   },
   "2803": {
    "releaseJP": "2025-06-19"
@@ -4099,7 +7773,14 @@
    "releaseJP": "2025-06-19"
   },
   "2805": {
-   "releaseJP": "2025-07-03"
+   "releaseJP": "2025-07-03",
+   "characters": [
+    {
+     "name": "柏木 美亜",
+     "id": 13550
+    }
+   ],
+   "wikiChecked": true
   },
   "2806": {
    "releaseJP": "2024-12-12"
@@ -4156,37 +7837,100 @@
    "releaseJP": "2025-07-16"
   },
   "2827": {
-   "releaseJP": "2025-07-31"
+   "releaseJP": "2025-07-31",
+   "characters": [
+    {
+     "name": "珠洲島 有栖",
+     "id": 12970
+    }
+   ],
+   "wikiChecked": true
   },
   "2828": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "wikiChecked": true
   },
   "2829": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "九條 楓",
+     "id": 12950
+    }
+   ],
+   "wikiChecked": true
   },
   "2831": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "アイビス・ハービンジャー",
+     "id": 24210
+    }
+   ]
   },
   "2832": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "ヒルデ",
+     "id": 24220
+    }
+   ]
   },
   "2833": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "エヴェレット・ウィンスレッド",
+     "id": 24230
+    }
+   ]
   },
   "2834": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "タクヤ",
+     "id": 24200
+    }
+   ]
   },
   "2835": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "アンナプルナ／かみさまのつばさ",
+     "id": 24240
+    }
+   ]
   },
   "2836": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "藍月なくる",
+     "id": 24180
+    }
+   ]
   },
   "2837": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "棗いつき",
+     "id": 24190
+    }
+   ]
   },
   "2838": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "characters": [
+    {
+     "name": "覚醒機神 トール",
+     "id": 111
+    }
+   ]
   },
   "2839": {
    "releaseJP": "2025-07-31"
@@ -4201,22 +7945,48 @@
    "releaseJP": "2025-07-31"
   },
   "2843": {
-   "releaseJP": "2025-08-07"
+   "releaseJP": "2025-08-07",
+   "characters": [
+    {
+     "name": "山穿轟突のガイアス",
+     "id": 24260
+    }
+   ]
   },
   "2844": {
-   "releaseJP": "2025-08-07"
+   "releaseJP": "2025-08-07",
+   "characters": [
+    {
+     "name": "Lauretta",
+     "id": 24270
+    }
+   ]
   },
   "2845": {
-   "releaseJP": "2025-08-07"
+   "releaseJP": "2025-08-07",
+   "characters": [
+    {
+     "name": "ソラマチ・メメ／未来のアドベンチャー",
+     "id": 24280
+    }
+   ]
   },
   "2846": {
-   "releaseJP": "2025-08-07"
+   "releaseJP": "2025-08-07",
+   "characters": [
+    {
+     "name": "ティアマット／ツァイトエンデ",
+     "id": 2401
+    }
+   ]
   },
   "2847": {
-   "releaseJP": "2025-07-16"
+   "releaseJP": "2025-07-16",
+   "wikiChecked": true
   },
   "2848": {
-   "releaseJP": "2025-08-07"
+   "releaseJP": "2025-08-07",
+   "wikiChecked": true
   },
   "8000": {
    "releaseJP": "2016-02-18"
@@ -4353,7 +8123,7 @@
  },
  "sources": {
   "releaseJP": "OTOGE DB（github.com/zvuc/otoge-db）chunithm/data/music-ex.json 的 date_added",
-  "characters": "CHUNITHM 攻略 wiki（wikiwiki.jp/chunithmwiki）曲目页的「対応キャラ」，按名字对上落雪角色列表的 ID"
+  "characters": "CHUNITHM 攻略 wiki（wikiwiki.jp/chunithmwiki）「キャラクター世界観」1～3 页的角色和主题曲表，那里没有的曲子查曲目页的「対応キャラ」；按名字对上落雪角色列表的 ID"
  },
- "generatedAt": "2026-10-16T02:34:10.433Z"
+ "generatedAt": "2026-10-16T06:34:46.400Z"
 }
