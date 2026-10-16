@@ -18,11 +18,15 @@
     "probe": "node tools/probe-qq.cjs",
     "preview": "node tools/render-preview.cjs",
     "song-extras": "node tools/build-song-extras.cjs",
+    "song-search": "node tools/build-song-search.cjs",
     "theme": "node tools/theme-server.cjs",
     "try": "node tools/try.cjs",
     "vault-key": "node tools/vault-key.cjs"
   },
   "dependencies": {
     "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "opencc-js": "1.4.2"
   }
 }

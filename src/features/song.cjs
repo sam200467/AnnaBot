@@ -108,12 +108,13 @@ module.exports = Object.assign({
     if (!query) return ctx.reply(ctx.voice.songUsage);
     const { catalog } = ctx.services;
     // 认歌放在排队前面：认不准时马上回候选，不占出图队列
-    const { song, candidates } = catalog.resolve(query);
+    const { song, candidates, fuzzy } = catalog.resolve(query);
     if (!song) {
       if (!candidates.length) return ctx.reply(ctx.voice.songNotFound(query));
       const shown = candidates.slice(0, MAX_CANDIDATES);
       const lines = shown.map((item) => ctx.voice.songCandidate(item, catalog.isWorldsEnd(item)));
-      return ctx.reply(ctx.voice.songAmbiguous(query, lines, candidates.length - shown.length));
+      const more = candidates.length - shown.length;
+      return ctx.reply(fuzzy ? ctx.voice.songMaybe(query, lines, more) : ctx.voice.songAmbiguous(query, lines, more));
     }
     await ctx.image({
       kind: "song",

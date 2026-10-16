@@ -57,10 +57,13 @@ const V = {
     (canAuthorize ? "发「/授权」后按全部成绩算，就不会漏了。" : ""),
 
   // ── /单曲 ──
-  songUsage: "用法：/单曲 曲名\n写曲名的一部分、别名或者曲目 ID（id850）都行。@ 别人可以看 TA 的成绩。",
+  songUsage: "用法：/单曲 曲名\n写曲名的一部分、别名或者曲目 ID（id850）都行，简体繁体、假名罗马音也认。@ 别人可以看 TA 的成绩。",
   songNotFound: (query) => "没找到「" + query + "」这首歌。换个写法试试：曲名的一部分、别名，或者曲目 ID（id850）。",
   songAmbiguous: (query, lines, more) => "「" + query + "」对上了好几首，用 ID 再发一次吧：\n" + lines.join("\n") +
     (more > 0 ? "\n……还有 " + more + " 首，写得再完整一点能少一些" : ""),
+  // 曲名没对上，猜了几首相近的（拼错了、抄曲名时连作者一起抄进来了），只有一首也要玩家自己确认
+  songMaybe: (query, lines, more) => "没找到「" + query + "」，是不是" + (lines.length > 1 ? "这几首里的" : "这首") + "？是的话用 ID 再发一次吧：\n" +
+    lines.join("\n") + (more > 0 ? "\n……还有 " + more + " 首" : ""),
   // 候选列表的一行：id850　《混乱》 ～ Muspell（Norn）；WE 版在后面标出来
   songCandidate: (song, worldsEnd) => "id" + song.id + "　" + song.title + (worldsEnd ? "【WORLD'S END】" : "") + (song.artist ? "（" + song.artist + "）" : ""),
 

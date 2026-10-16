@@ -11,28 +11,31 @@
 //   - 别名 787 条，其中 21 条指向曲库里没有的曲目（忽略），14 个别名被好几首歌共用
 // 2026-10-16 起曲目列表带物量（song/list?notes=true，/单曲 要用），缓存文件里记一个 notes: true。
 // 之前写的缓存没有这个标记、也没有物量，当成过期的去重拉（拉不到时照样用它，只是没有物量）。
+// 认歌（search / resolve）的规则在 song-search.cjs：简繁日汉字互通、假名和罗马音、拼错了给相近的候选。
 
 const fs = require("node:fs");
 const path = require("node:path");
+const { createSearchIndex, loadSearchData } = require("./song-search.cjs");
 
 const LEVELS = ["BASIC", "ADVANCED", "EXPERT", "MASTER", "ULTIMA", "WORLD'S END"];
 const WORLDS_END = 5;
 
-// 宽松形式：去掉空格和常见标点，大小写、全半角统一。全是符号的曲名去完是空的，那时退回 plain。
+// 宽松形式：去掉空格和常见标点，大小写、全半角统一（tools/build-song-extras.cjs 拿它对 wiki 上的曲名；搜索用 song-search.cjs 的）
 const loose = (text) => String(text ?? "").normalize("NFKC").toLowerCase()
   .replace(/[\s　・·\-_~〜～!！?？.,，。、:：;；'"“”‘’`()（）[\]【】「」『』<>《》]/g, "");
-const plain = (text) => String(text ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, " ").trim();
-const key = (text) => loose(text) || plain(text);
 
 const isWorldsEnd = (song) => Boolean(song?.difficulties?.some((d) => d.difficulty === WORLDS_END));
+// 曲绘 ID：WE 用原曲的（读音也用原曲的）
+const jacketId = (song) => (isWorldsEnd(song) ? song.difficulties[0].origin_id || song.id : song.id);
 
-function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = Date.now, log = () => {} } = {}) {
+// searchData：认歌用的异体字表和读音（默认读 src/data/song-search.json，测试可以换）
+function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = Date.now, log = () => {}, searchData = loadSearchData() } = {}) {
   const songsFile = path.join(cacheDir, "songs.json");
   const aliasesFile = path.join(cacheDir, "aliases.json");
   let data = null;          // { songs, genres, versions }
   let aliasMap = new Map(); // songId -> string[]
   let byId = new Map();
-  let index = [];
+  let index = null;
   let fetchedAt = 0;
   let timer = null;
 
@@ -44,11 +47,7 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
       if (!byId.has(entry.song_id)) continue;
       aliasMap.set(entry.song_id, [...(aliasMap.get(entry.song_id) || []), ...entry.aliases]);
     }
-    index = songList.songs.map((song) => ({
-      song,
-      title: key(song.title),
-      aliases: (aliasMap.get(song.id) || []).map(key).filter(Boolean),
-    }));
+    index = createSearchIndex({ songs: songList.songs, aliasesOf: (id) => aliasMap.get(id) || [], originOf: jacketId, isWorldsEnd, data: searchData });
     fetchedAt = at;
   }
 
@@ -118,47 +117,23 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
     if (!data) throw new Error("曲库还没加载（先 await catalog.ready()）");
   }
 
-  // 排名：0 id123 写法｜1 曲名完全一致、或纯数字对上 ID｜2 别名完全一致｜3 曲名开头｜4 别名开头｜5 曲名包含｜6 别名包含
-  // 同一名次里普通曲排在 WE 前面，再按 ID。
+  // [{ song, rank, via, gap, fuzzy }]，按排名排好（排名表见 song-search.cjs 的文件头）
   function search(query, { limit = 20 } = {}) {
     requireData();
-    const raw = String(query ?? "").normalize("NFKC").trim();
-    if (!raw) return [];
-    const hits = new Map();
-    const add = (song, rank, via) => {
-      if (!song) return;
-      const previous = hits.get(song.id);
-      if (!previous || rank < previous.rank) hits.set(song.id, { song, rank, via });
-    };
-    const idOnly = raw.match(/^id\s*(\d{1,5})$/i);
-    if (idOnly) {
-      add(byId.get(Number(idOnly[1])), 0, "id");
-    } else {
-      if (/^\d{1,5}$/.test(raw)) add(byId.get(Number(raw)), 1, "id");
-      const q = key(raw);
-      for (const item of index) {
-        if (item.title === q) add(item.song, 1, "title");
-        else if (item.aliases.includes(q)) add(item.song, 2, "alias");
-        else if (item.title.startsWith(q)) add(item.song, 3, "title");
-        else if (item.aliases.some((alias) => alias.startsWith(q))) add(item.song, 4, "alias");
-        else if (q.length >= 2 && item.title.includes(q)) add(item.song, 5, "title");
-        else if (q.length >= 2 && item.aliases.some((alias) => alias.includes(q))) add(item.song, 6, "alias");
-      }
-    }
-    return [...hits.values()]
-      .sort((a, b) => a.rank - b.rank || Number(isWorldsEnd(a.song)) - Number(isWorldsEnd(b.song)) || a.song.id - b.song.id)
-      .slice(0, limit);
+    return index.search(query, { limit });
   }
 
   // 认出唯一一首就给 song；认不准时 song 是 null，candidates 按排名列出来让玩家挑。
   // 普通曲和它的 WE 版同名时取普通曲（WE 留在 candidates 里），要 WE 的功能自己挑。
+  // 曲名相近的、查询词里含着曲名的只是猜的（fuzzy: true），只有一首也不直接认定，让玩家确认。
   function resolve(query) {
     const results = search(query, { limit: 30 });
-    if (!results.length) return { song: null, candidates: [] };
-    const best = results.filter((r) => r.rank === results[0].rank);
+    const candidates = results.map((r) => r.song);
+    if (!results.length || results[0].fuzzy) return { song: null, candidates, fuzzy: Boolean(results.length) };
+    const best = results.filter((r) => r.rank === results[0].rank && r.gap === results[0].gap);
     const normal = best.filter((r) => !isWorldsEnd(r.song));
     const pool = normal.length ? normal : best;
-    return { song: pool.length === 1 ? pool[0].song : null, candidates: results.map((r) => r.song) };
+    return { song: pool.length === 1 ? pool[0].song : null, candidates, fuzzy: false };
   }
 
   // 已经有曲目上线的最新版本（版本表里可能先列出还没有曲目的下一个版本）。
@@ -187,8 +162,7 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
     search,
     resolve,
     isWorldsEnd,
-    // 曲绘 ID：WE 用原曲的
-    jacketId: (song) => (isWorldsEnd(song) ? song.difficulties[0].origin_id || song.id : song.id),
+    jacketId,
     // 版本名：落雪曲目的 version 是首次出现的版本号（14000），换成版本表里的名字（CHUNITHM CRYSTAL）。
     // 版本表里没有正好这个号的，取不超过它的最近一个版本
     versionTitle: (song) => {
