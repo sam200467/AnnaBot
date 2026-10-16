@@ -45,9 +45,12 @@ const MAX_PIXELS = 50_000_000;
 
 // 浏览器临时目录的前缀，清扫按它认
 const PROFILE_PREFIX = "anna-render-";
-// 清扫只删建了这么久的：一张图最多一分多钟（起浏览器 30 秒 + 等主题 60 秒），正在用的目录不会这么旧。
+// 清扫只删建了这么久的：一张图最多几分钟（起浏览器 30 秒 + 等主题 60 秒 + 截图 3 分钟），正在用的目录不会这么旧。
 // 别的进程（比如开着 Anna 的同时跑 npm run try）正在出图的目录也就不会被误删。
 const LEFTOVER_AGE_MS = 60 * 60 * 1000;
+
+// 截图（Page.captureScreenshot）的时限，见 render 里的说明。别的浏览器命令还是 30 秒
+const CAPTURE_TIMEOUT_MS = 180 * 1000;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -115,13 +118,13 @@ class CDP {
     });
   }
 
-  send(method, params = {}) {
+  send(method, params = {}, timeoutMs = this.commandTimeoutMs) {
     return new Promise((resolve, reject) => {
       const id = ++this.id;
       const timer = setTimeout(() => {
         this.pending.delete(id);
-        reject(new Error("浏览器命令 " + method + " 超时（" + this.commandTimeoutMs / 1000 + " 秒）"));
-      }, this.commandTimeoutMs);
+        reject(new Error("浏览器命令 " + method + " 超时（" + timeoutMs / 1000 + " 秒）"));
+      }, timeoutMs);
       this.pending.set(id, { resolve, reject, timer });
       try { this.ws.send(JSON.stringify({ id, method, params })); }
       catch (error) { clearTimeout(timer); this.pending.delete(id); reject(error); }
@@ -166,7 +169,7 @@ class CDP {
   }
 }
 
-async function launchBrowser(browserPath, timeoutMs, tmpDir) {
+async function launchBrowser(browserPath, timeoutMs, tmpDir, extraArgs = []) {
   const userDataDir = fs.mkdtempSync(path.join(tmpDir, PROFILE_PREFIX));
   const args = [
     "--headless=new",
@@ -179,6 +182,7 @@ async function launchBrowser(browserPath, timeoutMs, tmpDir) {
     "--allow-file-access-from-files",
     "--hide-scrollbars",
     "--mute-audio",
+    ...extraArgs,
     "about:blank",
   ];
   const proc = spawn(browserPath, args, { stdio: "ignore", windowsHide: true });
@@ -222,7 +226,10 @@ async function launchBrowser(browserPath, timeoutMs, tmpDir) {
 }
 
 // tmpDir：浏览器临时目录放哪，默认系统临时目录（测试换成自己的临时目录，好检查删干净没有）。
-function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60000, tmpDir = os.tmpdir(), log = () => {} } = {}) {
+function createRenderer({
+  themesDir, browserPath = "", scale = 2, timeoutMs = 60000, captureTimeoutMs = CAPTURE_TIMEOUT_MS, browserArgs = [],
+  tmpDir = os.tmpdir(), log = () => {},
+} = {}) {
   // 还没收拾完的浏览器、正在清扫的目录。出完图先把图交出去，这些在后台做；idle() 等它们都做完
   const pending = new Set();
   const track = (promise) => {
@@ -270,10 +277,12 @@ function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60
     if (!executable) throw new Error(browserPath ? "配置的浏览器不存在：" + browserPath : "没找到 Chrome 或 Edge，出不了图");
 
     const started = Date.now();
+    const marks = [started];   // 起浏览器、排版、截图各花了多久，记进日志
     let browser = null;
     let cdp = null;
     try {
-      browser = await launchBrowser(executable, 30000, tmpDir);
+      browser = await launchBrowser(executable, 30000, tmpDir, browserArgs);
+      marks.push(Date.now());
       cdp = new CDP(browser.wsUrl);
       await cdp.connect();
       await cdp.send("Page.enable");
@@ -295,20 +304,26 @@ function createRenderer({ themesDir, browserPath = "", scale = 2, timeoutMs = 60
       if (size.width * size.height * outputScale * outputScale > MAX_PIXELS) {
         throw new Error("图太大了：" + size.width + "×" + size.height + " ×" + outputScale + " 倍");
       }
+      marks.push(Date.now());
       // 视口改成内容的大小再截，长图才不会被视口截断；改完等两帧让布局稳定。
       await cdp.send("Emulation.setDeviceMetricsOverride", { width: size.width, height: size.height, deviceScaleFactor: outputScale, mobile: false });
       await cdp.evaluate("new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))");
+      // 截图要把整张图光栅化一遍，没有显卡的机器上全靠 CPU，比别的命令慢得多：2026-10-16 服务器上出 B30 用了 32 秒，
+      // B50 截图一步就超过了 30 秒（当时所有命令共用 30 秒的时限），所以截图单独给一个宽得多的时限
       const shot = await cdp.send("Page.captureScreenshot", {
         format,
         ...(format === "jpeg" ? { quality } : {}),
         fromSurface: true,
         captureBeyondViewport: true,
         clip: { x: 0, y: 0, width: size.width, height: size.height, scale: 1 },
-      });
+      }, captureTimeoutMs);
       const buffer = Buffer.from(shot.data || "", "base64");
       if (buffer.length < 100) throw new Error("截图数据异常");
+      marks.push(Date.now());
+      const seconds = (from, to) => ((to - from) / 1000).toFixed(1);
       log("出图 " + theme + "：" + size.width * outputScale + "×" + size.height * outputScale + "，" +
-        Math.round(buffer.length / 1024) + " KiB，" + ((Date.now() - started) / 1000).toFixed(1) + " 秒");
+        Math.round(buffer.length / 1024) + " KiB，" + seconds(started, marks[3]) + " 秒" +
+        "（起浏览器 " + seconds(marks[0], marks[1]) + "、排版 " + seconds(marks[1], marks[2]) + "、截图 " + seconds(marks[2], marks[3]) + "）");
       return { buffer, width: size.width * outputScale, height: size.height * outputScale, format };
     } finally {
       cdp?.close();

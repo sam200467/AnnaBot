@@ -71,13 +71,13 @@ function scoreView(score, { catalog, floor }) {
 
 const sumOf = (list) => list.reduce((total, score) => total + (Number(score.rating) || 0), 0);
 
-// 一栏成绩：平均按空位数算（没打满的位置算 0，跟 Rating 的算法一致）；地板是最后一位的 Rating，没打满时是 0。
+// 一栏成绩：平均按空位数算（没打满的位置算 0，跟 Rating 的算法一致）。
+// 以前还有「地板」（最后一位的 Rating），图上跟均值写在章节名右边，作者嫌跟页眉的格子重复，2026-10-16 删了
 function chapter(key, list, slots, options) {
   return {
     key,
     slots,
     average: sumOf(list) / slots,
-    floor: list.length >= slots ? Number(list[slots - 1].rating) || 0 : 0,
     scores: list.map((score) => scoreView(score, options)),
   };
 }

@@ -20,6 +20,8 @@ function createMockOfficial(options = {}) {
 
   const state = {
     sent: [],           // 发出去的消息 { path, body }
+    rejected: [],       // 被拒收的消息 { path, body }（rejectBareMedia 时）
+    rejectBareMedia: false,   // true：不带 content 的图片消息（msg_type 7）一律拒收，测补空格重发用
     uploads: [],        // 富媒体上传 { path, body }
     acks: [],           // 按钮回调的应答 { id, body }
     identified: [],     // 收到的 Identify / Resume 帧
@@ -127,6 +129,10 @@ function createMockOfficial(options = {}) {
         return json(res, 200, {});
       }
       if (/^\/v2\/(groups|users)\/[^/]+\/messages$/.test(url) && req.method === "POST") {
+        if (state.rejectBareMedia && body?.msg_type === 7 && !body.content) {
+          state.rejected.push({ path: url, body });
+          return json(res, 400, { message: "content 不能为空（模拟）", err_code: 40000001 });
+        }
         state.sent.push({ path: url, body });
         return json(res, 200, { id: "sent-" + state.sent.length, timestamp: new Date().toISOString() });
       }

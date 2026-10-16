@@ -5,7 +5,8 @@
 // test/official-transport.test.cjs。注释里的「美亚」「梨绪」是 MiaBot 那边的机器人，
 // 那些平台行为都是在它们身上实测出来的，对 Anna 同样成立，所以原文保留。
 // 要改这个文件之前先想清楚：MiaBot 那份是否也该一起改。
-// 移植后改过的：scheduleReconnect 接住重连失败（2026-10-15，MiaBot 那份有同样的问题）。
+// 移植后改过的：scheduleReconnect 接住重连失败（2026-10-15，MiaBot 那份有同样的问题）；
+// 没有图注的图片消息不再带一个空格当 content（2026-10-16，图片下面会多一行空白，MiaBot 那份也一样）。
 //
 // 连接、收发、限流全关在这个文件里，上层（src/bot.cjs）不碰协议。
 // 官方协议是「我们主动连腾讯网关、收事件走 WS、发消息走 REST」。
@@ -400,6 +401,10 @@ function createOfficial(host) {
     return result;
   }
 
+  // 没有图注的图片消息不带 content。原来（照 MiaBot）写死一个空格，QQ 会在图片下面多画一行空白（2026-10-16 作者截图反馈）；
+  // 官方 SDK（botpy）的发图示例也不传 content。万一平台要求带 content、被拒（4xx），补一个空格再发一次，
+  // 补发成功了才记住、之后都带空格（跟 Markdown 的降级一个道理，见 sendMarkdown 上面那段）
+  let mediaNeedsContent = false;
   async function sendImage(target, image, msgId, caption = "", refId) {
     const run = async () => {
       const key = targetKey(target);
@@ -415,11 +420,23 @@ function createOfficial(host) {
         file_type: 1, file_data: Buffer.from(image).toString("base64"), srv_send_msg: false,
       });
       if (!uploaded?.file_info) throw new Error("富媒体上传未返回 file_info：" + JSON.stringify(uploaded).slice(0, 200));
-      const body = { content: caption || " ", msg_type: 7, media: { file_info: uploaded.file_info } };
-      applyCredential(body, effectiveMsgId(target, msgId));
-      if (refId) body.message_reference = { message_id: String(refId) };
+      const post = (content) => {
+        const body = { msg_type: 7, media: { file_info: uploaded.file_info } };
+        if (content) body.content = content;
+        applyCredential(body, effectiveMsgId(target, msgId));
+        if (refId) body.message_reference = { message_id: String(refId) };
+        return rest("POST", messagePath(target), body);
+      };
       try {
-        const data = await rest("POST", messagePath(target), body);
+        let data;
+        try {
+          data = await post(caption || (mediaNeedsContent ? " " : ""));
+        } catch (error) {
+          if (caption || mediaNeedsContent || classify(error) !== "rejected") throw error;
+          data = await post(" ");
+          mediaNeedsContent = true;
+          log("不带文字的图片消息被拒（" + (error.code ?? error.status) + "），之后图片消息都带一个空格：" + error.message);
+        }
         noteSend(key, "[image]", msgId);
         resetCircuit();
         return data;

@@ -58,3 +58,14 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
 2. `npm run theme -- <主题名>`，浏览器打开它给的地址；改 CSS / JS / 示例数据后刷新就能看到。右下角会显示「画好了 / 出错了」。
 3. `npm run preview -- <主题名>` 用正式出图流程渲染一张，看最终效果和尺寸。
 4. 在功能代码里组装真数据，`npm run try -- "#指令"` 用真数据出图。
+
+## 出图要快
+
+服务器没有显卡，出图全靠 CPU，比本机慢三四倍（2026-10-16：服务器出 B30 要 32 秒，B50 截图超过 30 秒失败过）。
+渲染器的日志会分段记时间（「起浏览器 x、排版 y、截图 z」），截图那段慢就是效果太费。最费的两种：
+
+- 大面积的 `filter`（`drop-shadow`、`blur`）：要先把整块内容画到离屏图上再模糊，盖住整张图的那种最要命
+- SVG 滤镜（`feTurbulence` 噪声）做的 CSS 背景：每画一块都重算一遍
+
+`best` 主题的 `bakeTextures`（纹理先画成位图）、`shadowImage`（影子画进 canvas 再转成 `<img>`）可以照搬，做法和量出来的数在
+`best/README.md` 的「出图要快」。在本机模拟服务器：把出图进程限制在 1 个核，浏览器加 `--disable-gpu`（`createRenderer` 的 `browserArgs`）。

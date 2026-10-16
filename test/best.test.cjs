@@ -104,18 +104,16 @@ test("buildData /b50：旧曲 30 + 新曲 20 两栏，均值按空位数算，Ra
   const sum = (list) => list.reduce((total, score) => total + score.rating, 0);
   assert.ok(Math.abs(oldChapter.average - sum(old) / 30) < 1e-9);
   assert.ok(Math.abs(data.rating - (sum(old) + sum(fresh)) / 50) < 1e-9);
-  assert.equal(oldChapter.floor, old[29].rating);
   assert.deepEqual(oldChapter.scores[0], {
     id: 1, title: "曲1", levelIndex: 3, level: "14", constant: 14.1, score: 1007000, rating: 16.3, rank: "sss",
     clear: "clear", fullCombo: null, fullChain: null, isNew: false, jacketId: 1, jacket: null,
   });
   assert.equal(newChapter.scores[0].isNew, true);
 
-  // 没打满：均值照样除以 30（空位算 0，跟 Rating 一致），地板是 0
+  // 没打满：均值照样除以 30（空位算 0，跟 Rating 一致）
   const few = buildData({ mode: "b50", player, bests: { bests: old.slice(0, 12), new_bests: [] }, catalog });
   assert.equal(few.chapters[0].scores.length, 12);
   assert.ok(Math.abs(few.chapters[0].average - sum(old.slice(0, 12)) / 30) < 1e-9);
-  assert.equal(few.chapters[0].floor, 0);
   assert.equal(few.chapters[1].scores.length, 0);
 });
 
@@ -216,7 +214,7 @@ test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲�
   await s.group("/绑定 " + FC1);
   await s.group("/b50");
   assert.equal(s.last().msg_type, 7);
-  assert.equal(s.last().content, " ");                          // 没有图注
+  assert.equal(s.last().content, undefined);                    // 没有图注就不带文字（带空格会在图下面多一行空白）
   const b50 = s.renders.at(-1);
   assert.equal(b50.theme, "best");
   assert.deepEqual([b50.options.format, b50.options.quality], ["jpeg", 76]);
@@ -244,7 +242,7 @@ test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲�
   await s.group("/b30", { user: "U3" });
   assert.ok(s.lx.state.requests.slice(before).some((request) => request.auth === "bearer" && request.path.endsWith("/scores")));
   assert.equal(s.renders.at(-1).data.exact, true);
-  assert.equal(s.last().content, " ");
+  assert.equal(s.last().content, undefined);
 });
 
 // ── 真的渲染一次 ──

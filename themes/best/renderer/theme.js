@@ -44,7 +44,8 @@
     };
   }
 
-  // 撕开的纸边：沿四条边走一圈，每一步往里咬一点。低频起伏 + 高频锯齿 + 偶尔一个缺口。
+  // 撕开的纸边：沿四条边走一圈，每一步往里咬一点。低频起伏 + 高频锯齿 + 偶尔一个缺口。返回多边形的顶点，
+  // 剪纸用 polygon() 换成 clip-path，画影子（castShadow）也用同一组点
   function tornEdge(width, height, rnd, { step = 7, depth = 3, wave = 0, bite = 0 } = {}) {
     const points = [];
     const smooth = () => {
@@ -69,7 +70,80 @@
     edge(height, (d, k) => points.push([width - k, d]));
     edge(width, (d, k) => points.push([width - d, height - k]));
     edge(height, (d, k) => points.push([k, height - d]));
-    return "polygon(" + points.map(([x, y]) => x.toFixed(1) + "px " + y.toFixed(1) + "px").join(",") + ")";
+    return points;
+  }
+
+  const polygon = (points) => "polygon(" + points.map(([x, y]) => x.toFixed(1) + "px " + y.toFixed(1) + "px").join(",") + ")";
+
+  // ── 影子：撕边一圈的焦影、每张纸片的投影 ──
+  // 以前是 CSS 的 filter: drop-shadow（.rim 上两层、每张卡片一层）。drop-shadow 要先把整块内容画到一张离屏图上再模糊，
+  // .rim 那两层等于把整张图模糊两遍：没有显卡、全靠 CPU 出图的服务器上 B50 截图超过了 30 秒（2026-10-16），
+  // 本机限制成 1 核实测，10.8 秒的截图里焦影占 4.7 秒、卡片投影占 1.8 秒。
+  // 影子只跟形状有关，所以把撕边的多边形画进 canvas、模糊一下，转成图片铺在下面：样子一样，快得多。
+  // 不直接把 <canvas> 放进页面：canvas 元素会单独占一个合成层，压在它上面的整张内容也跟着成了一层，
+  // 图这么大时有些块来不及画，截出来一块块缺着（2026-10-16 试过）。<img> 跟别的内容画在一起，没有这个问题。
+  // res 是 canvas 相对 CSS 像素的分辨率：模糊过的影子没有细节，画得粗一点再放大看不出来
+  async function shadowImage(img, width, height, res, draw) {
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.ceil(width * res);
+    canvas.height = Math.ceil(height * res);
+    const ctx = canvas.getContext("2d");
+    ctx.res = res;
+    draw(ctx);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    Object.assign(img.style, { width: width + "px", height: height + "px" });
+    img.src = URL.createObjectURL(blob);
+    await img.decode();
+  }
+
+  // 跟 CSS 的 drop-shadow(x y blur color) 一样：blur 是模糊半径，相当于标准差 blur / 2。canvas 的 filter 按 canvas 的像素算。
+  // shapes：[{ points, x, y }]，几个形状一起模糊一次（每画一个就模糊一遍整张 canvas，五十张卡片要一秒多）
+  function castShadow(ctx, shapes, { blur, color }) {
+    const res = ctx.res;
+    ctx.save();
+    ctx.filter = "blur(" + (blur / 2 * res).toFixed(2) + "px)";
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    for (const { points, x = 0, y = 0 } of shapes) {
+      points.forEach(([px, py], i) => ctx[i ? "lineTo" : "moveTo"]((px + x) * res, (py + y) * res));
+      ctx.closePath();
+    }
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // ── 噪声纹理先画成位图 ──
+  // theme.css 里的 --grain（纸纤维）、--mottle（水渍霉斑）、--soot（烟）是 SVG 的 feTurbulence 噪声。直接当 CSS 背景时，
+  // 浏览器每画一块都要把噪声重算一遍，没有显卡的机器上很慢（1 核实测：截图多花 2 秒左右）。
+  // 所以出图前把每张画进 canvas、转成 PNG 当背景，只算一次。噪声本身算得很快，费时的是转 PNG（噪声压不小），
+  // 所以只有纸纤维按出图倍率画；霉斑是大块的低频噪声、烟只是 18% 的叠加，画粗一点再放大看不出区别。
+  // scale：相对出图倍率画多细
+  const TEXTURES = [
+    { name: "--grain", size: 220, scale: 1 },
+    { name: "--mottle", size: 640, scale: 0.25 },
+    { name: "--soot", size: 360, scale: 0.5 },
+  ];
+
+  async function bakeTextures() {
+    const root = document.documentElement;
+    const style = getComputedStyle(root);
+    const ratio = window.devicePixelRatio || 1;
+    const urls = await Promise.all(TEXTURES.map(async ({ name, size, scale }) => {
+      const svg = (style.getPropertyValue(name).match(/url\((["']?)(data:image\/svg\+xml.*)\1\)/) || [])[2];
+      if (!svg) return null;
+      const img = new Image();
+      img.src = svg;
+      await img.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = Math.round(size * ratio * scale);
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+      const url = URL.createObjectURL(blob);
+      root.style.setProperty(name, "url(\"" + url + "\")");
+      return url;
+    }));
+    // CSS 背景图 ThemeKit 等不到，先自己加载一遍（同一个地址，背景直接用缓存）
+    await ThemeKit.preload(urls.filter(Boolean));
   }
 
   // 封蜡：圆周上的点半径忽大忽小，像蜡滴下来压扁的边
@@ -369,11 +443,9 @@
     return "tier-low";
   }
 
-  function stat(label, sub, value, extra) {
+  function stat(label, value, extra) {
     const box = el("div", "stat" + (extra ? " " + extra : ""));
-    const dt = el("dt", null, label);
-    if (sub) dt.append(el("small", null, sub));
-    box.append(dt, el("dd", null, value));
+    box.append(el("dt", null, label), el("dd", null, value));
     return box;
   }
 
@@ -388,10 +460,10 @@
     } else {
       $("trophy").remove();
     }
-    // 照游戏里名牌版的排法：「Lv.」小字，等级数字跟名字差不多大
+    // 「★转生 Lv.等级」一样大（作者不要只有等级数字特别大）
     const level = $("level");
     if (player.reborn) level.append(el("span", "star", "★" + player.reborn));
-    if (player.level !== null && player.level !== undefined) level.append(el("small", null, "Lv."), el("b", null, player.level));
+    if (player.level !== null && player.level !== undefined) level.append(el("span", "lv", "Lv."), el("span", null, player.level));
     $("name").textContent = player.name || "";
     if (player.character) $("chara").src = player.character;
     else document.querySelector(".medallion").classList.add("empty");
@@ -412,13 +484,14 @@
 
     const stats = $("stats");
     const chapters = data.chapters || [];
-    stats.append(stat("Rating", null, rating(player.rating), "main " + ratingTier(player.rating)));
+    // B50：Rating、旧曲 30 首的均值、新曲 20 首的均值；B30：Rating、30 首的均值、第一位
+    stats.append(stat("Rating", rating(player.rating), "main " + ratingTier(player.rating)));
     if (mode === "b50") {
-      for (const chapter of chapters) stats.append(stat(chapter.key === "new" ? "New 20" : "Best 30", chapter.key === "new" ? "新曲均值" : "旧曲均值", rating(chapter.average)));
+      for (const chapter of chapters) stats.append(stat(chapter.key === "new" ? "New 20" : "Best 30", rating(chapter.average)));
     } else if (chapters[0]) {
       const list = chapters[0].scores;
-      stats.append(stat("Best 30", "均值", rating(chapters[0].average)));
-      stats.append(stat("Top", "第一位", list.length ? rating(list[0].rating) : "—"));
+      stats.append(stat("Best 30", rating(chapters[0].average)));
+      stats.append(stat("Top", list.length ? rating(list[0].rating) : "—"));
     }
   }
 
@@ -467,8 +540,8 @@
       return;
     }
 
-    // 两栏（B50）时右边也要留出写刻度的地方
-    const pad = { left: 62, right: groups.length > 1 ? 62 : 14, top: 30, bottom: 30 };
+    // 两栏（B50）时右边也要留出写刻度的地方；上面留给均值的数字，下面留给名次
+    const pad = { left: 74, right: groups.length > 1 ? 74 : 14, top: 36, bottom: 36 };
     const base = height - pad.bottom;
 
     // 两栏之间空两格，各自的网格和刻度不挤在一起
@@ -506,7 +579,7 @@
       }
       for (let i = 0; i < group.slots; i++) {
         if (i === 0 || (i + 1) % 5 === 0) {
-          svgEl("text", { x: (start + (i + 0.5) * slot).toFixed(1), y: base + 21, class: "rank" }, notes).textContent = String(i + 1);
+          svgEl("text", { x: (start + (i + 0.5) * slot).toFixed(1), y: base + 27, class: "rank" }, notes).textContent = String(i + 1);
         }
       }
       svgEl("line", { x1: start.toFixed(1), x2: end.toFixed(1), y1: base, y2: base, class: "baseline" }, notes);
@@ -579,10 +652,43 @@
     return node;
   }
 
+  // 每张纸片撕边的顶点，画投影时用（drawCardShadows）
+  const paperEdges = new Map();
+
   function tearPapers() {
     for (const node of document.querySelectorAll(".paper")) {
-      node.style.clipPath = tornEdge(node.offsetWidth, node.offsetHeight, random(Number(node.dataset.seed)), { step: 6, depth: 2.4, wave: 2.2, bite: 0.025 });
+      const edge = tornEdge(node.offsetWidth, node.offsetHeight, random(Number(node.dataset.seed)), { step: 6, depth: 2.4, wave: 2.2, bite: 0.025 });
+      node.style.clipPath = polygon(edge);
+      paperEdges.set(node, edge);
     }
+  }
+
+  // 纸片的投影（以前是 .card 上的 drop-shadow(0 7px 9px)）：全画在一张图上，垫在卡片底下。
+  // 要等花饰排好（它会把第二栏往下推）、卡片都到了最终位置再画
+  function drawCardShadows(canvas) {
+    const origin = canvas.getBoundingClientRect();
+    const shapes = [];
+    for (const [paper, points] of paperEdges) {
+      if (paper.parentElement.classList.contains("empty")) continue;
+      const box = paper.getBoundingClientRect();
+      shapes.push({ points, x: box.left - origin.left, y: box.top - origin.top + 7 });
+    }
+    return shadowImage($("card-shadows"), canvas.offsetWidth, canvas.offsetHeight, 0.5,
+      (ctx) => castShadow(ctx, shapes, { blur: 9, color: "rgba(0, 0, 0, 0.62)" }));
+  }
+
+  // 撕开的洞投在羊皮纸上的焦边（以前是 .rim 上两层 drop-shadow：2px 的深褐、10px 的焦糖色）。
+  // 图比洞大一圈，影子才伸得出去；按 CSS 像素画，贴着撕边的那道深色细边不会糊
+  const RIM_SPREAD = 24;
+
+  function drawRimShadow(edge, width, height) {
+    const node = $("rim-shadow");
+    Object.assign(node.style, { left: -RIM_SPREAD + "px", top: -RIM_SPREAD + "px" });
+    const shape = [{ points: edge, x: RIM_SPREAD, y: RIM_SPREAD }];
+    return shadowImage(node, width + RIM_SPREAD * 2, height + RIM_SPREAD * 2, 1, (ctx) => {
+      castShadow(ctx, shape, { blur: 10, color: "rgba(96, 46, 12, 0.75)" });
+      castShadow(ctx, shape, { blur: 2, color: "rgba(38, 17, 4, 0.95)" });
+    });
   }
 
   function emptyCard(index, chapterKey) {
@@ -609,11 +715,10 @@
       ornament(right, "tail");
       const name = el("div", "chapter-name");
       name.append(el("span", "zh", words.zh), ribbon(words.en, "chapter-ribbon"));
-      const side = el("div", "chapter-side left", words.side);
-      side.append(el("br"), el("b", null, (chapter.scores || []).length + " / " + chapter.slots), " 首");
-      const numbers = el("div", "chapter-side right");
-      numbers.append("均值", el("b", null, rating(chapter.average)), el("br"), "地板", el("b", null, chapter.floor ? rating(chapter.floor) : "—"));
-      head.append(side, left, name, right, numbers);
+      // 左边写这一栏打了几首；均值在页眉的格子里有，这里不再写
+      const side = el("div", "chapter-side", words.side);
+      side.append(el("br"), el("b", null, (chapter.scores || []).length + " / " + chapter.slots), "首");
+      head.append(side, left, name, right);
 
       const grid = el("ol", "grid");
       const scores = chapter.scores || [];
@@ -644,9 +749,15 @@
         for (const [node, size] of parts) node.style.fontSize = (size * ratio).toFixed(2) + "px";
       }
     }
-    // 标记放不下就从后往前去掉（FC/AJ 最要紧）
+    // 标记放不下先整行缩小一点（AJC + CATASTROPHY 这种），缩到 15px 还放不下就去掉最后一个（FC/AJ 在前，最要紧），
+    // 剩下的再从原来的字号重新试：不然 AJ + HARD + FULL CHAIN 缩小了也放不下，去掉 FULL CHAIN 后另两个还是小字
     for (const marks of document.querySelectorAll(".marks")) {
-      while (marks.children.length > 1 && marks.scrollWidth > marks.clientWidth + 1) marks.lastChild.remove();
+      for (;;) {
+        marks.style.fontSize = "";
+        shrinkToFit(marks, { min: 15, fits: fitsWidth(marks) });
+        if (marks.children.length <= 1 || fitsWidth(marks)()) break;
+        marks.lastChild.remove();
+      }
     }
     const scale = (inner, outer) => {
       const ratio = outer.clientWidth / inner.scrollWidth;
@@ -663,6 +774,8 @@
   async function main() {
     const mode = data.mode === "b30" ? "b30" : "b50";
     document.body.classList.add("mode-" + mode);
+    // 纹理跟排版无关，先开始画，跟等字体同时进行。画不成就还用 CSS 里的 SVG（慢一点而已），不能让整张图出不来
+    const textures = bakeTextures().catch(() => {});
     const page = $("page");
     const pad = framePadding();
     page.style.padding = `${pad.top}px ${pad.right}px ${pad.bottom}px ${pad.left}px`;
@@ -676,7 +789,7 @@
     $("credit").textContent = ["Generated by Anna Bot", "数据来自落雪查分器", data.time].filter(Boolean).join(" · ");
 
     void document.body.offsetHeight;
-    await Promise.all(["16px \"Anna Hand\"", "700 16px \"Anna Script\""]
+    await Promise.all(["16px \"Anna Hand\"", "700 16px \"Anna Hand Bold\"", "700 16px \"Anna Script\""]
       .map((font) => document.fonts.load(font).catch(() => null)));
     await document.fonts.ready;
     fitText();
@@ -684,12 +797,14 @@
     for (const frieze of document.querySelectorAll(".frieze")) drawFrieze(frieze);
     drawChart($("chart"), mode);
 
-    // 「撕开的洞」和画框都要等内容排好、知道整张图多高以后再画
+    // 「撕开的洞」、影子和画框都要等内容排好、知道整张图多高以后再画
     const canvas = $("canvas");
-    canvas.style.clipPath = tornEdge(canvas.offsetWidth, canvas.offsetHeight, random(9001), { step: 9, depth: 7, wave: 9, bite: 0.04 });
+    const edge = tornEdge(canvas.offsetWidth, canvas.offsetHeight, random(9001), { step: 9, depth: 7, wave: 9, bite: 0.04 });
+    canvas.style.clipPath = polygon(edge);
+    const shadows = Promise.all([drawRimShadow(edge, canvas.offsetWidth, canvas.offsetHeight), drawCardShadows(canvas)]);
     drawFrame(page);
     // 花饰是 CSS 遮罩，ThemeKit 只等 <img>，这张自己等
-    await ThemeKit.preload([FRIEZE.src]);
+    await Promise.all([ThemeKit.preload([FRIEZE.src]), textures, shadows]);
     ThemeKit.done({ element: page });
   }
 

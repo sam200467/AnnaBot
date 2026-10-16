@@ -169,6 +169,36 @@ test("发图：先上传拿 file_info，再以 msg_type=7 发出", async () => {
   assert.equal(mock.state.sent[0].path, "/v2/groups/G1/messages");
   assert.equal(mock.state.sent[0].body.msg_type, 7);
   assert.equal(mock.state.sent[0].body.media.file_info, "fileinfo-1");
+  assert.equal(mock.state.sent[0].body.content, "说明");
+  await transport.stop(); await mock.stop();
+});
+
+test("发图没有图注时不带 content（带空格的话 QQ 会在图片下面多一行空白）", async () => {
+  const { mock, transport } = await connected({ minSendIntervalMs: 0, perTargetIntervalMs: 0 });
+  const png = Buffer.from("89504e470d0a1a0a0000000d49484452", "hex");
+  await transport.sendImage({ kind: "group", openid: "G1" }, png, "m1");
+  assert.equal(mock.state.sent[0].body.msg_type, 7);
+  assert.equal("content" in mock.state.sent[0].body, false);
+  await transport.stop(); await mock.stop();
+});
+
+test("平台要是拒收不带 content 的图片消息：补一个空格重发，之后一直带空格", async () => {
+  const logs = [];
+  const { mock, transport } = await connected({ minSendIntervalMs: 0, perTargetIntervalMs: 0, log: (line) => logs.push(line) });
+  mock.state.rejectBareMedia = true;
+  const png = Buffer.from("89504e470d0a1a0a0000000d49484452", "hex");
+  await transport.sendImage({ kind: "group", openid: "G1" }, png, "m1");
+  assert.equal(mock.state.rejected.length, 1);
+  assert.equal(mock.state.sent.length, 1);
+  assert.equal(mock.state.sent[0].body.content, " ");
+  assert.equal(mock.state.uploads.length, 1, "重发用同一个 file_info，不用再传一遍");
+  assert.ok(mock.state.sent[0].body.msg_seq > mock.state.rejected[0].body.msg_seq, "重发的 msg_seq 要往上加");
+  assert.ok(logs.some((line) => line.includes("之后图片消息都带一个空格")));
+  // 记住了：下一张直接带空格，不再先挨一次拒
+  await transport.sendImage({ kind: "group", openid: "G1" }, png, "m2");
+  assert.equal(mock.state.rejected.length, 1);
+  assert.equal(mock.state.sent[1].body.content, " ");
+  assert.equal(transport.state.circuitOpen, false, "拒收不算平台异常");
   await transport.stop(); await mock.stop();
 });
 

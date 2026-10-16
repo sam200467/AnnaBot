@@ -8,10 +8,11 @@
 </head>
 <body>
   <main id="page" class="page">
-    <!-- 最外面是金色画框（theme.js 拼出来，放在 #gilt 里）；框里一圈羊皮纸（.frame），rim 负责烧焦的边，
-         canvas 是撕开的洞（clip-path 由 theme.js 生成） -->
+    <!-- 最外面是金色画框（theme.js 拼出来，放在 #gilt 里）；框里一圈羊皮纸（.frame），rim-shadow 是烧焦的边，
+         canvas 是撕开的洞（clip-path 由 theme.js 生成）。两张影子图都由 theme.js 画 -->
     <div class="frame">
       <div class="rim">
+        <img id="rim-shadow" class="rim-shadow" alt="">
         <div id="canvas" class="canvas">
           <img id="scene" class="scene" src="../assets/sibyls.webp" alt="">
           <img id="ground" class="ground" src="../assets/battlefield.webp" alt="">
@@ -19,6 +20,7 @@
           <div id="embers" class="embers"></div>
           <div id="sparks" class="embers low"></div>
           <svg id="sigil" class="sigil" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+          <img id="card-shadows" class="card-shadows" alt="">
 
           <header class="head">
             <section class="chart">

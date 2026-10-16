@@ -93,6 +93,21 @@ test("主题一直不说画好了：超时报错，临时目录照样收拾掉",
   assert.deepEqual(leftovers(tmp), []);
 });
 
+test("截图有自己的时限（没有显卡的服务器上它最慢）；日志里分段记下起浏览器、排版、截图各花了多久", { skip }, async (t) => {
+  const dir = themes(t);
+  const tmp = scratch(t);
+  const logs = [];
+  const renderer = createRenderer({ themesDir: dir, scale: 1, tmpDir: tmp, log: (line) => logs.push(line) });
+  await renderer.render("sized", { image: "" });
+  assert.match(logs.find((line) => line.startsWith("出图 sized")), /，[\d.]+ 秒（起浏览器 [\d.]+、排版 [\d.]+、截图 [\d.]+）$/);
+  // 2026-10-16 服务器上 B50 截图超过了所有命令共用的 30 秒。时限给到 1 毫秒：超时的一定是截图这一步，前面的命令照旧
+  const hasty = createRenderer({ themesDir: dir, scale: 1, tmpDir: tmp, captureTimeoutMs: 1 });
+  await assert.rejects(hasty.render("sized", { image: "" }), /浏览器命令 Page\.captureScreenshot 超时/);
+  await renderer.idle();
+  await hasty.idle();
+  assert.deepEqual(leftovers(tmp), []);
+});
+
 test("浏览器起不来（刚启动就退出）：报错之前先把临时目录删掉", async (t) => {
   const tmp = scratch(t);
   // 拿 node 冒充浏览器：它不认识 --headless=new 这些参数，马上就退出

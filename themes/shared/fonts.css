@@ -22,6 +22,15 @@
   src: local("LXGW WenKai Medium"), local("LXGWWenKai-Medium"), url("fonts/LXGWWenKai-Medium.ttf") format("truetype");
 }
 
+/* 要粗体的地方用 Anna Hand Bold，再写 font-weight: 700。霞鹜文楷没有粗体，这里只声明成 500，浏览器就会在 Medium 上描粗。
+   上面的 Anna Hand 不让浏览器描粗，是因为写了 700 的地方太多，全描粗就太重了；要粗的地方单独换这个名字。
+   2026-10-16 在 26px 的曲名上比过：浏览器描的粗跟加 0.8px 描边差不多，字口干净，作者要「加粗」的地方用它 */
+@font-face {
+  font-family: "Anna Hand Bold";
+  font-weight: 500;
+  src: local("LXGW WenKai Medium"), local("LXGWWenKai-Medium"), url("fonts/LXGWWenKai-Medium.ttf") format("truetype");
+}
+
 /* Segoe Script（Windows 自带，微软的字体不能拷出来用，所以只有 local）。best 主题里单曲分数、定数、单曲 Rating
    和页脚格言用它：作者要这几处的数字、拉丁文跟正文的楷书区分开。只写西文和数字，不跟文楷混在同一段字里 */
 @font-face {
