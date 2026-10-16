@@ -5,7 +5,8 @@ MiaBot（音击查分，github.com/sam200467/MiaBot，作者本机在 `F:\vibe c
 同样是 QQ 官方机器人，传输层直接移植自它。
 
 作者 sam2004，用中文交流：回复、代码注释、文档都用中文。代码风格跟着现有文件走：Node 22、CommonJS（`.cjs`）、
-`"use strict"`、双引号、没有第三方依赖（只有 `ws`）。注释写「为什么」，尤其是实测踩出来的坑。
+`"use strict"`、双引号、运行时没有第三方依赖（只有 `ws`；`opencc-js` 只是离线生成搜索数据用的开发依赖，打包不带）。
+注释写「为什么」，尤其是实测踩出来的坑。
 
 开发是「一个功能一个窗口」：底座（这份文档描述的东西）已经搭好，每个新窗口只做一个功能，通常还要配上作者提供的背景图等素材。
 
@@ -25,6 +26,7 @@ npm run probe                    QQ 连接探针：拿 group_openid / openid（-
 npm run panel                    指令面板（QQ 输入框打 / 弹出的清单）：看本地和平台上的样子；-- --sync 不重启马上同步
 npm run check:lxns               落雪接口连通性检查
 npm run song-extras              重新生成 src/data/song-extras.json（日服上线日期、对应角色）；新版本出曲后跑，wikiwiki 限频要慢慢来
+npm run song-search              重新生成 src/data/song-search.json（简繁日异体字表、官方假名读音）；新版本出曲后跑，要先 npm install
 npm run character-icons          从 wikiwiki 立绘截落雪没有的角色头像（截哪块见 tools/character-icons.json）；-- --sheet 文件 出总览图
 ```
 
@@ -48,7 +50,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/lxns-oauth.cjs` | OAuth（无回调地址 + PKCE） |
 | `src/bindings.cjs` | 绑定和统一查分入口 `player(openid)` |
 | `src/vault.cjs` | 加密绑定库（AES-256-GCM，主密钥由 DPAPI 保护） |
-| `src/catalog.cjs` | 曲库和别名：缓存（带物量）、搜索（`search` / `resolve`）、版本名 |
+| `src/catalog.cjs` | 曲库和别名：缓存（带物量）、搜索（`search` / `resolve`，规则在 `song-search.cjs`）、版本名 |
+| `src/song-search.cjs` | 认歌：简繁日汉字互通、假名和罗马音、拼错了给相近的候选（排名表在文件头）。数据是 `src/data/song-search.json`，由 `tools/build-song-search.cjs` 生成后提交 |
 | `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
