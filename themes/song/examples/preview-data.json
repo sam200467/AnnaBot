@@ -1,0 +1,21 @@
+{
+  "song": {
+    "id": 850,
+    "title": "《混乱》 ～ Muspell",
+    "artist": "Norn",
+    "genre": "原创",
+    "bpm": 165,
+    "version": "CRYSTAL",
+    "releaseJP": "2019-12-19",
+    "jacket": "lxns:jacket/850",
+    "character": { "name": "ティータ・アヴェニアス", "icon": "lxns:character/8790" }
+  },
+  "charts": [
+    { "levelIndex": 0, "level": "3", "constant": 3.0, "designer": "ミストルティン", "notes": 397, "score": 1009950, "rank": "sssp", "clear": "clear", "fullCombo": "alljusticecritical", "fullChain": null, "rating": 5.15 },
+    { "levelIndex": 1, "level": "6", "constant": 6.0, "designer": "ぴちネコ", "notes": 603, "score": 1009402, "rank": "sssp", "clear": "clear", "fullCombo": "alljustice", "fullChain": "fullchain2", "rating": 8.15 },
+    { "levelIndex": 2, "level": "11", "constant": 11.0, "designer": "Moon Strix", "notes": 1181, "score": 1008120, "rank": "sss", "clear": "hard", "fullCombo": "fullcombo", "fullChain": null, "rating": 13.06 },
+    { "levelIndex": 3, "level": "13+", "constant": 13.7, "designer": "écologie", "notes": 1620, "score": 1006234, "rank": "ssp", "clear": "brave", "fullCombo": null, "fullChain": null, "rating": 15.44 }
+  ],
+  "player": "测试玩家",
+  "time": "2026-10-16 12:00"
+}

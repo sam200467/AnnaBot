@@ -58,6 +58,26 @@ test("曲库：缓存新鲜就不去拉；落雪挂了用旧缓存；都没有�
   await assert.rejects(createCatalog({ lxns, cacheDir: path.join(dir, "empty") }).ready(), /没有缓存/);
 });
 
+test("曲库：带物量拉（notes=true）；以前没带物量写的缓存当过期重拉", async (t) => {
+  const { mock, lxns, dir } = await setup(t);
+  // 2026-10-16 以前的缓存：没有 notes 标记
+  fs.writeFileSync(path.join(dir, "songs.json"), JSON.stringify({ fetchedAt: Date.now(), data: mock.state.songList }));
+  assert.deepEqual(await createCatalog({ lxns, cacheDir: dir }).ready(), { source: "lxns" });
+  assert.ok(mock.state.requests.some((r) => r.path === "/api/v0/chunithm/song/list?notes=true"));
+  assert.equal(JSON.parse(fs.readFileSync(path.join(dir, "songs.json"), "utf8")).notes, true);
+  // 重拉以后的缓存带标记，下次直接用
+  assert.deepEqual(await createCatalog({ lxns, cacheDir: dir }).ready(), { source: "cache" });
+});
+
+test("曲库：版本名，版本表里没有正好这个号时取不超过它的最近一个", async (t) => {
+  const { lxns, dir } = await setup(t);
+  const catalog = createCatalog({ lxns, cacheDir: dir });
+  await catalog.ready();
+  assert.equal(catalog.versionTitle(catalog.getSong(3)), "CHUNITHM");
+  assert.equal(catalog.versionTitle(catalog.getSong(8020)), "CHUNITHM");          // 10500 不在版本表里
+  assert.equal(catalog.versionTitle(catalog.getSong(407)), "CHUNITHM X-VERSE");
+});
+
 test("素材：下载一次后走缓存；同时要同一张只下载一次；404 记住不反复撞", async (t) => {
   const { mock, dir } = await setup(t);
   const assets = createAssets({ cacheDir: dir, baseUrl: mock.assetsBase });

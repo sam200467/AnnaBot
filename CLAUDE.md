@@ -24,6 +24,7 @@ npm run package:update           打服务器更新包（只有程序）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run panel                    指令面板（QQ 输入框打 / 弹出的清单）：看本地和平台上的样子；-- --sync 不重启马上同步
 npm run check:lxns               落雪接口连通性检查
+npm run song-extras              重新生成 src/data/song-extras.json（日服上线日期、原创曲对应角色）；新版本出曲后跑，wikiwiki 限频要慢慢来
 ```
 
 `npm run try` 在 Git Bash 里写 `/` 开头的指令会被改成路径（工具里已经改回来了），写 `#信息` 最稳。
@@ -46,7 +47,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/lxns-oauth.cjs` | OAuth（无回调地址 + PKCE） |
 | `src/bindings.cjs` | 绑定和统一查分入口 `player(openid)` |
 | `src/vault.cjs` | 加密绑定库（AES-256-GCM，主密钥由 DPAPI 保护） |
-| `src/catalog.cjs` | 曲库和别名：缓存、搜索（`search` / `resolve`） |
+| `src/catalog.cjs` | 曲库和别名：缓存（带物量）、搜索（`search` / `resolve`）、版本名 |
+| `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期、原创曲的对应角色。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
 | `src/services.cjs` | 按配置把上面这些装起来（`main.cjs` 和 `tools/` 共用） |
@@ -86,6 +88,9 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   `themes/best/renderer/theme.js` 拿（画框素材 `themes/best/assets/frame.png`，拼法见 `FRAME`）
 - 纹理多的图出 JPEG（`renderer.render(主题, 数据, { format: "jpeg", quality: 76 })`）：B50 出 PNG 要 18 MB，
   超过 QQ 的 8 MB 上限；JPEG 质量 76 约 4 MB（82 就有 4.7 MB 了）。作者要求单张图在 5 MB 以内
+- 第二个出图功能 `/单曲`（`themes/song/`）在同一套框子里换了画面：背景是一幅公有领域的油画，右边半透明地叠着跟它主题相配的
+  巫女立绘，正文全放左边、底板是拉丝黑铁加金边（不是羊皮纸卡片）。作者喜欢每个功能有自己的画面，但框子、字、颜料色、封蜡不变。
+  设计说明在 `themes/song/README.md`
 
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
@@ -98,6 +103,9 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 - 难度 `level_index`：0 BASIC … 3 MASTER、4 ULTIMA、5 WORLD'S END。WE 是单独的曲目（ID 8000 起），只有难度 5，曲绘用原曲 ID（`catalog.jacketId`）。
 - 当前国服版本 24000 = CHUNITHM X-VERSE（版本表里可能先列出还没有曲目的下一个版本，`catalog.currentVersion()` 已处理）。
 - 素材服务器 `https://assets2.lxns.net/chunithm/{jacket,character,trophy,plate,icon}/{id}.png` 很慢（一张 0.3～16 秒）且限频，一律走 `assets.cjs` 的缓存。
+  角色图（character）只是 128 见方的头像，不是立绘。
+- 曲目列表 `song/list?notes=true` 带每张谱面的物量（总数和 TAP/HOLD/SLIDE/AIR/FLICK）；`/song/{id}` 默认就带。成绩（Score）里还有 `over_power`。
+  角色列表 `/chunithm/character/list`（1429 个，日文名），里面没有「原创曲 → 角色」的对应关系，这个在 wikiwiki 的曲目页（见 `tools/build-song-extras.cjs`）。
 - 文档只列了几个玩家接口，完整列表看落雪前端源码 github.com/Lxns-Network/maimai-prober-frontend（`user/{game}/player/...`）。
 - OAuth：访问令牌 15 分钟，刷新令牌 30 天、**每次刷新都换新的、旧的立刻作废**。刷新的串行和写回在 `bindings.cjs`，别绕过它直接调 `oauth.refresh`。
 

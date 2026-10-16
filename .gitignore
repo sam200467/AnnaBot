@@ -9,8 +9,8 @@ node_modules/
 config.local.json
 .oauth-pending.json
 
-# 运行数据：绑定库、主密钥、曲库和素材缓存、日志
-data/
+# 运行数据：绑定库、主密钥、曲库和素材缓存、日志。只挡根目录的 data/：src/data/ 是随程序发布的数据表（song-extras.json），要进仓库
+/data/
 
 # 无窗口启动器，npm run launchers 生成（同 MiaBot）
 /*.vbs

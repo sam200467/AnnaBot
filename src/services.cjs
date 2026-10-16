@@ -14,6 +14,7 @@ const { createBindings } = require("./bindings.cjs");
 const { createCatalog } = require("./catalog.cjs");
 const { createAssets } = require("./assets.cjs");
 const { createRenderer } = require("./renderer.cjs");
+const { loadSongExtras } = require("./song-extras.cjs");
 
 // needs：只装用得到的部分。工具脚本出个预览图不需要碰绑定库（也就不用解主密钥）。
 // vaultDir：绑定库和主密钥放哪（默认 workDir）。npm run try 用单独的一份，不碰正式绑定。
@@ -27,7 +28,9 @@ async function createServices(config, { log = () => {}, fetchImpl, needs = ["bin
   const catalog = createCatalog({ lxns, cacheDir: path.join(workDir, "cache"), refreshMs: config.catalogRefreshHours * 60 * 60 * 1000, log });
   const assets = createAssets({ cacheDir: path.join(workDir, "cache", "assets"), log, ...(fetchImpl ? { fetchImpl } : {}) });
   const renderer = createRenderer({ themesDir: path.join(config.root, "themes"), browserPath: config.browserPath, scale: config.renderScale, log });
-  const services = { lxns, oauth, catalog, assets, renderer, vault: null, bindings: null, keySource: "" };
+  // 日服上线日期、原创曲的对应角色（随程序发布的一份表，见 song-extras.cjs）
+  const songExtras = loadSongExtras();
+  const services = { lxns, oauth, catalog, assets, renderer, songExtras, vault: null, bindings: null, keySource: "" };
 
   if (needs.includes("bindings")) {
     const dir = vaultDir || workDir;

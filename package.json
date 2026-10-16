@@ -17,6 +17,7 @@
     "panel": "node tools/panel.cjs",
     "probe": "node tools/probe-qq.cjs",
     "preview": "node tools/render-preview.cjs",
+    "song-extras": "node tools/build-song-extras.cjs",
     "theme": "node tools/theme-server.cjs",
     "try": "node tools/try.cjs",
     "vault-key": "node tools/vault-key.cjs"

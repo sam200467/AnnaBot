@@ -9,6 +9,8 @@
 //   - 48 组重名，全是「普通曲 + 它的 WE 版」，普通曲之间没有重名
 //   - 有纯数字曲名（「010」「39」），所以纯数字既可能是 ID 也可能是曲名；「id39」只认 ID
 //   - 别名 787 条，其中 21 条指向曲库里没有的曲目（忽略），14 个别名被好几首歌共用
+// 2026-10-16 起曲目列表带物量（song/list?notes=true，/单曲 要用），缓存文件里记一个 notes: true。
+// 之前写的缓存没有这个标记、也没有物量，当成过期的去重拉（拉不到时照样用它，只是没有物量）。
 
 const fs = require("node:fs");
 const path = require("node:path");
@@ -55,25 +57,25 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
       const songs = JSON.parse(fs.readFileSync(songsFile, "utf8"));
       const aliases = fs.existsSync(aliasesFile) ? JSON.parse(fs.readFileSync(aliasesFile, "utf8")) : { data: { aliases: [] } };
       if (!Array.isArray(songs?.data?.songs)) return null;
-      return { songs: songs.data, aliases: aliases.data, at: Number(songs.fetchedAt) || 0 };
+      return { songs: songs.data, aliases: aliases.data, at: Number(songs.fetchedAt) || 0, withNotes: songs.notes === true };
     } catch {
       return null;
     }
   }
 
-  function writeCache(file, payload) {
+  function writeCache(file, payload, extra = {}) {
     fs.mkdirSync(cacheDir, { recursive: true });
     const tmp = file + ".tmp";
-    fs.writeFileSync(tmp, JSON.stringify({ fetchedAt: now(), data: payload }));
+    fs.writeFileSync(tmp, JSON.stringify({ fetchedAt: now(), ...extra, data: payload }));
     fs.renameSync(tmp, file);
   }
 
   async function refresh() {
-    const [songs, aliases] = await Promise.all([lxns.songList(), lxns.aliasList()]);
+    const [songs, aliases] = await Promise.all([lxns.songList({ notes: true }), lxns.aliasList()]);
     if (!Array.isArray(songs?.songs) || !songs.songs.length) throw new Error("落雪返回的曲目列表是空的");
     build(songs, aliases, now());
     try {
-      writeCache(songsFile, songs);
+      writeCache(songsFile, songs, { notes: true });
       writeCache(aliasesFile, aliases);
     } catch (error) {
       log("⚠ 曲库缓存写不进去：" + error.message);
@@ -83,7 +85,7 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
 
   async function ready() {
     const cached = readCache();
-    if (cached && now() - cached.at < refreshMs) {
+    if (cached && cached.withNotes && now() - cached.at < refreshMs) {
       build(cached.songs, cached.aliases, cached.at);
       return { source: "cache" };
     }
@@ -187,6 +189,13 @@ function createCatalog({ lxns, cacheDir, refreshMs = 6 * 60 * 60 * 1000, now = D
     isWorldsEnd,
     // 曲绘 ID：WE 用原曲的
     jacketId: (song) => (isWorldsEnd(song) ? song.difficulties[0].origin_id || song.id : song.id),
+    // 版本名：落雪曲目的 version 是首次出现的版本号（14000），换成版本表里的名字（CHUNITHM CRYSTAL）。
+    // 版本表里没有正好这个号的，取不超过它的最近一个版本
+    versionTitle: (song) => {
+      if (!song || !data) return "";
+      const entry = [...data.versions].filter((v) => v.version <= song.version).sort((a, b) => b.version - a.version)[0];
+      return entry?.title || String(song.version);
+    },
     chart: (song, levelIndex) => song?.difficulties?.find((d) => d.difficulty === Number(levelIndex)) || null,
   };
 }

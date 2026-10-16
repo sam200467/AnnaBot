@@ -31,7 +31,7 @@ function createAnnaBot(config, deps = {}) {
   const allowPrivate = config.allowPrivateChat !== false;
   const services = {
     lxns: deps.lxns, oauth: deps.oauth, bindings: deps.bindings,
-    catalog: deps.catalog, assets: deps.assets, renderer: deps.renderer,
+    catalog: deps.catalog, assets: deps.assets, renderer: deps.renderer, songExtras: deps.songExtras,
   };
   const startedAt = now();
 

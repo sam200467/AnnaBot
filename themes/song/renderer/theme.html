@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page" class="page">
+    <!-- 跟 /b50 一样：最外面金框（theme.js 拼，放在 #gilt 里），框里一圈羊皮纸，canvas 是撕开的洞 -->
+    <div class="frame">
+      <div class="rim">
+        <div id="canvas" class="canvas">
+          <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
+          <div id="smudge" class="smudge"></div>
+          <!-- 立绘：普通版（assets/tita-fullbody.png），镜像过 -->
+          <div class="sibyl"><img src="../assets/tita-fullbody.png" alt=""></div>
+          <div class="shade"></div>
+          <div class="veil"></div>
+
+          <section class="content">
+            <header class="song">
+              <!-- 曲绘套一个小金框，跟外面的大框同一张素材拼的（画中画） -->
+              <div id="jacket" class="jacket">
+                <img id="jacket-img" alt="">
+                <div class="gilt-box" aria-hidden="true"></div>
+              </div>
+              <div class="info">
+                <h1 id="title" class="title"></h1>
+                <p id="artist" class="artist"></p>
+                <dl id="facts" class="facts"></dl>
+                <div id="kin" class="kin"></div>
+              </div>
+            </header>
+            <ol id="charts" class="charts"></ol>
+            <p id="credit" class="credit"></p>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div id="gilt" class="gilt-box" aria-hidden="true"></div>
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

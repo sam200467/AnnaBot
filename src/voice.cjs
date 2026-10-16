@@ -56,6 +56,14 @@ const V = {
   bestMaybeIncomplete: (canAuthorize) => "新曲进了前 30 的不止 20 首，落雪只给了新曲前 20，这张图可能漏了几首。" +
     (canAuthorize ? "发「/授权」后按全部成绩算，就不会漏了。" : ""),
 
+  // ── /单曲 ──
+  songUsage: "用法：/单曲 曲名\n写曲名的一部分、别名或者曲目 ID（id850）都行。@ 别人可以看 TA 的成绩。",
+  songNotFound: (query) => "没找到「" + query + "」这首歌。换个写法试试：曲名的一部分、别名，或者曲目 ID（id850）。",
+  songAmbiguous: (query, lines, more) => "「" + query + "」对上了好几首，用 ID 再发一次吧：\n" + lines.join("\n") +
+    (more > 0 ? "\n……还有 " + more + " 首，写得再完整一点能少一些" : ""),
+  // 候选列表的一行：id850　《混乱》 ～ Muspell（Norn）；WE 版在后面标出来
+  songCandidate: (song, worldsEnd) => "id" + song.id + "　" + song.title + (worldsEnd ? "【WORLD'S END】" : "") + (song.artist ? "（" + song.artist + "）" : ""),
+
   // ── /信息 ──
   info: (player, api) => [
     player.name + "（Rating " + formatRating(player.rating) + "）",
