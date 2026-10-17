@@ -148,6 +148,10 @@ function createBindings({ vault, lxns, oauth = null, now = Date.now, log = () =>
       // 全部成绩的简化版（评级、CLEAR、FC 标记，没有分数），任何绑定都能读
       simpleScores: () => lxns.dev.simpleScores(friendCode),
       trend: (version) => either((u) => u.trend(version), () => lxns.dev.trend(friendCode, version)),
+      // 一张谱面每次上传的成绩。好友码（和查别人）走开发者接口，要对方开着「允许读取历史成绩」
+      scoreHistory: (songId, levelIndex) => either((u) => u.scoreHistory(songId, levelIndex), () => lxns.dev.scoreHistory(friendCode, songId, levelIndex)),
+      // 这张谱面在落雪的排名，只有玩家接口有：好友码绑定、查别人、授权失效时都是 null
+      scoreRanking: (songId, levelIndex) => (oauthOk ? viaUser((u) => u.scoreRanking(songId, levelIndex), () => null) : Promise.resolve(null)),
       // type: trophy | character | plate | icon
       collection: (type, id) => either((u) => u.collection(type, id), () => lxns.dev.collection(friendCode, type, id)),
     };

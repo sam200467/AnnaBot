@@ -73,6 +73,13 @@ function createMockLxns(options = {}) {
       if (viaDev && !p.privacy.history) return fail(res, 403, "allow third party fetch history is disabled");
       return ok(res, [{ rating: p.rating, date: "2026-10-13" }]);
     }
+    // 一张谱面的上传历史：开发者接口要对方开着历史成绩（上面已经查过谱面成绩的开关）
+    if (rest === "/score/history") {
+      if (viaDev && !p.privacy.history) return fail(res, 403, "allow third party fetch history is disabled");
+      return ok(res, (p.history || []).filter((s) => String(s.id) === query.get("song_id") && String(s.level_index) === query.get("level_index")));
+    }
+    // 排名只有玩家接口有（开发者接口走到最后的 404）
+    if (rest === "/score/ranking" && !viaDev) return ok(res, p.ranking || []);
     if (rest === "/best") {
       const hit = p.scores.find((s) => String(s.id) === query.get("song_id") && String(s.level_index) === query.get("level_index"));
       return ok(res, hit || null);
@@ -172,13 +179,16 @@ function createMockLxns(options = {}) {
     stop() {
       return new Promise((resolve) => server.close(() => resolve()));
     },
-    // bests：/bests 原样返回的 { bests, new_bests, selections }，不给就拿 scores 的前 30 凑
-    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests } = {}) {
+    // bests：/bests 原样返回的 { bests, new_bests, selections }，不给就拿 scores 的前 30 凑；
+    // history：score/history 用的 Score[]（按 id、level_index 筛）；ranking：score/ranking 原样返回的列表
+    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [] } = {}) {
       const p = {
         friendCode: String(friendCode), name, rating,
         privacy: { player: true, scores: true, history: false, ...privacy },
         scores: scores || [score(407, 3, 1007725), score(3, 3, 1009000)],
         bests: bests || null,
+        history,
+        ranking,
       };
       state.players.set(String(friendCode), p);
       return p;

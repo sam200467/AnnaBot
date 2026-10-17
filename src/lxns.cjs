@@ -119,6 +119,9 @@ function createLxnsClient(options = {}) {
     // 简化成绩 SimpleScore[]：没有 score / rating 字段
     simpleScores: (friendCode) => devGet(friendCode, "/scores"),
     trend: (friendCode, version) => devGet(friendCode, "/trend", { version }),
+    // 一张谱面每次上传的成绩 Score[]（按上传时间倒序，没过的、被技能强制结束的也在里面）。
+    // 要对方同时开着「允许读取历史成绩」（默认关）和「允许读取谱面成绩」，关着是 403 privacy_history
+    scoreHistory: (friendCode, songId, levelIndex) => devGet(friendCode, "/score/history", { song_id: songId, level_index: levelIndex }),
     collection: (friendCode, type, id) => devGet(friendCode, "/" + type + "/" + id),
   };
 
@@ -135,6 +138,11 @@ function createLxnsClient(options = {}) {
       // 全部成绩 Score[]，带分数
       scores: () => userGet("/scores"),
       trend: (version) => userGet("/trend", { version }),
+      // 同开发者接口的 scoreHistory；OAuth 的 read_player 权限包括历史成绩（落雪 OAuth 文档写的）
+      scoreHistory: (songId, levelIndex) => userGet("/score/history", { song_id: songId, level_index: levelIndex }),
+      // 这张谱面在落雪的排名：前 10 名再加自己那一条 [{ ranking, score, upload_time, player_name? }]，同分同名次。
+      // 文档没列，前端的成绩详情在用（2026-10-17 用个人密钥实测）；开发者接口没有这个
+      scoreRanking: (songId, levelIndex) => userGet("/score/ranking", { song_id: songId, level_index: levelIndex }),
       collection: (type, id) => userGet("/" + type + "/" + id),
     };
   }

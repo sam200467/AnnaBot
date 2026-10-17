@@ -67,6 +67,24 @@ const V = {
   // 候选列表的一行：id850　《混乱》 ～ Muspell（Norn）；WE 版在后面标出来
   songCandidate: (song, worldsEnd) => "id" + song.id + "　" + song.title + (worldsEnd ? "【WORLD'S END】" : "") + (song.artist ? "（" + song.artist + "）" : ""),
 
+  // ── /谱面分析 ──
+  chartUsage: "用法：/谱面分析 曲名 难度\n难度写在最后，不写就是 MASTER：绿 黄 红 紫 黑、bas adv exp mas ult、WE 都认。" +
+    "曲名写一部分、别名或者曲目 ID（id850）都行。\n不绑定也能看分数线和容错；绑定了还有你的成绩和游玩记录，@ 别人看 TA 的。",
+  // 这首歌没有要的难度：levels 是它有的那几个难度名
+  chartNoLevel: (title, level, levels) => "「" + title + "」没有 " + level + " 谱面" + (levels.length ? "，有的是：" + levels.join("、") + "。" : "。"),
+  // 要 WE，这首歌有好几个 WORLD'S END 版
+  chartPickWorldsEnd: (title, lines) => "「" + title + "」有好几个 WORLD'S END 版，用 ID 再发一次吧：\n" + lines.join("\n"),
+  chartNoNotes: (title) => "落雪还没有「" + title + "」这张谱面的物量，算不了分数线和容错。",
+  // 下面几句写在图上「游玩记录」那块，代替曲线
+  chartHistoryPrivate: (isSelf) => isSelf
+    ? "你在落雪没开「允许第三方读取历史成绩」，打开以后这里会画出游玩记录（用 /授权 绑定的不受这个开关管）。"
+    : "TA 在落雪没开「允许第三方读取历史成绩」，看不到游玩记录。",
+  chartHistoryFailed: "落雪的游玩记录这次没拿到，过一会儿再试试。",
+  // plays：落雪里一共几条；shown：90 万分以上能画的几条（不到两条画不出线）
+  chartHistoryShort: (plays, shown) => (plays === 0 ? "落雪里还没有这张谱面的游玩记录。"
+    : plays === 1 ? "落雪里这张谱面只有一次记录，画不出曲线。"
+      : "落雪记了" + plays + "次，90 万分以上的" + (shown ? "只有一次" : "一次都没有") + "，画不出曲线。"),
+
   // ── /信息 ──
   info: (player, api) => [
     player.name + "（Rating " + formatRating(player.rating) + "）",

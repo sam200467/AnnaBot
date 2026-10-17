@@ -147,4 +147,4 @@ module.exports = Object.assign({
       },
     });
   },
-}, { buildData, attachAssets, MAX_CANDIDATES });
+}, { buildData, attachAssets, charactersOf, MAX_CANDIDATES });

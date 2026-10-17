@@ -1,0 +1,359 @@
+/* /谱面分析：一张谱面的分数线、容错，和玩家在这张谱上的成绩、游玩记录。
+ * 画面是 Grimshaw《夏洛特女郎》染成月光蓝（assets/painting.jpg），右边淡淡地叠着水之巫女ジュナ・サラキア的立绘，
+ * 外面是荷兰代尔夫特陶镜框（assets/frame.webp，拼法见 theme.js 的 FRAME）。
+ * 正文一栏在左边，右边留给立绘（跟 /单曲 一样）。底板照朱娜设计（见最下面「底板」）。
+ */
+
+:root {
+  --cream: #f3e3c3;
+  --label: #d6ba84;          /* 标签：淡金 */
+  --dim: rgba(214, 186, 132, 0.66);
+  --rating: #f2cd78;         /* 单曲 Rating：深蓝底上用亮金 */
+  --water: rgba(150, 196, 240, 0.3);   /* 底板上的淡青细线 */
+  --hand: "Anna Hand", "Segoe UI Symbol", serif;
+  --hand-bold: "Anna Hand Bold", "Segoe UI Symbol", serif;
+  --script: "Anna Script", var(--hand);
+  --gilt: linear-gradient(135deg, #f3dc98, #9a6c26 32%, #ecca78 52%, #75501c 78%, #d4ae5e);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: #1b2a6b; }
+
+body {
+  width: fit-content;
+  font-family: var(--hand);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  position: relative;
+  overflow: hidden;
+  /* 陶框外沿手工烧的，有几处不齐、抠出来是透明的：底色用外沿那道钴蓝，透出来也看不出 */
+  background: #1b2a6b;
+}
+
+/* ── 背景：油画、立绘、暗幕、框的影子（位置都由 theme.js 按画框内口算好写上）── */
+.painting, .sibyl, .veil, .painting-shade { position: absolute; pointer-events: none; }
+.painting { overflow: hidden; }
+.painting img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* 立绘：贴在右边，左边缘、头顶、脚下渐隐，融进画里。
+   渐隐的遮罩挂在外面这层上、镜像只翻里面的图（同 /单曲：遮罩跟着图翻的话，渐隐就跑到另一边去了） */
+.sibyl {
+  opacity: 0.55;
+  /* 立绘是新画的动画色，比油画鲜：压一点饱和和亮度 */
+  filter: saturate(0.82) brightness(0.9);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 14%), linear-gradient(to bottom, transparent 0%, #000 8%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 14%), linear-gradient(to bottom, transparent 0%, #000 8%);
+  -webkit-mask-composite: source-in, source-in;
+  mask-composite: intersect;
+}
+.sibyl img { display: block; height: 100%; width: auto; max-width: none; }
+.sibyl.mirror img { transform: scaleX(-1); }
+
+/* 正文在左边：从左往右一层由深到无的暗幕，字底下够暗，右边的立绘不被盖住 */
+.veil { background: linear-gradient(to right, rgba(5, 9, 22, 0.62) 0%, rgba(5, 9, 22, 0.5) 62%, rgba(5, 9, 22, 0) 78%); }
+
+/* 画框投在画上的影子：box-shadow 只画一圈，比 filter 便宜得多 */
+.painting-shade { box-shadow: inset 0 0 28px 8px rgba(0, 0, 0, 0.55); }
+
+.frame, .frame-run { position: absolute; }
+.frame { inset: 0; z-index: 10; pointer-events: none; }
+.frame-run { overflow: hidden; }
+.frame img { position: absolute; display: block; object-fit: fill; }
+
+/* ── 正文 ── */
+.content {
+  position: absolute;
+  z-index: 5;
+  width: 1340px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* 曲绘 250 见方，细金边；右边曲名、曲师和对应角色、四个小格、物量构成 */
+.song { display: flex; gap: 30px; align-items: stretch; margin-bottom: 10px; }
+.jacket { position: relative; flex: none; width: 262px; height: 262px; padding: 6px; background: var(--gilt); box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); }
+.jacket img { display: block; width: 250px; height: 250px; object-fit: cover; box-shadow: 0 0 0 1px rgba(10, 8, 4, 0.9); }
+.jacket.missing img { visibility: hidden; }
+.jacket.missing::before { content: ""; position: absolute; inset: 6px; background: repeating-linear-gradient(135deg, #1d2436 0 10px, #171d2c 10px 20px); }
+
+.info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+/* 曲名只写一行、字要大：放不下先缩（theme.js 的 fitText，最小 38px），再放不下用省略号 */
+.title {
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 1.2;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+/* 曲师一行，对应角色挤在同一行的右边（单独占一行图就又高了） */
+.byline { display: flex; align-items: center; gap: 24px; min-height: 52px; }
+.artist {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 30px;
+  line-height: 1.3;
+  color: rgba(226, 205, 166, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+}
+/* 对应角色：落雪的角色头像（128 见方）套一圈金边做成小圆章，好几个时叠着放（同 /单曲） */
+.kin { flex: 0 1 auto; max-width: 62%; min-width: 0; display: flex; align-items: center; gap: 12px; }
+.kin:empty { display: none; }
+.kin .faces { flex: none; display: flex; }
+.kin .face { position: relative; flex: none; width: 52px; height: 52px; border-radius: 50%; padding: 2.5px; background: var(--gilt); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+.kin .face + .face { margin-left: -16px; }
+.kin .face img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1d2436; }
+.kin small { flex: none; font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: var(--label); text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); }
+.kin .names { min-width: 0; font-size: 28px; line-height: 1.3; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75); }
+
+/* 难度定数、物量、BPM、谱师四个小格 */
+.facts { display: flex; gap: 12px; margin-top: 12px; }
+.fact { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 6px 18px 7px; }
+.fact dt { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--label); white-space: nowrap; }
+.fact dd { font-size: 31px; line-height: 1.25; color: var(--cream); white-space: nowrap; }
+.fact.wide { flex: 1; overflow: hidden; }
+.fact.wide dd { overflow: hidden; text-overflow: ellipsis; }
+/* 难度那格是颜料色的一块，定数用 Segoe Script（跟 /单曲 一样） */
+.fact.level { background: var(--band); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 236, 200, 0.18); border: 1px solid rgba(217, 180, 106, 0.7); }
+.fact.level dt { color: #fff0d6; letter-spacing: 0.03em; }
+.fact.level dd { font-family: var(--script); font-weight: 700; font-size: 38px; line-height: 1.05; color: #fff3dc; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45); }
+
+/* 物量构成：一根按比例分段的横条，下面一排写数 */
+.notes { margin-top: auto; }
+.note-bar { display: flex; height: 14px; overflow: hidden; border-radius: 2px; box-shadow: 0 0 0 1px rgba(10, 8, 4, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5); }
+.note-bar i { display: block; height: 100%; background: var(--note); }
+.note-bar i + i { box-shadow: inset 1px 0 0 rgba(10, 8, 4, 0.55); }
+.note-legend { display: flex; justify-content: space-between; margin-top: 10px; }
+.note-legend span { display: flex; align-items: baseline; gap: 8px; font-size: 25px; line-height: 1.2; white-space: nowrap; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); }
+.note-legend span::before { content: ""; align-self: center; width: 14px; height: 14px; border-radius: 2px; background: var(--note); box-shadow: 0 0 0 1px rgba(10, 8, 4, 0.8); }
+.note-legend small { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: var(--label); }
+.note-legend b { font-weight: 400; color: var(--cream); }
+/* 物量的颜色：照游戏里的大致色相，换成颜料色（TAP 朱红、HOLD 赭黄、SLIDE 群青、AIR 铜绿、FLICK 青白） */
+.n-tap { --note: #b8432f; }
+.n-hold { --note: #c08a2a; }
+.n-slide { --note: #3e6fb6; }
+.n-air { --note: #3f8a55; }
+.n-flick { --note: #8fc2cf; }
+
+/* ── 两块底板 ── */
+/* 章节名是一条缎带，骑在底板上沿（见下面「底板」），所以顶上多留一截。右上角那行小字（每个判定扣几分、落雪记了几次）
+   跟缎带在同一高度，不单占一行：作者 2026-10-17 要图横一点，能省的高度都省了 */
+.panel { padding: 48px 28px 22px; }
+#mine.panel { padding-top: 30px; }
+.aside { position: absolute; top: 9px; right: 30px; max-width: 72%; text-align: right; font-size: 23px; line-height: 1.3; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aside b { font-weight: 400; color: rgba(243, 227, 195, 0.9); }
+
+/* 分数线表：评级 | 分数线 | 单曲 Rating | 最多 JUSTICE | 最多 ATTACK | 最多 MISS | 你还差。
+   只列 SSS+ 到 SS 四档，行距拉开（作者 2026-10-17：原来六行挤） */
+.line-table { display: grid; grid-template-columns: 100px 250px 200px 200px 180px 160px minmax(0, 1fr); align-items: center; }
+.line-table.no-rating { grid-template-columns: 100px 250px 210px 190px 170px minmax(0, 1fr); }
+.line-table.no-player { grid-template-columns: 100px 260px 220px repeat(3, minmax(0, 1fr)); }
+.line-table.no-rating.no-player { grid-template-columns: 100px 260px repeat(3, minmax(0, 1fr)); }
+.line-table > * { min-width: 0; }
+.line-table .th { padding-bottom: 8px; font-family: var(--hand-bold); font-weight: 700; font-size: 22px; line-height: 1.25; color: var(--label); white-space: nowrap; border-bottom: 1px solid rgba(217, 180, 106, 0.5); }
+.line-table .td { height: 76px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--water); white-space: nowrap; }
+.line-table .td.last { border-bottom: 0; }
+.line-table .td.seal-cell { align-items: flex-start; }
+.line-table .score { font-family: var(--script); font-weight: 700; font-size: 36px; line-height: 1.1; color: var(--cream); }
+.line-table .rating { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.1; color: var(--rating); }
+.line-table .count { font-size: 33px; line-height: 1.2; color: var(--cream); }
+/* 你还差：没到的写差几分、合几个 JUSTICE；到了的打个勾 */
+.line-table .gap b { font-weight: 400; font-size: 29px; line-height: 1.2; color: var(--cream); }
+.line-table .gap small { margin-top: 2px; font-size: 21px; line-height: 1.25; color: var(--dim); }
+.line-table .gap.done { font-size: 27px; color: rgba(214, 186, 132, 0.8); }
+/* 玩家已经到了的几档整行压暗一点，没到的那几档（要追的）亮着 */
+.line-table .reached:not(.gap) { opacity: 0.6; }
+
+/* ── 你的成绩：左边一列总结，右边曲线（上下叠着的话图太高，作者 2026-10-17 要图横一点）── */
+.mine-body { display: grid; grid-template-columns: 430px minmax(0, 1fr); gap: 30px; align-items: start; }
+.summary { display: flex; flex-direction: column; }
+.summary .head { display: flex; align-items: center; gap: 16px; }
+.summary .best { flex: 1; min-width: 0; overflow: hidden; font-family: var(--script); font-weight: 700; font-size: 56px; line-height: 1.1; color: var(--cream); white-space: nowrap; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+.summary .marks { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; min-height: 30px; }
+.stat { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 0 8px; border-bottom: 1px solid var(--water); }
+.stat:last-child { border-bottom: 0; }
+.stat small { font-family: var(--hand-bold); font-weight: 700; font-size: 23px; line-height: 1.2; color: var(--label); white-space: nowrap; }
+.stat b { font-family: var(--script); font-weight: 700; font-size: 38px; line-height: 1.15; color: var(--rating); white-space: nowrap; }
+.stat b span { font-size: 25px; color: var(--dim); }
+.stat b i { font-style: normal; font-family: var(--hand); font-weight: 400; font-size: 26px; color: var(--dim); }
+
+.history { position: relative; min-width: 0; margin-top: 26px; }
+.history svg { display: block; overflow: visible; }
+.history .grid { stroke: rgba(214, 186, 132, 0.36); stroke-width: 1.5; stroke-dasharray: 7 7; }
+.history .grid.top { stroke-dasharray: none; stroke: rgba(214, 186, 132, 0.22); }
+.history .axis { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; fill: var(--label); }
+.history .date { font-family: var(--hand); font-size: 22px; fill: var(--dim); }
+/* 日期里的年份加粗、亮一点，跟后面的月日分开（作者 2026-10-17） */
+.history .date .year { font-family: var(--hand-bold); font-weight: 700; fill: var(--cream); }
+.history .line { fill: none; stroke: #f3e3c3; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
+.history .dot { fill: #f3e3c3; stroke: #0d1322; stroke-width: 2; }
+.history .dot.top { fill: #f2cd78; stroke: #2a1a06; stroke-width: 2.5; }
+.history .note { font-size: 26px; line-height: 1.4; color: var(--dim); padding: 18px 4px 6px; }
+
+.credit { margin-top: -8px; font-size: 24px; line-height: 1.3; color: rgba(214, 186, 132, 0.72); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); }
+
+/* ── 评级封印（照搬 /单曲 的金属封印），表里 60、总结里 84 ── */
+.seal {
+  position: relative;
+  flex: none;
+  width: var(--seal, 84px);
+  height: var(--seal, 84px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
+}
+.seal.small { --seal: 60px; }
+.seal .wax {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 38%),
+    radial-gradient(circle, rgba(0, 0, 0, 0) 58%, rgba(30, 16, 4, 0.38) 100%),
+    var(--metal);
+}
+.seal .wax::after { content: ""; position: absolute; inset: 11%; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 -1px 1px rgba(255, 255, 255, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3); }
+.seal span { position: relative; font-family: var(--hand-bold); font-weight: 700; font-size: 23px; letter-spacing: -0.03em; color: var(--seal-ink); text-shadow: 0 1px 0 rgba(255, 248, 225, 0.5); }
+.seal.small span { font-size: 18px; }
+.seal.sssp { --metal: conic-gradient(from 210deg, #d6ac55, #fff2c0, #f2c3d5, #fff0b3, #c3e8c8, #b9dbf0, #dccafa, #ffe6a0, #d6ac55); --seal-ink: #4a2a06; }
+.seal.sss { --metal: conic-gradient(from 210deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c, #ebcf86, #98702a); --seal-ink: #3d2405; }
+.seal.ssp, .seal.ss { --metal: conic-gradient(from 210deg, #79818a, #f3f5f7, #9fa7af, #ffffff, #838b94, #dbe0e5, #79818a); --seal-ink: #232930; }
+.seal.sp, .seal.s { --metal: conic-gradient(from 210deg, #784522, #e9b07d, #9a5e32, #f4c699, #7f4e29, #d49862, #784522); --seal-ink: #2b1205; }
+.seal.low { --metal: conic-gradient(from 210deg, #24211f, #5a554f, #2e2b28, #6a645c, #24211f); --seal-ink: #ece4d6; }
+.seal.low .wax { background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 38%), var(--metal); }
+.seal.low span { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6); }
+
+/* 通关标记：实心的小牌子（照搬 /单曲） */
+.mark {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 11px;
+  font-weight: 700;
+  font-size: 19px;
+  white-space: nowrap;
+  color: #fff3dc;
+  border-radius: 2px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35);
+}
+.mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
+.mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.mark.tag-cut { padding-right: 20px; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%); }
+.mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
+.mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
+.mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }
+.mark.catastrophy { color: #f5d68e; background: linear-gradient(180deg, #3a1a1a, #080303); box-shadow: inset 0 0 0 1px rgba(245, 214, 142, 0.5); }
+.mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
+.mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
+
+/* 难度的颜料色（跟 /b50、/单曲 一样：铜绿、赭黄、朱红、紫、黑红），WORLD'S END 用暗金 */
+.d0 { --band: linear-gradient(180deg, #3f7a45, #234a28); }
+.d1 { --band: linear-gradient(180deg, #b07a17, #6b4507); }
+.d2 { --band: linear-gradient(180deg, #a3302a, #5e1611); }
+.d3 { --band: linear-gradient(180deg, #6f3488, #3a154b); }
+.d4 { --band: linear-gradient(180deg, #2a0c0f, #0a0304); }
+.d4.fact.level { box-shadow: inset 0 0 0 2px #9b1219, inset 0 1px 0 rgba(255, 236, 200, 0.18); }
+.d5 { --band: linear-gradient(180deg, #5a4a26, #2a210f); }
+
+/* ── 底板：照水之巫女朱娜设计（作者 2026-10-17 要一种新的，不再用 /单曲 的拉丝铁板）──
+   - 板身是深水的蓝，月光透过水面在水底照出的焦散光（assets/caustics.webp，../design/make-caustics.html 生成），上半截亮、往下渐暗
+   - 细金边里面再一道淡青的水线；四角是她头饰、水晶球上的那种金色四角星（theme.js 给每块板加四个 .star）
+   - 章节名写在一条浅蓝菱格缎带上，照她身上那两条缎带，骑在板子上沿
+   焦散光是一张平铺的图，不用 SVG 噪声：服务器没显卡，SVG 滤镜背景每块都要现算（见 ../../README.md「出图要快」） */
+.plate {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 70% 130% at 20% 0%, rgba(118, 170, 235, 0.16), rgba(118, 170, 235, 0) 70%),
+    linear-gradient(180deg, rgba(15, 35, 72, 0.9), rgba(8, 19, 42, 0.93) 55%, rgba(5, 12, 29, 0.95));
+  border: 2px solid transparent;
+  border-image: var(--gilt) 1;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(190, 220, 255, 0.18);
+}
+/* 焦散光和淡青水线都垫在字下面（z-index -1，靠 isolation 关在板子里） */
+.plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("../assets/caustics.webp") 0 0 / 512px 512px;
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.18));
+  mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+}
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  border: 1px solid var(--water);
+  pointer-events: none;
+}
+/* 四个小格太窄，不挂星星，焦散光也淡一点 */
+.fact.plate::before { opacity: 0.2; }
+.fact.plate::after { inset: 4px; }
+
+/* 四角星：凹边的四芒星，金色，中间一点亮 */
+.star {
+  position: absolute;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle at 50% 50%, #fffbe8 0 8%, #f3d58a 22%, #c8973e 55%, #8a5f1c 90%);
+  clip-path: polygon(50% 0, 58.5% 41.5%, 100% 50%, 58.5% 58.5%, 50% 100%, 41.5% 58.5%, 0 50%, 41.5% 41.5%);
+  pointer-events: none;
+}
+.star.tl { left: -17px; top: -17px; }
+.star.tr { right: -17px; top: -17px; }
+.star.bl { left: -17px; bottom: -17px; }
+.star.br { right: -17px; bottom: -17px; }
+
+/* 章节名缎带：浅蓝渐变上一层白色菱格（两组斜线交叉），上下两道金边，右头剪成燕尾 */
+.ribbon {
+  position: absolute;
+  z-index: 3;
+  top: -24px;
+  left: 40px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px 0 24px;
+  font-family: var(--hand-bold);
+  font-weight: 700;
+  font-size: 27px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: #0f2147;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+  background:
+    repeating-linear-gradient(60deg, rgba(255, 255, 255, 0) 0 15px, rgba(255, 255, 255, 0.5) 15px 16.5px),
+    repeating-linear-gradient(-60deg, rgba(255, 255, 255, 0) 0 15px, rgba(255, 255, 255, 0.5) 15px 16.5px),
+    linear-gradient(180deg, #cbe8f8, #95c9ec 50%, #6ea6dc);
+  box-shadow: inset 0 3px 0 #e9c97a, inset 0 5px 0 rgba(120, 80, 20, 0.35), inset 0 -3px 0 #b98f3c, inset 0 -5px 0 rgba(255, 240, 200, 0.25);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 50%, 100% 100%, 0 100%);
+}
+/* 缎带左头：一小截往板子后面折进去的暗面 */
+.ribbon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(90deg, rgba(10, 30, 70, 0.45), rgba(10, 30, 70, 0));
+}

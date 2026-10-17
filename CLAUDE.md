@@ -52,6 +52,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/vault.cjs` | 加密绑定库（AES-256-GCM，主密钥由 DPAPI 保护） |
 | `src/catalog.cjs` | 曲库和别名：缓存（带物量）、搜索（`search` / `resolve`，规则在 `song-search.cjs`）、版本名 |
 | `src/song-search.cjs` | 认歌：简繁日汉字互通、假名和罗马音、拼错了给相近的候选（排名表在文件头）。数据是 `src/data/song-search.json`，由 `tools/build-song-search.cjs` 生成后提交 |
+| `src/score-math.cjs` | 单曲 Rating、OVER POWER、分数线和容错的算法（公式照落雪前端，拿真成绩核过），`/谱面分析` 用 |
 | `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
@@ -96,6 +97,9 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 - 第二个出图功能 `/单曲`（`themes/song/`）在同一套框子里换了画面：背景是一幅公有领域的油画，右边半透明地叠着跟它主题相配的
   巫女立绘，正文全放左边、底板是拉丝黑铁加金边（不是羊皮纸卡片）。作者喜欢每个功能有自己的画面，但框子、字、颜料色、封蜡不变。
   设计说明在 `themes/song/README.md`
+- 第三个出图功能 `/谱面分析`（`themes/chart/`）连框子也换了（作者要的）：画框是荷兰代尔夫特陶镜框、背景油画染成月光蓝、
+  右边叠水之巫女朱娜的立绘，底板照她重新设计（深水焦散光、四芒星、菱格缎带），字、颜料色、金属封印照旧。图宽 2240、高跟着内容走。
+  设计说明在 `themes/chart/README.md`
 
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
@@ -113,6 +117,12 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   角色列表 `/chunithm/character/list`（1429 个，日文名；变身后的形态也单独有 ID，比如 機神 トール 110、覚醒機神 トール 111），
   里面没有「原创曲 → 角色」的对应关系，这个在 wikiwiki 的「キャラクター世界観」汇总页（见 `tools/build-song-extras.cjs`）。
 - 文档只列了几个玩家接口，完整列表看落雪前端源码 github.com/Lxns-Network/maimai-prober-frontend（`user/{game}/player/...`）。
+- 单张谱面的成绩历史 `.../score/history?song_id&level_index`（2026-10-17 实测）：每次上传一条 Score，按上传时间倒序，没过的、
+  被技能强制结束的（分数很低、clear 是 failed）也在里面。OAuth 的 `read_player` 权限包括历史成绩；开发者接口要对方开着
+  「允许读取历史成绩」（默认关）。排名 `user/chunithm/player/score/ranking?song_id&level_index` 只有玩家接口有：前 10 名加自己那一条，
+  同分同名次。落雪没有中二的谱面文件（素材服务器的 `chunithm/chart/` 是 404），密度、变速这些分析不了。
+- HARD / BRAVE / ABSOLUTE / CATASTROPHY 是通关标记，不是分数档：VERSE 起看通关时带的「危险技能」，各自在固定的判定次数强制结束
+  （CATASTROPHY 是「天地創造」：JUSTICE 以下 10 次），见 wikiwiki「スキル比較(VERSE～)」。
 - OAuth：访问令牌 15 分钟，刷新令牌 30 天、**每次刷新都换新的、旧的立刻作废**。刷新的串行和写回在 `bindings.cjs`，别绕过它直接调 `oauth.refresh`。
 
 ## QQ 官方平台的硬约束

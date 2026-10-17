@@ -7,6 +7,7 @@ module.exports = [
   require("./info.cjs"),
   ...require("./best.cjs"),
   require("./song.cjs"),
+  require("./chart.cjs"),
   require("./help.cjs"),
   ...require("./status.cjs"),
   require("./example-image.cjs"),
