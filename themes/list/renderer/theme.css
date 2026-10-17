@@ -1,0 +1,240 @@
+/* 成绩列表（等级、定数等筛选出来的一批谱面）：西比拉精灵记里圣女安娜（聖女 アンナ・マルグレーテ）的画面。
+ *
+ * 竖着的长图。画框是安娜专属的：一本中世纪福音书的封皮（钴蓝珐琅的心形卷草和天使、压花金边，作者在十几种里挑的），
+ * theme.js 拼；框里上半截是布莱兴的《哥特教堂废墟》（作者挑的），往下沉进暗处；
+ * 安娜站在右边（作者在三种构图里挑的「侧立」），前几行卡片排在她左边，过了她再铺满五列。
+ * 卡片骨架跟 /b50 一样（曲绘左、字右，封印压在曲绘角上），材质照安娜的衣服：象牙白的纸、金线，钴蓝点缀（她的披风）。
+ * 字只用霞鹜文楷（Anna Hand）；分数、定数、单曲 Rating 用 Segoe Script（Anna Script），跟其他主题一样。
+ */
+
+:root {
+  --ink: #2a1d12;          /* 褐墨：纸上的字 */
+  --cobalt: #1f3a8f;       /* 钴蓝：单曲 Rating、序号牌 */
+  --gold: #b48a3c;
+  --ivory: #f1e6cf;
+  --night: #15120d;
+  --hand: "Anna Hand", "Segoe UI Symbol", serif;
+  --hand-bold: "Anna Hand Bold", "Segoe UI Symbol", serif;
+  --script: "Anna Script", "Anna Hand", serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: fit-content;
+  background: var(--night);
+  font-family: var(--hand);
+  color: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 页面四周的 padding 是给画框留的，theme.js 按画框尺寸写上 */
+.page { position: relative; width: fit-content; background: var(--night); }
+
+.frame { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+.enamel { position: absolute; display: block; max-width: none; object-fit: fill; }
+.enamel.mirror { transform: scaleX(-1); }
+.enamel-run { position: absolute; left: 0; top: 0; overflow: hidden; transform-origin: 0 0; }
+.enamel-run .enamel.flip { transform: scaleY(-1); }
+
+/* ── 画：油画铺在上面，裁哪一块、多高由 theme.js 按画布宽度算（只裁宽、不拉伸），底下渐隐进暗处 ── */
+.canvas { position: relative; overflow: hidden; background: #1b1811; }
+/* 画嵌在框里：四边一圈内阴影，金边才像压在画面上 */
+.canvas::after { content: ""; position: absolute; inset: 0; z-index: 20; pointer-events: none; box-shadow: inset 0 0 0 1.5px rgba(20, 12, 4, 0.9), inset 0 0 18px 4px rgba(8, 5, 2, 0.6); }
+.painting {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  max-width: none;
+  object-fit: fill;
+  filter: saturate(0.9);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+}
+/* 压暗：左上角写字的地方深一点；往下卡片多了整体再压一层，卡片边上才分得开 */
+.veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 52% 26% at 20% 9%, rgba(16, 11, 6, 0.62), rgba(16, 11, 6, 0) 100%),
+    linear-gradient(180deg, rgba(16, 11, 6, 0.08) 0px, rgba(16, 11, 6, 0.22) 900px, rgba(16, 11, 6, 0.55) 1700px, rgba(16, 11, 6, 0.66) 100%);
+}
+/* 安娜：位置、大小由 theme.js 按 .stand 那块的位置写上；脚下渐隐 */
+.anna {
+  position: absolute;
+  display: block;
+  max-width: none;
+  opacity: 0.94;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
+}
+
+.content { position: relative; z-index: 2; padding: 34px 44px 40px; }
+
+.grid { list-style: none; display: grid; grid-template-columns: repeat(5, 340px); gap: 18px 16px; grid-auto-flow: row dense; }
+
+/* ── 抬头：等级（或筛选条件）、页码、统计 ── */
+.head { grid-column: 1 / 4; grid-row: 1; padding: 34px 0 30px 18px; }
+.heading { display: flex; align-items: baseline; gap: 10px; white-space: nowrap; font-weight: 700; line-height: 1; text-shadow: 0 3px 14px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6); }
+.heading .prefix { font-family: var(--script); font-size: 64px; color: #f3e2b8; }
+.heading .prefix:empty { display: none; }
+.heading .main { font-family: var(--hand-bold); font-size: 150px; letter-spacing: 0.01em; color: #fbf1d8; }
+.sub { margin-top: 10px; display: flex; align-items: baseline; gap: 22px; font-family: var(--hand-bold); font-weight: 700; font-size: 42px; color: #f3e5c3; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85); }
+.sub .pageno { font-family: var(--hand-bold); font-size: 32px; color: #e2cd9b; }
+
+/* 统计：一排七格，分三类（作者要用颜色分开，跟 MiaBot 一样）—— 谱面数是钴蓝，通关（AJC / AJ / FC）是琥珀，评级（SSS+ / SSS）是茜红；
+   类和类之间空宽一点。顶上一道色条跟卡片上的东西对得上：AJC 珠光、AJ 金、FC 铜（通关标记的颜色），SSS+ 珠光金、SSS 金（封印的颜色）。
+   数都是包含关系（FC 里含 AJ、AJ 里含 AJC，SSS 里含 SSS+），见 src/features/ 里的统计 */
+.stats { display: flex; gap: 8px; margin-top: 28px; }
+.stat {
+  --cat: #24408f;
+  --accent: linear-gradient(180deg, #3d58ab, #1d2f6e);
+  position: relative;
+  flex: none;
+  width: 136px;
+  height: 104px;
+  padding-top: 15px;
+  text-align: center;
+  color: var(--cat);
+  border-radius: 4px;
+  background: radial-gradient(ellipse 120% 100% at 30% 10%, #fbf7ee 0%, #efe5d0 62%, #e2d3b6 100%);
+  box-shadow: inset 0 0 0 1.5px var(--gold), inset 0 0 0 4px #f8f1e2, inset 0 0 0 5px rgba(180, 138, 60, 0.5), 0 4px 10px rgba(12, 8, 4, 0.5);
+}
+.stat::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 6px; border-radius: 1px; background: var(--accent); box-shadow: inset 0 0 0 1px rgba(40, 20, 6, 0.25); }
+.stat dt { font-family: var(--hand-bold); font-weight: 700; font-size: 28px; line-height: 1.15; }
+.stat dd { font-family: var(--script); font-weight: 700; font-size: 40px; line-height: 1.2; }
+.stat.ajc, .stat.sssp { margin-left: 16px; }
+.stat.ajc, .stat.aj, .stat.fc { --cat: #8c4f0c; }
+.stat.sssp, .stat.sss { --cat: #9c2b45; }
+.stat.ajc { --accent: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.stat.aj { --accent: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.stat.fc { --accent: linear-gradient(180deg, #c07f41, #6e3d14); }
+.stat.sssp { --accent: linear-gradient(90deg, #d6ac55, #fff2c0, #f2c3d5, #c3e8c8, #b9dbf0, #dccafa, #d6ac55); }
+.stat.sss { --accent: linear-gradient(90deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c); }
+
+/* 安娜那块：空的格子，只占位 */
+.stand { grid-column: 4 / 6; }
+
+/* ── 卡片：象牙白的纸、金线（安娜的衣服），序号牌是钴蓝（她的披风） ── */
+.card { position: relative; height: 172px; }
+.card .vellum {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background:
+    linear-gradient(100deg, transparent 38%, var(--wash) 100%),
+    radial-gradient(ellipse 120% 100% at 26% 12%, #fcf8f0 0%, #f1e8d6 58%, #e3d5bb 100%);
+  box-shadow:
+    inset 0 0 0 1.5px var(--gold),
+    inset 0 0 0 4px #f8f1e2,
+    inset 0 0 0 5px rgba(180, 138, 60, 0.5),
+    0 5px 12px rgba(10, 6, 2, 0.55);
+}
+
+.jacket {
+  position: absolute;
+  left: 13px;
+  top: 30px;
+  width: 112px;
+  height: 112px;
+  background: #2a1c16;
+  box-shadow: 0 0 0 2px var(--frame), 0 0 0 3px rgba(30, 14, 4, 0.8), 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+.jacket img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.idx {
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  z-index: 2;
+  min-width: 36px;
+  height: 26px;
+  padding: 0 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--hand-bold);
+  font-weight: 700;
+  font-size: 17px;
+  color: #f3dfa3;
+  background: linear-gradient(180deg, #2c4096, #15205a);
+  box-shadow: 0 0 0 1px rgba(214, 178, 98, 0.85), 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* 评级：金属封印，跟 /b50 /单曲 一样（边的不规则形状由 theme.js 生成） */
+.seal { position: absolute; left: 91px; top: 111px; z-index: 3; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.55)); }
+.seal .wax { position: absolute; inset: 0; background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 38%), radial-gradient(circle, rgba(0, 0, 0, 0) 58%, rgba(30, 16, 4, 0.38) 100%), var(--metal); }
+.seal .wax::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 -1px 1px rgba(255, 255, 255, 0.45), 0 1px 0 rgba(255, 255, 255, 0.3); }
+.seal span { position: relative; font-family: var(--hand-bold); font-size: 15px; font-weight: 700; letter-spacing: -0.03em; color: var(--seal-ink); text-shadow: 0 1px 0 rgba(255, 248, 225, 0.5); }
+.seal.sssp { --metal: conic-gradient(from 210deg, #d6ac55, #fff2c0, #f2c3d5, #fff0b3, #c3e8c8, #b9dbf0, #dccafa, #ffe6a0, #d6ac55); --seal-ink: #4a2a06; }
+.seal.sss { --metal: conic-gradient(from 210deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c, #ebcf86, #98702a); --seal-ink: #3d2405; }
+.seal.ssp, .seal.ss { --metal: conic-gradient(from 210deg, #79818a, #f3f5f7, #9fa7af, #ffffff, #838b94, #dbe0e5, #79818a); --seal-ink: #232930; }
+.seal.sp, .seal.s { --metal: conic-gradient(from 210deg, #784522, #e9b07d, #9a5e32, #f4c699, #7f4e29, #d49862, #784522); --seal-ink: #2b1205; }
+.seal.low { --metal: conic-gradient(from 210deg, #24211f, #5a554f, #2e2b28, #6a645c, #24211f); --seal-ink: #ece4d6; }
+.seal.low .wax { background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 38%), var(--metal); }
+.seal.low span { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6); }
+
+.body { position: absolute; left: 138px; right: 12px; top: 12px; bottom: 11px; display: flex; flex-direction: column; }
+
+/* 曲名：一行，放不下先缩（theme.js，最小 21px），再放不下省略号 */
+.title-line { height: 32px; font-family: var(--hand-bold); font-weight: 700; font-size: 25px; line-height: 32px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 分数：整张卡最大的字 */
+.score { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.15; white-space: nowrap; color: var(--ink); }
+
+/* 通关标记：跟 /b50 一样的实心小牌子 */
+.marks { display: flex; gap: 5px; height: 27px; margin-top: 3px; overflow: hidden; font-size: 18px; }
+.mark { flex: none; display: flex; align-items: center; height: 27px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+.mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
+.mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.mark.tag { padding-right: 0.95em; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 0.42em) 50%, 100% 100%, 0 100%); }
+.mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
+.mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
+.mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }
+.mark.catastrophy { color: #f5d68e; background: linear-gradient(180deg, #3a1a1a, #080303); }
+.mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
+.mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
+
+/* 定数和单曲 Rating：定数写在难度色的小牌子上，Rating 是钴蓝的字 —— 跟分数一眼分得开 */
+.foot { margin-top: auto; display: flex; align-items: center; gap: 8px; padding-left: 10px; }
+.const {
+  flex: none;
+  height: 31px;
+  padding: 0 9px;
+  display: flex;
+  align-items: center;
+  font-family: var(--script);
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff6e2;
+  border-radius: 3px;
+  background: var(--pill);
+  box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+.arrow { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(106, 76, 42, 0.75); }
+.rating { font-family: var(--script); font-weight: 700; font-size: 28px; line-height: 1; color: var(--cobalt); }
+
+/* 没打过：灰下去（曲绘去色、纸发灰），只留曲名和定数 */
+.card.unplayed .vellum { background: radial-gradient(ellipse 120% 100% at 26% 12%, #e9e6df 0%, #d6d2c8 60%, #c4bfb3 100%); box-shadow: inset 0 0 0 1.5px #8d887c, inset 0 0 0 4px #ebe8e1, inset 0 0 0 5px rgba(141, 136, 124, 0.5), 0 5px 12px rgba(10, 6, 2, 0.5); }
+.card.unplayed .jacket img { filter: grayscale(1) brightness(0.9) contrast(0.9); opacity: 0.8; }
+.card.unplayed .title-line { color: #57524a; }
+.card.unplayed .score { font-family: var(--hand-bold); font-size: 27px; line-height: 39px; color: #7a746a; }
+/* 难度色留着、褪一半：没打过的谱面也要看得出是 MASTER 还是 ULTIMA */
+.card.unplayed .jacket { filter: saturate(0.4); }
+.card.unplayed .const { filter: saturate(0.4) brightness(1.08); }
+.card.unplayed .idx { background: linear-gradient(180deg, #6b6a74, #45444c); color: #e6e2d8; box-shadow: 0 0 0 1px rgba(200, 196, 186, 0.8); }
+
+/* 难度：颜料色（跟 /b50 一样）。--frame 曲绘的框，--pill 定数牌子，--wash 纸右侧的晕染 */
+.d0 { --frame: #4f8b52; --pill: linear-gradient(180deg, #5b9a5e, #2f6232); --wash: rgba(79, 139, 82, 0.16); }
+.d1 { --frame: #c28b25; --pill: linear-gradient(180deg, #cf9a33, #8a5c0c); --wash: rgba(194, 139, 37, 0.16); }
+.d2 { --frame: #b4362f; --pill: linear-gradient(180deg, #c2453c, #7d1f18); --wash: rgba(180, 54, 47, 0.16); }
+.d3 { --frame: #7c3a95; --pill: linear-gradient(180deg, #8a4aa3, #4f1f66); --wash: rgba(124, 58, 149, 0.16); }
+.d4 { --frame: #9b1219; --pill: linear-gradient(180deg, #3a1214, #120607); --wash: rgba(26, 8, 10, 0.2); }
+.d4 .jacket { box-shadow: 0 0 0 2px #120607, 0 0 0 3px #9b1219, 0 0 0 4px rgba(30, 14, 4, 0.8), 0 3px 6px rgba(0, 0, 0, 0.4); }
+.d4 .const { box-shadow: inset 0 0 0 1px #9b1219, inset 0 1px 0 rgba(255, 220, 215, 0.2); }
+
+/* ── 页脚：一行落款 ── */
+.credit { margin-top: 34px; text-align: center; font-family: var(--hand-bold); font-weight: 700; font-size: 26px; color: rgba(236, 222, 190, 0.85); text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); }

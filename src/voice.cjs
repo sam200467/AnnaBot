@@ -85,6 +85,22 @@ const V = {
     : plays === 1 ? "落雪里这张谱面只有一次记录，画不出曲线。"
       : "落雪记了" + plays + "次，90 万分以上的" + (shown ? "只有一次" : "一次都没有") + "，画不出曲线。"),
 
+  // ── /等级 ──
+  levelUsage: "用法：/等级 14+（或者定数：/等级 14.5），后面还能加：\n" +
+    "· 页码：/等级 14+ 2\n" +
+    "· 难度：绿 黄 红 紫 黑（或 bas adv exp mas ult）\n" +
+    "· 版本：X-VERSE、LUMINOUS PLUS 这样的版本名\n" +
+    "· 评级：SSS以下（还没到 SSS 的，没打过的也算）、SSS以上，只写 SSS 是正好 SSS 这一档\n" +
+    "要读全部成绩的具体分数，得先「/授权」。",
+  levelUnknown: (words) => "看不懂「" + words.join(" ") + "」。\n" + V.levelUsage,
+  levelNoWorldsEnd: "WORLD'S END 没有等级和定数，列不出来。",
+  levelNeedMain: "只按评级筛，没打过的几千张谱面都算进来，没法看。加上等级、定数、难度或者版本吧，比如「/等级 14+ SSS以下」。",
+  // label：条件写成的一行字（Lv.14+ · MASTER · 未达 SSS）
+  levelEmpty: (label) => "没有符合条件的谱面（" + label + "）。",
+  levelNoPage: (pages) => "只有 " + pages + " 页。",
+  // 图注：next 是下一页的指令，最后一页是 null
+  levelPage: (page, pages, next) => "第 " + page + "/" + pages + " 页" + (next ? "，下一页发「" + next + "」" : "（最后一页）"),
+
   // ── /信息 ──
   info: (player, api) => [
     player.name + "（Rating " + formatRating(player.rating) + "）",

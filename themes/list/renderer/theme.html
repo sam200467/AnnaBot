@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page" class="page">
+    <!-- 最外面是安娜专属的珐琅框（一本中世纪福音书的封皮，theme.js 拼，放在 #frame 里）；框里是画：
+         布莱兴的哥特教堂废墟（assets/painting.jpg）铺在上面、往下沉进暗处，安娜站在右边（assets/anna-fullbody.png） -->
+    <div id="canvas" class="canvas">
+      <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
+      <div class="veil"></div>
+      <img id="anna" class="anna" src="../assets/anna-fullbody.png" alt="">
+
+      <section class="content">
+        <!-- 抬头占左边三列；安娜那块是一个空格子（.stand），占右边两列、往下几行，卡片自动排在她左边，过了她再铺满五列 -->
+        <ol id="grid" class="grid">
+          <li class="head">
+            <h1 class="heading"><span id="prefix" class="prefix"></span><span id="main" class="main"></span></h1>
+            <p class="sub"><span id="sub"></span><span id="pageno" class="pageno"></span></p>
+            <dl id="stats" class="stats"></dl>
+          </li>
+          <li id="stand" class="stand" aria-hidden="true"></li>
+        </ol>
+        <p id="credit" class="credit"></p>
+      </section>
+    </div>
+    <div id="frame" class="frame" aria-hidden="true"></div>
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>
