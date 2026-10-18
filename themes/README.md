@@ -10,7 +10,7 @@ themes/
 │  ├─ fonts/            上面那些字体的文件（自己准备，不进仓库）
 │  └─ icons/            几个主题共用的图标：难度、评级、FC/AJ、CLEAR（自己准备，不进仓库）
 ├─ _example/            演示用的主题，新主题从它复制
-├─ best/                /b50、/b30 成绩图（西比拉精灵记风格，设计说明见它的 README）
+├─ best/                /b50、/b30、/aj30 成绩图（西比拉精灵记风格，设计说明见它的 README）
 └─ <主题名>/
    ├─ renderer/         theme.html / theme.css / theme.js —— 正式出图用的就是这三个
    ├─ assets/           这个主题自己的背景图、装饰（自己准备，不进仓库）

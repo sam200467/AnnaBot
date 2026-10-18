@@ -6,6 +6,7 @@ module.exports = [
   ...require("./binding.cjs"),
   require("./info.cjs"),
   ...require("./best.cjs"),
+  require("./aj30.cjs"),
   require("./song.cjs"),
   require("./chart.cjs"),
   require("./level.cjs"),

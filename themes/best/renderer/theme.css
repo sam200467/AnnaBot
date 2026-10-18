@@ -188,7 +188,7 @@ body {
   background: linear-gradient(180deg, rgba(30, 19, 15, 0.7), rgba(16, 10, 8, 0.8));
   box-shadow: inset 0 0 0 3px rgba(20, 12, 10, 0.7), inset 0 0 0 4px rgba(201, 163, 94, 0.22), 0 10px 22px rgba(0, 0, 0, 0.55);
 }
-/* 图表上的字：除了标题「Best 50」，都加大加粗（2026-10-16 作者嫌小） */
+/* 图表上的字：除了标题「Best 50 / AJ 30」，都加大加粗（2026-10-16 作者嫌小） */
 .chart-head { display: flex; align-items: baseline; justify-content: space-between; padding-left: 8px; }
 .chart-title b { font-family: var(--hand); font-weight: 700; font-size: 32px; color: #f1dca6; margin-right: 14px; }
 .chart-title span { font-family: var(--hand-bold); font-weight: 700; font-size: 28px; color: rgba(232, 214, 180, 0.85); }
@@ -342,6 +342,8 @@ body {
 .stats { flex: 1; display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 10px; }
 .stat {
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding: 8px 10px 8px;
   border: 1px solid rgba(201, 163, 94, 0.55);
   background: linear-gradient(180deg, rgba(40, 26, 20, 0.88), rgba(20, 12, 10, 0.92));
@@ -350,7 +352,9 @@ body {
 }
 /* 格子上只写「Rating」「Best 30」「New 20」，下面的「旧曲均值」这类小字删了（作者：一看就懂，不用说明） */
 .stat dt { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(222, 186, 116, 0.95); line-height: 1.2; white-space: nowrap; }
-.stat dd { margin-top: 2px; font-family: var(--hand); font-weight: 700; font-size: 33px; line-height: 1.2; color: #f1e2bf; }
+/* 三格一样高，但左边 Rating 是 42px、右边均值是 33px，按普通流排下来右边的数字会高出一截。
+   dd 撑满标签下面剩下的高度再居中，三格数字的水平中轴才对得齐（作者 2026-10-19 拿 17.01 / 17.31 / 16.57 比出来的） */
+.stat dd { flex: 1; display: flex; align-items: center; justify-content: center; margin-top: 2px; font-family: var(--hand); font-weight: 700; font-size: 33px; line-height: 1.2; color: #f1e2bf; }
 .stat.main dd { font-size: 42px; }
 
 /* 玩家 Rating 的颜色档：照游戏 VERSE 以后的 9 档（绿、橙、赤、紫、铜、银、金、铂、虹），17.00 起是更浓的「虹极」。

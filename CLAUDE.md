@@ -84,6 +84,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 那种阴沉的暗色幻想风 —— 最外面一个洛可可金色画框、框里烧焦撕边的羊皮纸、上面五位巫女下面火烧的战场、旧纸片卡片、
 封蜡评级、缎带章节名、手写的字。设计说明在 `themes/best/README.md`，新的出图主题沿用同一套：
 
+- `/aj30` 是辅助分表：只挑 AJ（含 AJC）的谱面、不分新旧，按单曲 Rating 排成 B30；数据整理在 `best.cjs` 的 `buildData`
+  （`mode: "aj30"`、章节 key `aj`），功能在 `src/features/aj30.cjs`。主题沿用 best，`panel: false` 不进指令面板。
 - 正文只用一种手写字体：霞鹜文楷 Medium（`themes/shared/fonts.css` 的 `Anna Hand`，写成 `"Anna Hand", "Segoe UI Symbol", serif`）。
   它一个字体就有简体、繁体、日文汉字、假名、西文，曲名混排时大小、笔迹才对得齐 —— 之前几种字体叠着用（Segoe Script、
   辰宇落雁體、华文楷体补假名），作者嫌大小不统一。别再往同一段字里叠别的字体

@@ -254,22 +254,28 @@ body {
 /* 总 Rating：牌子底下那块空处。基础色跟卡片上的单曲 Rating 一样是钴蓝，再按游戏 Rating 色档覆盖（见下面的 .tier-*）。
    上面一道细金线，跟名字分开。
    类名不能叫 .total：抬头第一格统计格就是 .stat.total（谱面数），会被这里的位置规则挪走。
-   位置比名牌版的边缘往里收（作者 2026-10-18 说太靠边、快压到边框花纹上了）：右边留 13%，往上提到 61% 一带。 */
+   标签和数值作为一组，在名牌右侧文字区域内居中，与上方名字共用左右边界。 */
 .overall {
   position: absolute;
   left: 34%;
-  right: 13%;
+  right: 6%;
   top: 61%;
   display: flex;
   align-items: baseline;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   padding-top: 5px;
   border-top: 1px solid rgba(150, 110, 45, 0.45);
   text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
 }
-.overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 18px; letter-spacing: 0.04em; color: #5d3a15; }
-.overall-value { font-family: var(--script); font-weight: 700; font-size: 36px; line-height: 1; color: var(--cobalt); }
+.overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 28px; line-height: 1; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.04em; color: #5d3a15; }
+/* 对合成后的字形外扩加粗白边，保留渐变填色和原版文字效果。 */
+.overall-value {
+  font-family: var(--script); font-weight: 700; font-size: 36px; line-height: 1; color: var(--cobalt);
+  transform: translateY(3px); /* 手写数字的视觉中线略高于标签，下移对齐。 */
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
+          drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff);
+}
 
 /* 总 Rating 的颜色档：照游戏 VERSE 以后的 9 档（绿、橙、赤、紫、铜、银、金、铂、虹），17.00 起是更浓的「虹极」。
    这块底是名牌版（象牙纸），所以用深一档的宝石色；虹也用深色渐层，游戏里那种浅虹在象牙纸上几乎看不见。

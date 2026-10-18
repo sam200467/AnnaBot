@@ -56,6 +56,11 @@ const V = {
   bestMaybeIncomplete: (canAuthorize) => "新曲进了前 30 的不止 20 首，落雪只给了新曲前 20，这张图可能漏了几首。" +
     (canAuthorize ? "发「/授权」后按全部成绩算，就不会漏了。" : ""),
 
+  // ── /aj30（辅助分表）──
+  aj30Empty: "还没有 AJ（含 AJC）的谱面。打出 AJ 之后再来看吧。",
+  // AJ 谱面不到 30 首时，B30 的空位按 0 算（跟 Rating 的算法一致）
+  aj30Few: (count) => "AJ（含 AJC）的谱面只有 " + count + " 首，B30 里空着的位置按 0 算。",
+
   // ── /单曲 ──
   songUsage: "用法：/单曲 曲名\n写曲名的一部分、别名或者曲目 ID（id850）都行，简体繁体、假名罗马音也认。@ 别人可以看 TA 的成绩。",
   songNotFound: (query) => "没找到「" + query + "」这首歌。换个写法试试：曲名的一部分、别名，或者曲目 ID（id850）。",

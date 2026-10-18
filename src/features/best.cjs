@@ -8,10 +8,14 @@
 //         前 30 里的旧曲一定都在旧曲前 30 里；新曲只有超过 20 首挤进前 30 时才会漏，这时图注里说一声。
 //         （/bests 还有 selections：旧曲 B30 以外、理论上能进 B30 的成绩，Rating 都比旧曲第 30 低，挑前 30 用不上。）
 //
+// /aj30（src/features/aj30.cjs）的整理函数也放这里：数据形状跟 /b30 一样，只是只留 AJ / AJC 的谱面、不分新旧。
+//
 // 主题吃的数据形状见 themes/best/examples/preview-data.json。buildData 是纯函数，测试和示例数据都用它。
 
 const OLD_SLOTS = 30;
 const NEW_SLOTS = 20;
+// AJ 含 AJC：AJC 是 AJ 的更严一档，/牌子进度的 Legend 也是这么算的
+const AJ = new Set(["alljustice", "alljusticecritical"]);
 const RANKS = [[1009000, "sssp"], [1007500, "sss"], [1005000, "ssp"], [1000000, "ss"], [990000, "sp"], [975000, "s"],
   [950000, "aaa"], [925000, "aa"], [900000, "a"], [800000, "bbb"], [700000, "bb"], [600000, "b"], [500000, "c"]];
 
@@ -40,6 +44,14 @@ function pickBest30({ scores, bests, catalog }) {
   const list = rankScores([...(bests?.bests || []), ...fresh]).slice(0, OLD_SLOTS);
   const freshIn = list.filter((score) => fresh.includes(score)).length;
   return { list, exact: !(fresh.length >= NEW_SLOTS && freshIn >= NEW_SLOTS) };
+}
+
+// /aj30 挑哪些：全部成绩里 FULL COMBO 是 AJ / AJC 的谱面，不分新旧，按单曲 Rating 取前 30。
+// 跟 B30 一样，落雪标了 disabled 的曲目不算；WE 没有 Rating，rankScores 会滤掉。
+function pickAj30({ scores, catalog }) {
+  const usable = (scores || []).filter((score) =>
+    score && AJ.has(score.full_combo) && !catalog?.getSong(score.id)?.disabled);
+  return rankScores(usable).slice(0, OLD_SLOTS);
 }
 
 // 新曲的判定跟着落雪走：new_bests 里最老的那个版本往后都算新曲；落雪没给新曲时退回曲库的最新版本。
@@ -119,6 +131,11 @@ function buildData({ mode, player, bests, scores = null, catalog, now = new Date
     const fresh = rankScores(bests?.new_bests).slice(0, NEW_SLOTS);
     chapters = [chapter("old", old, OLD_SLOTS, options), chapter("new", fresh, NEW_SLOTS, options)];
     rating = (sumOf(old) + sumOf(fresh)) / (OLD_SLOTS + NEW_SLOTS);
+  } else if (mode === "aj30") {
+    // 只认授权读到的全部成绩：只从 /bests 的前 50 首里挑会漏掉排名更低的 AJ 谱面
+    const picked = pickAj30({ scores, catalog });
+    chapters = [chapter("aj", picked, OLD_SLOTS, options)];
+    rating = chapters[0].average;
   } else {
     const picked = pickBest30({ scores, bests, catalog });
     chapters = [chapter("all", picked.list, OLD_SLOTS, options)];
@@ -189,5 +206,5 @@ function feature(mode) {
 
 // 功能清单（index.cjs 里展开）只认数组里的两个功能；整理数据的函数挂在数组上，给测试和示例数据用。
 module.exports = Object.assign([feature("b50"), feature("b30")], {
-  buildData, attachAssets, pickBest30, rankScores, rankOf, stamp, playerView, OLD_SLOTS, NEW_SLOTS,
+  buildData, attachAssets, pickBest30, pickAj30, rankScores, rankOf, stamp, playerView, OLD_SLOTS, NEW_SLOTS,
 });

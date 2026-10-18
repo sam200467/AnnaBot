@@ -1,7 +1,10 @@
-# best：B30 / B50 成绩图
+# best：B30 / B50 / AJ30 成绩图
 
-`/b50`、`/b30` 用的主题（功能代码在 `src/features/best.cjs`）。风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
+`/b50`、`/b30`、辅助表 `/aj30` 用的主题（功能代码在 `src/features/best.cjs`、`src/features/aj30.cjs`）。风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
 
+- `/aj30` 跟 `/b30` 是同一套版式：一栏 30 首，只挑 AJ（含 AJC）的谱面、不分新曲老曲。章节名是「全曲 AJ」、
+  缎带和图表标题写「AJ 30」、页眉的统计格也是「AJ 30」，跟 `/b30` 的「全曲 / Best 30」区分开；新曲照样带 New 标记。
+  这是辅助用的表，不进 QQ 输入框的指令面板。
 - **整张图是一幅镶在金框里的画**：最外面是洛可可金色画框（`assets/frame.png`），框里一圈羊皮纸，画面是撕开、烧焦的边，
   跟这个系列的曲绘一样。画里上半截是五位巫女（`assets/sibyls.webp`），往下沉进黑暗；最底下是着火的战场（`assets/battlefield.webp`）。
 - **画框是拼出来的**：原图框的比例跟成绩图差太远，四个角、每条边中间的雕花原样缩小贴上去，平直的线脚取原图里一段，
@@ -12,6 +15,8 @@
   外圈的卢恩字母转写的是 SIBYLLA · SPES ANIMAM TENET · ANNA MARGARETE），从图表板子的上边和右边露出来。
 - **页眉右边**：玩家的名牌版（落雪的图，「★转生 Lv.等级 名字」和称号照游戏里的位置叠上去）、角色头像、
   挂在头像下面的段位勋章（`../shared/icons/class_emblem/`）、Rating 和两栏的均值（格子上只写 Rating / Best 30 / New 20）。
+  三格一样高，右边两格的均值字号小，数字在标签下面剩下的高度里居中，水平中轴跟 Rating 那个大数字对齐
+  （2026-10-19 作者发现 17.31 / 16.57 比 17.01 高出一截）。
   Rating 的数字按游戏里的 Rating 色档上色（绿、橙、赤、紫、铜、银、金、铂、虹，17.00 起是更浓的虹极；
   色相照游戏，亮度按暗底提了一档，纯绿那种在暗底上看不清；虹极还是上暖下冷的竖渐变）。只改颜色，字体和星都不动。
 - **每首歌是一张旧纸片**：左边曲绘，右边一栏依次是曲名（只写一行，字大，放不下就用省略号）、分数、通关标记、「定数 › 单曲 Rating」。曲绘框和底下的条用难度的颜料色（铜绿、赭黄、朱红、紫、黑红），单曲 Rating 用干掉的血色。
@@ -57,8 +62,9 @@
 
 ## 数据
 
-`src/features/best.cjs` 的 `buildData` 给出，形状看 `examples/preview-data.json`（B50）和 `examples/b30.json`（B30）。
-示例数据的曲目是真的、分数是编的。柱状图直接用各栏的 `scores[].rating` 和 `average` 画，不另要数据。
+`src/features/best.cjs` 的 `buildData` 给出，形状看 `examples/preview-data.json`（B50）、`examples/b30.json`（B30）和
+`examples/aj30.json`（AJ30：`mode` 和章节 key 不同，示例里每首的 `fullCombo` 都是 AJ / AJC）。示例数据的曲目是真的、分数是编的。
+柱状图直接用各栏的 `scores[].rating` 和 `average` 画，不另要数据。
 
 ## 预览
 
@@ -66,8 +72,9 @@
 npm run theme -- best                                                  实时预览（B50 的示例数据）
 npm run preview -- best --out themes/best/previews/b50.jpg               正式出图流程渲染 B50 示例
 npm run preview -- best themes/best/examples/b30.json --out themes/best/previews/b30.jpg
+npm run preview -- best themes/best/examples/aj30.json --out themes/best/previews/aj30.jpg
 ```
 
 出图是 2040 CSS 像素宽（内容 1824 + 羊皮纸 + 画框）、两倍输出，JPEG 质量 76。
-B50 大约 4080×6410、4 MB，B30 大约 4080×4390、2.7 MB（作者要求单张在 5 MB 以内）。
+B50 大约 4080×6410、4 MB，B30 / AJ30 大约 4080×4390、2.7 MB（作者要求单张在 5 MB 以内）。
 预览的输出路径写 `.png` 就出 PNG，但这个主题纹理多，PNG 有十几 MB。

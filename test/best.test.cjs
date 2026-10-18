@@ -18,11 +18,15 @@ const { createAssets } = require("../src/assets.cjs");
 const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
-const { buildData, attachAssets, pickBest30, rankScores } = require("../src/features/best.cjs");
+const panel = require("../src/command-panel.cjs");
+const features = require("../src/features/index.cjs");
+const { buildData, attachAssets, pickBest30, pickAj30, rankScores } = require("../src/features/best.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 const FC1 = "123456789012345";
 const FC2 = "102000000000002";
+const FC3 = "103000000000003";
+const FC4 = "104000000000004";
 
 // 小曲库：旧版本（13000）1～41 号，41 号被落雪标成 disabled；当前版本（24000）101～130 号；8001 是 1 号的 WE
 function songList() {
@@ -44,6 +48,7 @@ const sc = (id, rating, extra = {}) => ({
   clear: "clear", full_combo: null, full_chain: null, rank: "sss", ...extra,
 });
 const range = (from, to, rating) => Array.from({ length: to - from + 1 }, (_, i) => sc(from + i, rating(i)));
+const ajRange = (from, to, rating) => range(from, to, rating).map((score) => ({ ...score, full_combo: "alljustice" }));
 const ids = (list) => list.map((score) => score.id);
 
 async function loadCatalog(t) {
@@ -139,6 +144,48 @@ test("buildData /b30：一栏 30 首，新曲照落雪的 new_bests 认；曲库
   assert.deepEqual(data.player.classEmblem, { base: 2, medal: 4 });
 });
 
+test("/aj30 挑歌：只留 AJ / AJC（不分新旧），去掉 FC、disabled、WE，按单曲 Rating 取前 30", async (t) => {
+  const catalog = await loadCatalog(t);
+  const old = ajRange(1, 30, (i) => 16 - i * 0.01);
+  const fresh = ajRange(101, 110, (i) => 17 - i * 0.01);
+  // AJC 也算 AJ
+  const ajc = sc(25, 18, { full_combo: "alljusticecritical" });
+  const scores = [
+    ...old.filter((score) => score.id !== 25), ajc, ...fresh,
+    sc(31, 19, { full_combo: "fullcombo" }),   // 只有 FC，不算
+    sc(32, 20, { full_combo: null }),          // 没有 FC 标记，不算
+    sc(41, 21, { full_combo: "alljustice" }),  // 曲库标了 disabled
+    sc(8001, 22, { level_index: 5, full_combo: "alljustice" }),   // WE 没有 Rating
+  ];
+
+  const picked = pickAj30({ scores, catalog });
+  assert.equal(picked.length, 30);
+  assert.deepEqual(ids(picked), [25, ...ids(fresh), ...ids(old.slice(0, 19))]);
+
+  const data = buildData({ mode: "aj30", player: { name: "测试玩家", rating: 16.5 }, scores, catalog });
+  const [chapter] = data.chapters;
+  assert.deepEqual([data.mode, data.exact, chapter.key, chapter.slots, chapter.scores.length], ["aj30", true, "aj", 30, 30]);
+  assert.deepEqual(chapter.scores.map((score) => score.id), ids(picked));
+  const sum = chapter.scores.reduce((total, score) => total + score.rating, 0);
+  assert.ok(Math.abs(chapter.average - sum / 30) < 1e-9);
+  assert.equal(data.rating, chapter.average);
+  assert.equal(chapter.scores[0].fullCombo, "alljusticecritical", "AJC 也算 AJ，而且排第一");
+  assert.equal(chapter.scores.filter((score) => score.isNew).length, 10, "新曲照当前版本算 New，不分新旧都进表");
+  assert.ok(chapter.scores.every((score) => score.fullCombo === "alljustice" || score.fullCombo === "alljusticecritical"));
+
+  // 不到 30 首：位置还是 30 个，空位按 0 算（跟 Rating 一致）
+  const few = buildData({ mode: "aj30", player: { name: "测试玩家" }, scores: ajRange(1, 5, () => 16), catalog });
+  assert.deepEqual([few.chapters[0].slots, few.chapters[0].scores.length], [30, 5]);
+  assert.ok(Math.abs(few.chapters[0].average - 5 * 16 / 30) < 1e-9);
+});
+
+test("/aj30 是辅助表：功能表里有，指令面板里没有", () => {
+  const feature = features.find((entry) => entry.name === "aj30");
+  assert.ok(feature);
+  assert.equal(feature.panel, false);
+  assert.ok(!panel.panelItems(features).some((item) => item.name === "/aj30"));
+});
+
 test("attachAssets：曲绘、名牌版、角色一次要齐，没有的是 null", async (t) => {
   const catalog = await loadCatalog(t);
   const data = buildData({
@@ -192,7 +239,13 @@ async function setup(t) {
     ...(mentions ? { mentions } : {}),
   });
   const last = () => qq.state.sent.at(-1).body;
-  return { qq, lx, renders, group, last };
+  async function authorize(user, friendCode) {
+    await group("/授权", { user });
+    const url = last().content.match(/https?:\/\/\S+/)[0];
+    const code = lx.approve(friendCode, new URL(url).searchParams.get("code_challenge"));
+    await group("/授权 " + code, { user });
+  }
+  return { qq, lx, renders, group, last, authorize };
 }
 
 const BOT = { id: "BOT", member_openid: "BOT", is_you: true, bot: true };
@@ -234,15 +287,58 @@ test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲�
   assert.ok(s.lx.state.requests.slice(-2).every((request) => request.auth === "dev"));
 
   // 授权绑定：/b30 读全部成绩挑，准了，不再有图注
-  await s.group("/授权", { user: "U3" });
-  const url = new URL(s.last().content.match(/https?:\/\/\S+/)[0]);
-  const code = s.lx.approve(FC2, url.searchParams.get("code_challenge"));
-  await s.group("/授权 " + code, { user: "U3" });
+  await s.authorize("U3", FC2);
   const before = s.lx.state.requests.length;
   await s.group("/b30", { user: "U3" });
   assert.ok(s.lx.state.requests.slice(before).some((request) => request.auth === "bearer" && request.path.endsWith("/scores")));
   assert.equal(s.renders.at(-1).data.exact, true);
   assert.equal(s.last().content, undefined);
+});
+
+test("/aj30 端到端：好友码请去授权；授权后只排 AJ/AJC 的 B30；不到 30 首、没有 AJ 都有说法", async (t) => {
+  const s = await setup(t);
+  const scores = [...ajRange(1, 25, (i) => 16 - i * 0.01), ...ajRange(101, 110, (i) => 17 - i * 0.01),
+    sc(31, 18.5, { full_combo: "fullcombo" })];   // 分数更高但只是 FC，不能进 AJ30
+  s.lx.addPlayer({ friendCode: FC1, name: "好友码玩家", rating: 16.2, scores });
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", rating: 16.5, scores });
+  s.lx.addPlayer({ friendCode: FC3, name: "五首 AJ", rating: 12, scores: ajRange(1, 5, () => 15) });
+  s.lx.addPlayer({ friendCode: FC4, name: "没有 AJ", rating: 10, scores: [sc(1, 18, { full_combo: "fullcombo" })] });
+  for (const id of [...Array.from({ length: 25 }, (_, i) => i + 1), ...Array.from({ length: 10 }, (_, i) => 101 + i)]) {
+    s.lx.state.assets.set("jacket/" + id, PNG);
+  }
+
+  await s.group("/aj30");
+  assert.equal(s.last().content, V.needBinding);
+
+  await s.group("/绑定 " + FC1);
+  await s.group("/aj30");
+  assert.equal(s.last().content, V.needOAuth("aj30"));
+  assert.equal(s.renders.length, 0);
+
+  await s.authorize("U3", FC2);
+  await s.group("/aj30", { user: "U3" });
+  const render = s.renders.at(-1);
+  assert.equal(render.theme, "best");
+  assert.deepEqual([render.data.mode, render.data.chapters.length, render.data.chapters[0].key], ["aj30", 1, "aj"]);
+  const cards = render.data.chapters[0].scores;
+  assert.deepEqual([cards.length, render.data.chapters[0].slots], [30, 30]);
+  assert.ok(cards.every((score) => score.fullCombo === "alljustice" || score.fullCombo === "alljusticecritical"));
+  assert.ok(!cards.some((score) => score.id === 31), "只是 FC 的高分不能挤进 AJ30");
+  assert.equal(s.last().msg_type, 7);
+  assert.equal(s.last().content, undefined, "满 30 首不带图注");
+
+  // 只有 5 首 AJ：图上有 30 个位置，图注说清空位按 0 算
+  await s.authorize("U4", FC3);
+  await s.group("/aj30", { user: "U4" });
+  assert.equal(s.renders.at(-1).data.chapters[0].scores.length, 5);
+  assert.equal(s.last().content, V.aj30Few(5));
+
+  // 一张 AJ 都没有：不出一张空图，直接用文字回
+  await s.authorize("U5", FC4);
+  const count = s.renders.length;
+  await s.group("/aj30", { user: "U5" });
+  assert.equal(s.last().content, V.aj30Empty);
+  assert.equal(s.renders.length, count);
 });
 
 // ── 真的渲染一次 ──
@@ -255,12 +351,12 @@ function exampleData(file) {
 }
 
 // 宽 = 内容 1824 + 两边羊皮纸 12 + 画框（左 97、右 95，按画框原图量的尺寸算，见 theme.js 的 FRAME）
-test("best 主题：B50、B30 的示例数据都能出图，宽 2040", { skip }, async (t) => {
+test("best 主题：B50、B30、AJ30 都能出图，宽 2040", { skip }, async (t) => {
   // 浏览器临时目录放测试自己的目录里，不碰系统临时目录
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
-  for (const file of ["preview-data.json", "b30.json"]) {
+  for (const file of ["preview-data.json", "b30.json", "aj30.json"]) {
     const out = await renderer.render("best", exampleData(file), { width: 2100, format: "jpeg" });
     assert.equal(out.width, 2040, file);
     assert.ok(out.height > 1500, file);

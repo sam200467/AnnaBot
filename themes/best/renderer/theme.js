@@ -1,4 +1,4 @@
-// B30 / B50 成绩图。数据由 src/features/best.cjs 的 buildData 给出，形状见 ../examples/preview-data.json。
+// B30 / B50 / AJ30 成绩图。数据由 src/features/best.cjs 的 buildData 给出，形状见 ../examples/preview-data.json。
 // 撕边、封蜡、余烬这些「随机」的东西都用固定种子的伪随机数生成：同一份数据每次出图都一模一样。
 (function () {
   "use strict";
@@ -10,6 +10,8 @@
     old: { zh: "旧曲", en: "Best 30", side: "旧版本曲目" },
     new: { zh: "新曲", en: "New 20", side: "当前版本新曲" },
     all: { zh: "全曲", en: "Best 30", side: "不分新旧" },
+    // /aj30 的辅助表：只放 AJ / AJC 的谱面，标题跟 /b30 区分开
+    aj: { zh: "全曲 AJ", en: "AJ 30", side: "AJ / AJC" },
   };
   const LEVELS = ["BASIC", "ADVANCED", "EXPERT", "MASTER", "ULTIMA", "WORLD'S END"];
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
@@ -481,7 +483,7 @@
       for (const chapter of chapters) stats.append(stat(chapter.key === "new" ? "New 20" : "Best 30", rating(chapter.average)));
     } else if (chapters[0]) {
       const list = chapters[0].scores;
-      stats.append(stat("Best 30", rating(chapters[0].average)));
+      stats.append(stat(mode === "aj30" ? "AJ 30" : "Best 30", rating(chapters[0].average)));
       stats.append(stat("Top", list.length ? rating(list[0].rating) : "—"));
     }
   }
@@ -522,7 +524,7 @@
       average: Number(chapter.average) || 0,
       bars: (chapter.scores || []).map((score) => ({
         value: Number(score.rating) || 0,
-        fresh: chapter.key === "new" || (mode === "b30" && Boolean(score.isNew)),
+        fresh: chapter.key === "new" || (mode !== "b50" && Boolean(score.isNew)),
       })),
     }));
     const values = groups.flatMap((group) => group.bars.map((bar) => bar.value));
@@ -580,7 +582,8 @@
 
   function renderChart(mode) {
     const title = $("chart-title");
-    title.append(el("b", null, mode === "b30" ? "Best 30" : "Best 50"), el("span", null, "单曲 Rating"));
+    const name = mode === "b50" ? "Best 50" : mode === "aj30" ? "AJ 30" : "Best 30";
+    title.append(el("b", null, name), el("span", null, "单曲 Rating"));
     const chapters = data.chapters || [];
     const hasNew = chapters.some((chapter) => chapter.key === "new" ? chapter.scores.length : chapter.scores.some((score) => score.isNew));
     const legend = $("chart-legend");
@@ -610,7 +613,7 @@
     img.addEventListener("error", () => jacket.classList.add("missing"), { once: true });
     jacket.append(img, el("div", "band", LEVELS[score.levelIndex] || ""));
     item.append(jacket, el("span", "idx", index + 1));
-    if (mode === "b30" && score.isNew) item.append(el("span", "new-tag", "New"));
+    if (mode !== "b50" && score.isNew) item.append(el("span", "new-tag", "New"));
 
     const seal = el("div", "seal " + (SEALED.has(score.rank) ? score.rank : "low"));
     const wax = el("div", "wax");
@@ -769,7 +772,7 @@
   }
 
   async function main() {
-    const mode = data.mode === "b30" ? "b30" : "b50";
+    const mode = data.mode === "b50" ? "b50" : data.mode === "aj30" ? "aj30" : "b30";
     document.body.classList.add("mode-" + mode);
     // 纹理跟排版无关，先开始画，跟等字体同时进行。画不成就还用 CSS 里的 SVG（慢一点而已），不能让整张图出不来
     const textures = bakeTextures().catch(() => {});
