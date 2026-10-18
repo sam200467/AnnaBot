@@ -9,7 +9,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { parseEnv } = require("node:util");
-const { buildPackage, createZip, installCmd, usedFonts, packagedEnv } = require("../tools/build-package.cjs");
+const { buildPackage, createZip, installCmd, usedFonts, packagedEnv, deployGuide } = require("../tools/build-package.cjs");
 const { install, checkConfig, autostartScript, taskCommand, parseArgs } = require("../tools/install.cjs");
 const { powershell, psQuote } = require("../tools/background.cjs");
 const { openVault } = require("../src/vault.cjs");
@@ -82,7 +82,11 @@ test("完整包：程序、配置、绑定库、缓存都在；.env 换上导出
     assert.equal(sha256(data), file.sha256, file.path);
   }
   for (const name of ["安装Anna.cmd", "部署说明.txt", "manifest.json"]) assert.ok(fs.existsSync(path.join(folderDir, name)), name);
-  assert.match(fs.readFileSync(path.join(folderDir, "部署说明.txt"), "utf8"), /绑定数据（2 人）/);
+  const guide = fs.readFileSync(path.join(folderDir, "部署说明.txt"), "utf8");
+  assert.match(guide, /绑定数据（2 人）/);
+  // build() 只出文件夹（zip: false），说明里就不该再让人解压 zip
+  assert.match(guide, /把整个安装包文件夹拷到服务器/);
+  assert.doesNotMatch(guide, /全部解压缩/);
 
   const envText = fs.readFileSync(path.join(folderDir, "personal", ".env"), "utf8");
   const env = parseEnv(envText);
@@ -305,6 +309,17 @@ test("包里的 .env：照模板填，带特殊字符的加引号，模板外的
   assert.equal(env.ANNA_VAULT_KEY, key.toString("base64"));
   assert.ok(!text.includes("mine-abcdef"));
   assert.match(text, /^# 注释留着$/m);
+});
+
+test("部署说明：打 zip 和只出文件夹两种写法", () => {
+  const manifest = { name: "AnnaBot-install-20261019-abcdef", kind: "install", personal: { bindings: 0, cacheFiles: 0 } };
+  const zipped = deployGuide(manifest);
+  assert.match(zipped, /把 zip 拷到服务器/);
+  assert.match(zipped, /解压出来的「安装Anna\.cmd」/);
+  const folder = deployGuide(manifest, { zip: false });
+  assert.match(folder, /把整个安装包文件夹拷到服务器/);
+  assert.match(folder, /文件夹里的「安装Anna\.cmd」/);
+  assert.doesNotMatch(folder, /全部解压缩/);
 });
 
 test("安装参数", () => {

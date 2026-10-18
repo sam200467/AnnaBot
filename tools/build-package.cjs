@@ -7,6 +7,7 @@
 //
 // 打出来是 dist/ 里的一个 zip（dist/ 不进仓库：完整包里有密钥和所有人的绑定）。拷到服务器解压，双击「安装Anna.cmd」，
 // 换程序、放配置、开机自启、启动都是 tools/install.cjs 的事；「部署说明.txt」一起打进包里。
+// 不想用 zip 就加 --no-zip：只留解开的文件夹，包里的部署说明也按文件夹写。
 //
 // 包里长这样：
 //   AnnaBot-install-20261015-43bd5ed/
@@ -25,9 +26,10 @@
 //   - 只给本机检查脚本用的个人密钥（LXNS_USER_TOKEN，能改写你自己的成绩）和好友码不带。
 //   - 用要装过去的那份配置跑一遍 loadConfig、用导出的主密钥解一遍绑定库：到了服务器上起不来的包不该出门。
 //
-// 用法：npm run package [-- --skip-tests] [--folder]
+// 用法：npm run package [-- --skip-tests] [--folder] [--no-zip]
 //   --skip-tests  不跑测试（默认先跑一遍 npm test，没过不打包）
 //   --folder      zip 之外再留一份解开的（dist/<包名>/），看看包里有什么
+//   --no-zip      只出解开的文件夹，不打 zip；部署说明按文件夹写
 
 const crypto = require("node:crypto");
 const fs = require("node:fs");
@@ -325,7 +327,7 @@ function installCmd() {
   ].join("\r\n");
 }
 
-function deployGuide(manifest) {
+function deployGuide(manifest, { zip = true } = {}) {
   const full = manifest.kind === "install";
   const lines = [
     "Anna 部署说明（" + manifest.name + "）",
@@ -341,8 +343,10 @@ function deployGuide(manifest) {
     "  · 和 MiaBot 放在同一台服务器上也行，两个机器人互不影响",
     "",
     "二、安装（更新也是这样）",
-    "  1. 把 zip 拷到服务器（远程桌面里直接复制粘贴），右键 →「全部解压缩」",
-    "  2. 双击解压出来的「安装Anna.cmd」。默认装到 " + DEFAULT_TARGET + "；想装到别处，在命令行里运行：安装Anna.cmd D:\\AnnaBot",
+    zip
+      ? "  1. 把 zip 拷到服务器（远程桌面里直接复制粘贴），右键 →「全部解压缩」"
+      : "  1. 把整个安装包文件夹拷到服务器（远程桌面里直接复制粘贴），里面就是安装包",
+    "  2. 双击" + (zip ? "解压出来的" : "文件夹里的") + "「安装Anna.cmd」。默认装到 " + DEFAULT_TARGET + "；想装到别处，在命令行里运行：安装Anna.cmd D:\\AnnaBot",
     "  3. 等它跑完，最后显示「连上 QQ 了」就是好了",
     "  它会依次：核对安装包 → 检查 Node、浏览器、字体 → 停掉正在跑的 Anna → 换程序 → 放配置和数据（服务器上已经有的不动）",
     "  → 设开机自启 → 启动 Anna，等它连上 QQ。",
@@ -355,7 +359,8 @@ function deployGuide(manifest) {
       "  · 自己电脑上的 Anna 打包前已经停了，以后别再开：同一个机器人连两次，每句话会回两遍；",
       "    那边再刷新一次落雪的授权令牌，服务器上对应的人就得重新 /授权。自己电脑设了开机启动 Anna 的话，记得去掉。",
       "  · 装好后到群里 @Anna 发 /状态 和 /b50，图出得来就全通了（安装程序就是用开机自启的计划任务启动的，跟重启后一样）。",
-      "  · 这个包里有 QQ 机器人密钥、落雪密钥、绑定库主密钥和所有人的绑定：别放网盘、别发群里。装好以后把 zip 和解压出来的文件夹都删掉。",
+      "  · 这个包里有 QQ 机器人密钥、落雪密钥、绑定库主密钥和所有人的绑定：别放网盘、别发群里。装好以后把" +
+        (zip ? " zip 和解压出来的文件夹" : "安装包文件夹") + "删掉。",
       "",
     );
   }
@@ -367,7 +372,7 @@ function deployGuide(manifest) {
     "  · 服务器重启以后 Anna 自己会起来（开机 30 秒后）",
     "",
     (full ? "五" : "四") + "、更新",
-    "  在自己电脑上 npm run package:update 打更新包，拷过来解压，同样双击「安装Anna.cmd」。",
+    "  在自己电脑上 npm run package:update 打更新包，" + (zip ? "拷过来解压" : "拷过来") + "，同样双击「安装Anna.cmd」。",
     "  它会先停掉 Anna，换完程序再启动；.env、config.local.json、data 都不动。",
     "  QQ 输入框里打 / 弹出的指令清单，Anna 启动时会自己更新，不用另外操作。",
     "  回退：把上一个安装包或更新包再装一遍。",
@@ -437,7 +442,7 @@ async function buildPackage({
     };
     put("manifest.json", Buffer.from(JSON.stringify(manifest, null, 2) + "\n", "utf8"), now);
     put("安装Anna.cmd", Buffer.from(installCmd(), "utf8"), now);
-    put("部署说明.txt", Buffer.from(BOM + deployGuide(manifest).replace(/\n/g, "\r\n"), "utf8"), now);
+    put("部署说明.txt", Buffer.from(BOM + deployGuide(manifest, { zip: Boolean(zipFile) }).replace(/\n/g, "\r\n"), "utf8"), now);
     archive?.close();
     return { name, zipFile, folderDir, manifest, bytes, zipBytes: zipFile ? fs.statSync(zipFile).size : 0 };
   } catch (error) {
@@ -448,30 +453,34 @@ async function buildPackage({
 
 async function main() {
   const argv = process.argv.slice(2);
-  const unknown = argv.filter((arg) => !["--update", "--skip-tests", "--folder"].includes(arg));
-  if (unknown.length) throw new Error("不认识的参数：" + unknown.join(" ") + "\n用法：npm run package [-- --skip-tests] [--folder]；只打程序：npm run package:update");
+  const unknown = argv.filter((arg) => !["--update", "--skip-tests", "--folder", "--no-zip"].includes(arg));
+  if (unknown.length) throw new Error("不认识的参数：" + unknown.join(" ") + "\n用法：npm run package [-- --skip-tests] [--folder] [--no-zip]；只打程序：npm run package:update");
   const kind = argv.includes("--update") ? "update" : "install";
+  const zip = !argv.includes("--no-zip");
+  const folder = !zip || argv.includes("--folder");   // 只出文件夹时 --folder 是必须的
   if (kind === "install") await assertStopped(ROOT);   // 先查这个，别白跑一遍测试
   if (!argv.includes("--skip-tests")) {
     console.log("先跑一遍测试（npm test）…");
     const tests = spawnSync(process.execPath, ["--test", "--test-timeout=90000", "test/*.test.cjs"], { cwd: ROOT, stdio: "inherit", windowsHide: true });
     if (tests.status !== 0) throw new Error("测试没过，不打包。");
   }
-  const result = await buildPackage({ kind, folder: argv.includes("--folder") });
+  const result = await buildPackage({ kind, zip, folder });
   const { manifest } = result;
   const app = manifest.files.filter((file) => file.path.startsWith("app/")).length;
   console.log("");
-  console.log("打好了：" + path.relative(ROOT, result.zipFile) + "（" + mb(result.zipBytes) + "，程序 " + app + " 个文件" +
+  const where = result.zipFile || result.folderDir;
+  console.log("打好了" + (result.zipFile ? "：" : "文件夹：") + path.relative(ROOT, where) + "（" +
+    mb(result.zipFile ? result.zipBytes : result.bytes) + "，程序 " + app + " 个文件" +
     (manifest.personal ? "，配置和数据 " + (manifest.files.length - app) + " 个文件）" : "；不带配置和数据）"));
-  if (result.folderDir) console.log("解开的一份在 " + path.relative(ROOT, result.folderDir));
+  if (result.zipFile && result.folderDir) console.log("解开的一份在 " + path.relative(ROOT, result.folderDir));
   if (manifest.dirty) console.log("⚠ 有没提交的改动：包里是磁盘上现在的代码，版本号带 -dirty。");
   if (manifest.personal) {
     console.log("  绑定库 " + manifest.personal.bindings + " 人，曲库和素材缓存 " + manifest.personal.cacheFiles + " 个文件；主密钥写进了包里的 .env");
     console.log("⚠ 包里有 QQ 机器人密钥、落雪密钥、绑定库主密钥和所有人的绑定：别放网盘、别发群里，用远程桌面直接拷到服务器。");
     console.log("⚠ 本机的 Anna 从现在起别再开：包里的授权令牌是现在这份，这边再刷新一次，服务器上对应的就失效了。");
-    console.log("下一步：把 zip 拷到服务器，解压，双击「安装Anna.cmd」。详细步骤见包里的「部署说明.txt」。");
+    console.log("下一步：" + (zip ? "把 zip 拷到服务器，解压" : "把整个文件夹拷到服务器") + "，双击「安装Anna.cmd」。详细步骤见包里的「部署说明.txt」。");
   } else {
-    console.log("下一步：拷到服务器解压，双击「安装Anna.cmd」：先停掉 Anna、换程序、再启动，配置和数据不动。");
+    console.log("下一步：拷到服务器" + (zip ? "解压，" : "，") + "双击「安装Anna.cmd」：先停掉 Anna、换程序、再启动，配置和数据不动。");
   }
 }
 

@@ -90,10 +90,11 @@ Node.js 22+、Chrome 或 Edge；跟 MiaBot 放同一台也行。
 ```powershell
 npm stop                  # 先停掉本机的 Anna（打完整包以后也别再开）
 npm run package           # 完整包：dist/AnnaBot-install-日期-提交.zip，第一次部署用
+npm run package -- --folder --no-zip   # 同上，但只留解开的文件夹
 npm run package:update    # 更新包：只有程序，服务器上已经装过时用
 ```
 
-把 zip 拷到服务器、解压，双击「安装Anna.cmd」：默认装到 `C:\AnnaBot`，设好开机自启（计划任务 `AnnaBot`），启动并等它连上 QQ。
+把 zip 解压到服务器（只出文件夹时整个文件夹直接拷过去），双击「安装Anna.cmd」：默认装到 `C:\AnnaBot`，设好开机自启（计划任务 `AnnaBot`），启动并等它连上 QQ。
 更新也是双击这个文件：先停掉 Anna、换程序、再启动，`.env`、`config.local.json`、`data/` 都不动。详细步骤和排查见包里的「部署说明.txt」。
 
 包里带什么由打包脚本挑，不用手动拷：
