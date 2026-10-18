@@ -27,6 +27,7 @@
 //   - 用要装过去的那份配置跑一遍 loadConfig、用导出的主密钥解一遍绑定库：到了服务器上起不来的包不该出门。
 //
 // 用法：npm run package [-- --skip-tests] [--folder] [--no-zip]
+//       只出文件夹用 npm run package:folder（PowerShell 里的 npm 是 npm.ps1，会把 -- 后面的参数吞掉）
 //   --skip-tests  不跑测试（默认先跑一遍 npm test，没过不打包）
 //   --folder      zip 之外再留一份解开的（dist/<包名>/），看看包里有什么
 //   --no-zip      只出解开的文件夹，不打 zip；部署说明按文件夹写

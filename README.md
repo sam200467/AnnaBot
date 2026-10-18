@@ -90,7 +90,7 @@ Node.js 22+、Chrome 或 Edge；跟 MiaBot 放同一台也行。
 ```powershell
 npm stop                  # 先停掉本机的 Anna（打完整包以后也别再开）
 npm run package           # 完整包：dist/AnnaBot-install-日期-提交.zip，第一次部署用
-npm run package -- --folder --no-zip   # 同上，但只留解开的文件夹
+npm run package:folder    # 完整包，只留解开的文件夹，不打 zip
 npm run package:update    # 更新包：只有程序，服务器上已经装过时用
 ```
 

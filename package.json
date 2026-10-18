@@ -14,6 +14,7 @@
     "check:oauth": "node tools/check-oauth.cjs",
     "launchers": "node tools/make-launchers.cjs",
     "package": "node tools/build-package.cjs",
+    "package:folder": "node tools/build-package.cjs --no-zip",
     "package:update": "node tools/build-package.cjs --update",
     "panel": "node tools/panel.cjs",
     "probe": "node tools/probe-qq.cjs",

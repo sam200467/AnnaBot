@@ -20,7 +20,8 @@ npm run preview -- <主题名>       用正式出图流程渲染主题的示例�
 npm start                        正式启动（要 .env 和 config.local.json 都填好）
 npm stop                         停掉在跑的 Anna（无窗口启动的、npm start 开的都算）
 npm run launchers                生成无窗口启动器「启动Anna.vbs」「停止Anna.vbs」（作者双击用）
-npm run package                  打服务器完整安装包（带密钥和绑定，dist/ 下的 zip；加 -- --folder --no-zip 只出文件夹）；本机的 Anna 要先停
+npm run package                  打服务器完整安装包（带密钥和绑定，dist/ 下的 zip）；本机的 Anna 要先停
+npm run package:folder           同上，只出解开的文件夹（不打 zip）
 npm run package:update           打服务器更新包（只有程序）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run panel                    指令面板（QQ 输入框打 / 弹出的清单）：看本地和平台上的样子；-- --sync 不重启马上同步
@@ -167,7 +168,7 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
 
 ## 部署到服务器
 
-`npm run package` 打完整包（加 `-- --folder --no-zip` 只出解开的文件夹、不打 zip），拷到服务器、双击「安装Anna.cmd」；以后有新功能用 `npm run package:update` 打更新包，同样双击安装。
+`npm run package` 打完整包（只出解开的文件夹用 `npm run package:folder`），拷到服务器、双击「安装Anna.cmd」；以后有新功能用 `npm run package:update` 打更新包，同样双击安装。
 细节在 `tools/build-package.cjs`、`tools/install.cjs` 的文件头，给作者看的说明是打包时生成的「部署说明.txt」。要点：
 
 - 服务器跟 MiaBot 一样是 Windows。默认装到 `C:\AnnaBot`，开机自启是计划任务 `AnnaBot`（S4U：不存密码，没人登录也跑）。
