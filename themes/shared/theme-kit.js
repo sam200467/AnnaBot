@@ -63,7 +63,31 @@
     rating: (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) / 100).toFixed(2),
   };
 
+  // 玩家 Rating 的颜色档（VERSE 以后，照 chunithm.org 的 Rating 表和 wikiwiki「レーティングの色分け」）：
+  // 0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹；17 起是更浓的「虹极」（上暖下冷）。
+  // 15.25 以后游戏里还会按 0.25 加星、17 以后分 ★1～3，这里只管颜色（作者 2026-10-18 要求只改颜色，不动星和字体）。
+  // 各主题拿 class 名自己配色：暗底（best）用亮一档的金属色，象牙纸上（list）用深一档的宝石色。
+  const RATING_TIERS = [
+    [17, "rainbow-deep"],
+    [16, "rainbow"],
+    [15.25, "platina"],
+    [14.5, "gold"],
+    [13.25, "silver"],
+    [12, "bronze"],
+    [10, "purple"],
+    [7, "red"],
+    [4, "orange"],
+    [0, "green"],
+  ];
+  function ratingTier(value) {
+    const rating = Number(value) || 0;
+    for (const [minimum, name] of RATING_TIERS) {
+      if (rating >= minimum) return name;
+    }
+    return "green";
+  }
+
   window.addEventListener("error", (event) => fail(event.error || event.message));
   window.addEventListener("unhandledrejection", (event) => fail(event.reason));
-  window.ThemeKit = { data, done, fail, preload, waitImages, format };
+  window.ThemeKit = { data, done, fail, preload, waitImages, format, ratingTier };
 })();

@@ -16,12 +16,26 @@
       <img id="anna" class="anna" src="../assets/anna-fullbody.png" alt="">
 
       <section class="content">
-        <!-- 抬头占左边三列；安娜那块是一个空格子（.stand），占右边两列、往下几行，卡片自动排在她左边，过了她再铺满五列 -->
+        <!-- 抬头占左边三列；右上角是玩家的名片板（第 4～5 列第 1 行，压在安娜那块空格子上），
+             安娜排在名片板下面。卡片自动排在她左边，过了她再铺满五列 -->
         <ol id="grid" class="grid">
           <li class="head">
             <h1 class="heading"><span id="prefix" class="prefix"></span><span id="main" class="main"></span></h1>
             <p class="sub"><span id="sub"></span><span id="pageno" class="pageno"></span></p>
             <dl id="stats" class="stats"></dl>
+          </li>
+          <li id="identity" class="identity">
+            <div class="portrait">
+              <div class="medallion"><img id="chara" class="chara" alt=""></div>
+              <div id="emblem" class="emblem"></div>
+            </div>
+            <div id="plate" class="plate">
+              <img id="plate-img" class="plate-img" alt="">
+              <div id="trophy" class="trophy"></div>
+              <div class="plate-name"><span id="level" class="level"></span><span id="name" class="name"></span></div>
+              <!-- 总 Rating 写在名片板里面（作者 2026-10-18 要的；/b50 是写在名牌版外面的） -->
+              <div class="overall"><span class="overall-label">总 Rating</span><span id="rating" class="overall-value"></span></div>
+            </div>
           </li>
           <li id="stand" class="stand" aria-hidden="true"></li>
         </ol>

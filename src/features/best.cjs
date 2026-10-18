@@ -189,5 +189,5 @@ function feature(mode) {
 
 // 功能清单（index.cjs 里展开）只认数组里的两个功能；整理数据的函数挂在数组上，给测试和示例数据用。
 module.exports = Object.assign([feature("b50"), feature("b30")], {
-  buildData, attachAssets, pickBest30, rankScores, rankOf, stamp, OLD_SLOTS, NEW_SLOTS,
+  buildData, attachAssets, pickBest30, rankScores, rankOf, stamp, playerView, OLD_SLOTS, NEW_SLOTS,
 });

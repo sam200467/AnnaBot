@@ -18,7 +18,7 @@ const { createAssets } = require("../src/assets.cjs");
 const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
-const { parseQuery, resolveCharts, buildData, describe, commandOf, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
+const { parseQuery, resolveCharts, buildData, attachAssets, describe, commandOf, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 const FC1 = "123456789012345";
@@ -116,9 +116,18 @@ test("分页：非最后一页 78 张（18 + 12×5，最后一行排满），最
 test("buildData：打过的按分数从高到低、没打过的按定数排在后面；统计是包含关系；同一张谱只认最好的成绩；分页编号接着上一页", () => {
   const catalog = catalogLike();
   const { query, charts } = resolveCharts(catalog, parseQuery("14+", { versions: VERSIONS }));
-  const data = buildData({ query, charts, scores: myScores(), catalog, page: 1, now: new Date("2026-10-17T04:00:00Z") });
+  const player = {
+    name: "测试玩家", level: 50, reborn_count: 1, rating: 16.01,
+    trophy: { id: 1, name: "测试称号", color: "gold" }, name_plate: { id: 2 }, character: { id: 3 },
+    class_emblem: { base: 3, medal: 5 },
+  };
+  const data = buildData({ query, charts, scores: myScores(), player, catalog, page: 1, now: new Date("2026-10-17T04:00:00Z") });
   assert.deepEqual(data.title, { prefix: "Lv.", main: "14+", sub: "全谱面成绩" });
   assert.deepEqual([data.page, data.pages, data.charts.length], [1, 2, PER_PAGE]);
+  assert.deepEqual(data.player, {
+    name: "测试玩家", level: 50, reborn: 1, rating: 16.01, trophy: { name: "测试称号", color: "gold" },
+    classEmblem: { base: 3, medal: 5 }, plateId: 2, characterId: 3, plate: null, character: null,
+  }, "名片板要的玩家资料：总 Rating、称号、名牌版、角色、段位");
   assert.deepEqual(data.stats, { total: 101, played: 41, ajc: 1, aj: 2, fc: 3, sssp: 2, sss: 5 });
   assert.deepEqual(data.charts[0], { index: 1, jacketId: 1000, jacket: null, title: "曲1000", levelIndex: 3, level: "14+", constant: 14.5,
     score: 1009500, rank: "sssp", fullCombo: "alljusticecritical", clear: "clear", fullChain: null, rating: 16 });
@@ -132,6 +141,31 @@ test("buildData：打过的按分数从高到低、没打过的按定数排在�
   const second = buildData({ query, charts, scores: myScores(), catalog, page: 2 });
   assert.deepEqual([second.page, second.charts.length, second.charts[0].index, second.charts.at(-1).index], [2, 23, 79, 101]);
   assert.equal(buildData({ query, charts, scores: myScores(), catalog, page: 9 }).page, 2, "页码超了按最后一页");
+  assert.deepEqual(buildData({ query, charts, scores: myScores(), catalog }).player, {
+    name: "", level: null, reborn: 0, rating: 0, trophy: null, classEmblem: { base: 0, medal: 0 },
+    plateId: null, characterId: null, plate: null, character: null,
+  }, "没给玩家资料时是一份空资料（主题不画名片板）");
+});
+
+test("attachAssets：曲绘、名牌版、角色一次要齐，没有的是 null", () => {
+  const catalog = catalogLike();
+  const { query, charts } = resolveCharts(catalog, parseQuery("14+", { versions: VERSIONS }));
+  const data = buildData({
+    query, charts: charts.slice(0, 3), scores: myScores(), catalog,
+    player: { name: "测试玩家", rating: 16, name_plate: { id: 2 }, character: { id: 3 } },
+  });
+  const asked = [];
+  return attachAssets(data, {
+    fileUrls: async (items) => {
+      asked.push(...items);
+      return items.map(([kind, id]) => (id === 1001 && kind === "jacket" ? null : "file:///" + kind + "/" + id + ".png"));
+    },
+  }).then(() => {
+    assert.deepEqual(asked, [["jacket", 1000], ["jacket", 1001], ["jacket", 1002], ["plate", 2], ["character", 3]]);
+    assert.deepEqual(data.charts.map((chart) => chart.jacket), ["file:///jacket/1000.png", null, "file:///jacket/1002.png"]);
+    assert.equal(data.player.plate, "file:///plate/2.png");
+    assert.equal(data.player.character, "file:///character/3.png");
+  });
 });
 
 test("buildData：评级筛选（以下含没打过的、以上和正好不含）；副标题写筛选条件；翻页指令照着认得的写法拼", () => {
@@ -215,6 +249,8 @@ test("/分数列表 端到端：好友码绑定请去授权；授权的出图（
   assert.equal(first.theme, "list");
   assert.deepEqual([first.options.format, first.options.quality, first.options.scale], ["jpeg", 76, RENDER_SCALE]);
   assert.deepEqual([first.data.page, first.data.pages, first.data.charts.length, first.data.stats.played], [1, 2, 78, 41]);
+  assert.deepEqual([first.data.player.name, first.data.player.rating, first.data.player.plateId], ["授权玩家", 17, null],
+    "玩家资料跟着出图数据一起取：名片板上的名字和总 Rating");
   assert.match(first.data.charts[0].jacket, /^file:\/\/.*jacket[\\/]1000\.png$/);
   assert.equal(s.last().msg_type, 7);
   assert.equal(s.last().content, V.levelPage(1, 2, "/分数列表 14+ 2"));

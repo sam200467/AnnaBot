@@ -187,6 +187,72 @@
     }
   }
 
+  // ── 右上角的名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位、总 Rating ──
+  function renderIdentity() {
+    const player = data.player || {};
+    // 没有玩家资料（老示例数据、或者接口没给）就不画这块，安娜照旧从顶上开始
+    if (!player.name) { $("identity").remove(); return false; }
+    const plate = $("plate");
+    if (player.plate) {
+      const img = $("plate-img");
+      img.src = player.plate;
+      img.addEventListener("error", () => { img.remove(); plate.classList.add("empty"); }, { once: true });
+    } else {
+      plate.classList.add("empty");
+    }
+    const trophy = $("trophy");
+    if (player.trophy && player.trophy.name) {
+      trophy.classList.add(player.trophy.color || "normal");
+      trophy.append(el("span", null, player.trophy.name));
+    } else {
+      trophy.remove();
+    }
+    // 「★1 Lv.72」跟名字一行，星数和等级一样大（照 /b50）
+    const level = $("level");
+    if (player.reborn) level.append(el("span", "star", "★" + player.reborn));
+    if (player.level !== null && player.level !== undefined) level.append(el("span", "lv", "Lv."), el("span", null, player.level));
+    $("name").textContent = player.name || "";
+    const rating = $("rating");
+    rating.textContent = ThemeKit.format.rating(player.rating);
+    rating.classList.add("tier-" + ThemeKit.ratingTier(player.rating));
+
+    const medallion = document.querySelector(".medallion");
+    if (player.character) {
+      const chara = $("chara");
+      chara.src = player.character;
+      chara.addEventListener("error", () => { chara.remove(); medallion.classList.add("empty"); }, { once: true });
+    } else {
+      medallion.classList.add("empty");
+    }
+    // 段位（CLASS 勋章）挂在头像下面：缎带在下、勋章压在上面（照 /b50）
+    const emblem = $("emblem");
+    const { base = 0, medal = 0 } = player.classEmblem || {};
+    const badge = (kind, n) => {
+      const img = el("img", kind);
+      img.alt = "";
+      img.src = "../../shared/icons/class_emblem/" + kind + "/" + n + ".webp";
+      img.addEventListener("error", () => img.remove(), { once: true });
+      return img;
+    };
+    if (base) emblem.append(badge("base", base));
+    if (medal) emblem.append(badge("medal", medal));
+    if (!base && !medal) emblem.remove();
+    return true;
+  }
+
+  // 名片板上的字放不下就往小缩（称号、名字；照 /b50 的 fitText）
+  function fitPlate() {
+    const trophy = document.querySelector(".trophy span");
+    if (trophy) {
+      const ratio = trophy.parentElement.clientWidth / trophy.scrollWidth;
+      if (ratio < 1) trophy.style.transform = "scale(" + ratio.toFixed(3) + ")";
+    }
+    const name = $("name");
+    if (!name) return;
+    const room = name.parentElement.clientWidth - $("level").offsetWidth - 10;
+    if (room > 0 && name.scrollWidth > room) name.style.transform = "scale(" + (room / name.scrollWidth).toFixed(3) + ")";
+  }
+
   // ── 一张卡片 ──
   function card(chart, i) {
     const rnd = random(7919 + (chart.index || i) * 977);
@@ -277,17 +343,21 @@
     stand.style.gridRow = "1 / span " + (rows + 1);
     const base = canvas.getBoundingClientRect();
     const box = stand.getBoundingClientRect();
-    const width = ANNA.height * ANNA.size[0] / ANNA.size[1];
+    // 右上角有名片板时，安娜从板子下面开始，立绘按剩下的高度等比缩小（不裁切，也不压到卡片上）
+    const identity = document.querySelector(".identity");
+    const top = identity ? identity.getBoundingClientRect().bottom - base.top + 8 : 18;
+    const height = Math.max(240, Math.min(ANNA.height, box.bottom - base.top - top - 4));
+    const width = height * ANNA.size[0] / ANNA.size[1];
     const anna = $("anna");
     // 立绘里人站在偏右（头发往左边飘），让身子落在那两列的中间
     Object.assign(anna.style, {
-      height: ANNA.height + "px",
+      height: height + "px",
       width: width + "px",
       left: (box.left - base.left + box.width * 0.5 - width * 0.56) + "px",
-      top: "18px",
+      top: top + "px",
     });
-    // 卡片很少的时候画布也要高过立绘
-    canvas.style.minHeight = ANNA.height + 70 + "px";
+    // 卡片很少的时候画布也要高过名片板和立绘
+    canvas.style.minHeight = top + height + 70 + "px";
   }
 
   function placePainting(canvas) {
@@ -301,6 +371,7 @@
 
   async function main() {
     renderHead();
+    renderIdentity();
     renderCards();
     $("credit").textContent = data.credit || "";
 
@@ -309,6 +380,7 @@
 
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     fitHeading();
+    fitPlate();
     document.querySelectorAll(".title-line").forEach((node) => shrinkToFit(node, node.classList.contains("greek") ? 42 : 21));
     document.querySelectorAll(".card:not(.unplayed) .score").forEach((node) => shrinkToFit(node, 28));
     document.querySelectorAll(".marks").forEach(fitMarks);

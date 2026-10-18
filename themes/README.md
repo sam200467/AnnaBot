@@ -42,6 +42,10 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
 - 出错：脚本里抛异常或调 `ThemeKit.fail(error)`，渲染器会马上带着原因报错，不会干等超时。
 - 图片要等加载完的用 `<img>`（或 `ThemeKit.preload(urls)`）；CSS 背景图等不到，只适合放本地的背景素材。
 - `ThemeKit.format` 里有定数、分数、单曲 Rating 的格式化函数。
+- `ThemeKit.ratingTier(rating)` 返回玩家总 Rating 在游戏里的颜色档（`green` / `orange` / `red` / `purple` / `bronze` /
+  `silver` / `gold` / `platina` / `rainbow` / `rainbow-deep`），主题自己用 `tier-<名字>` 的 class 配色。
+  分档照 VERSE 以后：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹、17 虹极；
+  游戏里 15.25 以后按 0.25 加星、17 以后分 ★1～3，这里只给颜色。
 
 ## 素材
 

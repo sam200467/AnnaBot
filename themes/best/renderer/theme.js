@@ -434,15 +434,6 @@
   }
 
   // ── 页眉右边：名牌版、角色、Rating ──
-  function ratingTier(value) {
-    if (value >= 16) return "tier-rainbow";
-    if (value >= 15.25) return "tier-platina";
-    if (value >= 14.5) return "tier-gold";
-    if (value >= 13.25) return "tier-silver";
-    if (value >= 12) return "tier-bronze";
-    return "tier-low";
-  }
-
   function stat(label, value, extra) {
     const box = el("div", "stat" + (extra ? " " + extra : ""));
     box.append(el("dt", null, label), el("dd", null, value));
@@ -485,7 +476,7 @@
     const stats = $("stats");
     const chapters = data.chapters || [];
     // B50：Rating、旧曲 30 首的均值、新曲 20 首的均值；B30：Rating、30 首的均值、第一位
-    stats.append(stat("Rating", rating(player.rating), "main " + ratingTier(player.rating)));
+    stats.append(stat("Rating", rating(player.rating), "main tier-" + ThemeKit.ratingTier(player.rating)));
     if (mode === "b50") {
       for (const chapter of chapters) stats.append(stat(chapter.key === "new" ? "New 20" : "Best 30", rating(chapter.average)));
     } else if (chapters[0]) {

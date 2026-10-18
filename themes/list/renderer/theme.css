@@ -117,6 +117,184 @@ body {
 /* 安娜那块：空的格子，只占位 */
 .stand { grid-column: 4 / 6; }
 
+/* ── 右上角的名片板：落雪的名牌版（576×228）上叠称号、★转生 Lv.等级 + 名字，总 Rating 写在牌子底下的空处 ──
+ * 占第 4～5 列第 1 行，压在安娜那块空格子上（安娜从它下面开始，见 theme.js 的 placeAnna）。
+ * 左边挂角色头像和段位勋章，跟 /b50 右上角一样是一组资料；牌子材质照安娜的衣服（象牙纸、金线）。
+ * 作者 2026-10-18 要的：总 Rating 写在名片板里面（/b50 是写在名牌版外面的）。 */
+.identity {
+  grid-column: 4 / 6;
+  grid-row: 1;
+  z-index: 5;
+  align-self: start;
+  justify-self: center;
+  width: 596px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 30px;   /* 给头像下面的段位勋章留出压下来的位置 */
+}
+
+.portrait { position: relative; flex: none; }
+/* 角色头像：金圈奖章（跟 /b50 一样大） */
+.medallion {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(from 200deg, #8e6a33, #f1dca6, #a77a3b, #e8cd8d, #8e6a33);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(50, 25, 5, 0.8);
+}
+.medallion::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px rgba(40, 20, 5, 0.85), inset 0 0 12px rgba(0, 0, 0, 0.55);
+}
+.chara { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #2a1c16; }
+.medallion.empty .chara { visibility: hidden; }
+/* 没有角色图：暗底上一颗星（图片藏起来以后它的暗底也没了，这里自己垫一个） */
+.medallion.empty::before {
+  content: "✦";
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #2a1c16;
+  font-family: "Segoe UI Symbol", serif;
+  font-size: 34px;
+  color: rgba(214, 178, 108, 0.7);
+}
+/* 段位（CLASS 勋章）挂在头像下面：缎带在下、勋章压在上面，跟落雪网页一样叠 */
+.emblem {
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  z-index: 2;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.7));
+}
+.emblem .base { display: block; height: 30px; }
+.emblem .medal { display: block; height: 54px; }
+.emblem .base + .medal { position: absolute; }
+
+/* 名牌版：落雪的 plate 图，文字照游戏里的位置叠上去 */
+.plate {
+  position: relative;
+  flex: none;
+  width: 470px;
+  height: 186px;
+  filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.65));
+}
+.plate-img { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* 没有名牌版（没拿到图，或者玩家没设）：照这个主题的卡片画一张象牙纸的 */
+.plate.empty {
+  border: 1px solid rgba(180, 138, 60, 0.8);
+  background: radial-gradient(ellipse 120% 100% at 30% 10%, #fbf7ee 0%, #efe5d0 62%, #e2d3b6 100%);
+  box-shadow: inset 0 0 0 4px #f8f1e2, inset 0 0 0 5px rgba(180, 138, 60, 0.5), 0 7px 14px rgba(0, 0, 0, 0.55);
+}
+
+.trophy {
+  position: absolute;
+  left: 33%;
+  right: 5.5%;
+  top: 12%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 3px;
+  font-family: var(--hand-bold);
+  font-size: 16px;
+  font-weight: 700;
+  color: #2a1a10;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.trophy:empty { display: none; }
+.trophy span { display: inline-block; transform-origin: center; }
+.trophy.normal { background: linear-gradient(180deg, #f2ece0, #cfc6b4); }
+.trophy.silver { background: linear-gradient(180deg, #f4f6f8, #b9c0c8 55%, #9aa3ad); }
+.trophy.gold { background: linear-gradient(180deg, #fff1b8, #e3b951 55%, #b8862a); }
+.trophy.platina { background: linear-gradient(180deg, #fffdf2, #eadfb6 50%, #c7b98a); }
+.trophy.rainbow, .trophy.ultima, .trophy.image {
+  background: linear-gradient(90deg, #f6c4c4, #f5e3b0, #c9ebc0, #bfe1ef, #d6c6ef, #f3c4dd);
+}
+.trophy.ultima { color: #f5e6d0; background: linear-gradient(180deg, #4b1416, #1b0b0c); }
+
+.plate-name {
+  position: absolute;
+  left: 34%;
+  right: 6%;
+  top: 39%;
+  height: 27%;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: #2a170b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
+}
+/* 「★1 Lv.72 名字」：转生星数、Lv.、等级一样大，比名字略小（照 /b50） */
+.level { display: flex; align-items: baseline; flex: none; font-family: var(--hand); font-weight: 700; font-size: 28px; color: #4a2f1c; }
+.level .star { color: #b0302f; margin-right: 10px; }
+.level .lv { margin-right: 2px; }
+.name { font-weight: 700; font-size: 30px; line-height: 1.2; transform-origin: left center; display: inline-block; }
+
+/* 总 Rating：牌子底下那块空处。基础色跟卡片上的单曲 Rating 一样是钴蓝，再按游戏 Rating 色档覆盖（见下面的 .tier-*）。
+   上面一道细金线，跟名字分开。
+   类名不能叫 .total：抬头第一格统计格就是 .stat.total（谱面数），会被这里的位置规则挪走。
+   位置比名牌版的边缘往里收（作者 2026-10-18 说太靠边、快压到边框花纹上了）：右边留 13%，往上提到 61% 一带。 */
+.overall {
+  position: absolute;
+  left: 34%;
+  right: 13%;
+  top: 61%;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(150, 110, 45, 0.45);
+  text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
+}
+.overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 18px; letter-spacing: 0.04em; color: #5d3a15; }
+.overall-value { font-family: var(--script); font-weight: 700; font-size: 36px; line-height: 1; color: var(--cobalt); }
+
+/* 总 Rating 的颜色档：照游戏 VERSE 以后的 9 档（绿、橙、赤、紫、铜、银、金、铂、虹），17.00 起是更浓的「虹极」。
+   这块底是名牌版（象牙纸），所以用深一档的宝石色；虹也用深色渐层，游戏里那种浅虹在象牙纸上几乎看不见。
+   虹极在游戏里是上暖下冷的竖渐变（顶部红橙、中间洋红、底下青绿），跟 16 段的虹反过来；这里也竖着排，颜色压深。
+   只改颜色，字体照旧（作者 2026-10-18）。游戏里 15.25 以后还按 0.25 加星、17 以后分 ★1～3，这里不画星。 */
+.tier-green { color: #3f7d2f; }
+.tier-orange { color: #b86a13; }
+.tier-red { color: #a83232; }
+.tier-purple { color: #6f3d9f; }
+.tier-bronze { color: #8d5a26; }
+.tier-silver { color: #68727d; }
+.tier-gold { color: #90720a; }
+.tier-platina {
+  background: linear-gradient(180deg, #8a8472 0%, #7a7463 45%, #625d4e 75%, #4f4a3d 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tier-rainbow {
+  background: linear-gradient(100deg, #b5273f 0%, #c26a16 16%, #8f7c0b 32%, #3f8a42 48%, #2b78b0 64%, #6440a8 80%, #a33578 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tier-rainbow-deep {
+  background: linear-gradient(180deg, #a51c14 8%, #b86400 22%, #8f7a00 34%, #a51c6a 48%, #4a2a9e 62%, #0f5f8a 76%, #0f6b4f 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
 /* ── 卡片：象牙白的纸、金线（安娜的衣服），序号牌是钴蓝（她的披风） ── */
 .card { position: relative; height: 172px; }
 .card .vellum {

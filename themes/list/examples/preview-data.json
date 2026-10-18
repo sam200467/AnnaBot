@@ -15,6 +15,24 @@
     "sssp": 5,
     "sss": 22
   },
+  "player": {
+    "name": "テストプレイヤー",
+    "level": 72,
+    "reborn": 1,
+    "rating": 16.53,
+    "trophy": {
+      "name": "聖女 アンナ・マルグレーテ",
+      "color": "rainbow"
+    },
+    "classEmblem": {
+      "base": 3,
+      "medal": 5
+    },
+    "plateId": 20002,
+    "characterId": 8830,
+    "plate": "lxns:plate/20002",
+    "character": "lxns:character/8830"
+  },
   "charts": [
     {
       "index": 1,
