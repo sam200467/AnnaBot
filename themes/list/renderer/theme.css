@@ -390,8 +390,10 @@ body {
 .mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
 
 /* 定数和单曲 Rating：定数写在难度色的小牌子上，Rating 是钴蓝的字 —— 跟分数一眼分得开。
-   空隙和左缩进都比原来收 2～4px，Rating 右端离卡片边多留 8px（作者 2026-10-18 说有的卡快贴到右边界了） */
-.foot { margin-top: auto; display: flex; align-items: center; gap: 6px; padding-left: 6px; }
+   左边的缩进要让开压在曲绘角上的评级封印：封印 54px 宽、左边缘在 91px，右边缘差不多 145px，
+   再算上不规则蜡边和投影；原来缩进 6px（定数从 144px 开始）会被 SSS / SSS+ 的金印压住一点（作者 2026-10-18 反馈），
+   所以缩进加到 14px（定数从 152px 开始）。Rating 右端离卡片边仍留 8px 以上 */
+.foot { margin-top: auto; display: flex; align-items: center; gap: 4px; padding-left: 14px; }
 .const {
   flex: none;
   height: 31px;
@@ -407,8 +409,8 @@ body {
   box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
 }
-.arrow { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(106, 76, 42, 0.75); }
-.rating { font-family: var(--script); font-weight: 700; font-size: 28px; line-height: 1; color: var(--cobalt); }
+.arrow { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(106, 76, 42, 0.75); position: relative; left: 0px; top: -1.5px; }
+.rating { font-family: var(--script); font-weight: 700; font-size: 28px; line-height: 1; color: var(--cobalt); position: relative; left: -3px; top: 1px; }
 
 /* 没打过：灰下去（曲绘去色、纸发灰），只留曲名和定数 */
 .card.unplayed .vellum { background: radial-gradient(ellipse 120% 100% at 26% 12%, #e9e6df 0%, #d6d2c8 60%, #c4bfb3 100%); box-shadow: inset 0 0 0 1.5px #8d887c, inset 0 0 0 4px #ebe8e1, inset 0 0 0 5px rgba(141, 136, 124, 0.5), 0 5px 12px rgba(10, 6, 2, 0.5); }

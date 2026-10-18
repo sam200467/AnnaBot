@@ -356,7 +356,9 @@ body {
 .mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
 
 
-.foot { margin-top: auto; display: flex; align-items: center; gap: 6px; padding-left: 12px; }
+/* 缩进让开曲绘角上的评级封印（54px、右缘约 145px，再算上不规则蜡边和投影）；
+   原来 12px 时 SSS / SSS+ 的金印会压到定数牌子左端（作者 2026-10-18 反馈，跟 /分数列表 一起改的） */
+.foot { margin-top: auto; display: flex; align-items: center; gap: 6px; padding-left: 16px; }
 .const { flex: none; height: 31px; padding: 0 9px; display: flex; align-items: center; font-family: var(--script); font-weight: 700; font-size: 22px; color: #fff6e2; border-radius: 3px; background: var(--pill); box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45); }
 .tiers { display: flex; gap: 4px; margin-left: auto; }
 .tier { flex: none; min-width: 46px; height: 29px; padding: 0 6px; display: flex; align-items: center; justify-content: center; font-family: var(--hand-bold); font-weight: 700; font-size: 18px; color: #fff6e2; border-radius: 3px; background: var(--pill); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45); box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3); }
