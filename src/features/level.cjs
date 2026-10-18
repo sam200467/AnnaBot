@@ -1,16 +1,16 @@
 "use strict";
-// /等级：一批谱面的全部成绩（某个等级、某个定数，还能再按难度、版本、评级筛），一页 80 张。主题是 themes/list/（圣女安娜，设计说明见它的 README）。
+// /分数列表（原名 /等级）：一批谱面的全部成绩（某个等级、某个定数，还能再按难度、版本、评级筛）。主题是 themes/list/（圣女安娜，设计说明见它的 README）。
 // 照 MiaBot 的 /等级 做：没打过的谱面也列出来，灰着排在最后；抬头统计 AJC、AJ、FC、SSS+、SSS 各有几张。
 //
-//   /等级 14+           Lv.14+ 的全部谱面，第 1 页
-//   /等级 14+ 2         第 2 页（也认「第2页」「p2」）
-//   /等级 14.5          定数 14.5（「定数 14」这样写整数也行）
-//   /等级 14+ 紫        只看 MASTER。难度词同 /谱面分析：绿 黄 红 紫 黑、bas adv exp mas ult、basic … ultima
-//   /等级 13+ X-VERSE   只看 X-VERSE 的曲（按曲目第一次出现的版本，跟 B50 分新旧曲一样）；PLUS 写成 + 也认
-//   /等级 14 SSS以下    只看还没到 SSS 的（没打过的也算）；「SSS以上」是到了的；只写「SSS」是正好 SSS 这一档
+//   /分数列表 14+           Lv.14+ 的全部谱面，第 1 页
+//   /分数列表 14+ 2         第 2 页（也认「第2页」「p2」）
+//   /分数列表 14.5          定数 14.5（「定数 14」这样写整数也行）
+//   /分数列表 14+ 紫        只看 MASTER。难度词同 /谱面分析：绿 黄 红 紫 黑、bas adv exp mas ult、basic … ultima
+//   /分数列表 13+ X-VERSE   只看 X-VERSE 的曲（按曲目第一次出现的版本，跟 B50 分新旧曲一样）；PLUS 写成 + 也认
+//   /分数列表 14 SSS以下    只看还没到 SSS 的（没打过的也算）；「SSS以上」是到了的；只写「SSS」是正好 SSS 这一档
 // 条件随便组合、顺序随意，作者 2026-10-17 定的这几种（「只看没 FC 的」不要）。至少要有等级、定数、难度、版本里的一样：
 // 只按评级筛的话，没打过的几千张谱面全算「SSS 以下」，没法看。
-// 页码：写了「第 N 页」「pN」的直接认；光秃秃的整数，前面还没有等级、定数时是等级，有了就是页码（MiaBot 的写法「/等级 14+ 2」）。
+// 页码：写了「第 N 页」「pN」的直接认；光秃秃的整数，前面还没有等级、定数时是等级，有了就是页码（MiaBot 的写法「/分数列表 14+ 2」）。
 //
 // 要具体分数，所以只认授权绑定（binding: "oauth"，好友码绑定的人会被请去 /授权）：读全部成绩，对上曲库里符合条件的谱面。
 // 统计是包含关系（作者 2026-10-17 定的，MiaBot 同时改了）：AJ 里含 AJC、FC 里含 AJ，SSS 里含 SSS+。统计的是筛完的全部谱面，不只这一页。
@@ -23,9 +23,19 @@ const { LEVEL_WORDS } = require("./chart.cjs");
 const { rating } = require("../score-math.cjs");
 const { LEVELS, WORLDS_END } = require("../catalog.cjs");
 
-const PER_PAGE = 80;
-// 2 倍图 80 张卡片要 5.5 MB（作者要 5 MB 以内）：曲绘、珐琅框都是细纹理，压不下去，所以这张图按 1.8 倍出，约 4.7 MB（见 themes/list/README.md）
+// 主题的网格：抬头占第 1 行，安娜占右边两列、从第 1 行往下 7 行，所以前 6 行卡片只能排 3 列（18 张），
+// 从第 8 行起才是 5 列。非最后一页排 18 + 12×5 = 78 张，最后一行正好填满（作者 2026-10-18 提的：
+// 原来一页 80 张，换页前最后一行只剩 2 张、空 3 格）。最后一页不用再换页，放得下 80 张就不硬拆成两页。
+const PER_PAGE = 78;
+const MAX_PER_PAGE = 80;
+// 2 倍图一页（78 张）要 5.4 MB（作者要 5 MB 以内）：曲绘、珐琅框都是细纹理，压不下去，所以这张图按 1.8 倍出；
+// 78 张约 4.6 MB（见 themes/list/README.md）
 const RENDER_SCALE = 1.8;
+
+// 一共几页：前面的页固定 PER_PAGE，最后一页最多 MAX_PER_PAGE
+function pageCount(total) {
+  return Math.max(1, Math.ceil((total - MAX_PER_PAGE) / PER_PAGE) + 1);
+}
 
 const RANK_NAMES = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
 // 每一档的分数线（到了这个分就是这一档），跟 best.cjs 的 rankOf 一致
@@ -66,7 +76,7 @@ function levelOf(token) {
 // 拆参数。versions 是曲库的版本表（认版本名用）。返回：
 //   { level, constant, levelIndex, version, rank: { key, mode: below | above | exact }, page, unknown: [看不懂的词], worldsEnd, bare }
 // level 是字符串（"14+"），constant 是数（14.5），version 是版本表里的一项；没写的是 null。page 没写是 null。
-// bare：等级是从光秃秃的整数认的（「/等级 master 2」的 2），对不上谱面时 resolveCharts 会改当页码
+// bare：等级是从光秃秃的整数认的（「/分数列表 master 2」的 2），对不上谱面时 resolveCharts 会改当页码
 function parseQuery(args, { versions = [] } = {}) {
   const query = { level: null, constant: null, levelIndex: null, version: null, rank: null, page: null, unknown: [], worldsEnd: false, bare: false };
   let text = String(args || "").normalize("NFKC").toLowerCase();
@@ -186,7 +196,7 @@ function selectCharts(catalog, query) {
   return list;
 }
 
-// 挑谱面，顺带处理「/等级 master 2」：没写等级时光秃秃的整数先当等级（Lv.2 的 MASTER），一张都对不上、又有难度或版本撑着时，
+// 挑谱面，顺带处理「/分数列表 master 2」：没写等级时光秃秃的整数先当等级（Lv.2 的 MASTER），一张都对不上、又有难度或版本撑着时，
 // 改当页码再挑一次（MASTER 的第 2 页）。返回 { query, charts }，query 可能是改过的
 function resolveCharts(catalog, query) {
   const charts = selectCharts(catalog, query);
@@ -251,11 +261,14 @@ function buildData({ query, charts, scores, catalog, page = 1, now = new Date() 
     sssp: count((row) => row.rank === "sssp"),
     sss: count((row) => row.rank === "sssp" || row.rank === "sss"),
   };
-  const pages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
+  const pages = pageCount(rows.length);
   const current = Math.min(Math.max(1, page), pages);
-  const cards = rows.slice((current - 1) * PER_PAGE, current * PER_PAGE).map((row, i) => {
+  // 前面的页固定 PER_PAGE（最后一行是满的），最后一页取到末尾（最多 MAX_PER_PAGE）
+  const start = (current - 1) * PER_PAGE;
+  const end = current < pages ? start + PER_PAGE : rows.length;
+  const cards = rows.slice(start, end).map((row, i) => {
     const { songId: _s, ...card } = row;
-    return { index: (current - 1) * PER_PAGE + i + 1, ...card };
+    return { index: start + i + 1, ...card };
   });
   return {
     title: titleOf(query),
@@ -276,9 +289,10 @@ async function attachAssets(data, assets) {
 
 module.exports = Object.assign({
   name: "level",
-  words: ["等级", "等級", "level", "lv"],
-  usage: "/等级 14+",
-  summary: "成绩列表：一个等级（或定数）的全部谱面，没打过的灰着排在最后；还能按难度、版本、评级筛，一页 80 张（要授权）",
+  // 正式名是 /分数列表；等级 / 等級 / level / lv 是旧名和简称，照旧能打
+  words: ["分数列表", "等级", "等級", "level", "lv"],
+  usage: "/分数列表 14+",
+  summary: "成绩列表：一个等级（或定数）的全部谱面，没打过的灰着排在最后；还能按难度、版本、评级筛，一页 78 张（最后一页最多 80，要授权）",
   panel: "某等级（定数）的全部成绩",
   group: "查询",
   binding: "oauth",
@@ -306,7 +320,7 @@ module.exports = Object.assign({
       total = buildData({ query, charts, scores, catalog }).stats.total;
       if (!total) return ctx.reply(voice.levelEmpty(describe(query)));
     }
-    const pages = Math.ceil(total / PER_PAGE);
+    const pages = pageCount(total);
     if (page > pages) return ctx.reply(voice.levelNoPage(pages));
 
     await ctx.image({
@@ -323,4 +337,4 @@ module.exports = Object.assign({
       },
     });
   },
-}, { parseQuery, selectCharts, resolveCharts, buildData, attachAssets, describe, titleOf, commandOf, versionKey, PER_PAGE, RENDER_SCALE });
+}, { parseQuery, selectCharts, resolveCharts, buildData, attachAssets, describe, titleOf, commandOf, versionKey, pageCount, PER_PAGE, MAX_PER_PAGE, RENDER_SCALE });

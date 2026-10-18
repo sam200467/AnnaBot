@@ -180,7 +180,25 @@ body {
 .mine-body { display: grid; grid-template-columns: 430px minmax(0, 1fr); gap: 30px; align-items: start; }
 .summary { display: flex; flex-direction: column; }
 .summary .head { display: flex; align-items: center; gap: 16px; }
-.summary .best { flex: 1; min-width: 0; overflow: hidden; font-family: var(--script); font-weight: 700; font-size: 56px; line-height: 1.1; color: var(--cream); white-space: nowrap; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
+.summary .best {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--script);
+  font-weight: 700;
+  font-size: 62px;
+  line-height: 1.05;
+  white-space: nowrap;
+  /* 最好成绩是这张图上玩家的主数字：月光银蓝的渐变（不用金色——金色是 Rating 的，会混在一起），
+     外圈压一道深色描边，在暗蓝底、焦散光上都立得住 */
+  margin: -4px 0;
+  padding: 4px 0;
+  color: transparent;
+  background: linear-gradient(180deg, #ffffff 4%, #eaf7ff 28%, #c2e3ff 62%, #8fc4ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 1px rgba(4, 12, 28, 0.95)) drop-shadow(0 0 2px rgba(4, 12, 28, 0.8)) drop-shadow(0 0 12px rgba(140, 205, 255, 0.45));
+}
 .summary .marks { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; min-height: 30px; }
 .stat { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 0 8px; border-bottom: 1px solid var(--water); }
 .stat:last-child { border-bottom: 0; }

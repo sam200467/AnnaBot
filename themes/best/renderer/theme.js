@@ -630,6 +630,9 @@
     const body = el("div", "body");
     const title = el("div", "title-line", score.title);
     title.lang = /[぀-ヿ]/.test(score.title) ? "ja" : "zh-CN";
+    // 带希腊字母的曲名按两倍字号排、再 zoom 缩回来（见 theme.css 的 .title-line.greek）：
+    // 26px 时霞鹜文楷的 Ω 右边那条细腿会被栅格化吃掉，放大一倍再缩回去才完整
+    if (/[\u0370-\u03FF\u1F00-\u1FFF]/.test(score.title)) title.classList.add("greek");
     // 通关标记：实心的颜料色小牌子，在纸上一眼看得见。FC/AJ 在前，最要紧
     const marks = el("div", "marks");
     if (FULL_COMBO[score.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[score.fullCombo][1], FULL_COMBO[score.fullCombo][0]));
@@ -739,8 +742,11 @@
 
   function fitText() {
     const fitsWidth = (node) => () => node.scrollWidth <= node.clientWidth + 1;
-    // 曲名只写一行：放不下先稍微缩一点，缩到 23px 还放不下就让 CSS 的省略号截断（作者宁可少显示几个字，也要字大）
-    for (const title of document.querySelectorAll(".title-line")) shrinkToFit(title, { min: 23, fits: fitsWidth(title) });
+    // 曲名只写一行：放不下先稍微缩一点，缩到 23px 还放不下就让 CSS 的省略号截断（作者宁可少显示几个字，也要字大）。
+    // 希腊字母的曲名按 52px 排、zoom 缩一半，所以下限是 46px，目视还是 23px
+    for (const title of document.querySelectorAll(".title-line")) {
+      shrinkToFit(title, { min: title.classList.contains("greek") ? 46 : 23, fits: fitsWidth(title) });
+    }
     for (const score of document.querySelectorAll(".score")) shrinkToFit(score, { min: 18, fits: fitsWidth(score) });
     // 定数和单曲 Rating 一起缩，两个始终差不多大（Segoe Script 的数字宽，定数 15.4、Rating 18.05 这种最宽）
     for (const foot of document.querySelectorAll(".foot")) {

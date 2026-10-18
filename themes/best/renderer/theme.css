@@ -565,6 +565,20 @@ body {
   text-overflow: ellipsis;
 }
 
+/* 带希腊字母的曲名（2026-10-18 查落雪曲库只有 6 首）按 52px 排、再 zoom 缩回一半，目视还是 26px：
+   霞鹜文楷的 Ω 右边那条腿细，26px 直接被栅格化吃掉 —— 2026-10-18 作者发现「ΩΩPARTS」第二个 Ω 的右边
+   像被挡了一块，放大就正常。按 52px 排、缩回去那条腿就完整了。
+   宽度、行高写两倍，zoom 之后目视尺寸跟原来一样；字重写 900，52px 上描的粗缩回来才跟原来的 700 一样粗。
+   这 6 首都很短（最长 11 个字），不会碰到省略号；别的曲名照旧走上面的 26px，省略号、粗细都不变 */
+.title-line.greek {
+  width: 200%;
+  height: 68px;
+  font-size: 52px;
+  line-height: 68px;
+  font-weight: 900;
+  zoom: 0.5;
+}
+
 /* 分数、定数、单曲 Rating 用 Segoe Script（作者指定：数字跟正文的楷书区分开）。定数和 Rating 差不多大 */
 .score {
   margin-top: 2px;

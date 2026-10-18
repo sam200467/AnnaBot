@@ -213,6 +213,9 @@
     const body = el("div", "body");
     const title = el("div", "title-line", chart.title);
     title.lang = "ja";
+    // 带希腊字母的曲名按两倍字号排、再 zoom 缩回来（见 theme.css 的 .title-line.greek）：
+    // 25px 时霞鹜文楷的 Ω 右边那条细腿会被栅格化吃掉，放大一倍再缩回去才完整
+    if (/[\u0370-\u03FF\u1F00-\u1FFF]/.test(chart.title)) title.classList.add("greek");
     body.append(title);
     body.append(el("div", "score", played ? ThemeKit.format.score(chart.score) : "未游玩"));
     const marks = el("div", "marks");
@@ -306,7 +309,7 @@
 
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     fitHeading();
-    document.querySelectorAll(".title-line").forEach((node) => shrinkToFit(node, 21));
+    document.querySelectorAll(".title-line").forEach((node) => shrinkToFit(node, node.classList.contains("greek") ? 42 : 21));
     document.querySelectorAll(".card:not(.unplayed) .score").forEach((node) => shrinkToFit(node, 28));
     document.querySelectorAll(".marks").forEach(fitMarks);
 

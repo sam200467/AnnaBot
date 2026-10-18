@@ -265,6 +265,12 @@ test("best 主题：B50、B30 的示例数据都能出图，宽 2040", { skip },
     assert.equal(out.width, 2040, file);
     assert.ok(out.height > 1500, file);
   }
+  // 希腊字母曲名走另一条排版路径（两倍字号 + zoom，见 theme.css 的 .title-line.greek），也出一张确认版式没被撑坏
+  const withGreek = exampleData("preview-data.json");
+  withGreek.chapters[0].scores[0].title = "ΩΩPARTS";
+  const greek = await renderer.render("best", withGreek, { width: 2100, format: "jpeg" });
+  assert.equal(greek.width, 2040, "greek");
+  assert.ok(greek.height > 1500, "greek");
   await renderer.idle();
   assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");
 });

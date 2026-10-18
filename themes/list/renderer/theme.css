@@ -60,12 +60,13 @@ body {
     radial-gradient(ellipse 52% 26% at 20% 9%, rgba(16, 11, 6, 0.62), rgba(16, 11, 6, 0) 100%),
     linear-gradient(180deg, rgba(16, 11, 6, 0.08) 0px, rgba(16, 11, 6, 0.22) 900px, rgba(16, 11, 6, 0.55) 1700px, rgba(16, 11, 6, 0.66) 100%);
 }
-/* 安娜：位置、大小由 theme.js 按 .stand 那块的位置写上；脚下渐隐 */
+/* 安娜：位置、大小由 theme.js 按 .stand 那块的位置写上；脚下渐隐。
+   比 /单曲（0.5）、/谱面分析（0.55）实一些：0.55 跟背景建筑糊在一起、0.7 还嫌淡，最后定 0.85（作者 2026-10-18 试的） */
 .anna {
   position: absolute;
   display: block;
   max-width: none;
-  opacity: 0.94;
+  opacity: 0.85;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
 }
@@ -180,6 +181,19 @@ body {
 /* 曲名：一行，放不下先缩（theme.js，最小 21px），再放不下省略号 */
 .title-line { height: 32px; font-family: var(--hand-bold); font-weight: 700; font-size: 25px; line-height: 32px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* 跟 /b50 一样：带希腊字母的曲名按 50px 排、再 zoom 缩回 25px，目视大小不变。
+   霞鹜文楷的 Ω 右边那条腿细，25px 会被栅格化吃掉（「ΩΩPARTS」第二个 Ω 看起来像被挡了一块）；
+   按两倍字号排、缩回去那条腿才完整。宽度、行高写两倍，字重写 900 补偿缩回来的粗度。
+   这类曲名都很短，不会碰到省略号；别的曲名照旧走上面的 25px */
+.title-line.greek {
+  width: 200%;
+  height: 64px;
+  font-size: 50px;
+  line-height: 64px;
+  font-weight: 900;
+  zoom: 0.5;
+}
+
 /* 分数：整张卡最大的字 */
 .score { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.15; white-space: nowrap; color: var(--ink); }
 
@@ -197,8 +211,9 @@ body {
 .mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
 .mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
 
-/* 定数和单曲 Rating：定数写在难度色的小牌子上，Rating 是钴蓝的字 —— 跟分数一眼分得开 */
-.foot { margin-top: auto; display: flex; align-items: center; gap: 8px; padding-left: 10px; }
+/* 定数和单曲 Rating：定数写在难度色的小牌子上，Rating 是钴蓝的字 —— 跟分数一眼分得开。
+   空隙和左缩进都比原来收 2～4px，Rating 右端离卡片边多留 8px（作者 2026-10-18 说有的卡快贴到右边界了） */
+.foot { margin-top: auto; display: flex; align-items: center; gap: 6px; padding-left: 6px; }
 .const {
   flex: none;
   height: 31px;
