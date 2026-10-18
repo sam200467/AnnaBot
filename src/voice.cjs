@@ -101,6 +101,14 @@ const V = {
   // 图注：next 是下一页的指令，最后一页是 null
   levelPage: (page, pages, next) => "第 " + page + "/" + pages + " 页" + (next ? "，下一页发「" + next + "」" : "（最后一页）"),
 
+  // ── /牌子进度 ──
+  plateUsage: "用法：/牌子进度 版本名，比如「/牌子进度 SUN PLUS」「/牌子进度 lmn+」，不写就是当前版本。\n" +
+    "看这个版本 BASIC～MASTER 全部谱面离 Spirit（全 S）、Tribute（全 SSS）、Legend（全 AJ）三个称号还差多少。\n" +
+    "要读全部成绩的具体分数，得先「/授权」。",
+  plateUnknown: (words) => "看不懂「" + words.join(" ") + "」，这里只写版本名就行。\n" + V.plateUsage,
+  // 版本表里已经有、但还没出曲目的版本
+  plateNoSongs: (label) => label + " 还没有曲目。",
+
   // ── /信息 ──
   info: (player, api) => [
     player.name + "（Rating " + formatRating(player.rating) + "）",

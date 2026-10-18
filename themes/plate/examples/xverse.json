@@ -1,0 +1,797 @@
+{
+ "version": {
+  "id": 24000,
+  "name": "X-VERSE",
+  "title": "CHUNITHM X-VERSE"
+ },
+ "title": {
+  "main": "X-VERSE",
+  "sub": "牌子进度"
+ },
+ "player": {
+  "name": "テストプレイヤー",
+  "level": 72,
+  "reborn": 1,
+  "rating": 16.53,
+  "trophy": {
+   "name": "聖女 アンナ・マルグレーテ",
+   "color": "rainbow"
+  },
+  "classEmblem": {
+   "base": 3,
+   "medal": 5
+  },
+  "plateId": 20002,
+  "characterId": 8830,
+  "plate": "lxns:plate/20002",
+  "character": "lxns:character/8830"
+ },
+ "table": {
+  "total": 32,
+  "rows": [
+   {
+    "key": "s",
+    "label": "S",
+    "name": "Spirit",
+    "counts": [
+     32,
+     32,
+     32,
+     30
+    ]
+   },
+   {
+    "key": "sss",
+    "label": "SSS",
+    "name": "Tribute",
+    "counts": [
+     32,
+     32,
+     24,
+     5
+    ]
+   },
+   {
+    "key": "aj",
+    "label": "AJ",
+    "name": "Legend",
+    "counts": [
+     28,
+     27,
+     10,
+     2
+    ]
+   }
+  ]
+ },
+ "cards": [
+  {
+   "songId": 2827,
+   "jacketId": 2827,
+   "title": "Individual on parade!",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.6,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 1,
+   "jacket": "lxns:jacket/2827"
+  },
+  {
+   "songId": 2817,
+   "jacketId": 2817,
+   "title": "Unwelcome School",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.7,
+   "score": 1009165,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 2,
+   "jacket": "lxns:jacket/2817"
+  },
+  {
+   "songId": 2816,
+   "jacketId": 2816,
+   "title": "RE Aoharu",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.2,
+   "score": 1008465,
+   "rank": "sss",
+   "fullCombo": "alljustice",
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 3,
+   "jacket": "lxns:jacket/2816"
+  },
+  {
+   "songId": 2818,
+   "jacketId": 2818,
+   "title": "彩りキャンバス",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.6,
+   "score": 1008363,
+   "rank": "sss",
+   "fullCombo": "fullcombo",
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 4,
+   "jacket": "lxns:jacket/2818"
+  },
+  {
+   "songId": 2839,
+   "jacketId": 2839,
+   "title": "ブタサンダー",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.3,
+   "score": 1008232,
+   "rank": "sss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 5,
+   "jacket": "lxns:jacket/2839"
+  },
+  {
+   "songId": 2822,
+   "jacketId": 2822,
+   "title": "ラヴィ",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1006915,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 6,
+   "jacket": "lxns:jacket/2822"
+  },
+  {
+   "songId": 2831,
+   "jacketId": 2831,
+   "title": "χρόνος",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.8,
+   "score": 1006541,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 7,
+   "jacket": "lxns:jacket/2831"
+  },
+  {
+   "songId": 2847,
+   "jacketId": 2847,
+   "title": "単位がない！",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.9,
+   "score": 1006343,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 8,
+   "jacket": "lxns:jacket/2847"
+  },
+  {
+   "songId": 2821,
+   "jacketId": 2821,
+   "title": "はいよろこんで",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1006066,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 9,
+   "jacket": "lxns:jacket/2821"
+  },
+  {
+   "songId": 2819,
+   "jacketId": 2819,
+   "title": "TAIDADA",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.1,
+   "score": 1005965,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 10,
+   "jacket": "lxns:jacket/2819"
+  },
+  {
+   "songId": 2835,
+   "jacketId": 2835,
+   "title": "Wing:No.6223",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 1004906,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 11,
+   "jacket": "lxns:jacket/2835"
+  },
+  {
+   "songId": 2820,
+   "jacketId": 2820,
+   "title": "モエチャッカファイア",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.8,
+   "score": 1004702,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "sss",
+    "sss"
+   ],
+   "index": 12,
+   "jacket": "lxns:jacket/2820"
+  },
+  {
+   "songId": 2836,
+   "jacketId": 2836,
+   "title": "エモーション・キャプチャー",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1004516,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 13,
+   "jacket": "lxns:jacket/2836"
+  },
+  {
+   "songId": 2832,
+   "jacketId": 2832,
+   "title": "TOXIC",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.3,
+   "score": 1004380,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 14,
+   "jacket": "lxns:jacket/2832"
+  },
+  {
+   "songId": 2845,
+   "jacketId": 2845,
+   "title": "Star Saveler",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": 1003814,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 15,
+   "jacket": "lxns:jacket/2845"
+  },
+  {
+   "songId": 2834,
+   "jacketId": 2834,
+   "title": "luminoid love PART2",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 1003374,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 16,
+   "jacket": "lxns:jacket/2834"
+  },
+  {
+   "songId": 2841,
+   "jacketId": 2841,
+   "title": "少女A",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.3,
+   "score": 1002968,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 17,
+   "jacket": "lxns:jacket/2841"
+  },
+  {
+   "songId": 2848,
+   "jacketId": 2848,
+   "title": "アージェントシンメトリー",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 1001869,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 18,
+   "jacket": "lxns:jacket/2848"
+  },
+  {
+   "songId": 2837,
+   "jacketId": 2837,
+   "title": "Flap&Clap",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 1000938,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 19,
+   "jacket": "lxns:jacket/2837"
+  },
+  {
+   "songId": 2838,
+   "jacketId": 2838,
+   "title": "神鳴",
+   "levelIndex": 3,
+   "level": "15+",
+   "constant": 15.6,
+   "score": 1000106,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 20,
+   "jacket": "lxns:jacket/2838"
+  },
+  {
+   "songId": 2843,
+   "jacketId": 2843,
+   "title": "ノーライ",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 999351,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 21,
+   "jacket": "lxns:jacket/2843"
+  },
+  {
+   "songId": 2823,
+   "jacketId": 2823,
+   "title": "テトリス",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 997930,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 22,
+   "jacket": "lxns:jacket/2823"
+  },
+  {
+   "songId": 2842,
+   "jacketId": 2842,
+   "title": "え？あぁ、そう。- 10th Anniversary Edition -",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 997421,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 23,
+   "jacket": "lxns:jacket/2842"
+  },
+  {
+   "songId": 2828,
+   "jacketId": 2828,
+   "title": "Energizing Flame",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": 997016,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 24,
+   "jacket": "lxns:jacket/2828"
+  },
+  {
+   "songId": 2826,
+   "jacketId": 2826,
+   "title": "ニルヴの心臓",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15,
+   "score": 986972,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "s"
+   ],
+   "index": 25,
+   "jacket": "lxns:jacket/2826"
+  },
+  {
+   "songId": 2846,
+   "jacketId": 2846,
+   "title": "Tru'nembra",
+   "levelIndex": 3,
+   "level": "15+",
+   "constant": 15.6,
+   "score": 986664,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 26,
+   "jacket": "lxns:jacket/2846"
+  },
+  {
+   "songId": 2825,
+   "jacketId": 2825,
+   "title": "最終鬼畜妹フランドール・S (Chroma Remix)",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15,
+   "score": 983969,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 27,
+   "jacket": "lxns:jacket/2825"
+  },
+  {
+   "songId": 2829,
+   "jacketId": 2829,
+   "title": "Daydreama",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.6,
+   "score": 982983,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 28,
+   "jacket": "lxns:jacket/2829"
+  },
+  {
+   "songId": 2844,
+   "jacketId": 2844,
+   "title": "あの日、あの部屋で、あったこと",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15,
+   "score": 979244,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 29,
+   "jacket": "lxns:jacket/2844"
+  },
+  {
+   "songId": 2833,
+   "jacketId": 2833,
+   "title": "並行天涯",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.1,
+   "score": 979035,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 30,
+   "jacket": "lxns:jacket/2833"
+  },
+  {
+   "songId": 2840,
+   "jacketId": 2840,
+   "title": "私の歯医者さん",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.2,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 31,
+   "jacket": "lxns:jacket/2840"
+  },
+  {
+   "songId": 2824,
+   "jacketId": 2824,
+   "title": "モ　ミ　ア　ゲ　ヲ　シ　ャ　カ　ア　ゲ　ヲ",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "s"
+   ],
+   "index": 32,
+   "jacket": "lxns:jacket/2824"
+  }
+ ],
+ "overview": {
+  "songs": 32,
+  "charts": 128,
+  "levels": [
+   {
+    "level": "15+",
+    "count": 2
+   },
+   {
+    "level": "15",
+    "count": 4
+   },
+   {
+    "level": "14+",
+    "count": 4
+   },
+   {
+    "level": "14",
+    "count": 11
+   },
+   {
+    "level": "13+",
+    "count": 3
+   },
+   {
+    "level": "13",
+    "count": 9
+   }
+  ],
+  "hard": [
+   {
+    "level": "15+",
+    "count": 2,
+    "jackets": [
+     {
+      "jacketId": 2838,
+      "jacket": "lxns:jacket/2838"
+     },
+     {
+      "jacketId": 2846,
+      "jacket": "lxns:jacket/2846"
+     }
+    ]
+   },
+   {
+    "level": "15",
+    "count": 4,
+    "jackets": [
+     {
+      "jacketId": 2833,
+      "jacket": "lxns:jacket/2833"
+     },
+     {
+      "jacketId": 2825,
+      "jacket": "lxns:jacket/2825"
+     },
+     {
+      "jacketId": 2826,
+      "jacket": "lxns:jacket/2826"
+     },
+     {
+      "jacketId": 2844,
+      "jacket": "lxns:jacket/2844"
+     }
+    ]
+   },
+   {
+    "level": "14+",
+    "count": 3,
+    "jackets": [
+     {
+      "jacketId": 2831,
+      "jacket": "lxns:jacket/2831"
+     },
+     {
+      "jacketId": 2829,
+      "jacket": "lxns:jacket/2829"
+     },
+     {
+      "jacketId": 2843,
+      "jacket": "lxns:jacket/2843"
+     }
+    ]
+   }
+  ],
+  "trophies": []
+ },
+ "credit": "Generated by Anna Bot · 数据来自落雪查分器 · 2026-10-18 12:00"
+}

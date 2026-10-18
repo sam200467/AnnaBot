@@ -1,0 +1,28 @@
+/* 只覆盖画框和卡片装饰，原有文字、曲绘、封印、标记和布局仍由 theme.css 负责。 */
+.frame-piece, .frame-strip { position: absolute; display: block; overflow: hidden; transform-origin: 0 0; }
+.frame-piece img { position: absolute; display: block; max-width: none; }
+
+.card .pearl {
+  border-radius: 4px;
+  background: linear-gradient(110deg, #faf7ed 0%, #f4f0ed 48%, #e9e1ef 100%);
+  box-shadow:
+    inset 0 0 0 1.5px #839174,
+    inset 0 0 0 4px #faf7ed,
+    inset 0 0 0 5px rgba(162, 144, 104, 0.45),
+    0 5px 12px rgba(12, 10, 8, 0.42);
+}
+.card .pearl::before, .card .pearl::after, .card-butterfly { display: none; }
+
+/* 同 /分数列表 一样用小色块标序号，紫色取自涅菲谢的花饰。 */
+.card .idx {
+  border-radius: 2px;
+  background: linear-gradient(180deg, #89739e, #645477);
+  box-shadow: 0 0 0 1px #e6dcc2, 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.card .idx::after { display: none; }
+.card.unplayed .pearl {
+  background: linear-gradient(110deg, #eceae5, #ddd9e0);
+  box-shadow: inset 0 0 0 1.5px #9a9994, inset 0 0 0 4px #efede8,
+    inset 0 0 0 5px rgba(155, 151, 143, 0.4), 0 5px 12px rgba(12, 10, 8, 0.4);
+}
+.card.unplayed .idx { background: linear-gradient(180deg, #8a8594, #5d5867); }

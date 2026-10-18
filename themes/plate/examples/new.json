@@ -1,0 +1,2262 @@
+{
+ "version": {
+  "id": 20000,
+  "name": "NEW",
+  "title": "CHUNITHM NEW"
+ },
+ "title": {
+  "main": "NEW",
+  "sub": "牌子进度"
+ },
+ "player": {
+  "name": "テストプレイヤー",
+  "level": 72,
+  "reborn": 1,
+  "rating": 16.53,
+  "trophy": {
+   "name": "聖女 アンナ・マルグレーテ",
+   "color": "rainbow"
+  },
+  "classEmblem": {
+   "base": 3,
+   "medal": 5
+  },
+  "plateId": 20002,
+  "characterId": 8830,
+  "plate": "lxns:plate/20002",
+  "character": "lxns:character/8830"
+ },
+ "table": {
+  "total": 102,
+  "rows": [
+   {
+    "key": "s",
+    "label": "S",
+    "name": "Spirit",
+    "counts": [
+     95,
+     97,
+     98,
+     89
+    ]
+   },
+   {
+    "key": "sss",
+    "label": "SSS",
+    "name": "Tribute",
+    "counts": [
+     95,
+     97,
+     67,
+     22
+    ]
+   },
+   {
+    "key": "aj",
+    "label": "AJ",
+    "name": "Legend",
+    "counts": [
+     79,
+     78,
+     32,
+     12
+    ]
+   }
+  ]
+ },
+ "cards": [
+  {
+   "songId": 2043,
+   "jacketId": 2043,
+   "title": "DAZZLING♡SEASON",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.8,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 1,
+   "jacket": "lxns:jacket/2043"
+  },
+  {
+   "songId": 2065,
+   "jacketId": 2065,
+   "title": "創世のコンツェルティーナ",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.4,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 2,
+   "jacket": "lxns:jacket/2065"
+  },
+  {
+   "songId": 2094,
+   "jacketId": 2094,
+   "title": "Limits",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "fullcombo",
+   "clear": "absolute",
+   "fullChain": null,
+   "tiers": [
+    null,
+    "sss",
+    "s"
+   ],
+   "index": 3,
+   "jacket": "lxns:jacket/2094"
+  },
+  {
+   "songId": 2022,
+   "jacketId": 2022,
+   "title": "セカイ",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aaa",
+    "s"
+   ],
+   "index": 4,
+   "jacket": "lxns:jacket/2022"
+  },
+  {
+   "songId": 2059,
+   "jacketId": 2059,
+   "title": "STAR IN THE WORLD",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.8,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 5,
+   "jacket": "lxns:jacket/2059"
+  },
+  {
+   "songId": 2105,
+   "jacketId": 2105,
+   "title": "Blueprint",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.7,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljusticecritical",
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "aj"
+   ],
+   "index": 6,
+   "jacket": "lxns:jacket/2105"
+  },
+  {
+   "songId": 2149,
+   "jacketId": 2149,
+   "title": "テレキャスタービーボーイ",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.6,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "sss",
+    "sss"
+   ],
+   "index": 7,
+   "jacket": "lxns:jacket/2149"
+  },
+  {
+   "songId": 2163,
+   "jacketId": 2163,
+   "title": "トリドリ⇒モリモリ! Lovely fruits☆",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.5,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljusticecritical",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 8,
+   "jacket": "lxns:jacket/2163"
+  },
+  {
+   "songId": 2018,
+   "jacketId": 2018,
+   "title": "KING",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.3,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aaa",
+    "aj",
+    "aj"
+   ],
+   "index": 9,
+   "jacket": "lxns:jacket/2018"
+  },
+  {
+   "songId": 2151,
+   "jacketId": 2151,
+   "title": "ヴァンパイア",
+   "levelIndex": 3,
+   "level": "11+",
+   "constant": 11.9,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 10,
+   "jacket": "lxns:jacket/2151"
+  },
+  {
+   "songId": 2010,
+   "jacketId": 2010,
+   "title": "夜に駆ける",
+   "levelIndex": 3,
+   "level": "11+",
+   "constant": 11.8,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 11,
+   "jacket": "lxns:jacket/2010"
+  },
+  {
+   "songId": 2055,
+   "jacketId": 2055,
+   "title": "Ring",
+   "levelIndex": 3,
+   "level": "11+",
+   "constant": 11.5,
+   "score": 1010000,
+   "rank": "sssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 12,
+   "jacket": "lxns:jacket/2055"
+  },
+  {
+   "songId": 2026,
+   "jacketId": 2026,
+   "title": "高音厨音域テスト",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12,
+   "score": 1009916,
+   "rank": "sssp",
+   "fullCombo": "alljusticecritical",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 13,
+   "jacket": "lxns:jacket/2026"
+  },
+  {
+   "songId": 2154,
+   "jacketId": 2154,
+   "title": "回転 feat.あやぽんず＊",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.2,
+   "score": 1008926,
+   "rank": "sss",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 14,
+   "jacket": "lxns:jacket/2154"
+  },
+  {
+   "songId": 2091,
+   "jacketId": 2091,
+   "title": "《紀律》 ～ As One",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.9,
+   "score": 1008791,
+   "rank": "sss",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 15,
+   "jacket": "lxns:jacket/2091"
+  },
+  {
+   "songId": 2066,
+   "jacketId": 2066,
+   "title": "Fantasm",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.6,
+   "score": 1008579,
+   "rank": "sss",
+   "fullCombo": "fullcombo",
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 16,
+   "jacket": "lxns:jacket/2066"
+  },
+  {
+   "songId": 2056,
+   "jacketId": 2056,
+   "title": "Blazing Break",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.6,
+   "score": 1008528,
+   "rank": "sss",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 17,
+   "jacket": "lxns:jacket/2056"
+  },
+  {
+   "songId": 2025,
+   "jacketId": 2025,
+   "title": "失敗作少女",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1008449,
+   "rank": "sss",
+   "fullCombo": "alljustice",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 18,
+   "jacket": "lxns:jacket/2025"
+  },
+  {
+   "songId": 2067,
+   "jacketId": 2067,
+   "title": "Echoes",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.7,
+   "score": 1008294,
+   "rank": "sss",
+   "fullCombo": null,
+   "clear": "absolute",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 19,
+   "jacket": "lxns:jacket/2067"
+  },
+  {
+   "songId": 2152,
+   "jacketId": 2152,
+   "title": "帝国少女",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.3,
+   "score": 1008063,
+   "rank": "sss",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "aj"
+   ],
+   "index": 20,
+   "jacket": "lxns:jacket/2152"
+  },
+  {
+   "songId": 2155,
+   "jacketId": 2155,
+   "title": "SOUL 2 DIVIDE",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.4,
+   "score": 1007771,
+   "rank": "sss",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 21,
+   "jacket": "lxns:jacket/2155"
+  },
+  {
+   "songId": 2017,
+   "jacketId": 2017,
+   "title": "ヴィラン",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.2,
+   "score": 1007747,
+   "rank": "sss",
+   "fullCombo": "fullcombo",
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "aj"
+   ],
+   "index": 22,
+   "jacket": "lxns:jacket/2017"
+  },
+  {
+   "songId": 2096,
+   "jacketId": 2096,
+   "title": "ヒバリ",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1007496,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 23,
+   "jacket": "lxns:jacket/2096"
+  },
+  {
+   "songId": 2110,
+   "jacketId": 2110,
+   "title": "どうぶつ☆パラダイス",
+   "levelIndex": 3,
+   "level": "11+",
+   "constant": 11.5,
+   "score": 1007363,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 24,
+   "jacket": "lxns:jacket/2110"
+  },
+  {
+   "songId": 2153,
+   "jacketId": 2153,
+   "title": "クーネル・エンゲイザー",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.2,
+   "score": 1007322,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 25,
+   "jacket": "lxns:jacket/2153"
+  },
+  {
+   "songId": 2162,
+   "jacketId": 2162,
+   "title": "まっすぐ→→→ストリーム！",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.1,
+   "score": 1007296,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 26,
+   "jacket": "lxns:jacket/2162"
+  },
+  {
+   "songId": 2061,
+   "jacketId": 2061,
+   "title": "コスモポップファンクラブ",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12,
+   "score": 1007147,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aaa",
+    "sss"
+   ],
+   "index": 27,
+   "jacket": "lxns:jacket/2061"
+  },
+  {
+   "songId": 2063,
+   "jacketId": 2063,
+   "title": "人生攻略☆Tips",
+   "levelIndex": 3,
+   "level": "11+",
+   "constant": 11.9,
+   "score": 1006999,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 28,
+   "jacket": "lxns:jacket/2063"
+  },
+  {
+   "songId": 2140,
+   "jacketId": 2140,
+   "title": "ピアノ協奏曲第１番”蠍火”",
+   "levelIndex": 3,
+   "level": "15+",
+   "constant": 15.5,
+   "score": 1006919,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 29,
+   "jacket": "lxns:jacket/2140"
+  },
+  {
+   "songId": 2138,
+   "jacketId": 2138,
+   "title": "NightTheater",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 1006903,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "sss",
+    "aj"
+   ],
+   "index": 30,
+   "jacket": "lxns:jacket/2138"
+  },
+  {
+   "songId": 2120,
+   "jacketId": 2120,
+   "title": "Inpaqq",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.9,
+   "score": 1006773,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 31,
+   "jacket": "lxns:jacket/2120"
+  },
+  {
+   "songId": 2150,
+   "jacketId": 2150,
+   "title": "ボッカデラベリタ",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.2,
+   "score": 1006422,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    null
+   ],
+   "index": 32,
+   "jacket": "lxns:jacket/2150"
+  },
+  {
+   "songId": 2148,
+   "jacketId": 2148,
+   "title": "グッバイ宣言",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.3,
+   "score": 1006033,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 33,
+   "jacket": "lxns:jacket/2148"
+  },
+  {
+   "songId": 2145,
+   "jacketId": 2145,
+   "title": "Blows Up Everything",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 1005775,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 34,
+   "jacket": "lxns:jacket/2145"
+  },
+  {
+   "songId": 2062,
+   "jacketId": 2062,
+   "title": "夢路拍子",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.4,
+   "score": 1005529,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aaa",
+    "aj"
+   ],
+   "index": 35,
+   "jacket": "lxns:jacket/2062"
+  },
+  {
+   "songId": 2032,
+   "jacketId": 2032,
+   "title": "キャプテン・ムラサのケツアンカー",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1005498,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "aj"
+   ],
+   "index": 36,
+   "jacket": "lxns:jacket/2032"
+  },
+  {
+   "songId": 1038,
+   "jacketId": 1038,
+   "title": "Technicians High",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 1005399,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 37,
+   "jacket": "lxns:jacket/1038"
+  },
+  {
+   "songId": 2164,
+   "jacketId": 2164,
+   "title": "夜明けのストリング",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12.3,
+   "score": 1005313,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 38,
+   "jacket": "lxns:jacket/2164"
+  },
+  {
+   "songId": 2099,
+   "jacketId": 2099,
+   "title": "Don't Fight The Music",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.9,
+   "score": 1005277,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 39,
+   "jacket": "lxns:jacket/2099"
+  },
+  {
+   "songId": 2029,
+   "jacketId": 2029,
+   "title": "Bad Apple!! feat.nomico (REDALiCE Remix)",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1005236,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "absolute",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 40,
+   "jacket": "lxns:jacket/2029"
+  },
+  {
+   "songId": 2034,
+   "jacketId": 2034,
+   "title": "A Site De La Rue",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.1,
+   "score": 1005153,
+   "rank": "ssp",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 41,
+   "jacket": "lxns:jacket/2034"
+  },
+  {
+   "songId": 2054,
+   "jacketId": 2054,
+   "title": "DDDD",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1005073,
+   "rank": "ssp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    null,
+    "aj",
+    "aj"
+   ],
+   "index": 42,
+   "jacket": "lxns:jacket/2054"
+  },
+  {
+   "songId": 2068,
+   "jacketId": 2068,
+   "title": "Super Kitsch Mode",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.6,
+   "score": 1004922,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 43,
+   "jacket": "lxns:jacket/2068"
+  },
+  {
+   "songId": 2108,
+   "jacketId": 2108,
+   "title": "UTAKATA",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1004835,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "aj"
+   ],
+   "index": 44,
+   "jacket": "lxns:jacket/2108"
+  },
+  {
+   "songId": 2052,
+   "jacketId": 2052,
+   "title": "UltraNeon",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.3,
+   "score": 1004763,
+   "rank": "ss",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "aj"
+   ],
+   "index": 45,
+   "jacket": "lxns:jacket/2052"
+  },
+  {
+   "songId": 2170,
+   "jacketId": 2170,
+   "title": "ヤミツキ",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13,
+   "score": 1004727,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 46,
+   "jacket": "lxns:jacket/2170"
+  },
+  {
+   "songId": 2030,
+   "jacketId": 2030,
+   "title": "No Life Queen [DJ Command Remix]",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.4,
+   "score": 1004617,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "absolute",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 47,
+   "jacket": "lxns:jacket/2030"
+  },
+  {
+   "songId": 2160,
+   "jacketId": 2160,
+   "title": "Starting Over",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.7,
+   "score": 1004481,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 48,
+   "jacket": "lxns:jacket/2160"
+  },
+  {
+   "songId": 2125,
+   "jacketId": 2125,
+   "title": "カラッポ・ノンフィクション",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.4,
+   "score": 1004269,
+   "rank": "ss",
+   "fullCombo": "fullcombo",
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    null
+   ],
+   "index": 49,
+   "jacket": "lxns:jacket/2125"
+  },
+  {
+   "songId": 2019,
+   "jacketId": 2019,
+   "title": "電脳少女は歌姫の夢を見るか？",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 1004001,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 50,
+   "jacket": "lxns:jacket/2019"
+  },
+  {
+   "songId": 2114,
+   "jacketId": 2114,
+   "title": "ルナティックレッドアイズ",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.9,
+   "score": 1003784,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 51,
+   "jacket": "lxns:jacket/2114"
+  },
+  {
+   "songId": 2116,
+   "jacketId": 2116,
+   "title": "NewStartでReadyGo!",
+   "levelIndex": 3,
+   "level": "12",
+   "constant": 12,
+   "score": 1003759,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 52,
+   "jacket": "lxns:jacket/2116"
+  },
+  {
+   "songId": 2127,
+   "jacketId": 2127,
+   "title": "プナイプナイたいそう",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": 1003511,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 53,
+   "jacket": "lxns:jacket/2127"
+  },
+  {
+   "songId": 2035,
+   "jacketId": 2035,
+   "title": "XL TECHNO -More Dance Remix-",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 1003367,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aaa",
+    "sss",
+    "s"
+   ],
+   "index": 54,
+   "jacket": "lxns:jacket/2035"
+  },
+  {
+   "songId": 2044,
+   "jacketId": 2044,
+   "title": "ミュージック・リボルバー",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.6,
+   "score": 1003093,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 55,
+   "jacket": "lxns:jacket/2044"
+  },
+  {
+   "songId": 2037,
+   "jacketId": 2037,
+   "title": "二次元ドリームフィーバー",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 1003045,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 56,
+   "jacket": "lxns:jacket/2037"
+  },
+  {
+   "songId": 2092,
+   "jacketId": 2092,
+   "title": "《種子》 ～ Set You Free",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.8,
+   "score": 1002576,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "sss",
+    "sss"
+   ],
+   "index": 57,
+   "jacket": "lxns:jacket/2092"
+  },
+  {
+   "songId": 2146,
+   "jacketId": 2146,
+   "title": "Baqeela",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 1002450,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "aj"
+   ],
+   "index": 58,
+   "jacket": "lxns:jacket/2146"
+  },
+  {
+   "songId": 2036,
+   "jacketId": 2036,
+   "title": "CHAOS",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.8,
+   "score": 1002368,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 59,
+   "jacket": "lxns:jacket/2036"
+  },
+  {
+   "songId": 2058,
+   "jacketId": 2058,
+   "title": "Crack",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 1001844,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aaa",
+    "aj",
+    "sss"
+   ],
+   "index": 60,
+   "jacket": "lxns:jacket/2058"
+  },
+  {
+   "songId": 2137,
+   "jacketId": 2137,
+   "title": "MEGALOVANIA",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 1001652,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "s"
+   ],
+   "index": 61,
+   "jacket": "lxns:jacket/2137"
+  },
+  {
+   "songId": 2031,
+   "jacketId": 2031,
+   "title": "Little \"Sister\" Bitch",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.9,
+   "score": 1001598,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 62,
+   "jacket": "lxns:jacket/2031"
+  },
+  {
+   "songId": 2111,
+   "jacketId": 2111,
+   "title": "Radiance",
+   "levelIndex": 3,
+   "level": "13+",
+   "constant": 13.9,
+   "score": 1001597,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 63,
+   "jacket": "lxns:jacket/2111"
+  },
+  {
+   "songId": 1094,
+   "jacketId": 1094,
+   "title": "[CRYSTAL_ACCESS]",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.6,
+   "score": 1001321,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 64,
+   "jacket": "lxns:jacket/1094"
+  },
+  {
+   "songId": 2147,
+   "jacketId": 2147,
+   "title": "花と、雪と、ドラムンベース。",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.6,
+   "score": 1000420,
+   "rank": "ss",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 65,
+   "jacket": "lxns:jacket/2147"
+  },
+  {
+   "songId": 2134,
+   "jacketId": 2134,
+   "title": "Iudicium “Apocalypsis Mix”",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": 999977,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 66,
+   "jacket": "lxns:jacket/2134"
+  },
+  {
+   "songId": 2090,
+   "jacketId": 2090,
+   "title": "《自戒》 ～ Paganelope",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.6,
+   "score": 999947,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 67,
+   "jacket": "lxns:jacket/2090"
+  },
+  {
+   "songId": 2046,
+   "jacketId": 2046,
+   "title": "BLUE ZONE",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.7,
+   "score": 999636,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 68,
+   "jacket": "lxns:jacket/2046"
+  },
+  {
+   "songId": 2124,
+   "jacketId": 2124,
+   "title": "88D",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 999596,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    null,
+    "aj"
+   ],
+   "index": 69,
+   "jacket": "lxns:jacket/2124"
+  },
+  {
+   "songId": 2042,
+   "jacketId": 2042,
+   "title": "Satellite System ft.Diana Chiaki",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.3,
+   "score": 999564,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 70,
+   "jacket": "lxns:jacket/2042"
+  },
+  {
+   "songId": 2045,
+   "jacketId": 2045,
+   "title": "REDRAVE",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": 999158,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 71,
+   "jacket": "lxns:jacket/2045"
+  },
+  {
+   "songId": 511,
+   "jacketId": 511,
+   "title": "サイバーサンダーサイダー",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 999143,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "sss"
+   ],
+   "index": 72,
+   "jacket": "lxns:jacket/511"
+  },
+  {
+   "songId": 2156,
+   "jacketId": 2156,
+   "title": "Cinderella Story [BlackY Remix]",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 998745,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 73,
+   "jacket": "lxns:jacket/2156"
+  },
+  {
+   "songId": 2040,
+   "jacketId": 2040,
+   "title": "Crimson Phoenix",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.8,
+   "score": 998230,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "s"
+   ],
+   "index": 74,
+   "jacket": "lxns:jacket/2040"
+  },
+  {
+   "songId": 2064,
+   "jacketId": 2064,
+   "title": "ピュグマリオンの咒文",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": 998207,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aaa",
+    "aj",
+    "s"
+   ],
+   "index": 75,
+   "jacket": "lxns:jacket/2064"
+  },
+  {
+   "songId": 2069,
+   "jacketId": 2069,
+   "title": "Pre Paid Pog Punk Panic",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.2,
+   "score": 997513,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 76,
+   "jacket": "lxns:jacket/2069"
+  },
+  {
+   "songId": 2157,
+   "jacketId": 2157,
+   "title": "妖々跋扈　～ Who done it！！！",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": 997006,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "brave",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 77,
+   "jacket": "lxns:jacket/2157"
+  },
+  {
+   "songId": 2122,
+   "jacketId": 2122,
+   "title": "Akasagarbha -reincarnate-",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 995509,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 78,
+   "jacket": "lxns:jacket/2122"
+  },
+  {
+   "songId": 2117,
+   "jacketId": 2117,
+   "title": "Qliphothgear",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 993933,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    null
+   ],
+   "index": 79,
+   "jacket": "lxns:jacket/2117"
+  },
+  {
+   "songId": 2135,
+   "jacketId": 2135,
+   "title": "IMPACT",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 991584,
+   "rank": "sp",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 80,
+   "jacket": "lxns:jacket/2135"
+  },
+  {
+   "songId": 2118,
+   "jacketId": 2118,
+   "title": "SQUAD-Phvntom-",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 988394,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "s"
+   ],
+   "index": 81,
+   "jacket": "lxns:jacket/2118"
+  },
+  {
+   "songId": 1058,
+   "jacketId": 1058,
+   "title": "the EmpErroR",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.9,
+   "score": 986420,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 82,
+   "jacket": "lxns:jacket/1058"
+  },
+  {
+   "songId": 2053,
+   "jacketId": 2053,
+   "title": "雪男",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.2,
+   "score": 985848,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "catastrophy",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 83,
+   "jacket": "lxns:jacket/2053"
+  },
+  {
+   "songId": 2161,
+   "jacketId": 2161,
+   "title": "POTENTIAL",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.3,
+   "score": 985085,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "s"
+   ],
+   "index": 84,
+   "jacket": "lxns:jacket/2161"
+  },
+  {
+   "songId": 2119,
+   "jacketId": 2119,
+   "title": "parvorbital",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.3,
+   "score": 984700,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 85,
+   "jacket": "lxns:jacket/2119"
+  },
+  {
+   "songId": 2038,
+   "jacketId": 2038,
+   "title": "SINister Evolution",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.9,
+   "score": 982786,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "hard",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 86,
+   "jacket": "lxns:jacket/2038"
+  },
+  {
+   "songId": 2126,
+   "jacketId": 2126,
+   "title": "Tuk Tuk Boshi",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.8,
+   "score": 980912,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 87,
+   "jacket": "lxns:jacket/2126"
+  },
+  {
+   "songId": 2049,
+   "jacketId": 2049,
+   "title": "脳天直撃",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.1,
+   "score": 975652,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 88,
+   "jacket": "lxns:jacket/2049"
+  },
+  {
+   "songId": 2168,
+   "jacketId": 2168,
+   "title": "J219",
+   "levelIndex": 3,
+   "level": "14+",
+   "constant": 14.5,
+   "score": 975425,
+   "rank": "s",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 89,
+   "jacket": "lxns:jacket/2168"
+  },
+  {
+   "songId": 2060,
+   "jacketId": 2060,
+   "title": "蜘蛛の糸",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.2,
+   "score": 974150,
+   "rank": "aaa",
+   "fullCombo": null,
+   "clear": "clear",
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 90,
+   "jacket": "lxns:jacket/2060"
+  },
+  {
+   "songId": 2121,
+   "jacketId": 2121,
+   "title": "Strange Love",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15.3,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 91,
+   "jacket": "lxns:jacket/2121"
+  },
+  {
+   "songId": 2050,
+   "jacketId": 2050,
+   "title": "封焔の135秒",
+   "levelIndex": 3,
+   "level": "15",
+   "constant": 15,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    null
+   ],
+   "index": 92,
+   "jacket": "lxns:jacket/2050"
+  },
+  {
+   "songId": 2028,
+   "jacketId": 2028,
+   "title": "ナイト・オブ・ナイツ (かめりあ’s“ワンス・アポン・ア・ナイト”Remix)",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aaa",
+    null,
+    "sss"
+   ],
+   "index": 93,
+   "jacket": "lxns:jacket/2028"
+  },
+  {
+   "songId": 2093,
+   "jacketId": 2093,
+   "title": "《偏愛》 ～ Shattered Memories",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.4,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "s"
+   ],
+   "index": 94,
+   "jacket": "lxns:jacket/2093"
+  },
+  {
+   "songId": 2047,
+   "jacketId": 2047,
+   "title": "花たちに希望を",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.3,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 95,
+   "jacket": "lxns:jacket/2047"
+  },
+  {
+   "songId": 2115,
+   "jacketId": 2115,
+   "title": "#FairyJoke",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14.1,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "aj"
+   ],
+   "index": 96,
+   "jacket": "lxns:jacket/2115"
+  },
+  {
+   "songId": 1065,
+   "jacketId": 1065,
+   "title": "Athlete Killer \"Meteor\"",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 97,
+   "jacket": "lxns:jacket/1065"
+  },
+  {
+   "songId": 2109,
+   "jacketId": 2109,
+   "title": "Rule the World!!",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 98,
+   "jacket": "lxns:jacket/2109"
+  },
+  {
+   "songId": 2144,
+   "jacketId": 2144,
+   "title": "天火明命",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "aj"
+   ],
+   "index": 99,
+   "jacket": "lxns:jacket/2144"
+  },
+  {
+   "songId": 2158,
+   "jacketId": 2158,
+   "title": "宵闇の月に抱かれて",
+   "levelIndex": 3,
+   "level": "14",
+   "constant": 14,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "sss",
+    "sss"
+   ],
+   "index": 100,
+   "jacket": "lxns:jacket/2158"
+  },
+  {
+   "songId": 2023,
+   "jacketId": 2023,
+   "title": "ローリンガール",
+   "levelIndex": 3,
+   "level": "13",
+   "constant": 13.4,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "sss",
+    "aj",
+    "s"
+   ],
+   "index": 101,
+   "jacket": "lxns:jacket/2023"
+  },
+  {
+   "songId": 2024,
+   "jacketId": 2024,
+   "title": "骸骨楽団とリリア",
+   "levelIndex": 3,
+   "level": "12+",
+   "constant": 12.8,
+   "score": null,
+   "rank": null,
+   "fullCombo": null,
+   "clear": null,
+   "fullChain": null,
+   "tiers": [
+    "aj",
+    "aj",
+    "sss"
+   ],
+   "index": 102,
+   "jacket": "lxns:jacket/2024"
+  }
+ ],
+ "overview": {
+  "songs": 102,
+  "charts": 408,
+  "levels": [
+   {
+    "level": "15+",
+    "count": 1
+   },
+   {
+    "level": "15",
+    "count": 8
+   },
+   {
+    "level": "14+",
+    "count": 17
+   },
+   {
+    "level": "14",
+    "count": 28
+   },
+   {
+    "level": "13+",
+    "count": 18
+   },
+   {
+    "level": "13",
+    "count": 21
+   }
+  ],
+  "hard": [
+   {
+    "level": "15+",
+    "count": 1,
+    "jackets": [
+     {
+      "jacketId": 2140,
+      "jacket": "lxns:jacket/2140"
+     }
+    ]
+   },
+   {
+    "level": "15",
+    "count": 8,
+    "jackets": [
+     {
+      "jacketId": 2119,
+      "jacket": "lxns:jacket/2119"
+     },
+     {
+      "jacketId": 2121,
+      "jacket": "lxns:jacket/2121"
+     },
+     {
+      "jacketId": 2161,
+      "jacket": "lxns:jacket/2161"
+     },
+     {
+      "jacketId": 2053,
+      "jacket": "lxns:jacket/2053"
+     },
+     {
+      "jacketId": 2060,
+      "jacket": "lxns:jacket/2060"
+     },
+     {
+      "jacketId": 2034,
+      "jacket": "lxns:jacket/2034"
+     },
+     {
+      "jacketId": 2049,
+      "jacket": "lxns:jacket/2049"
+     },
+     {
+      "jacketId": 2050,
+      "jacket": "lxns:jacket/2050"
+     }
+    ]
+   },
+   {
+    "level": "14+",
+    "count": 17,
+    "jackets": [
+     {
+      "jacketId": 1058,
+      "jacket": "lxns:jacket/1058"
+     },
+     {
+      "jacketId": 2038,
+      "jacket": "lxns:jacket/2038"
+     },
+     {
+      "jacketId": 2099,
+      "jacket": "lxns:jacket/2099"
+     },
+     {
+      "jacketId": 2040,
+      "jacket": "lxns:jacket/2040"
+     },
+     {
+      "jacketId": 2126,
+      "jacket": "lxns:jacket/2126"
+     },
+     {
+      "jacketId": 2046,
+      "jacket": "lxns:jacket/2046"
+     },
+     {
+      "jacketId": 1094,
+      "jacket": "lxns:jacket/1094"
+     },
+     {
+      "jacketId": 2044,
+      "jacket": "lxns:jacket/2044"
+     },
+     {
+      "jacketId": 2090,
+      "jacket": "lxns:jacket/2090"
+     },
+     {
+      "jacketId": 2147,
+      "jacket": "lxns:jacket/2147"
+     }
+    ]
+   }
+  ],
+  "trophies": [
+   {
+    "key": "s",
+    "label": "S",
+    "name": "Spirit of NEW",
+    "id": 8790,
+    "image": "lxns:trophy/8790",
+    "done": false
+   },
+   {
+    "key": "sss",
+    "label": "SSS",
+    "name": "Tribute of NEW",
+    "id": 8791,
+    "image": "lxns:trophy/8791",
+    "done": false
+   },
+   {
+    "key": "aj",
+    "label": "AJ",
+    "name": "Legend of NEW",
+    "id": 8792,
+    "image": "lxns:trophy/8792",
+    "done": false
+   }
+  ]
+ },
+ "credit": "Generated by Anna Bot · 数据来自落雪查分器 · 2026-10-18 12:00"
+}

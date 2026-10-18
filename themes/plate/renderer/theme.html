@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="materials.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <!-- 卡片上的白蝶水印：<symbol> 只放一份，theme.js 用 <use> 引到每张卡上 -->
+  <svg class="motifs" aria-hidden="true">
+    <symbol id="card-butterfly" viewBox="0 0 120 90">
+      <g fill="#fffdfd" stroke="#8b72b6" stroke-width="2">
+        <path d="M58 44C48 27 32 12 20 16 9 20 12 38 22 47c7 6 20 6 30 3z"/>
+        <path d="M62 44C72 27 88 12 100 16c11 4 8 22-2 31-7 6-20 6-30 3z"/>
+      </g>
+      <g fill="#efe5f9" stroke="#8b72b6" stroke-width="1.6">
+        <path d="M58 49C47 55 31 66 31 76c0 8 11 11 18 5 6-5 10-16 11-26z"/>
+        <path d="M62 49c11 6 27 17 27 27 0 8-11 11-18 5-6-5-10-16-11-26z"/>
+      </g>
+      <g fill="#c9b5e5" opacity=".8">
+        <circle cx="28" cy="27" r="2.4"/><circle cx="92" cy="27" r="2.4"/>
+        <circle cx="40" cy="70" r="1.8"/><circle cx="80" cy="70" r="1.8"/>
+      </g>
+      <ellipse cx="60" cy="49" rx="3" ry="13" fill="#7d639f"/>
+      <circle cx="60" cy="34" r="3.8" fill="#7d639f"/>
+      <path d="M60 31C55 24 50 20 45 18M60 31c5-7 10-11 15-13" fill="none" stroke="#7d639f" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- 框顶/框底的紫花金椭圆：不靠照片拉伸，直边和中心装饰都是矢量 -->
+    <symbol id="frame-medallion" viewBox="0 0 220 120">
+      <defs>
+        <linearGradient id="frame-gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff4d8"/><stop offset=".28" stop-color="#d8b06a"/><stop offset=".55" stop-color="#9a6b32"/><stop offset=".78" stop-color="#e8c88e"/><stop offset="1" stop-color="#6a4a2a"/>
+        </linearGradient>
+        <linearGradient id="frame-violet" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#c3a6e0"/><stop offset=".55" stop-color="#8a6bb5"/><stop offset="1" stop-color="#5b3f8c"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="110" cy="60" rx="104" ry="53" fill="url(#frame-gold)" stroke="#5f4327" stroke-width="2"/>
+      <ellipse cx="110" cy="60" rx="88" ry="39" fill="#fff8e8" stroke="#c9a36a" stroke-width="2"/>
+      <g fill="#fff8e8" stroke="#9a6b32" stroke-width=".8">
+        <circle cx="45" cy="60" r="4"/><circle cx="68" cy="33" r="4"/><circle cx="110" cy="26" r="4"/>
+        <circle cx="152" cy="33" r="4"/><circle cx="175" cy="60" r="4"/><circle cx="152" cy="87" r="4"/>
+        <circle cx="110" cy="94" r="4"/><circle cx="68" cy="87" r="4"/>
+      </g>
+      <g fill="url(#frame-violet)" stroke="#5b3f8c" stroke-width="1.4">
+        <ellipse cx="110" cy="44" rx="9" ry="16"/>
+        <ellipse cx="125" cy="53" rx="9" ry="16" transform="rotate(72 110 60)"/>
+        <ellipse cx="119" cy="71" rx="9" ry="16" transform="rotate(144 110 60)"/>
+        <ellipse cx="101" cy="71" rx="9" ry="16" transform="rotate(216 110 60)"/>
+        <ellipse cx="95" cy="53" rx="9" ry="16" transform="rotate(288 110 60)"/>
+      </g>
+      <g fill="#7f9a72" stroke="#4f6b4a" stroke-width="1">
+        <path d="M82 76c-12 2-20 9-22 18 12 0 20-6 24-14z"/>
+        <path d="M138 76c12 2 20 9 22 18-12 0-20-6-24-14z"/>
+      </g>
+      <circle cx="110" cy="60" r="7" fill="#e8c46d" stroke="#8a6420" stroke-width="1.2"/>
+    </symbol>
+    <!-- 四角的金花：B 的象牙白 + 香槟金，纯矢量，不拉照片 -->
+    <symbol id="frame-boss" viewBox="0 0 120 120">
+      <defs>
+        <radialGradient id="boss-gold" cx=".35" cy=".28" r=".8">
+          <stop offset="0" stop-color="#fff4d8"/><stop offset=".4" stop-color="#d8b06a"/><stop offset=".72" stop-color="#9a6b32"/><stop offset="1" stop-color="#6a4a2a"/>
+        </radialGradient>
+        <radialGradient id="boss-pearl" cx=".34" cy=".28" r=".75">
+          <stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#f3e4ca"/><stop offset="1" stop-color="#c9a36a"/>
+        </radialGradient>
+      </defs>
+      <g fill="#b8874f" stroke="#6a4a2a" stroke-width="1.6">
+        <path d="M58 60C42 45 35 28 38 10 55 18 66 36 60 60Z"/>
+        <path d="M58 60C42 45 35 28 38 10 55 18 66 36 60 60Z" transform="rotate(90 60 60)"/>
+        <path d="M58 60C42 45 35 28 38 10 55 18 66 36 60 60Z" transform="rotate(180 60 60)"/>
+        <path d="M58 60C42 45 35 28 38 10 55 18 66 36 60 60Z" transform="rotate(270 60 60)"/>
+      </g>
+      <circle cx="60" cy="60" r="55" fill="url(#boss-gold)" stroke="#5f4327" stroke-width="2"/>
+      <circle cx="60" cy="60" r="45" fill="#f7e3c0" stroke="#9a6b32" stroke-width="1.4"/>
+      <g fill="#e8cfa6" stroke="#9a6b32" stroke-width="1">
+        <ellipse cx="60" cy="31" rx="9" ry="18"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(45 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(90 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(135 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(180 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(225 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(270 60 60)"/>
+        <ellipse cx="60" cy="31" rx="9" ry="18" transform="rotate(315 60 60)"/>
+      </g>
+      <circle cx="60" cy="60" r="19" fill="url(#boss-gold)" stroke="#5f4327" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="13" fill="url(#boss-pearl)" stroke="#9a6b32" stroke-width="1.2"/>
+      <g fill="#fff8e8" stroke="#9a6b32" stroke-width=".7">
+        <circle cx="60" cy="18" r="2.4"/><circle cx="60" cy="102" r="2.4"/>
+        <circle cx="18" cy="60" r="2.4"/><circle cx="102" cy="60" r="2.4"/>
+      </g>
+    </symbol>
+  </svg>
+  <main id="page" class="page">
+    <!-- 画框（theme.js 画，放在 #frame 里）；框里是科尔的《人生的旅程·青年》（assets/painting.jpg）按原比例铺满宽度，
+         希望之巫女涅菲谢站在右边（assets/nefeshe-fullbody.png），背后是画里右边那片暗的树 -->
+    <div id="canvas" class="canvas">
+      <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
+      <img id="sibyl" class="sibyl" src="../assets/nefeshe-fullbody.png" alt="">
+
+      <section class="content">
+        <!-- 十列。第 1 行是抬头（左上名片板、版本名、右边统计表），第 2 行整行空着，
+             让第一张卡片比抬头低半行；右边两列只在前两行卡片处给涅菲谢让位，第三行起铺满十列。
+             版本总览固定在画布左下角（作者 2026-10-18 要的），不占网格位置；曲子最多 102 首，卡片铺不到它下面 -->
+        <ol id="grid" class="grid">
+          <li class="head">
+            <div id="identity" class="identity">
+              <div class="portrait">
+                <div class="medallion"><img id="chara" class="chara" alt=""></div>
+                <div id="emblem" class="emblem"></div>
+              </div>
+              <div id="plate" class="plate">
+                <img id="plate-img" class="plate-img" alt="">
+                <div id="trophy" class="trophy"></div>
+                <div class="plate-name"><span id="level" class="level"></span><span id="name" class="name"></span></div>
+                <div class="overall"><span class="overall-label">总 Rating</span><span id="rating" class="overall-value"></span></div>
+              </div>
+            </div>
+            <div class="heading">
+              <h1 id="main" class="main"></h1>
+              <p id="sub" class="sub"></p>
+            </div>
+            <table id="table" class="table"></table>
+          </li>
+          <li id="lead" class="lead" aria-hidden="true"></li>
+          <li id="stand" class="stand" aria-hidden="true"></li>
+        </ol>
+        <p id="credit" class="credit"></p>
+      </section>
+      <div id="overview" class="overview"></div>
+    </div>
+    <!-- 框：直边是 CSS 线脚，四角是矢量金花，顶/底中心是紫花金椭圆。
+         框宽由 theme.js 的 FRAME 写进 --frame；四角、珠子、里线都跟着它缩 -->
+    <div id="frame" class="frame" aria-hidden="true">
+      <div class="rail top"></div><div class="rail bottom"></div><div class="rail left"></div><div class="rail right"></div>
+      <div class="beads"></div><div class="lip"></div><div class="liner"></div>
+      <svg class="corner-boss tl" viewBox="0 0 120 120"><use href="#frame-boss"/></svg>
+      <svg class="corner-boss tr" viewBox="0 0 120 120"><use href="#frame-boss"/></svg>
+      <svg class="corner-boss bl" viewBox="0 0 120 120"><use href="#frame-boss"/></svg>
+      <svg class="corner-boss br" viewBox="0 0 120 120"><use href="#frame-boss"/></svg>
+      <svg class="medallion top" viewBox="0 0 220 120"><use href="#frame-medallion"/></svg>
+      <svg class="medallion bottom" viewBox="0 0 220 120"><use href="#frame-medallion"/></svg>
+    </div>
+  </main>
+  <script src="materials.js"></script>
+  <script src="theme.js"></script>
+</body>
+</html>
