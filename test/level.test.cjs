@@ -18,6 +18,7 @@ const { createAssets } = require("../src/assets.cjs");
 const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
+const { createSongTags } = require("../src/song-tags.cjs");
 const { parseQuery, resolveCharts, buildData, attachAssets, describe, commandOf, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -67,12 +68,25 @@ const catalogLike = () => {
   return { songs, versions, isWorldsEnd: (song) => song.difficulties.some((d) => d.difficulty === 5), jacketId: (song) => song.id };
 };
 
-test("拆参数：等级、定数、页码、难度、版本、评级随便组合；光秃秃的整数先当等级，有了等级或定数以后是页码", () => {
+// 分类测试用的小表：1000 精灵记 / 1001 Metaverse / 1002 音击 / 1003 舞萌 / 1004 两边都有 / 1005 BMS；
+// 2000 也算音击（它有一张 ULTIMA，用来看默认的黑谱）
+const TAGS = createSongTags({
+  extras: {
+    get: (id) => ({
+      1000: { labels: ["シビュラ精霊記レーベル"] },
+      1001: { labels: ["Metaverseレーベル"] },
+    }[id]),
+  },
+  origins: { 1002: "音击", 1003: "舞萌", 1004: "両方", 2000: "音击" },
+  bms: [1005],
+});
+
+test("拆参数：等级、定数、页码、难度、版本、评级随便组合；不带分类时光秃秃的整数先当等级，分类后面是页码", () => {
   const parse = (args) => {
-    const q = parseQuery(args, { versions: VERSIONS });
-    return { level: q.level, constant: q.constant, levelIndex: q.levelIndex, version: q.version?.title || null, rank: q.rank, page: q.page, unknown: q.unknown };
+    const q = parseQuery(args, { versions: VERSIONS, tags: TAGS });
+    return { level: q.level, constant: q.constant, levelIndex: q.levelIndex, version: q.version?.title || null, rank: q.rank, tag: q.tag?.key || null, tagConflict: q.tagConflict, page: q.page, unknown: q.unknown };
   };
-  const base = { level: null, constant: null, levelIndex: null, version: null, rank: null, page: null, unknown: [] };
+  const base = { level: null, constant: null, levelIndex: null, version: null, rank: null, tag: null, tagConflict: false, page: null, unknown: [] };
   assert.deepEqual(parse("14+"), { ...base, level: "14+" });
   assert.deepEqual(parse("Lv.14+ 2"), { ...base, level: "14+", page: 2 });
   assert.deepEqual(parse("lv 14＋　第３页"), { ...base, level: "14+", page: 3 }, "全角也认");
@@ -93,6 +107,29 @@ test("拆参数：等级、定数、页码、难度、版本、评级随便组�
   assert.deepEqual(parse("14+ 啥 呢"), { ...base, level: "14+", unknown: ["啥", "呢"] });
   assert.equal(parseQuery("14+ we").worldsEnd, true);
   assert.equal(parseQuery("master 2").level, "2", "没有等级时 2 先当等级（挑谱面时对不上再改当页码）");
+  assert.deepEqual(parse("精灵记"), { ...base, tag: "精灵记" });
+  assert.deepEqual(parse("精霊記"), { ...base, tag: "精灵记" }, "日文写法也认");
+  assert.deepEqual(parse("シビュラ"), { ...base, tag: "精灵记" }, "厂牌名 / 缩写");
+  assert.deepEqual(parse("愚民大陆"), { ...base, tag: "GUMIN" }, "别称");
+  assert.deepEqual(parse("心连羁绊"), { ...base, tag: "リレイション" });
+  assert.deepEqual(parse("元宇宙"), { ...base, tag: "Metaverse" });
+  assert.deepEqual(parse("群码动物仙境"), { ...base, tag: "アニマリア" });
+  assert.deepEqual(parse("音击 紫"), { ...base, tag: "音击", levelIndex: 3 });
+  assert.deepEqual(parse("bms 紫"), { ...base, tag: "BMS", levelIndex: 3 });
+  assert.deepEqual(parse("genesis of destiny"), { ...base, tag: "GenesisOfDestiny" }, "带空格的分类名");
+  assert.deepEqual(parse("流行 & 动漫"), { ...base, tag: "流行动漫" }, "带空格和 & 的分类名");
+  assert.deepEqual(parse("精灵记 2"), { ...base, tag: "精灵记", page: 2 }, "分类后面的裸数字是页码");
+  assert.deepEqual(parse("2 精灵记"), { ...base, tag: "精灵记", page: 2 }, "写在分类前面也是页码");
+  assert.deepEqual(parse("精灵记 紫 2"), { ...base, tag: "精灵记", levelIndex: 3, page: 2 });
+  assert.deepEqual(parse("精灵记 第2页"), { ...base, tag: "精灵记", page: 2 });
+  assert.deepEqual(parse("精灵记 p2"), { ...base, tag: "精灵记", page: 2 });
+  assert.deepEqual(parse("精灵记 红"), { ...base, tag: "精灵记", levelIndex: 2 }, "红黄绿能解析，run 里再提示不放进来");
+  assert.deepEqual(parse("音击 14+"), { ...base, tag: "音击", level: "14+", tagConflict: true }, "分类不能跟等级一起写");
+  assert.deepEqual(parse("精灵记 14.5"), { ...base, tag: "精灵记", constant: 14.5, tagConflict: true });
+  assert.deepEqual(parse("精灵记 X-VERSE"), { ...base, tag: "精灵记", version: "CHUNITHM X-VERSE", tagConflict: true });
+  assert.deepEqual(parse("精灵记 SSS以上"), { ...base, tag: "精灵记", rank: { key: "sss", mode: "above" }, tagConflict: true });
+  assert.deepEqual(parse("精灵记 原创"), { ...base, tag: "精灵记", tagConflict: true }, "一次只认一个分类");
+  assert.deepEqual(parse("精霊編"), { ...base, tag: "精灵记" }, "章名落到父分类，不是单独分类");
 });
 
 test("挑谱面：等级、定数、难度、版本都对上；WE 和已删除的曲不列；「master 2」对不上 Lv.2 时改当第 2 页", () => {
@@ -107,6 +144,21 @@ test("挑谱面：等级、定数、难度、版本都对上；WE 和已删除�
   const fallback = pick("master 2");
   assert.deepEqual([fallback.query.level, fallback.query.page, fallback.charts.length], [null, 2, 101], "MASTER 一共 101 张（含 4000 的 Lv.13）");
   assert.deepEqual([pick("12 2").query.level, pick("12 2").query.page], ["12", 2], "有等级时后面的数本来就是页码");
+});
+
+test("挑谱面：分类只留对应曲目，默认只算紫谱、黑谱；两边都有的曲（両方）音击和舞萌都算", () => {
+  const catalog = catalogLike();
+  const pick = (args) => resolveCharts(catalog, parseQuery(args, { versions: VERSIONS, tags: TAGS }), TAGS).charts;
+  assert.equal(pick("精灵记").length, 1, "1000 的 MASTER；EXP 12 默认不列");
+  assert.equal(pick("Metaverse").length, 1);
+  assert.equal(pick("音击").length, 3, "1002、両方 1004 的 MASTER，加 2000 的 ULTIMA");
+  assert.equal(pick("舞萌").length, 2, "1003、両方 1004 的 MASTER");
+  assert.equal(pick("BMS").length, 1);
+  assert.equal(pick("精灵记 紫").length, 1);
+  assert.equal(pick("精灵记 黑").length, 0);
+  assert.equal(pick("音击 紫").length, 2);
+  assert.equal(pick("音击 黑").length, 1, "2000 的 ULTIMA");
+  assert.equal(pick("音击 红").length, 0, "分类默认不放红黄绿");
 });
 
 test("分页：非最后一页 78 张（18 + 12×5，最后一行排满），最后一页最多 80 张", () => {
@@ -187,6 +239,27 @@ test("buildData：评级筛选（以下含没打过的、以上和正好不含�
   assert.deepEqual(build("13.0").data.title, { prefix: "定数", main: "13.0", sub: "全谱面成绩" });
 });
 
+test("分类的标题和翻页指令：分类单独做标题，默认副标题是紫谱·黑谱；页码直接写数字", () => {
+  const catalog = catalogLike();
+  const build = (args) => {
+    const { query, charts } = resolveCharts(catalog, parseQuery(args, { versions: VERSIONS, tags: TAGS }), TAGS);
+    return { query, data: buildData({ query, charts, scores: myScores(), catalog, tags: TAGS }) };
+  };
+  const sibyl = build("精灵记");
+  assert.deepEqual(sibyl.data.title, { prefix: "", main: "精灵记", sub: "紫谱 · 黑谱" });
+  assert.equal(describe(sibyl.query, null, TAGS), "精灵记");
+  assert.equal(commandOf("分数列表", sibyl.query, 2, TAGS), "/分数列表 精灵记 2");
+  const ongeki = build("音击 紫");
+  assert.deepEqual(ongeki.data.title, { prefix: "", main: "音击", sub: "紫谱" });
+  assert.equal(describe(ongeki.query, null, TAGS), "音击 · 紫谱");
+  assert.equal(commandOf("分数列表", ongeki.query, 2, TAGS), "/分数列表 音击 MASTER 2");
+  const black = build("音击 黑");
+  assert.deepEqual(black.data.title, { prefix: "", main: "音击", sub: "黑谱" });
+  assert.equal(describe(black.query, null, TAGS), "音击 · 黑谱");
+  assert.equal(commandOf("分数列表", black.query, 2, TAGS), "/分数列表 音击 ULTIMA 2");
+  assert.deepEqual(build("BMS 紫").data.title, { prefix: "", main: "BMS", sub: "紫谱" });
+});
+
 // ── 端到端 ──
 async function setup(t) {
   const qq = createMockOfficial();
@@ -207,7 +280,7 @@ async function setup(t) {
     allowedGroupIds: ["G1"], allowPrivateChat: true, admins: [], receiptDelayMs: 5000, generateCooldownMs: 0,
     qq: { appId: "1", clientSecret: "x", tokenUrl: qq.tokenUrl, apiBase: qq.apiBase, sandboxApiBase: qq.apiBase, sandbox: false,
       minSendIntervalMs: 0, jitterMs: 0, perTargetIntervalMs: 0, perTargetPerHour: 1000 },
-  }, { lxns, oauth, bindings, catalog, assets, renderer, log: () => {} });
+  }, { lxns, oauth, bindings, catalog, assets, renderer, songTags: TAGS, log: () => {} });
   t.after(async () => {
     bot.stop();
     await qq.stop();
@@ -284,6 +357,40 @@ test("/分数列表 端到端：好友码绑定请去授权；授权的出图（
   // master 2：没有 Lv.2 的 MASTER，当成第 2 页
   await s.group("/分数列表 master 2", opts);
   assert.deepEqual([s.renders.at(-1).data.page, s.renders.at(-1).data.title.main], [2, "MASTER"]);
+});
+
+test("/分数列表 分类端到端：默认只列紫/黑、分类做标题；分类后只能加紫/黑和页码", async (t) => {
+  const s = await setup(t);
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", scores: myScores() });
+  for (const id of [1000, 1001, 1002, 1003, 1004, 1005]) s.lx.state.assets.set("jacket/" + id, PNG);
+  await s.authorize("U2", FC2);
+  const opts = { user: "U2" };
+
+  await s.group("/分数列表 精灵记", opts);
+  let data = s.renders.at(-1).data;
+  assert.deepEqual(data.title, { prefix: "", main: "精灵记", sub: "紫谱 · 黑谱" });
+  assert.deepEqual(data.charts.map((chart) => chart.title), ["曲1000"], "默认只列 MASTER/ULTIMA，EXP 12 不放进来");
+
+  await s.group("/分数列表 音击 紫", opts);
+  data = s.renders.at(-1).data;
+  assert.deepEqual([data.title, data.charts.length], [{ prefix: "", main: "音击", sub: "紫谱" }, 2]);
+
+  await s.group("/分数列表 音击 黑", opts);
+  data = s.renders.at(-1).data;
+  assert.deepEqual([data.title, data.charts.map((chart) => chart.title)], [{ prefix: "", main: "音击", sub: "黑谱" }, ["曲2000"]]);
+
+  await s.group("/分数列表 BMS 紫", opts);
+  data = s.renders.at(-1).data;
+  assert.deepEqual([data.title, data.charts.length], [{ prefix: "", main: "BMS", sub: "紫谱" }, 1]);
+
+  await s.group("/分数列表 精灵记 原创", opts);
+  assert.equal(s.last().content, V.levelTagOnly, "一次只能一个分类");
+  await s.group("/分数列表 精灵记 14+", opts);
+  assert.equal(s.last().content, V.levelTagOnly, "分类后面不能加等级");
+  await s.group("/分数列表 精灵记 红", opts);
+  assert.equal(s.last().content, V.levelTagDifficulty, "红黄绿不放进来");
+  await s.group("/分数列表 精灵记 2", opts);
+  assert.equal(s.last().content, V.levelNoPage(1), "分类后面的数字是页码");
 });
 
 // ── 真的渲染一次 ──

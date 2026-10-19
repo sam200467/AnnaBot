@@ -1,12 +1,13 @@
 "use strict";
-// 曲目的附加信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色。落雪的曲库里没有这两样，
+// 曲目的附加信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色，世界观厂牌 labels（/分数列表 分类筛用）。落雪的曲库里没有这些，
 // 由 tools/build-song-extras.cjs 在开发机上生成 src/data/song-extras.json、随程序发布（来源和做法见那个工具的开头）。
 //
-//   songExtras.get(850) → { releaseJP: "2019-12-19", characters: [{ name: "ティータ・アヴェニアス", id: 8790 }] }
+//   songExtras.get(850) → { releaseJP: "2019-12-19", labels: ["シビュラ精霊記レーベル", "精霊編"],
+//                          characters: [{ name: "ティータ・アヴェニアス", id: 8790 }] }
 //   国服没有这张卡时 id 是 null，同一个人别的卡落雪有的话 face 是那张卡的 ID（借它的头像）：
 //   { name: "箱部 なる／波瀾の新入生編", id: null, face: 510 }
 //
-// 文件缺了、坏了都不影响出图：get 返回 null，图上就不写这两样。
+// 文件缺了、坏了都不影响出图：get 返回 null，图上就不写这些。
 //
 // 落雪里根本没有的角色（国服没这个人，也借不到头像），头像是作者让从 wikiwiki 角色页的立绘上截的：
 // tools/character-icons.cjs 生成，放在 themes/shared/icons/character-jp/，跟别的第三方素材一样不进仓库、打包时带上。

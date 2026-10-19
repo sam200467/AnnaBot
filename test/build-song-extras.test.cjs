@@ -2,7 +2,7 @@
 // tools/build-song-extras.cjs 的 wiki 解析和匹配（不联网）：HTML 是照着 wikiwiki 的写法编的小样
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { themeSongs, assignCharacters, addFaces, charactersOn } = require("../tools/build-song-extras.cjs");
+const { themeSongs, themeSongsWithLabels, assignCharacters, assignLabels, addFaces, charactersOn } = require("../tools/build-song-extras.cjs");
 
 const link = (title, text = title) => `<a href="/chunithmwiki/${encodeURIComponent(title)}" title="${title}" class="rel-wiki-page">${text}</a>`;
 const note = '<a id="notetext_1"  class="note_super tooltip"\n data-tooltip-content="&lt;p&gt;脚注&lt;/p&gt;">*1</a>';
@@ -99,8 +99,41 @@ test("对上落雪：曲名从严到宽，角色先按写出来的名字、再�
   });
 });
 
-test("头像替身：国服缺这张卡时借同一个人别的卡的头像，先挑原版卡；落雪有这张卡的、根本没这个人的都不借", () => {
-  const characters = [
+test("汇总页的栏目：h2/h3 切成厂牌和章节，父栏目和子章节都记；只要原创、彩绿、音击舞萌", () => {
+  const page = `
+<h2 id="sibyl">シビュラ精霊記レーベル <a class="anchor_super" href="#sibyl"></a></h2>
+<h3>精霊編 <a class="anchor_super" href="#g1"></a></h3>
+<table><tr><th>キャラクター</th><th>テーマ曲</th></tr>
+<tr><td>ティータ</td><td>${link("《混乱》 ～ Muspell")}</td></tr></table>
+<h3>スカージ編 <a class="anchor_super" href="#g2"></a></h3>
+<table><tr><th>キャラクター</th><th>テーマ曲</th></tr>
+<tr><td>アルミナ</td><td>${link("〚隔絶〛 ～Flame of Determination")}</td></tr></table>
+<h2>maimai</h2>
+<table><tr><th>キャラクター</th><th>テーマ曲</th></tr>
+<tr><td>しゃま</td><td>${link("Oshama Scramble!")}</td></tr></table>
+<h2>别的栏目</h2>
+<table><tr><th>キャラクター</th><th>テーマ曲</th></tr>
+<tr><td>谁</td><td>${link("某首东方曲")}</td></tr></table>`;
+  assert.deepEqual(themeSongsWithLabels(page), [
+    { songs: [["《混乱》 ～ Muspell", "《混乱》 ～ Muspell"]], characters: [{ shown: "ティータ" }], labels: ["シビュラ精霊記レーベル", "精霊編"] },
+    { songs: [["〚隔絶〛 ～Flame of Determination", "〚隔絶〛 ～Flame of Determination"]], characters: [{ shown: "アルミナ" }], labels: ["シビュラ精霊記レーベル", "スカージ編"] },
+    { songs: [["Oshama Scramble!", "Oshama Scramble!"]], characters: [{ shown: "しゃま" }], labels: ["maimai"] },
+    { songs: [["某首东方曲", "某首东方曲"]], characters: [{ shown: "谁" }], labels: ["别的栏目"] },
+  ]);
+  const songs = [
+    { id: 850, title: "《混乱》 ～ Muspell", genre: "原创" },
+    { id: 2728, title: "〚隔絶〛 ～Flame of Determination", genre: "原创" },
+    { id: 197, title: "Oshama Scramble!", genre: "音击舞萌" },
+    { id: 1, title: "某首东方曲", genre: "东方Project" },
+  ];
+  assert.deepEqual(Object.fromEntries(assignLabels(themeSongsWithLabels(page), { songs })), {
+    850: ["シビュラ精霊記レーベル", "精霊編"],
+    2728: ["シビュラ精霊記レーベル", "スカージ編"],
+    197: ["maimai"],
+  }, "东方曲不归这些栏目");
+});
+
+test("头像替身：国服缺这张卡时借同一个人别的卡的头像，先挑原版卡；落雪有这张卡的、根本没这个人的都不借", () => {  const characters = [
     { id: 2450, name: "箱部 なる／学園MVP編" },
     { id: 510, name: "箱部 なる" },
     { id: 11140, name: "葛城 華／襲来のシンセ研編" },

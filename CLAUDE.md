@@ -26,7 +26,9 @@ npm run package:update           打服务器更新包（只有程序）
 npm run probe                    QQ 连接探针：拿 group_openid / openid（--formal / --sandbox 选环境）
 npm run panel                    指令面板（QQ 输入框打 / 弹出的清单）：看本地和平台上的样子；-- --sync 不重启马上同步
 npm run check:lxns               落雪接口连通性检查
-npm run song-extras              重新生成 src/data/song-extras.json（日服上线日期、对应角色）；新版本出曲后跑，wikiwiki 限频要慢慢来
+npm run song-extras              重新生成 src/data/song-extras.json（日服上线日期、对应角色、世界观厂牌 labels）；新版本出曲后跑，wikiwiki 限频要慢慢来
+npm run song-origins             重新生成 src/data/song-origins.json（音击 / 舞萌拆分，OTOGE DB）；新版本出曲后跑
+npm run song-bms                 重新生成 src/data/song-bms.json（BMS / BOF 整理表，萌百备注）；新版本出曲后跑
 npm run song-search              重新生成 src/data/song-search.json（简繁日异体字表、官方假名读音）；新版本出曲后跑，要先 npm install
 npm run fit-diffs                重新生成 src/data/fit-diffs.json（EazyChu 拟合定数，/拟合定数b30 用）；新版本出曲后跑
 npm run character-icons          从 wikiwiki 立绘截落雪没有的角色头像（截哪块见 tools/character-icons.json）；-- --sheet 文件 出总览图
@@ -56,7 +58,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/song-search.cjs` | 认歌：简繁日汉字互通、假名和罗马音、拼错了给相近的候选（排名表在文件头）。数据是 `src/data/song-search.json`，由 `tools/build-song-search.cjs` 生成后提交 |
 | `src/score-math.cjs` | 单曲 Rating、OVER POWER、分数线和容错的算法（公式照落雪前端，拿真成绩核过），`/谱面分析` 用 |
 | `src/fit-diffs.cjs` | 拟合定数快照（EazyChu），`/拟合定数b30` 用；数据是 `src/data/fit-diffs.json`，由 `tools/build-fit-diffs.cjs` 生成后提交 |
-| `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
+| `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期、原创 / 彩绿 / 音击舞萌曲的对应角色、世界观厂牌 labels。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
+| `src/song-tags.cjs` | 曲目分类标签：官方分类、世界观厂牌、音击 / 舞萌、BMS；别名和 `has(song, tag)`。数据是 `src/data/song-origins.json`（`tools/build-song-origins.cjs`）和 `src/data/song-bms.json`（`tools/build-song-bms.cjs`），`/分数列表 精灵记` 用 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
 | `src/services.cjs` | 按配置把上面这些装起来（`main.cjs` 和 `tools/` 共用） |
@@ -120,7 +123,10 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   前几行卡片排在她左边）。右上角是玩家的名片板（名牌版、称号、★转生 Lv.等级 + 名字、角色和段位），总 Rating 写在板子里面
   （/b50 是写在名牌版外面的）；安娜从名片板下面开始、按剩下的高度等比缩小约一成。卡片骨架同 /b50，材质照安娜的衣服
   （象牙白的纸、金线、钴蓝点缀）。抬头一排统计格按类别分色（谱面钴蓝、通关琥珀、评级茜红），统计是包含关系
-  （FC 含 AJ、AJ 含 AJC，SSS 含 SSS+）。这张图按 1.8 倍出（2 倍约 5.4 MB，超过 5 MB 上限）。设计说明在 `themes/list/README.md`
+  （FC 含 AJ、AJ 含 AJC，SSS 含 SSS+）。这张图按 1.8 倍出（2 倍约 5.4 MB，超过 5 MB 上限）。设计说明在 `themes/list/README.md`。
+  还能按分类筛：`/分数列表 精灵记`、`/分数列表 音击 紫 2`、`/分数列表 BMS`。分类只保留顶层（精霊編/地上編这种章名
+  落到父分类，不单独统计），词表和别称在 `src/song-tags.cjs`；数据来自 `song-extras.json` 的 `labels`、`song-origins.json`、
+  `song-bms.json`；分类默认只列紫谱/黑谱，一次一个分类，后面只能再加紫/黑和页码（数字就是页码）
 
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 "use strict";
 // 生成 src/data/song-extras.json：每首歌的日服上线日期；原创、彩绿（イロドリミドリ）、音击舞萌（maimai / オンゲキ）的曲子
-// 还有对应角色（落雪的角色 ID，/单曲 出图时拿它的头像）。
-// 落雪的曲库里没有这两样，所以在开发机上离线生成一份、随程序发布 —— 服务器在国内，不指望它连得上 GitHub 和 wikiwiki。
+// 还有对应角色（落雪的角色 ID，/单曲 出图时拿它的头像）；「キャラクター世界観」的栏目标题（レーベル、章）也按曲记成 labels，
+// /分数列表 的分类筛用。
+// 落雪的曲库里没有这些，所以在开发机上离线生成一份、随程序发布 —— 服务器在国内，不指望它连得上 GitHub 和 wikiwiki。
 //
 //   日服上线日期：OTOGE DB（github.com/zvuc/otoge-db，社区维护的日服曲库）music-ex.json 的 date_added，一次拉完。
 //     Node 自带的 fetch 不走代理，连 GitHub 会被重置，所以这一份用 curl 拉（curl 认 HTTPS_PROXY 环境变量）；
@@ -21,6 +22,9 @@
 //         第 3 页还有一张中二里没实装的角色表 —— 所以这两类对不上落雪的纯文字不算
 //     对不上的（国服没有这张卡）只记名字；同一个人别的卡落雪有的，再记那张卡的 ID 借它的头像（face，见 addFaces），
 //     落雪里根本没这个人的，图上只写名字。
+//   世界观厂牌：同一组汇总页的 h2 / h3 栏目标题。一首歌同时记父栏目和子章节（Metaverseレーベル + 仮想世界編）；
+//     /分数列表 只按顶层栏目统计，章名由 src/song-tags.cjs 映射回父分类。玩家打的中文、英文、缩写也在那里，
+//     这里只存 wiki 上的原名。
 //   汇总页里没有的，退回去查曲目页信息表里的「対応キャラ」（2026-10-16 原创曲剩下的 8 首里 6 首本来就没有对应角色）。
 //     wikiwiki 有频率限制：2026-10-16 隔 1.2 秒连抓 5 页就回 429，再抓就整段时间都回 403。
 //     所以一页一页慢慢来（间隔至少 15 秒），429 了等一会儿再试，403 就停下（被拒了，过一段时间再跑，别换线路硬抓）；
@@ -192,6 +196,37 @@ function themeSongs(html) {
   return items;
 }
 
+// 汇总页按 h2 / h3 栏目切开再解析：一张表属于哪个厂牌、哪一章，就带上哪几个名字。
+// 只解析「叶子」段（h2 自己的表，或 h2 下每个 h3 的表），同一张表不会被算两遍。
+// 返回的形状跟 themeSongs 一样，多一个 labels：[h2, h3]。
+function themeSongsWithLabels(html) {
+  const items = [];
+  const heading = (match) => cellText(match[1]).replace(/\s+/g, " ").trim();
+  const push = (body, labels) => {
+    for (const item of themeSongs(body)) items.push({ ...item, labels });
+  };
+  const h2s = [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)];
+  for (let i = 0; i < h2s.length; i++) {
+    const start = h2s[i].index + h2s[i][0].length;
+    const end = i + 1 < h2s.length ? h2s[i + 1].index : html.length;
+    const body = html.slice(start, end);
+    const name = heading(h2s[i]);
+    const h3s = [...body.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)];
+    if (!h3s.length) {
+      push(body, [name]);
+      continue;
+    }
+    // h2 自己的表在第一个 h3 之前（Metaverse 这类父栏目本身没有表，这里解析出来是空的）
+    push(body.slice(0, h3s[0].index), [name]);
+    for (let j = 0; j < h3s.length; j++) {
+      const from = h3s[j].index + h3s[j][0].length;
+      const to = j + 1 < h3s.length ? h3s[j + 1].index : body.length;
+      push(body.slice(from, to), [name, heading(h3s[j])]);
+    }
+  }
+  return items;
+}
+
 // 曲名 → 落雪曲目：从严到宽三级，哪一级先有结果就看哪一级；那一级对上好几首就算对不上
 function songMatcher(songs) {
   const levels = [unify, (text) => unify(text).toLowerCase(), (text) => loose(unify(text))].map((keyOf) => {
@@ -254,6 +289,23 @@ function assignCharacters(items, { songs, characters }) {
   return result;
 }
 
+// 栏目对上落雪：Map(曲目 ID → 栏目名[])，只要 GENRES 里那几类。同一首歌在几个栏目就记几个
+// （「Metaverseレーベル」和「仮想世界編」都会进去，筛父栏目和子章节都行）。
+function assignLabels(items, { songs }) {
+  const findSong = songMatcher(songs.filter((song) => song.id < 8000));
+  const result = new Map();
+  for (const item of items) {
+    for (const names of item.songs) {
+      const song = names.map(findSong).find(Boolean);
+      if (!GENRES.includes(song?.genre)) continue;
+      const list = result.get(song.id) || [];
+      for (const label of item.labels || []) if (label && !list.includes(label)) list.push(label);
+      if (list.length) result.set(song.id, list);
+    }
+  }
+  return result;
+}
+
 // 头像替身：国服缺的只是这一张卡（「箱部 なる／波瀾の新入生編」），同一个人别的卡落雪有（「箱部 なる」），
 // 就记下那张卡的 ID（face）拿它的头像，名字照写原来的（作者 2026-10-16 同意的）。同一个人按名字里「／」前面那段算
 // （落雪的变体卡都叫「人名／副标题」）；先挑跟人名同名的原版卡，没有就挑 ID 最小的一张。落雪里没这个人的只写名字
@@ -293,19 +345,48 @@ function wikiUrl(raw, title) {
   return WIKI + encodeURIComponent(page).replace(/%2F/g, "/");
 }
 
+// wikiwiki 有时会拖到 30 秒不响应；Node 的 fetch 也不走代理。超时/连不上就退回 curl 再试一次，
+// 状态码还是按 429 / 404 / 403 处理。curl 用 -w 把状态码附在最后一行，免得 -f 把 429 变成 exit 22。
+function curlWiki(url) {
+  const text = execFileSync("curl", ["-s", "-L", "-m", "90", "-A", "Mozilla/5.0 (AnnaBot song-extras; low rate)", "-w", "\n%{http_code}", url], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, windowsHide: true });
+  const cut = text.lastIndexOf("\n");
+  return { status: Number(text.slice(cut + 1)), body: text.slice(0, cut) };
+}
+
 async function fetchWiki(url) {
   for (let attempt = 0; attempt < 6; attempt++) {
-    const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 (AnnaBot song-extras; low rate)" }, signal: AbortSignal.timeout(30000) });
-    if (res.status === 429) {
+    try {
+      const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 (AnnaBot song-extras; low rate)" }, signal: AbortSignal.timeout(30000) });
+      if (res.status === 429) {
+        const wait = Math.min(600000, 60000 * 2 ** attempt);
+        console.log("  wiki 说太快了（429），等 " + wait / 1000 + " 秒");
+        await sleep(wait);
+        continue;
+      }
+      if (res.status === 404) return null;
+      if (res.status === 403) throw Object.assign(new Error("wikiwiki 拒绝访问（403）"), { blocked: true });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.text();
+    } catch (error) {
+      if (error.blocked) throw error;
+      // fetch 超时 / 不走代理：往下用 curl 再试一次
+    }
+    let result;
+    try {
+      result = curlWiki(url);
+    } catch (error) {
+      throw new Error("连不上 wikiwiki：" + error.message);
+    }
+    if (result.status === 429) {
       const wait = Math.min(600000, 60000 * 2 ** attempt);
       console.log("  wiki 说太快了（429），等 " + wait / 1000 + " 秒");
       await sleep(wait);
       continue;
     }
-    if (res.status === 404) return null;
-    if (res.status === 403) throw Object.assign(new Error("wikiwiki 拒绝访问（403）"), { blocked: true });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return res.text();
+    if (result.status === 404) return null;
+    if (result.status === 403) throw Object.assign(new Error("wikiwiki 拒绝访问（403）"), { blocked: true });
+    if (!(result.status >= 200 && result.status < 300)) throw new Error("HTTP " + result.status);
+    return result.body;
   }
   throw new Error("一直 429，放弃这一页");
 }
@@ -319,6 +400,7 @@ async function main() {
   out.sources = {
     releaseJP: "OTOGE DB（github.com/zvuc/otoge-db）chunithm/data/music-ex.json 的 date_added",
     characters: "CHUNITHM 攻略 wiki（wikiwiki.jp/chunithmwiki）「キャラクター世界観」1～3 页的角色和主题曲表，那里没有的曲子查曲目页的「対応キャラ」；按名字对上落雪角色列表的 ID",
+    labels: "同一组「キャラクター世界観」页的 h2 / h3 栏目标题（レーベル、章）",
   };
   out.songs = out.songs || {};
 
@@ -346,6 +428,7 @@ async function main() {
   const targets = list.songs.filter((song) => GENRES.includes(song.genre) && song.id < 8000);
   const tally = (songs) => GENRES.map((genre) => genre + " " + songs.filter((song) => song.genre === genre).length).join("、");
   const items = [];
+  const labeledItems = [];
   for (const [i, page] of SUMMARY_PAGES.entries()) {
     if (i) await sleep(opts.delay);
     try {
@@ -354,6 +437,7 @@ async function main() {
       const found = themeSongs(html);
       console.log("汇总页 " + page + "：" + found.length + " 项");
       items.push(...found);
+      labeledItems.push(...themeSongsWithLabels(html));
     } catch (error) {
       console.log("汇总页 " + page + " 取不到：" + error.message + "。这次不动对应角色。");
       if (error.blocked) console.log(BLOCKED);
@@ -367,10 +451,13 @@ async function main() {
     return;
   }
   for (const [id, characters] of covered) out.songs[id] = { ...out.songs[id], characters };
+  const labeled = assignLabels(labeledItems, { songs: list.songs });
+  for (const [id, labels] of labeled) out.songs[id] = { ...out.songs[id], labels };
   addFaces(out.songs, charList.characters || []);
   const unmatched =[...covered].flatMap(([id, characters]) => characters.filter((c) => c.id === null).map((c) => id + " " + c.name));
   console.log("汇总页对上 " + covered.size + " / " + targets.length + " 首（" + tally(list.songs.filter((song) => covered.has(song.id))) + "）；"
     + "角色在落雪找不到、只记名字的 " + unmatched.length + " 个：" + (unmatched.join("，") || "无"));
+  console.log("厂牌栏目对上 " + labeled.size + " 首（" + tally(list.songs.filter((song) => labeled.has(song.id))) + "）");
   writeOut(out);
 
   // 对应角色（二）：汇总页里没有的，一页一页查曲目页
@@ -412,7 +499,7 @@ async function main() {
   console.log("已写入 " + path.relative(ROOT, OUT));
 }
 
-module.exports = { themeSongs, assignCharacters, addFaces, charactersOn };
+module.exports = { themeSongs, themeSongsWithLabels, assignCharacters, assignLabels, addFaces, charactersOn };
 
 if (require.main === module) {
   main().catch((error) => {
