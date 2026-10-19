@@ -128,6 +128,21 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   落到父分类，不单独统计），词表和别称在 `src/song-tags.cjs`；数据来自 `song-extras.json` 的 `labels`、`song-origins.json`、
   `song-bms.json`；分类默认只列紫谱/黑谱，一次一个分类，后面只能再加紫/黑和页码（数字就是页码）
 
+## /推分记录（先做了文字版，主题还没做）
+
+- 指令 `/推分记录`（默认 = 最新）、`最新`、`今天`、`7天`、`15天`、`本月`；别的天数不认。
+- `最新` = 最近一批（`upload_time` 相差 ≤15 秒算一批），基线是这一批之前；`今天` = 今天 0 点（昨天收盘）
+  到现在；`7天` 含今天（10/13–10/19 那种），`15天` 同理，`本月` 从 1 日 0 点。
+- 落雪没有给机器人“同步结果”：`/user/crawl/status` 是网站登录令牌的接口，OAuth 读不到。所以 `src/history.cjs`
+  用每条成绩的 `upload_time` 分批、单谱 `/score/history` 补旧值；每人一份基线 + 事件，存在
+  `data/history/<openid 的 sha256 前 24 位>.json`，画图时从基线重放 B50。
+- 账号 Rating = 旧曲前 30 + 新曲前 20 的 Rating 和 ÷50；一次同步的影响 = 前后前 50 总和差 ÷50
+  （不是单曲 Rating 差 ÷50）；单曲 Rating 用当前定数现算（`score-math.rating`）。
+- 只认授权绑定（`binding: "oauth"`）。第一次查某个窗口要逐首读历史（真数据：7 天约 4 秒，本月约 11 秒），
+  之后只补新上传；没有主动轮询，靠下次查询补。
+- 现在只回文字（`voice.cjs` 的 `historyText`），主题 `themes/history/` 还没做。跨版本时“新曲”按当前
+  `bests.new_bests` 重放，历史批次的划分可能跟当时不同。
+
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
 - 基址 `https://maimai.lxns.net/api/v0/`，路径里游戏写 `chunithm`。公共接口直接返回数据；开发者/玩家接口包一层 `{ success, code, message, data }`，`lxns.cjs` 已解包。

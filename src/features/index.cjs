@@ -14,6 +14,7 @@ module.exports = [
   require("./chart.cjs"),
   require("./level.cjs"),
   require("./plate.cjs"),
+  require("./history.cjs"),
   require("./help.cjs"),
   ...require("./status.cjs"),
   require("./example-image.cjs"),

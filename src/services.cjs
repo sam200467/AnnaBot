@@ -17,6 +17,7 @@ const { createRenderer } = require("./renderer.cjs");
 const { loadSongExtras } = require("./song-extras.cjs");
 const { loadSongTags } = require("./song-tags.cjs");
 const { loadFitDiffs } = require("./fit-diffs.cjs");
+const { createHistoryStore } = require("./history.cjs");
 
 // needs：只装用得到的部分。工具脚本出个预览图不需要碰绑定库（也就不用解主密钥）。
 // vaultDir：绑定库和主密钥放哪（默认 workDir）。npm run try 用单独的一份，不碰正式绑定。
@@ -36,7 +37,9 @@ async function createServices(config, { log = () => {}, fetchImpl, needs = ["bin
   const songTags = loadSongTags();
   // 拟合定数快照（EazyChu，见 fit-diffs.cjs 和 tools/build-fit-diffs.cjs）
   const fitDiffs = loadFitDiffs();
-  const services = { lxns, oauth, catalog, assets, renderer, songExtras, songTags, fitDiffs, vault: null, bindings: null, keySource: "" };
+  // 推分记录：每人一份基线 + 事件，放 data/history/（见 history.cjs）
+  const historyStore = createHistoryStore({ dir: path.join(workDir, "history"), log });
+  const services = { lxns, oauth, catalog, assets, renderer, songExtras, songTags, fitDiffs, historyStore, vault: null, bindings: null, keySource: "" };
 
   if (needs.includes("bindings")) {
     const dir = vaultDir || workDir;

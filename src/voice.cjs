@@ -9,6 +9,8 @@ const { OAuthError } = require("./lxns-oauth.cjs");
 
 // 截到两位小数，容差的道理见 themes/shared/theme-kit.js 的 format.rating
 const formatRating = (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) / 100).toFixed(2);
+// 推分记录的差值是 0.001 级别的，不能截到两位；正数带 +
+const signed = (value, digits = 3) => (Number(value) >= 0 ? "+" : "") + Number(value).toFixed(digits);
 
 const V = {
   unknownCommand: "这个我不会哦。发「/帮助」，我把会做的都写在上面了。",
@@ -81,6 +83,73 @@ const V = {
     if (count < 30) parts.push("只有 " + count + " 首有成绩，B30 的空位按 0 算。");
     if (missing) parts.push("其中 " + missing + " 张没有拟合定数，按官方定数算。");
     return parts.join("");
+  },
+
+  // ── /推分记录 ──
+  historyUsage: "用法：/推分记录（最近一次）、/推分记录 今天、/推分记录 7天、/推分记录 15天、/推分记录 本月。\n" +
+    "只认这几种，14 天、8 天这种暂时不算。要授权才能看每一分的成绩。",
+  historyNoScores: "你还没有成绩。先打几首再来吧。",
+  historyNoRecords: "还没有推分记录。等下一次同步再来吧。",
+  historyEmpty: (label) => "「" + label + "」这段时间没有推分记录。",
+  historyTodayNone: (latest) => latest
+    ? "今天还没有推分记录。最近一次是 " + latest.timeText + "（" + signed(latest.impact, 3) + "），发「/推分记录 最新」看。"
+    : "今天还没有推分记录。",
+  // 一次同步一批：批次行写时间、账号涨分、最显眼的一首
+  historyText: (report, window) => {
+    const lines = [];
+    if (window.kind === "latest") {
+      const batch = report.latest;
+      if (!batch) return V.historyEmpty(window.label);
+      lines.push("最近一次推分 · " + batch.timeText);
+      lines.push("账号 Rating " + batch.before.toFixed(3) + " → " + batch.after.toFixed(3) + "（" + signed(batch.impact, 3) + "）");
+      if (batch.entered.length) {
+        lines.push("进榜：" + batch.entered.slice(0, 3).map((row) => row.title + "（" + row.level + "）" + row.rating.toFixed(4)).join("、") +
+          (batch.entered.length > 3 ? " 等 " + batch.entered.length + " 首" : ""));
+      }
+      if (batch.left.length) {
+        lines.push("移出：" + batch.left.slice(0, 3).map((row) => row.title + "（" + row.rating.toFixed(4) + "）").join("、") +
+          (batch.left.length > 3 ? " 等 " + batch.left.length + " 首" : ""));
+      }
+      const ups = batch.events.filter((event) => event.action === "up")
+        .sort((a, b) => (b.deltaRating || 0) - (a.deltaRating || 0)).slice(0, 3);
+      for (const event of ups) {
+        lines.push("提升：" + event.title + " " + event.prevRating.toFixed(4) + " → " + event.rating.toFixed(4) +
+          "（" + signed(event.deltaRating, 4) + "）");
+      }
+      const outside = batch.events.filter((event) => !event.inB50 && event.rating > 0)
+        .sort((a, b) => (b.deltaRating || 0) - (a.deltaRating || 0));
+      if (outside.length) {
+        lines.push("B50 外：" + outside.slice(0, 2).map((event) =>
+          event.title + " " + (event.prevRating !== null ? event.prevRating.toFixed(4) + " → " : "") + event.rating.toFixed(4)).join("；") +
+          (outside.length > 2 ? "；另有 " + (outside.length - 2) + " 首" : ""));
+      }
+      const fc = batch.events.filter((event) => event.action === "fc").slice(0, 2);
+      if (fc.length) lines.push("FC/AJ：" + fc.map((event) => event.title).join("、"));
+      if (!batch.events.length) lines.push("这次没有让账号 Rating 变化。");
+      return lines.join("\n");
+    }
+
+    lines.push(window.label + " · " + report.counts.batches + " 批 · 账号 Rating " +
+      report.rating.start.toFixed(3) + " → " + report.rating.end.toFixed(3) + "（" + signed(report.rating.gain, 3) + "）");
+    if (window.kind === "today") {
+      for (const batch of report.batches.slice(-6)) {
+        const top = batch.entered[0] || batch.events.find((event) => event.inB50 && event.action === "up") || batch.events[0];
+        const summary = batch.entered.length ? "进榜 " + batch.entered[0].title
+          : top?.action === "up" ? "提升 " + top.title
+            : batch.events.filter((event) => !event.inB50).length ? "B50 外 " + batch.events.filter((event) => !event.inB50).length + " 首"
+              : "没有变化";
+        lines.push(batch.timeText.slice(6) + "  " + signed(batch.impact, 3) + "  " + summary);
+      }
+      if (report.batches.length > 6) lines.push("……前面还有 " + (report.batches.length - 6) + " 批");
+    } else {
+      for (const day of report.days.slice(-10)) {
+        lines.push(day.label + "  " + signed(day.gain, 3) + "  " + day.batches + " 批" +
+          (day.entered ? " · 进榜 " + day.entered : ""));
+      }
+      if (report.days.length > 10) lines.push("……前面还有 " + (report.days.length - 10) + " 天");
+    }
+    lines.push("进榜 " + report.counts.entered + " 首 · 移出 " + report.counts.left + " 首 · B50 外 " + report.counts.outside + " 首");
+    return lines.join("\n");
   },
 
   // ── /单曲 ──

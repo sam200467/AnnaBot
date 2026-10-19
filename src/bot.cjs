@@ -32,7 +32,7 @@ function createAnnaBot(config, deps = {}) {
   const services = {
     lxns: deps.lxns, oauth: deps.oauth, bindings: deps.bindings,
     catalog: deps.catalog, assets: deps.assets, renderer: deps.renderer, songExtras: deps.songExtras,
-    songTags: deps.songTags, fitDiffs: deps.fitDiffs,
+    songTags: deps.songTags, fitDiffs: deps.fitDiffs, historyStore: deps.historyStore,
   };
   const startedAt = now();
 
