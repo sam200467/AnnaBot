@@ -334,6 +334,7 @@ function replay(state, { catalog, floor } = {}) {
   const info = createInfo(catalog, floor);
   const map = new Map(Object.entries(state.baseline || {}).map(([key, record]) => [key, { ...record }]));
   let top = b50(map, info);
+  const initial = [...top.old, ...top.fresh];
   const points = [{ ms: Date.parse(state.at), t: state.at, rating: top.rating }];
   const batches = [];
   for (const group of groupEvents(state.events || [])) {
@@ -348,12 +349,12 @@ function replay(state, { catalog, floor } = {}) {
     batches.push({
       ms: group[0].ms, t: group[0].t, timeText: formatTime(group[0].ms),
       before: before.rating, after: after.rating, impact: after.rating - before.rating,
-      events, entered, left,
+      events, entered, left, afterRows: [...after.old, ...after.fresh],
     });
     points.push({ ms: group[0].ms, t: group[0].t, rating: after.rating });
     top = after;
   }
-  return { points, batches };
+  return { points, batches, initial };
 }
 
 function ratingAt(points, ms) {
@@ -387,7 +388,7 @@ function groupDays(batches) {
 
 // 画图/回话用的整理结果。window 是 parseWindow 的结果（最新档的 from 由调用方补上）。
 function buildReport({ state, window, to = new Date(), catalog, floor, player } = {}) {
-  const { points, batches: all } = replay(state, { catalog, floor });
+  const { points, batches: all, initial } = replay(state, { catalog, floor });
   const from = window?.from || new Date(state.at);
   const fromMs = from.getTime();
   const toMs = to.getTime();
@@ -397,8 +398,25 @@ function buildReport({ state, window, to = new Date(), catalog, floor, player } 
   const enteredKeys = new Set(batches.flatMap((batch) => batch.entered.map((row) => row.key)));
   const leftKeys = new Set(batches.flatMap((batch) => batch.left.map((row) => row.key)));
   const outside = batches.reduce((count, batch) => count + batch.events.filter((event) => !event.inB50).length, 0);
+  // 构成变化比较区间两端，期间退出又回到榜里的谱面不重复算新进/移出。
+  let startRows = initial;
+  let endRows = initial;
+  for (const batch of all) {
+    if (batch.ms < fromMs) startRows = batch.afterRows;
+    if (batch.ms <= toMs) endRows = batch.afterRows;
+  }
+  const beforeMap = new Map(startRows.map((row) => [row.key, row]));
+  const afterMap = new Map(endRows.map((row) => [row.key, row]));
+  const composition = {
+    entered: endRows.filter((row) => !beforeMap.has(row.key)),
+    left: startRows.filter((row) => !afterMap.has(row.key)),
+    improved: endRows.filter((row) => {
+      const before = beforeMap.get(row.key);
+      return before && (row.score > before.score || fcRank(row.fc) > fcRank(before.fc));
+    }).map((row) => ({ ...row, prevScore: beforeMap.get(row.key).score, prevRating: beforeMap.get(row.key).rating })),
+  };
   return {
-    window, from, to, points, batches,
+    window, from, to, points, batches, composition,
     latest: all.at(-1) || null,
     days: groupDays(batches),
     counts: {

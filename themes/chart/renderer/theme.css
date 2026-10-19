@@ -205,7 +205,7 @@ body {
   background-clip: text;
   filter: drop-shadow(0 2px 1px rgba(4, 12, 28, 0.95)) drop-shadow(0 0 2px rgba(4, 12, 28, 0.8)) drop-shadow(0 0 12px rgba(140, 205, 255, 0.45));
 }
-.summary .marks { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; min-height: 30px; }
+.summary .marks { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; min-height: 35px; }
 .stat { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 0 8px; border-bottom: 1px solid var(--water); }
 .stat:last-child { border-bottom: 0; }
 .stat small { font-family: var(--hand-bold); font-weight: 700; font-size: 23px; line-height: 1.2; color: var(--label); white-space: nowrap; }
@@ -259,24 +259,33 @@ body {
 .seal.low .wax { background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 38%), var(--metal); }
 .seal.low span { text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6); }
 
-/* 通关标记：实心的小牌子（照搬 /单曲） */
+/* 通关标记：实心的小牌子（照搬 /单曲）。2026-10-19 作者要求徽标更显眼：字号 19→23px、牌子 30→35px；
+   长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS） */
 .mark {
   display: flex;
   align-items: center;
-  height: 30px;
-  padding: 0 11px;
+  height: 35px;
+  padding: 0 13px;
   font-weight: 700;
-  font-size: 19px;
+  font-size: 23px;
   white-space: nowrap;
   color: #fff3dc;
   border-radius: 2px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35);
 }
+/* FC/AJ/AJC 再加一道暖色细边和投影，从一排牌子里先跳出来 */
+.mark.fc, .mark.aj, .mark.ajc {
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 12, 4, 0.55),
+    inset 0 1px 0 rgba(255, 248, 225, 0.7),
+    0 0 0 1px rgba(255, 236, 190, 0.55),
+    0 3px 5px rgba(0, 0, 0, 0.45);
+}
 .mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
 .mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
 .mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
-.mark.tag-cut { padding-right: 20px; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%); }
+.mark.tag-cut { padding-right: 24px; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 11px) 50%, 100% 100%, 0 100%); }
 .mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
 .mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
 .mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }

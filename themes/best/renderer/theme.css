@@ -248,7 +248,7 @@ body {
   padding: 0 14px;
   border-radius: 3px;
   font-family: var(--hand-bold);
-  font-size: 19px;
+  font-size: 23px;
   font-weight: 700;
   color: #2a1a10;
   white-space: nowrap;
@@ -608,13 +608,14 @@ body {
 }
 
 /* 通关标记：实心的颜料色小牌子。FC/AJ/AJC 是金属（铜、金、珠光），通关等级是剪了燕尾的缎带签。
-   字号写在 .marks 上：一行放不下时 theme.js 先整行缩小（最小 15px，内边距跟着字号缩），还放不下才从后往前去掉 */
-.marks { display: flex; gap: 5px; height: 28px; margin-top: 5px; padding-left: 4px; overflow: hidden; font-size: 19px; }
+   2026-10-19 作者要求徽标更显眼：字号 19→23px、牌子 28→34px；长的通关标记在 ThemeKit.MARKS 里缩写成 CATA / ABS / CHAIN。
+   一行放不下时 theme.js 先整行缩小（最小 20px，内边距跟着字号缩），还放不下才从后往前去掉 */
+.marks { display: flex; gap: 5px; height: 34px; margin-top: 3px; padding-left: 4px; overflow: hidden; font-size: 23px; }
 .mark {
   flex: none;
   display: flex;
   align-items: center;
-  height: 28px;
+  height: 34px;
   padding: 0 0.45em;
   font-family: var(--hand-bold);
   font-weight: 700;
@@ -624,6 +625,14 @@ body {
   border-radius: 2px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35);
+}
+/* FC/AJ/AJC 是玩家最在意的三个：再套一道暖色细边和一点投影，从一排牌子里先跳出来 */
+.mark.fc, .mark.aj, .mark.ajc {
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 12, 4, 0.55),
+    inset 0 1px 0 rgba(255, 248, 225, 0.7),
+    0 0 0 1px rgba(255, 236, 190, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.45);
 }
 .mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
 .mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }

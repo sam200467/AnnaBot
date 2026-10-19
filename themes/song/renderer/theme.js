@@ -11,14 +11,19 @@
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
   // 这几档是金、银、铜的封印，其余（AAA 往下）一律是发黑的铁
   const SEALED = new Set(["sssp", "sss", "ssp", "ss", "sp", "s"]);
-  const FULL_COMBO = { fullcombo: ["FC", "fc"], alljustice: ["AJ", "aj"], alljusticecritical: ["AJC", "ajc"] };
-  const CLEARS = { hard: "HARD", brave: "BRAVE", absolute: "ABSOLUTE", catastrophy: "CATASTROPHY" };
+  // 标记的文字、配色 class 由 ThemeKit 统一给（长的通关标记缩写成 CATA / ABS / CHAIN）
+  const MARKS = ThemeKit.MARKS;
 
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
     if (text !== undefined && text !== null) node.textContent = String(text);
     return node;
+  };
+  // 一枚通关标记：extra 是这个主题自己的 class（song 是 tag-cut），配色 class 在 ThemeKit.MARKS 里
+  const markOf = (value, extra) => {
+    const item = MARKS[value];
+    return item ? el("span", "mark" + (extra ? " " + extra : "") + " " + item.kind, item.text) : null;
   };
 
   // ── 下面这几段照搬 ../../best/renderer/theme.js（固定种子的伪随机数、撕边、封印的边、影子、拼画框），说明见那边 ──
@@ -300,9 +305,12 @@
 
     const marks = el("div", "marks");
     if (played) {
-      if (FULL_COMBO[chart.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[chart.fullCombo][1], FULL_COMBO[chart.fullCombo][0]));
-      if (CLEARS[chart.clear]) marks.append(el("span", "mark tag-cut " + chart.clear, CLEARS[chart.clear]));
-      if (chart.fullChain) marks.append(el("span", "mark chain" + (chart.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
+      const combo = markOf(chart.fullCombo);
+      const clear = markOf(chart.clear, "tag-cut");
+      const chain = markOf(chart.fullChain);
+      if (combo) marks.append(combo);
+      if (clear) marks.append(clear);
+      if (chain) marks.append(chain);
     }
 
     const rating = el("div", "rating", played ? ThemeKit.format.rating(chart.rating) : "—");

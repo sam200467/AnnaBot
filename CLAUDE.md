@@ -106,6 +106,11 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   字体也不跟着换（作者 2026-10-18：只改颜色，不动字体）
 - 字要够大：作者两次嫌字小（名牌版、Rating 那几格的大小是他认可的参照），`/单曲` 又放大过一轮（小标签 22px 起，
   见 `themes/song/README.md`）；标签、说明能省就省（第一版的大标题和说明文字被删了）。图上不写玩家名（`/单曲` 页脚的被删了）
+- 名牌版上的称号栏 2026-10-19 也按作者要求放大：best 23px、list 20px、plate 30px（原来 19 / 16 / 26px），
+  写不下时照旧整行等比缩小（`fitText` / `fitPlate`），不会溢出彩色条。
+- 通关徽标要显眼：FC / AJ / AJC 这类小牌子 2026-10-19 作者又叫放大，五套出图主题统一到 22～23px（原来 18～19px），
+  FC/AJ/AJC 再加一道暖色细边；CATASTROPHY / ABSOLUTE / FULL CHAIN 太长，在 `themes/shared/theme-kit.js` 的 `MARKS`
+  里统一缩写成 CATA / ABS / CHAIN（`CHAIN+` 是 fullchain2）。卡片一行放不下时先缩到 20px，再去掉最后的连段标记。
 - 难度用颜料色（铜绿、赭黄、朱红、紫、黑红），不用游戏里的亮色；画框、撕边、封蜡、缎带、装饰线、柱状图可以直接从
   `themes/best/renderer/theme.js` 拿（画框素材 `themes/best/assets/frame.png`，拼法见 `FRAME`）
 - 纹理多的图出 JPEG（`renderer.render(主题, 数据, { format: "jpeg", quality: 76 })`）：B50 出 PNG 要 18 MB，
@@ -128,7 +133,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   落到父分类，不单独统计），词表和别称在 `src/song-tags.cjs`；数据来自 `song-extras.json` 的 `labels`、`song-origins.json`、
   `song-bms.json`；分类默认只列紫谱/黑谱，一次一个分类，后面只能再加紫/黑和页码（数字就是页码）
 
-## /推分记录（先做了文字版，主题还没做）
+## /推分记录（伊迪亚主题）
 
 - 指令 `/推分记录`（默认 = 最新）、`最新`、`今天`、`7天`、`15天`、`本月`；别的天数不认。
 - `最新` = 最近一批（`upload_time` 相差 ≤15 秒算一批），基线是这一批之前；`今天` = 今天 0 点（昨天收盘）
@@ -140,8 +145,11 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   （不是单曲 Rating 差 ÷50）；单曲 Rating 用当前定数现算（`score-math.rating`）。
 - 只认授权绑定（`binding: "oauth"`）。第一次查某个窗口要逐首读历史（真数据：7 天约 4 秒，本月约 11 秒），
   之后只补新上传；没有主动轮询，靠下次查询补。
-- 现在只回文字（`voice.cjs` 的 `historyText`），主题 `themes/history/` 还没做。跨版本时“新曲”按当前
-  `bests.new_bests` 重放，历史批次的划分可能跟当时不同。
+- 有记录时用 `themes/history/` 出图：作者选的 John Martin《万魔殿》，伊迪亚小幅肖像、黑绿底板、旧金框、灰绿缎带。
+  按作者要求分成轨迹、B50 构成变化、推分明细三大面板，曲目在面板内按行列出，不做单曲小卡片。
+  展示整理和分页在 `src/history-view.cjs`；区间构成比较首尾净变化，整批账号涨幅只写组头。
+  可以追加「第2页」翻页；JPEG 76、1.5 倍输出。无记录仍回文字，原 `historyText` 保留给工具用。
+  跨版本时“新曲”按当前 `bests.new_bests` 重放，历史批次的划分可能跟当时不同。
 
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 

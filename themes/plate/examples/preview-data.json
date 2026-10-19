@@ -77,11 +77,6 @@
    "fullCombo": "alljustice",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 1,
    "jacket": "lxns:jacket/2459"
   },
@@ -97,11 +92,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 2,
    "jacket": "lxns:jacket/2414"
   },
@@ -117,11 +107,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 3,
    "jacket": "lxns:jacket/2437"
   },
@@ -137,11 +122,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 4,
    "jacket": "lxns:jacket/2443"
   },
@@ -157,11 +137,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 5,
    "jacket": "lxns:jacket/2408"
   },
@@ -177,11 +152,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "aj"
-   ],
    "index": 6,
    "jacket": "lxns:jacket/2309"
   },
@@ -197,11 +167,6 @@
    "fullCombo": "alljustice",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "sss"
-   ],
    "index": 7,
    "jacket": "lxns:jacket/2426"
   },
@@ -217,11 +182,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aaa",
-    "sss"
-   ],
    "index": 8,
    "jacket": "lxns:jacket/2415"
   },
@@ -237,11 +197,6 @@
    "fullCombo": "fullcombo",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    null,
-    "aj",
-    "aj"
-   ],
    "index": 9,
    "jacket": "lxns:jacket/2476"
   },
@@ -257,11 +212,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 10,
    "jacket": "lxns:jacket/2394"
   },
@@ -277,11 +227,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    null,
-    "aj",
-    "aj"
-   ],
    "index": 11,
    "jacket": "lxns:jacket/2433"
   },
@@ -297,11 +242,6 @@
    "fullCombo": "alljustice",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 12,
    "jacket": "lxns:jacket/2418"
   },
@@ -317,11 +257,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "absolute",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    null
-   ],
    "index": 13,
    "jacket": "lxns:jacket/2435"
   },
@@ -337,11 +272,6 @@
    "fullCombo": "alljusticecritical",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 14,
    "jacket": "lxns:jacket/2438"
   },
@@ -357,11 +287,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 15,
    "jacket": "lxns:jacket/2407"
   },
@@ -377,11 +302,6 @@
    "fullCombo": "alljustice",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 16,
    "jacket": "lxns:jacket/2454"
   },
@@ -397,11 +317,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 17,
    "jacket": "lxns:jacket/2404"
   },
@@ -417,11 +332,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 18,
    "jacket": "lxns:jacket/2388"
   },
@@ -437,11 +347,6 @@
    "fullCombo": "alljustice",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 19,
    "jacket": "lxns:jacket/2299"
   },
@@ -457,11 +362,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 20,
    "jacket": "lxns:jacket/2301"
   },
@@ -477,11 +377,6 @@
    "fullCombo": "alljustice",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 21,
    "jacket": "lxns:jacket/2452"
   },
@@ -497,11 +392,6 @@
    "fullCombo": null,
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 22,
    "jacket": "lxns:jacket/2482"
   },
@@ -517,11 +407,6 @@
    "fullCombo": null,
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 23,
    "jacket": "lxns:jacket/2479"
   },
@@ -537,11 +422,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 24,
    "jacket": "lxns:jacket/2425"
   },
@@ -557,11 +437,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    null
-   ],
    "index": 25,
    "jacket": "lxns:jacket/2436"
   },
@@ -577,11 +452,6 @@
    "fullCombo": "fullcombo",
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 26,
    "jacket": "lxns:jacket/2352"
   },
@@ -597,11 +467,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 27,
    "jacket": "lxns:jacket/2412"
   },
@@ -617,11 +482,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    null
-   ],
    "index": 28,
    "jacket": "lxns:jacket/2478"
   },
@@ -637,11 +497,6 @@
    "fullCombo": "fullcombo",
    "clear": "absolute",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 29,
    "jacket": "lxns:jacket/2297"
   },
@@ -657,11 +512,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 30,
    "jacket": "lxns:jacket/2458"
   },
@@ -677,11 +527,6 @@
    "fullCombo": "fullcombo",
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "aj"
-   ],
    "index": 31,
    "jacket": "lxns:jacket/2434"
   },
@@ -697,11 +542,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 32,
    "jacket": "lxns:jacket/2453"
   },
@@ -717,11 +557,6 @@
    "fullCombo": "fullcombo",
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 33,
    "jacket": "lxns:jacket/2468"
   },
@@ -737,11 +572,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aaa",
-    "sss"
-   ],
    "index": 34,
    "jacket": "lxns:jacket/2487"
   },
@@ -757,11 +587,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 35,
    "jacket": "lxns:jacket/2405"
   },
@@ -777,11 +602,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 36,
    "jacket": "lxns:jacket/2451"
   },
@@ -797,11 +617,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 37,
    "jacket": "lxns:jacket/2456"
   },
@@ -817,11 +632,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "aj"
-   ],
    "index": 38,
    "jacket": "lxns:jacket/2463"
   },
@@ -837,11 +647,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 39,
    "jacket": "lxns:jacket/2486"
   },
@@ -857,11 +662,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 40,
    "jacket": "lxns:jacket/2413"
   },
@@ -877,11 +677,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 41,
    "jacket": "lxns:jacket/2411"
   },
@@ -897,11 +692,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 42,
    "jacket": "lxns:jacket/2395"
   },
@@ -917,11 +707,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 43,
    "jacket": "lxns:jacket/2485"
   },
@@ -937,11 +722,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 44,
    "jacket": "lxns:jacket/2455"
   },
@@ -957,11 +737,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 45,
    "jacket": "lxns:jacket/2469"
   },
@@ -977,11 +752,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 46,
    "jacket": "lxns:jacket/2416"
   },
@@ -997,11 +767,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 47,
    "jacket": "lxns:jacket/2488"
   },
@@ -1017,11 +782,6 @@
    "fullCombo": null,
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 48,
    "jacket": "lxns:jacket/2410"
   },
@@ -1037,11 +797,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 49,
    "jacket": "lxns:jacket/2300"
   },
@@ -1057,11 +812,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 50,
    "jacket": "lxns:jacket/2430"
   },
@@ -1077,11 +827,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 51,
    "jacket": "lxns:jacket/2409"
   },
@@ -1097,11 +842,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 52,
    "jacket": "lxns:jacket/2397"
   },
@@ -1117,11 +857,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 53,
    "jacket": "lxns:jacket/2432"
   },
@@ -1137,11 +872,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    null,
-    "aaa",
-    "sss"
-   ],
    "index": 54,
    "jacket": "lxns:jacket/2422"
   },
@@ -1157,11 +887,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 55,
    "jacket": "lxns:jacket/2460"
   },
@@ -1177,11 +902,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "aj"
-   ],
    "index": 56,
    "jacket": "lxns:jacket/2298"
   },
@@ -1197,11 +917,6 @@
    "fullCombo": null,
    "clear": "absolute",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 57,
    "jacket": "lxns:jacket/2417"
   },
@@ -1217,11 +932,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 58,
    "jacket": "lxns:jacket/2406"
   },
@@ -1237,11 +947,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 59,
    "jacket": "lxns:jacket/2429"
   },
@@ -1257,11 +962,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 60,
    "jacket": "lxns:jacket/2450"
   },
@@ -1277,11 +977,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 61,
    "jacket": "lxns:jacket/2439"
   },
@@ -1297,11 +992,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 62,
    "jacket": "lxns:jacket/2466"
   },
@@ -1317,11 +1007,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aaa",
-    "aj",
-    "s"
-   ],
    "index": 63,
    "jacket": "lxns:jacket/2398"
   },
@@ -1337,11 +1022,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 64,
    "jacket": "lxns:jacket/2428"
   },
@@ -1357,11 +1037,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "sss"
-   ],
    "index": 65,
    "jacket": "lxns:jacket/2480"
   },
@@ -1377,11 +1052,6 @@
    "fullCombo": null,
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 66,
    "jacket": "lxns:jacket/2475"
   },
@@ -1397,11 +1067,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 67,
    "jacket": "lxns:jacket/2444"
   },
@@ -1417,11 +1082,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 68,
    "jacket": "lxns:jacket/2440"
   },
@@ -1437,11 +1097,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 69,
    "jacket": "lxns:jacket/2399"
   },
@@ -1457,11 +1112,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 70,
    "jacket": "lxns:jacket/2431"
   },
@@ -1477,11 +1127,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    null,
-    "aj",
-    "s"
-   ],
    "index": 71,
    "jacket": "lxns:jacket/2477"
   },
@@ -1497,11 +1142,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 72,
    "jacket": "lxns:jacket/2401"
   },
@@ -1517,11 +1157,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 73,
    "jacket": "lxns:jacket/2442"
   },
@@ -1537,11 +1172,6 @@
    "fullCombo": null,
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 74,
    "jacket": "lxns:jacket/2441"
   },
@@ -1557,11 +1187,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 75,
    "jacket": "lxns:jacket/2461"
   },
@@ -1577,11 +1202,6 @@
    "fullCombo": null,
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 76,
    "jacket": "lxns:jacket/2427"
   },
@@ -1597,11 +1217,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 77,
    "jacket": "lxns:jacket/2403"
   },
@@ -1617,11 +1232,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 78,
    "jacket": "lxns:jacket/2400"
   },
@@ -1637,11 +1247,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 79,
    "jacket": "lxns:jacket/2467"
   },
@@ -1657,11 +1262,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "aj"
-   ],
    "index": 80,
    "jacket": "lxns:jacket/2457"
   },
@@ -1677,11 +1277,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 81,
    "jacket": "lxns:jacket/2449"
   }

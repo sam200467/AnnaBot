@@ -77,11 +77,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 1,
    "jacket": "lxns:jacket/2827"
   },
@@ -97,11 +92,6 @@
    "fullCombo": "alljustice",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 2,
    "jacket": "lxns:jacket/2817"
   },
@@ -117,11 +107,6 @@
    "fullCombo": "alljustice",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "sss"
-   ],
    "index": 3,
    "jacket": "lxns:jacket/2816"
   },
@@ -137,11 +122,6 @@
    "fullCombo": "fullcombo",
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 4,
    "jacket": "lxns:jacket/2818"
   },
@@ -157,11 +137,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 5,
    "jacket": "lxns:jacket/2839"
   },
@@ -177,11 +152,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 6,
    "jacket": "lxns:jacket/2822"
   },
@@ -197,11 +167,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 7,
    "jacket": "lxns:jacket/2831"
   },
@@ -217,11 +182,6 @@
    "fullCombo": "fullcombo",
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 8,
    "jacket": "lxns:jacket/2847"
   },
@@ -237,11 +197,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "sss"
-   ],
    "index": 9,
    "jacket": "lxns:jacket/2821"
   },
@@ -257,11 +212,6 @@
    "fullCombo": "fullcombo",
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 10,
    "jacket": "lxns:jacket/2819"
   },
@@ -277,11 +227,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 11,
    "jacket": "lxns:jacket/2835"
   },
@@ -297,11 +242,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "sss",
-    "sss"
-   ],
    "index": 12,
    "jacket": "lxns:jacket/2820"
   },
@@ -317,11 +257,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 13,
    "jacket": "lxns:jacket/2836"
   },
@@ -337,11 +272,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 14,
    "jacket": "lxns:jacket/2832"
   },
@@ -357,11 +287,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 15,
    "jacket": "lxns:jacket/2845"
   },
@@ -377,11 +302,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "sss"
-   ],
    "index": 16,
    "jacket": "lxns:jacket/2834"
   },
@@ -397,11 +317,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 17,
    "jacket": "lxns:jacket/2841"
   },
@@ -417,11 +332,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 18,
    "jacket": "lxns:jacket/2848"
   },
@@ -437,11 +347,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 19,
    "jacket": "lxns:jacket/2837"
   },
@@ -457,11 +362,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 20,
    "jacket": "lxns:jacket/2838"
   },
@@ -477,11 +377,6 @@
    "fullCombo": null,
    "clear": "hard",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 21,
    "jacket": "lxns:jacket/2843"
   },
@@ -497,11 +392,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "sss"
-   ],
    "index": 22,
    "jacket": "lxns:jacket/2823"
   },
@@ -517,11 +407,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "aj"
-   ],
    "index": 23,
    "jacket": "lxns:jacket/2842"
   },
@@ -537,11 +422,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "sss"
-   ],
    "index": 24,
    "jacket": "lxns:jacket/2828"
   },
@@ -557,11 +437,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "sss",
-    "aj",
-    "s"
-   ],
    "index": 25,
    "jacket": "lxns:jacket/2826"
   },
@@ -577,11 +452,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 26,
    "jacket": "lxns:jacket/2846"
   },
@@ -597,11 +467,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 27,
    "jacket": "lxns:jacket/2825"
   },
@@ -617,11 +482,6 @@
    "fullCombo": null,
    "clear": "catastrophy",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 28,
    "jacket": "lxns:jacket/2829"
   },
@@ -637,11 +497,6 @@
    "fullCombo": null,
    "clear": "brave",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 29,
    "jacket": "lxns:jacket/2844"
   },
@@ -657,11 +512,6 @@
    "fullCombo": null,
    "clear": "clear",
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "s"
-   ],
    "index": 30,
    "jacket": "lxns:jacket/2833"
   },
@@ -677,11 +527,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "aj",
-    "sss"
-   ],
    "index": 31,
    "jacket": "lxns:jacket/2840"
   },
@@ -697,11 +542,6 @@
    "fullCombo": null,
    "clear": null,
    "fullChain": null,
-   "tiers": [
-    "aj",
-    "sss",
-    "s"
-   ],
    "index": 32,
    "jacket": "lxns:jacket/2824"
   }

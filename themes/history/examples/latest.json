@@ -1,0 +1,113 @@
+{
+  "title": "推分记录",
+  "windowLabel": "最近一次",
+  "kind": "latest",
+  "range": "10/19 20:51 — 10/19 21:00",
+  "time": "10/19 21:00",
+  "rating": {
+    "start": 16.63728,
+    "end": 16.63828,
+    "gain": 0.0010000000000012221,
+    "now": 16.63828
+  },
+  "counts": {
+    "batches": 1,
+    "rated": 1,
+    "outside": 1,
+    "entered": 0,
+    "left": 0
+  },
+  "page": 1,
+  "pages": 1,
+  "points": [
+    {
+      "ms": 1792414260000,
+      "rating": 16.63728,
+      "label": "起点"
+    },
+    {
+      "ms": 1792414260000,
+      "rating": 16.63828,
+      "label": "20:51"
+    }
+  ],
+  "composition": {
+    "gains": [
+      {
+        "key": "0:3",
+        "title": "《破滅》 ～ Rhapsody for The End",
+        "level": "15",
+        "constant": 15,
+        "isNew": false,
+        "score": 1009500,
+        "prevScore": 1008500,
+        "rating": 17.15,
+        "prevRating": 17.1,
+        "deltaScore": 1000,
+        "deltaRating": 0.04999999999999716,
+        "fc": null,
+        "prevFc": null,
+        "action": "up",
+        "inB50": true,
+        "updates": 1,
+        "change": "up",
+        "levelIndex": 3
+      }
+    ],
+    "left": [],
+    "entered": 0,
+    "improved": 1,
+    "removed": 0,
+    "totalGains": 1
+  },
+  "batches": [
+    {
+      "timeText": "10/19 20:51",
+      "before": 16.63728,
+      "after": 16.63828,
+      "impact": 0.0010000000000012221,
+      "continued": false,
+      "hasMore": false,
+      "total": 2,
+      "events": [
+        {
+          "key": "0:3",
+          "title": "《破滅》 ～ Rhapsody for The End",
+          "level": "15",
+          "constant": 15,
+          "isNew": false,
+          "score": 1009500,
+          "prevScore": 1008500,
+          "rating": 17.15,
+          "prevRating": 17.1,
+          "deltaScore": 1000,
+          "deltaRating": 0.04999999999999716,
+          "fc": null,
+          "prevFc": null,
+          "action": "up",
+          "inB50": true,
+          "levelIndex": 3
+        },
+        {
+          "key": "52:3",
+          "title": "《狂乱》 ～ Cataclysm",
+          "level": "15",
+          "constant": 15,
+          "isNew": false,
+          "score": 990000,
+          "prevScore": null,
+          "rating": 15.6,
+          "prevRating": null,
+          "deltaScore": null,
+          "deltaRating": null,
+          "fc": null,
+          "prevFc": null,
+          "action": "first",
+          "inB50": false,
+          "levelIndex": 3
+        }
+      ]
+    }
+  ],
+  "example": true
+}

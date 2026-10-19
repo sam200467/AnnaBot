@@ -9,10 +9,8 @@
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
   // 这几档是金、银、铜的封印，其余（AAA 往下）一律是发黑的铁
   const SEALED = new Set(["sssp", "sss", "ssp", "ss", "sp", "s"]);
-  const FULL_COMBO = { fullcombo: ["FC", "fc"], alljustice: ["AJ", "aj"], alljusticecritical: ["AJC", "ajc"] };
-  const CLEARS = { hard: "HARD", brave: "BRAVE", absolute: "ABSOLUTE", catastrophy: "CATASTROPHY" };
-  // 卡片脚下的小牌子：三种牌子的档写成 AJ / SSS / S，S 以下写评级（褪色），没打过写「—」
-  const TIER_TEXT = { aj: "AJ", sss: "SSS", s: "S" };
+  // 标记的文字、配色 class 由 ThemeKit 统一给（长的通关标记缩写成 CATA / ABS / CHAIN）
+  const MARKS = ThemeKit.MARKS;
   const DIFFICULTIES = ["BASIC", "ADVANCED", "EXPERT", "MASTER"];
 
   // 版面：十列，右边三列从抬头一直占到第 7 行（前五行卡片）是涅菲谢；跟 theme.css 的 .grid / .card 一致
@@ -36,6 +34,11 @@
     if (className) node.className = className;
     if (text !== undefined && text !== null) node.textContent = String(text);
     return node;
+  };
+  // 一枚通关标记：extra 是这个主题自己的 class（plate 是 tag），配色 class 在 ThemeKit.MARKS 里
+  const markOf = (value, extra) => {
+    const item = MARKS[value];
+    return item ? el("span", "mark" + (extra ? " " + extra : "") + " " + item.kind, item.text) : null;
   };
 
   // 卡片上的白蝶、紫罗兰：<symbol> 在 theme.html 里只放一份，这里用 <use> 引
@@ -161,7 +164,7 @@
     table.append(thead, tbody);
   }
 
-  // ── 一张卡片：MASTER 的成绩，脚下三颗小牌子是 BASIC / ADVANCED / EXPERT ──
+  // ── 一张卡片：MASTER 的成绩（分数、封印、通关标记、定数）──
   function card(chart, i) {
     const rnd = random(7919 + (chart.index || i) * 977);
     const played = chart.score !== null && chart.score !== undefined;
@@ -192,19 +195,16 @@
     body.append(el("div", "score", played ? ThemeKit.format.score(chart.score) : "未游玩"));
     const marks = el("div", "marks");
     if (played) {
-      if (FULL_COMBO[chart.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[chart.fullCombo][1], FULL_COMBO[chart.fullCombo][0]));
-      if (CLEARS[chart.clear]) marks.append(el("span", "mark tag " + chart.clear, CLEARS[chart.clear]));
-      if (chart.fullChain) marks.append(el("span", "mark chain" + (chart.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
+      const combo = markOf(chart.fullCombo);
+      const clear = markOf(chart.clear, "tag");
+      const chain = markOf(chart.fullChain);
+      if (combo) marks.append(combo);
+      if (clear) marks.append(clear);
+      if (chain) marks.append(chain);
     }
     body.append(marks);
     const foot = el("div", "foot");
     foot.append(el("span", "const", chart.constant ? ThemeKit.format.constant(chart.constant) : chart.level || ""));
-    const tiers = el("span", "tiers");
-    (chart.tiers || []).forEach((tier, d) => {
-      const known = TIER_TEXT[tier];
-      tiers.append(el("span", "tier d" + d + (known ? " " + tier : tier ? " low" : " none"), known || (tier ? RANK_TEXT[tier] || tier.toUpperCase() : "—")));
-    });
-    foot.append(tiers);
     body.append(foot);
     item.append(body);
     return item;
@@ -274,10 +274,10 @@
     }
   }
 
-  // 一行通关标记放不下：整行先缩（最小 15px），还放不下从后往前去掉
+  // 一行通关标记放不下：整行先缩（最小 20px），还放不下从后往前去掉
   function fitMarks(row) {
     let size = parseFloat(getComputedStyle(row).fontSize);
-    while (row.scrollWidth > row.clientWidth + 0.5 && size > 15) {
+    while (row.scrollWidth > row.clientWidth + 0.5 && size > 20) {
       size -= 1;
       row.style.fontSize = size + "px";
     }

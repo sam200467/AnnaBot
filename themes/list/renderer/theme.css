@@ -213,7 +213,7 @@ body {
   padding: 0 12px;
   border-radius: 3px;
   font-family: var(--hand-bold);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #2a1a10;
   white-space: nowrap;
@@ -381,9 +381,18 @@ body {
 /* 分数：整张卡最大的字 */
 .score { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.15; white-space: nowrap; color: var(--ink); }
 
-/* 通关标记：跟 /b50 一样的实心小牌子 */
-.marks { display: flex; gap: 5px; height: 27px; margin-top: 3px; overflow: hidden; font-size: 18px; }
-.mark { flex: none; display: flex; align-items: center; height: 27px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+/* 通关标记：跟 /b50 一样的实心小牌子。2026-10-19 作者要求徽标更显眼：字号 18→22px、牌子 27→32px；
+   长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS），一行才放得下 */
+.marks { display: flex; gap: 5px; height: 32px; margin-top: 2px; overflow: hidden; font-size: 22px; }
+.mark { flex: none; display: flex; align-items: center; height: 32px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+/* FC/AJ/AJC 再加一道暖色细边和投影，从一排牌子里先跳出来 */
+.mark.fc, .mark.aj, .mark.ajc {
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 12, 4, 0.55),
+    inset 0 1px 0 rgba(255, 248, 225, 0.7),
+    0 0 0 1px rgba(255, 236, 190, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
 .mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
 .mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
 .mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }

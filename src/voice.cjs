@@ -87,7 +87,9 @@ const V = {
 
   // ── /推分记录 ──
   historyUsage: "用法：/推分记录（最近一次）、/推分记录 今天、/推分记录 7天、/推分记录 15天、/推分记录 本月。\n" +
-    "只认这几种，14 天、8 天这种暂时不算。要授权才能看每一分的成绩。",
+    "只认这几种，14 天、8 天这种暂时不算。要授权才能看每一分的成绩。记录多时加「第2页」翻页。",
+  historyNoPage: (pages) => "只有 " + pages + " 页。",
+  historyPage: (page, pages, next) => "第 " + page + "/" + pages + " 页" + (next ? "，下一页发「" + next + "」" : "（最后一页）"),
   historyNoScores: "你还没有成绩。先打几首再来吧。",
   historyNoRecords: "还没有推分记录。等下一次同步再来吧。",
   historyEmpty: (label) => "「" + label + "」这段时间没有推分记录。",

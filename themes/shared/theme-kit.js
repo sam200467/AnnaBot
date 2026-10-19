@@ -3,6 +3,7 @@
 //   const data = ThemeKit.data();          // 渲染器注入的数据（window.__THEME_DATA__）
 //   ... 把页面画出来 ...
 //   ThemeKit.done({ element: root });      // 等字体和 <img> 都加载完，按 root 的大小截图
+//   ThemeKit.MARKS                         // 通关标记的文字 + 配色 class（长的通关标记已经缩写，见下面）
 //
 // 出错时调 ThemeKit.fail(error)，或者直接抛异常 —— 未捕获的异常也会被记成 __THEME_ERROR__，
 // 渲染器会立刻报错，而不是干等到超时。CSS 背景图等不到加载完成，要等的图用 <img> 或 ThemeKit.preload(urls)。
@@ -52,6 +53,21 @@
     }
   }
 
+  // 通关标记：key 是落雪给的取值，text 是牌子上写的字，kind 是各主题配色的 class（FULL CHAIN 2 多一个 gold）。
+  // CATASTROPHY / ABSOLUTE / FULL CHAIN 太长：卡片一行还要放 FC/AJ/AJC，标记放大以后更放不下，
+  // 所以缩写成 CATA / ABS / CHAIN（作者 2026-10-19 允许“cata”这种写法）；FC/AJ/AJC 保持原样。
+  const MARKS = {
+    fullcombo: { text: "FC", kind: "fc" },
+    alljustice: { text: "AJ", kind: "aj" },
+    alljusticecritical: { text: "AJC", kind: "ajc" },
+    hard: { text: "HARD", kind: "hard" },
+    brave: { text: "BRAVE", kind: "brave" },
+    absolute: { text: "ABS", kind: "absolute" },
+    catastrophy: { text: "CATA", kind: "catastrophy" },
+    fullchain: { text: "CHAIN", kind: "chain" },
+    fullchain2: { text: "CHAIN+", kind: "chain gold" },
+  };
+
   // 定数、分数这些格式化小函数各主题都要用，放这里免得每个主题写一遍。
   const format = {
     // 15.5 → "15.5"，14 → "14.0"
@@ -89,5 +105,5 @@
 
   window.addEventListener("error", (event) => fail(event.error || event.message));
   window.addEventListener("unhandledrejection", (event) => fail(event.reason));
-  window.ThemeKit = { data, done, fail, preload, waitImages, format, ratingTier };
+  window.ThemeKit = { data, done, fail, preload, waitImages, format, ratingTier, MARKS };
 })();

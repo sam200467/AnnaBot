@@ -28,8 +28,13 @@
   const LEVELS = ["BASIC", "ADVANCED", "EXPERT", "MASTER", "ULTIMA", "WORLD'S END"];
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
   const SEALED = new Set(["sssp", "sss", "ssp", "ss", "sp", "s"]);
-  const FULL_COMBO = { fullcombo: ["FC", "fc"], alljustice: ["AJ", "aj"], alljusticecritical: ["AJC", "ajc"] };
-  const CLEARS = { hard: "HARD", brave: "BRAVE", absolute: "ABSOLUTE", catastrophy: "CATASTROPHY" };
+  // 标记的文字、配色 class 由 ThemeKit 统一给（长的通关标记缩写成 CATA / ABS / CHAIN）
+  const MARKS = ThemeKit.MARKS;
+  // 一枚通关标记：extra 是这个主题自己的 class（chart 是 tag-cut），配色 class 在 ThemeKit.MARKS 里
+  const markOf = (value, extra) => {
+    const item = MARKS[value];
+    return item ? el("span", "mark" + (extra ? " " + extra : "") + " " + item.kind, item.text) : null;
+  };
   const NOTE_TYPES = [["tap", "TAP"], ["hold", "HOLD"], ["slide", "SLIDE"], ["air", "AIR"], ["flick", "FLICK"]];
   // 曲线上画的几条分数线（比 S 低的几档也画，玩家分数低的时候用得上）
   const CURVE_LINES = [["SSS+", 1009000], ["SSS", 1007500], ["SS+", 1005000], ["SS", 1000000], ["S+", 990000], ["S", 975000], ["AAA", 950000], ["AA", 925000], ["A", 900000]];
@@ -214,9 +219,12 @@
     const head = el("div", "head");
     head.append(seal(player.rank, { seed: 7001 }), el("div", "best", num(player.score)));
     const marks = el("div", "marks");
-    if (FULL_COMBO[player.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[player.fullCombo][1], FULL_COMBO[player.fullCombo][0]));
-    if (CLEARS[player.clear]) marks.append(el("span", "mark tag-cut " + player.clear, CLEARS[player.clear]));
-    if (player.fullChain) marks.append(el("span", "mark chain" + (player.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
+    const combo = markOf(player.fullCombo);
+    const clear = markOf(player.clear, "tag-cut");
+    const chain = markOf(player.fullChain);
+    if (combo) marks.append(combo);
+    if (clear) marks.append(clear);
+    if (chain) marks.append(chain);
     summary.append(head, marks);
 
     const stat = (label, ...value) => {

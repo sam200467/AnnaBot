@@ -8,8 +8,8 @@
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
   // 这几档是金、银、铜的封印，其余（AAA 往下）一律是发黑的铁
   const SEALED = new Set(["sssp", "sss", "ssp", "ss", "sp", "s"]);
-  const FULL_COMBO = { fullcombo: ["FC", "fc"], alljustice: ["AJ", "aj"], alljusticecritical: ["AJC", "ajc"] };
-  const CLEARS = { hard: "HARD", brave: "BRAVE", absolute: "ABSOLUTE", catastrophy: "CATASTROPHY" };
+  // 标记的文字、配色 class 由 ThemeKit 统一给（长的通关标记缩写成 CATA / ABS / CHAIN）
+  const MARKS = ThemeKit.MARKS;
 
   // 卡片的尺寸跟 theme.css 的 .grid / .card 一致
   const CARD_H = 172;
@@ -25,6 +25,11 @@
     if (className) node.className = className;
     if (text !== undefined && text !== null) node.textContent = String(text);
     return node;
+  };
+  // 一枚通关标记：extra 是这个主题自己的 class（list 是 tag），配色 class 在 ThemeKit.MARKS 里
+  const markOf = (value, extra) => {
+    const item = MARKS[value];
+    return item ? el("span", "mark" + (extra ? " " + extra : "") + " " + item.kind, item.text) : null;
   };
 
   // ── 下面三段照搬 ../../song/renderer/theme.js（伪随机数、封印的边、从一张图上切一块），说明见那边和 ../../best/renderer/theme.js ──
@@ -286,9 +291,12 @@
     body.append(el("div", "score", played ? ThemeKit.format.score(chart.score) : "未游玩"));
     const marks = el("div", "marks");
     if (played) {
-      if (FULL_COMBO[chart.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[chart.fullCombo][1], FULL_COMBO[chart.fullCombo][0]));
-      if (CLEARS[chart.clear]) marks.append(el("span", "mark tag " + chart.clear, CLEARS[chart.clear]));
-      if (chart.fullChain) marks.append(el("span", "mark chain" + (chart.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
+      const combo = markOf(chart.fullCombo);
+      const clear = markOf(chart.clear, "tag");
+      const chain = markOf(chart.fullChain);
+      if (combo) marks.append(combo);
+      if (clear) marks.append(clear);
+      if (chain) marks.append(chain);
     }
     body.append(marks);
     const foot = el("div", "foot");
@@ -324,10 +332,10 @@
     }
   }
 
-  // 一行通关标记放不下：整行先缩（最小 15px），还放不下从后往前去掉
+  // 一行通关标记放不下：整行先缩（最小 20px），还放不下从后往前去掉
   function fitMarks(row) {
     let size = parseFloat(getComputedStyle(row).fontSize);
-    while (row.scrollWidth > row.clientWidth + 0.5 && size > 15) {
+    while (row.scrollWidth > row.clientWidth + 0.5 && size > 20) {
       size -= 1;
       row.style.fontSize = size + "px";
     }

@@ -1,5 +1,5 @@
 "use strict";
-// 主题共用的小工具（themes/shared/theme-kit.js）：Rating 颜色档。
+// 主题共用的小工具（themes/shared/theme-kit.js）：Rating 颜色档、通关标记的文字。
 // 分档照游戏 VERSE 以后的颜色（chunithm.org 的 Rating 表、wikiwiki「レーティングの色分け」），
 // 15.25 以后游戏里还有星、17 以后是更深的虹，这里只验颜色档。
 const test = require("node:test");
@@ -35,4 +35,26 @@ test("ratingTier：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 �
   for (const [value, tier] of cases) assert.equal(ratingTier(value), tier, "Rating " + value);
   // 没有 Rating（还没绑定、接口没给）当 0 算，落在绿档
   for (const value of [null, undefined, NaN, ""]) assert.equal(ratingTier(value), "green", "空值 " + String(value));
+});
+
+test("MARKS：FC/AJ/AJC 原样，长的通关标记缩写到牌子上放得下", () => {
+  const { MARKS } = loadThemeKit();
+  // VM 里造出来的对象跟这边的 Object.prototype 不是一个，不能直接 deepEqual；逐个字段比
+  assert.equal(MARKS.fullcombo.text, "FC");
+  assert.equal(MARKS.fullcombo.kind, "fc");
+  assert.equal(MARKS.alljustice.text, "AJ");
+  assert.equal(MARKS.alljustice.kind, "aj");
+  assert.equal(MARKS.alljusticecritical.text, "AJC");
+  assert.equal(MARKS.alljusticecritical.kind, "ajc");
+  assert.equal(MARKS.hard.text, "HARD");
+  assert.equal(MARKS.brave.text, "BRAVE");
+  assert.equal(MARKS.absolute.text, "ABS");
+  assert.equal(MARKS.catastrophy.text, "CATA");
+  assert.equal(MARKS.fullchain.text, "CHAIN");
+  assert.equal(MARKS.fullchain2.text, "CHAIN+");
+  assert.equal(MARKS.fullchain2.kind, "chain gold");
+  // 所有标记都得有配色 class，不然牌子上没有底色
+  for (const [key, item] of Object.entries(MARKS)) {
+    assert.ok(item.text && item.kind, key + " 缺文字或 class");
+  }
 });

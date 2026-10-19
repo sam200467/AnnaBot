@@ -12,18 +12,20 @@
 const path = require("node:path");
 const { parseWindow, latestFrom, buildFrom, collect, buildReport, createHistoryStore } = require("../history.cjs");
 const { newVersionFloor } = require("./best.cjs");
+const { buildImageData, parseImageArgs } = require("../history-view.cjs");
 
 module.exports = {
   name: "history",
   words: ["推分记录"],
-  usage: "/推分记录（最新 / 今天 / 7天 / 15天 / 本月）",
+  usage: "/推分记录（最新 / 今天 / 7天 / 15天 / 本月，可加 第2页）",
   summary: "看最近一次推分，或者今天、7 天、15 天、本月的记录。要授权。",
   panel: "看最近一次推了多少分",
   group: "查询",
   binding: "oauth",
   async run(ctx) {
     const now = ctx.now ? ctx.now() : new Date();
-    let window = parseWindow(ctx.args, { now });
+    const query = parseImageArgs(ctx.args);
+    let window = parseWindow(query.windowArg, { now });
     if (!window) return ctx.reply(ctx.voice.historyUsage);
 
     const { catalog } = ctx.services;
@@ -72,6 +74,15 @@ module.exports = {
     if (!report.batches.length) {
       return ctx.reply(window.kind === "latest" ? ctx.voice.historyNoRecords : ctx.voice.historyEmpty(window.label));
     }
-    return ctx.reply(ctx.voice.historyText(report, window));
+    const data = buildImageData(report, { page: query.page });
+    if (query.page > data.pages) return ctx.reply(ctx.voice.historyNoPage(data.pages));
+    return ctx.image({
+      kind: "history", label: "推分记录图",
+      render: async () => {
+        const image = await ctx.services.renderer.render("history", data, { format: "jpeg", quality: 76, scale: 1.5 });
+        const next = data.page < data.pages ? "/推分记录 " + (query.windowArg || "最新") + " 第" + (data.page + 1) + "页" : null;
+        return { buffer: image.buffer, caption: data.pages > 1 ? ctx.voice.historyPage(data.page, data.pages, next) : "" };
+      },
+    });
   },
 };

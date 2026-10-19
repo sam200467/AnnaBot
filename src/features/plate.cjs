@@ -9,7 +9,8 @@
 // Legend（全部 ALL JUSTICE）。ULTIMA、WORLD'S END 不算。称号的曲目表跟曲库按版本分组一模一样（2026-10-18 十九个版本逐一核过），
 // 所以进度直接拿曲库 + 全部成绩算，不用另外读落雪的称号进度。X-VERSE 还没有这三个称号，照样能查：统计表照算，只是没有称号图。
 //
-// 每首歌一张卡片，画的是 MASTER（分数、封印、通关标记、定数），卡片脚下三颗小牌子是 BASIC / ADVANCED / EXPERT 各自到了哪一档。
+// 每首歌一张卡片，画的是 MASTER（分数、封印、通关标记、定数）。BASIC～EXPERT 的进度不画在卡片上：
+// 作者 2026-10-19 把脚下那三颗小牌子去掉了（图太挤，而且牌子进度主要在 MASTER），S / SSS / AJ 的逐难度数量看右上角的统计表。
 // 要分数（S、SSS 按分数算），所以跟 /分数列表 一样只收授权绑定。
 // 主题吃的数据形状见 themes/plate/examples/preview-data.json；pickVersion、songsOf、buildData 是纯函数，测试和示例数据都用它们。
 
@@ -79,15 +80,6 @@ function songsOf(catalog, version) {
     && song.version >= version.version && (!next || song.version < next.version));
 }
 
-// 一张谱面到了哪一档（卡片脚下的小牌子）：aj / sss / s，S 以下写评级（aaa、aa……），没打过是 null
-function tierOf(play) {
-  if (!play) return null;
-  if (play.aj) return "aj";
-  if (play.score >= SSS) return "sss";
-  if (play.score >= S) return "s";
-  return rankOf(play.score);
-}
-
 // songs：songsOf 挑出来的曲目；scores：落雪的全部成绩（玩家接口 /scores）；player：落雪的玩家资料（名片板用）
 function buildData({ version, songs, scores, player = null, catalog, now = new Date() }) {
   // 每张谱面留分数最高的那条；AJ 看所有记录（万一最高分那条不是 AJ）
@@ -118,8 +110,6 @@ function buildData({ version, songs, scores, player = null, catalog, now = new D
       fullCombo: play ? (play.raw.full_combo || (play.aj ? "alljustice" : null)) : null,
       clear: play ? play.raw.clear || null : null,
       fullChain: play ? play.raw.full_chain || null : null,
-      // BASIC / ADVANCED / EXPERT 各到了哪一档；MASTER 的看封印和通关标记
-      tiers: [0, 1, 2].map((difficulty) => tierOf(playOf(song, difficulty))),
     };
   });
   // MASTER 分数从高到低，没打过的排最后（按定数从高到低）
@@ -237,4 +227,4 @@ module.exports = Object.assign({
       },
     });
   },
-}, { pickVersion, songsOf, buildData, attachAssets, tierOf, versionLabel, TROPHIES, RENDER_SCALE });
+}, { pickVersion, songsOf, buildData, attachAssets, versionLabel, TROPHIES, RENDER_SCALE });

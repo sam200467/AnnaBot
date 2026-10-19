@@ -11,6 +11,7 @@ themes/
 │  └─ icons/            几个主题共用的图标：难度、评级、FC/AJ、CLEAR（自己准备，不进仓库）
 ├─ _example/            演示用的主题，新主题从它复制
 ├─ best/                /b50、/b30、/aj30、/aj50、/拟合定数b30 成绩图（西比拉精灵记风格，设计说明见它的 README）
+├─ history/             /推分记录（伊迪亚、万魔殿，三块大面板，按批次列成绩，可翻页）
 └─ <主题名>/
    ├─ renderer/         theme.html / theme.css / theme.js —— 正式出图用的就是这三个
    ├─ assets/           这个主题自己的背景图、装饰（自己准备，不进仓库）
@@ -42,6 +43,9 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
 - 出错：脚本里抛异常或调 `ThemeKit.fail(error)`，渲染器会马上带着原因报错，不会干等超时。
 - 图片要等加载完的用 `<img>`（或 `ThemeKit.preload(urls)`）；CSS 背景图等不到，只适合放本地的背景素材。
 - `ThemeKit.format` 里有定数、分数、单曲 Rating 的格式化函数。
+- `ThemeKit.MARKS` 是通关标记的文字和配色 class：`ThemeKit.MARKS.alljustice` 就是 `{ text: "AJ", kind: "aj" }`。
+  `CATASTROPHY` / `ABSOLUTE` / `FULL CHAIN` 太长，统一缩写成 `CATA` / `ABS` / `CHAIN`（`FULL CHAIN 2` 是 `CHAIN+`，
+  kind 里多个 `gold`），卡片一行才放得下大一点的徽标。
 - `ThemeKit.ratingTier(rating)` 返回玩家总 Rating 在游戏里的颜色档（`green` / `orange` / `red` / `purple` / `bronze` /
   `silver` / `gold` / `platina` / `rainbow` / `rainbow-deep`），主题自己用 `tier-<名字>` 的 class 配色。
   分档照 VERSE 以后：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹、17 虹极；

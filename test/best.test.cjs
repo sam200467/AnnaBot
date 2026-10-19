@@ -510,10 +510,10 @@ test("/拟合定数b30 端到端：好友码请去授权；授权后按拟合定
   assert.equal(s.last().msg_type, 7);
   assert.equal(s.last().content, V.fit30Note(3, 0));
 
-  // 功能表里有、指令面板里也有（不是辅助表）
+  // 保留功能和手动调用，只从指令面板隐藏
   const feature = features.find((entry) => entry.name === "fit30");
   assert.ok(feature);
-  assert.ok(panel.panelItems(features).some((item) => item.name === "/拟合定数b30"));
+  assert.ok(!panel.panelItems(features).some((item) => item.name === "/拟合定数b30"));
 });
 
 

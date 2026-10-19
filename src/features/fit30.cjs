@@ -20,7 +20,7 @@ module.exports = {
   words: ["拟合定数b30", "fit30"],
   usage: "/拟合定数b30",
   summary: "把定数换成拟合定数，重算单曲 Rating，再取最高的 30 首。要授权。",
-  panel: "按拟合定数重算的 30 首",
+  panel: false,   // 只隐藏 QQ 指令面板入口，仍可手动发送指令使用
   group: "查询",
   binding: "oauth",
   async run(ctx) {

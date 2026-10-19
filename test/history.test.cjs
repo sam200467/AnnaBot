@@ -1,6 +1,6 @@
 "use strict";
 // /推分记录：窗口边界、按 upload_time 分批、补历史、重放 B50、进榜/移出、存储，
-// 再走一遍端到端（假 QQ + 假落雪，文字回复）。
+// 再走一遍端到端（假 QQ + 假落雪，检查图片数据与无记录文案）。
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const crypto = require("node:crypto");
@@ -199,11 +199,13 @@ async function setup(t) {
   await catalog.ready();
   const assets = createAssets({ cacheDir: path.join(dir, "assets"), baseUrl: lx.assetsBase });
   const historyStore = createHistoryStore({ dir: path.join(dir, "history") });
+  const rendered = [];
+  const renderer = { render: async (theme, data, options) => { rendered.push({ theme, data, options }); return { buffer: PNG }; } };
   const bot = createAnnaBot({
     allowedGroupIds: ["G1"], allowPrivateChat: true, admins: [], receiptDelayMs: 5000, generateCooldownMs: 0,
     qq: { appId: "1", clientSecret: "x", tokenUrl: qq.tokenUrl, apiBase: qq.apiBase, sandboxApiBase: qq.apiBase, sandbox: false,
       minSendIntervalMs: 0, jitterMs: 0, perTargetIntervalMs: 0, perTargetPerHour: 1000 },
-  }, { lxns, oauth, bindings, catalog, assets, historyStore, log: () => {}, now: () => FIXED.getTime() });
+  }, { lxns, oauth, bindings, catalog, assets, historyStore, renderer, log: () => {}, now: () => FIXED.getTime() });
   t.after(async () => {
     bot.stop();
     await qq.stop();
@@ -221,7 +223,7 @@ async function setup(t) {
     const code = lx.approve(friendCode, new URL(url).searchParams.get("code_challenge"));
     await group("/授权 " + code, { user });
   }
-  return { lx, group, last, authorize };
+  return { lx, group, last, authorize, rendered };
 }
 
 function todayAt(hour) {
@@ -229,7 +231,7 @@ function todayAt(hour) {
   return new Date(start.getTime() + hour * 3600 * 1000).toISOString();
 }
 
-test("/推分记录 端到端：没绑定、好友码请去授权、参数不认、最新/今天各出对应的文字", async (t) => {
+test("/推分记录 端到端：授权、参数、最新/今天出图，没记录仍回文字", async (t) => {
   const s = await setup(t);
   const songs = s.lx.state.songList.songs;
   const current = [
@@ -254,10 +256,12 @@ test("/推分记录 端到端：没绑定、好友码请去授权、参数不认
   await s.authorize("U2", FC2);
   const opts = { user: "U2" };
   await s.group("/推分记录", opts);
-  let text = s.last().content;
-  assert.match(text, /^最近一次推分 · 10\/19 11:00/m);
-  assert.match(text, /账号 Rating 0\.643 → 0\.646（\+0\.003）/);
-  assert.match(text, /提升：混沌を越えし我らが神聖なる調律主を讃えよ 17\.5225 → 17\.6500（\+0\.1275）/);
+  assert.equal(s.last().msg_type, 7);
+  let image = s.rendered.at(-1);
+  assert.equal(image.theme, "history");
+  assert.equal(image.data.batches[0].timeText, "10/19 11:00");
+  assert.equal(image.data.rating.end.toFixed(3), "0.646");
+  assert.equal(image.data.batches[0].events[0].rating.toFixed(4), "17.6500");
 
   await s.group("/推分记录 14天", opts);
   assert.equal(s.last().content, V.historyUsage);
@@ -265,16 +269,19 @@ test("/推分记录 端到端：没绑定、好友码请去授权、参数不认
     "参数不认时不读历史");
 
   await s.group("/推分记录 今天", opts);
-  text = s.last().content;
-  assert.match(text, /^今天 · 2 批 · 账号 Rating 0\.000 → 0\.646（\+0\.646）/);
-  assert.match(text, /进榜 2 首/);
+  image = s.rendered.at(-1);
+  assert.equal(image.data.windowLabel, "今天");
+  assert.equal(image.data.counts.batches, 2);
+  assert.equal(image.data.composition.entered, 2);
+  await s.group("/推分记录 今天 第99页", opts);
+  assert.match(s.last().content, /只有 1 页/);
 
   // 今天没有推分：说最近一次是什么时候
   s.lx.addPlayer({ friendCode: FC3, name: "昨天玩家", scores: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))],
     history: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))] });
   await s.authorize("U3", FC3);
   await s.group("/推分记录 今天", { user: "U3" });
-  text = s.last().content;
+  const text = s.last().content;
   assert.match(text, /^今天还没有推分记录。最近一次是 10\/18 22:00/);
   assert.match(text, /\/推分记录 最新/);
 });

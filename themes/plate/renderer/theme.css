@@ -169,7 +169,7 @@ body {
   padding: 0 16px;
   border-radius: 4px;
   font-family: var(--hand-bold);
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   color: #2a1a10;
   white-space: nowrap;
@@ -340,8 +340,17 @@ body {
 .score { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.15; white-space: nowrap; color: var(--ink); }
 
 
-.marks { display: flex; gap: 5px; height: 27px; margin-top: 3px; overflow: hidden; font-size: 18px; }
-.mark { flex: none; display: flex; align-items: center; height: 27px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+/* 通关标记：跟 /分数列表 一样的实心小牌子。2026-10-19 作者要求徽标更显眼：字号 18→22px、牌子 27→32px；
+   长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS），一行才放得下 */
+.marks { display: flex; gap: 5px; height: 32px; margin-top: 2px; overflow: hidden; font-size: 22px; }
+.mark { flex: none; display: flex; align-items: center; height: 32px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+.mark.fc, .mark.aj, .mark.ajc {
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 12, 4, 0.55),
+    inset 0 1px 0 rgba(255, 248, 225, 0.7),
+    0 0 0 1px rgba(255, 236, 190, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
 .mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
 .mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
 .mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
@@ -356,11 +365,8 @@ body {
 
 /* 缩进让开曲绘角上的评级封印（54px、右缘约 145px，再算上不规则蜡边和投影）；
    原来 12px 时 SSS / SSS+ 的金印会压到定数牌子左端（作者 2026-10-18 反馈，跟 /分数列表 一起改的） */
-.foot { margin-top: auto; display: flex; align-items: center; gap: 6px; padding-left: 16px; }
+.foot { margin-top: auto; display: flex; align-items: center; padding-left: 16px; }
 .const { flex: none; height: 31px; padding: 0 9px; display: flex; align-items: center; font-family: var(--script); font-weight: 700; font-size: 22px; color: #fff6e2; border-radius: 3px; background: var(--pill); box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45); }
-.tiers { display: flex; gap: 4px; margin-left: auto; }
-.tier { flex: none; min-width: 46px; height: 29px; padding: 0 6px; display: flex; align-items: center; justify-content: center; font-family: var(--hand-bold); font-weight: 700; font-size: 18px; color: #fff6e2; border-radius: 3px; background: var(--pill); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45); box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3); }
-.tier.low, .tier.none { filter: saturate(0.2) brightness(1.05); color: rgba(255, 248, 232, 0.85); }
 
 
 .card.unplayed .pearl { background: radial-gradient(ellipse 120% 100% at 26% 12%, #f1eff3 0%, #ded9e4 60%, #cbc5d2 100%); box-shadow: inset 0 0 0 1.5px #9e96aa, inset 0 0 0 3.5px #f3f0f7, inset 0 0 0 4.5px rgba(142, 134, 158, 0.55), 0 5px 12px rgba(12, 10, 8, 0.4); }

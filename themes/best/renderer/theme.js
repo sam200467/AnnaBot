@@ -22,8 +22,8 @@
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
   // 这几档有自己的蜡色，其余（AAA 往下）一律灰褐
   const SEALED = new Set(["sssp", "sss", "ssp", "ss", "sp", "s"]);
-  const FULL_COMBO = { fullcombo: ["FC", "fc"], alljustice: ["AJ", "aj"], alljusticecritical: ["AJC", "ajc"] };
-  const CLEARS = { hard: "HARD", brave: "BRAVE", absolute: "ABSOLUTE", catastrophy: "CATASTROPHY" };
+  // 标记的文字、配色 class 由 ThemeKit 统一给（长的通关标记缩写成 CATA / ABS / CHAIN）
+  const MARKS = ThemeKit.MARKS;
 
   const rating = ThemeKit.format.rating;
   const el = (tag, className, text) => {
@@ -37,6 +37,11 @@
     for (const [k, v] of Object.entries(attrs || {})) node.setAttribute(k, v);
     if (parent) parent.append(node);
     return node;
+  };
+  // 一枚通关标记：extra 是这个主题自己的 class（best 是 tag），配色 class 在 ThemeKit.MARKS 里
+  const markOf = (value, extra) => {
+    const item = MARKS[value];
+    return item ? el("span", "mark" + (extra ? " " + extra : "") + " " + item.kind, item.text) : null;
   };
 
   // ── 固定种子的伪随机数（mulberry32）──
@@ -653,11 +658,14 @@
     // 带希腊字母的曲名按两倍字号排、再 zoom 缩回来（见 theme.css 的 .title-line.greek）：
     // 26px 时霞鹜文楷的 Ω 右边那条细腿会被栅格化吃掉，放大一倍再缩回去才完整
     if (/[\u0370-\u03FF\u1F00-\u1FFF]/.test(score.title)) title.classList.add("greek");
-    // 通关标记：实心的颜料色小牌子，在纸上一眼看得见。FC/AJ 在前，最要紧
+    // 通关标记：实心的颜料色小牌子，在纸上一眼看得见。FC/AJ/AJC 在前，最要紧
     const marks = el("div", "marks");
-    if (FULL_COMBO[score.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[score.fullCombo][1], FULL_COMBO[score.fullCombo][0]));
-    if (CLEARS[score.clear]) marks.append(el("span", "mark tag " + score.clear, CLEARS[score.clear]));
-    if (score.fullChain) marks.append(el("span", "mark chain" + (score.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
+    const combo = markOf(score.fullCombo);
+    const clear = markOf(score.clear, "tag");
+    const chain = markOf(score.fullChain);
+    if (combo) marks.append(combo);
+    if (clear) marks.append(clear);
+    if (chain) marks.append(chain);
     // 定数 › 单曲 Rating（落雪曲库里没有定数时退回等级「15+」）。拟合定数显示成 ≈13.92，跟官方定数区分开
     const constant = el("span", "const" + (score.constantText ? " fit" : ""),
       score.constantText || (score.constant ? ThemeKit.format.constant(score.constant) : score.level || ""));
@@ -776,12 +784,12 @@
         for (const [node, size] of parts) node.style.fontSize = (size * ratio).toFixed(2) + "px";
       }
     }
-    // 标记放不下先整行缩小一点（AJC + CATASTROPHY 这种），缩到 15px 还放不下就去掉最后一个（FC/AJ 在前，最要紧），
-    // 剩下的再从原来的字号重新试：不然 AJ + HARD + FULL CHAIN 缩小了也放不下，去掉 FULL CHAIN 后另两个还是小字
+    // 标记放不下先整行缩小一点，缩到 20px 还放不下就去掉最后一个（FC/AJ 在前，最要紧），
+    // 剩下的再从原来的字号重新试：不然 AJ + HARD + CHAIN 缩小了也放不下，去掉 CHAIN 后另两个还是小字
     for (const marks of document.querySelectorAll(".marks")) {
       for (;;) {
         marks.style.fontSize = "";
-        shrinkToFit(marks, { min: 15, fits: fitsWidth(marks) });
+        shrinkToFit(marks, { min: 20, fits: fitsWidth(marks) });
         if (marks.children.length <= 1 || fitsWidth(marks)()) break;
         marks.lastChild.remove();
       }
