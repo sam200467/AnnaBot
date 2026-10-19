@@ -79,7 +79,7 @@ test("白名单外的群、没 @ 的群消息、别的机器人被 @ 的指令�
   assert.equal(s.qq.state.sent.length, 0);
   await s.groupAll("<@BOT> /帮助", [BOT_MENTION]);
   assert.equal(s.qq.state.sent.length, 1);
-  assert.match(s.last(), /【账号】[\s\S]*\/绑定 好友码/);
+  assert.match(s.last(), /【先让我记住你】[\s\S]*\/绑定 好友码/);
   assert.equal(s.qq.state.sent[0].path, "/v2/groups/G1/messages");
 });
 
@@ -101,7 +101,7 @@ test("好友码绑定流程：没绑 → 用法 → 找不到 → 绑上 → /�
   await s.group("/绑定 999999999999999");
   assert.match(s.last(), /找不到这个玩家/);
   await s.group("＃绑定　" + FC1);                      // 全角井号、全角空格也认
-  assert.match(s.last(), /绑定好了：测试玩家（Rating 16\.54）/);
+  assert.match(s.last(), /记住了：测试玩家（Rating 16\.54）/);
   await s.group("/信息");
   assert.match(s.last(), /测试玩家（Rating 16\.54）\n好友码：123456789012345\n绑定方式：好友码/);
 });
@@ -112,7 +112,7 @@ test("授权流程：拿链接 → 落雪页面给授权码 → /授权 授权�
   const code = await s.authorize("U1", FC1);
   assert.match(s.texts().at(-1), /只对你有效/);
   await s.group("/授权 " + code);
-  assert.match(s.last(), /^授权成功：测试玩家/);
+  assert.match(s.last(), /^好了：测试玩家/);
   await s.group("/信息");
   assert.match(s.last(), /绑定方式：授权/);
   // 授权码没进日志
@@ -130,7 +130,7 @@ test("别人抢先用你的授权码：没发过 /授权 的、自己发过 /授
   assert.equal(s.last(), V.authorizeBadCode);
   assert.equal(s.bindings.get("U2"), null);
   await s.group("/授权 " + code);
-  assert.match(s.last(), /^授权成功/);
+  assert.match(s.last(), /^好了：/);
 });
 
 test("私聊：有进行中的授权时直接发授权码也认；没有时当普通话", async (t) => {
@@ -141,7 +141,7 @@ test("私聊：有进行中的授权时直接发授权码也认；没有时当�
   const code = await s.authorize("U1", FC1, s.direct);
   assert.equal(s.qq.state.sent.at(-1).path, "/v2/users/U1/messages");
   await s.direct(code);
-  assert.match(s.last(), /^授权成功/);
+  assert.match(s.last(), /^好了：/);
   await s.direct("信息");                                 // 私聊里不带前缀的指令词也认
   assert.match(s.last(), /绑定方式：授权/);
 });
@@ -153,11 +153,11 @@ test("/解绑 要在有效期内再发一次才执行", async (t) => {
   assert.equal(s.last(), V.unbindNotBound);
   await s.group("/绑定 " + FC1);
   await s.group("/解绑");
-  assert.match(s.last(), /再发一次「\/解绑」确认/);
+  assert.match(s.last(), /再发一次「\/解绑」，我就照做/);
   assert.ok(s.bindings.get("U1"));
   await s.group("/解绑", { user: "U2" });                 // 别人的确认不算数
   await s.group("/解绑");
-  assert.match(s.last(), /^已解绑/);
+  assert.match(s.last(), /^好，解绑了/);
   assert.equal(s.bindings.get("U1"), null);
 });
 
@@ -169,7 +169,7 @@ test("@ 别人查：走开发者接口，受对方的第三方开关管；对方
   await s.group("/信息");                                 // 自己查：走授权令牌，不受开关管
   assert.match(s.last(), /^测试玩家/);
   await s.groupAll("<@BOT> <@U1> /信息", [BOT_MENTION, { id: "U1", member_openid: "U1" }], { user: "U2" });
-  assert.match(s.last(), /关闭了「允许读取玩家信息」/);
+  assert.match(s.last(), /关了「允许读取玩家信息」/);
   assert.equal(s.lx.state.requests.at(-1).auth, "dev");
   await s.groupAll("<@BOT> <@U9> /信息", [BOT_MENTION, { id: "U9", member_openid: "U9" }], { user: "U2" });
   assert.equal(s.last(), V.otherNotBound);
@@ -240,9 +240,9 @@ test("出图：同一个人同一种图排着队时不再接；冷却；失败�
   release();
   await first;
   await other;
-  assert.match(s.last(), /这张图没生成出来：.*允许读取谱面成绩/);
+  assert.match(s.last(), /这张图没画成：.*允许读取谱面成绩/);
   await s.group("/demo");
-  assert.match(s.last(), /秒后再试/);
+  assert.match(s.last(), /秒后再来/);
 });
 
 test("出图：图好时被动回复窗口已过（40034128），只记日志不补发文字", async (t) => {

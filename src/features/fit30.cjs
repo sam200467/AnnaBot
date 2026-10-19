@@ -19,8 +19,8 @@ module.exports = {
   name: "fit30",
   words: ["拟合定数b30", "fit30"],
   usage: "/拟合定数b30",
-  summary: "成绩图：把定数换成拟合定数，重算单曲 Rating 后取最高的 30 首（不分新旧，要授权）",
-  panel: "按拟合定数重算的 B30",
+  summary: "把定数换成拟合定数，重算单曲 Rating，再取最高的 30 首。要授权。",
+  panel: "按拟合定数重算的 30 首",
   group: "查询",
   binding: "oauth",
   async run(ctx) {

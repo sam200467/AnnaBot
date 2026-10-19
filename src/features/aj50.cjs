@@ -14,7 +14,7 @@ module.exports = {
   name: "aj50",
   words: ["aj50"],
   usage: "/aj50",
-  summary: "辅助分表：分新旧，只挑 AJ（含 AJC）的谱面，旧曲 30 + 新曲 20（要授权）",
+  summary: "只要 AJ（含 AJC）的谱面，分新旧：旧曲 30 + 新曲 20。要授权。",
   panel: false,   // 辅助用，不放进 QQ 输入框打 / 弹出的指令面板
   group: "查询",
   binding: "oauth",

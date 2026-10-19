@@ -115,7 +115,7 @@ module.exports = Object.assign({
   name: "song",
   words: ["单曲", "song"],
   usage: "/单曲 曲名",
-  summary: "一首歌各难度的成绩，曲名写一部分、别名或 ID 都行（@ 别人看 TA 的）",
+  summary: "一首歌每个难度的成绩。曲名写一部分、别名或者 ID 都行。（@ 别人也看）",
   panel: "一首歌各难度的成绩",
   group: "查询",
   binding: "any",

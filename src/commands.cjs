@@ -173,12 +173,13 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
       const group = feature.group || "其他";
       groups.set(group, [...(groups.get(group) || []), feature]);
     }
-    const lines = ["我能做这些（指令前面的 / 也可以换成 #）："];
+    // 抬头、分组名、结尾都在 voice.cjs（V.helpGroups 按模块的 group 字段映射显示名）
+    const lines = [V.helpIntro];
     for (const [group, list] of groups) {
-      lines.push("", "【" + group + "】");
+      lines.push("", "【" + (V.helpGroups[group] || group) + "】");
       for (const feature of list) lines.push((feature.usage || "/" + feature.words[0]) + "　" + (feature.summary || ""));
     }
-    lines.push("", "在群里要 @我 再发指令。");
+    lines.push("", V.helpOutro);
     return lines.join("\n");
   }
 

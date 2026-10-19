@@ -166,8 +166,8 @@ module.exports = Object.assign({
   name: "search",
   words: ["搜索歌曲", "搜歌", "查歌", "songsearch"],
   usage: "/搜索歌曲 曲名线索",
-  summary: "模糊找歌：曲名、别名或者 ID 都行，列出各难度的定数和曲目 ID",
-  panel: "模糊找歌，列出各难度定数",
+  summary: "记不清曲名也没关系：曲名、别名、ID 都能找，列出各难度的定数和曲目 ID。",
+  panel: "记不清曲名？我连定数一起找",
   group: "查询",
   binding: "none",
   async run(ctx) {

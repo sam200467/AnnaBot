@@ -202,7 +202,7 @@ module.exports = Object.assign({
   // 舞萌那边（MiaBot）叫 /牌子，这里两个都认
   words: ["牌子进度", "牌子", "plate"],
   usage: "/牌子进度 SUN PLUS",
-  summary: "牌子进度：一个版本 BASIC～MASTER 全部谱面离 Spirit（全 S）、Tribute（全 SSS）、Legend（全 AJ）三个称号还差多少（要授权）",
+  summary: "这个版本离 Spirit（全 S）、Tribute（全 SSS）、Legend（全 AJ）还差多少。要授权。",
   panel: "版本称号（牌子）的完成进度",
   group: "查询",
   binding: "oauth",

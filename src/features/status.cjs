@@ -5,7 +5,7 @@ const status = {
   name: "status",
   words: ["状态", "狀態", "status"],
   usage: "/状态",
-  summary: "看看我的运行状态",
+  summary: "我现在的状态——还撑得住。",
   panel: false,   // 作者定的：指令面板只放常用的，手打和 /帮助 里照样有
   group: "其他",
   async run(ctx) {

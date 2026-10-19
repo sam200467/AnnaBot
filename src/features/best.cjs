@@ -239,9 +239,9 @@ function feature(mode) {
     name: mode,
     words: isB50 ? ["b50", "best50"] : ["b30", "best30"],
     usage: "/" + mode,
-    summary: isB50 ? "成绩图：旧曲 B30 + 新曲 N20，也就是 Rating 的构成（@ 别人看 TA 的）"
-      : "成绩图：不分新旧，单曲 Rating 最高的 30 首（@ 别人看 TA 的）",
-    panel: isB50 ? "旧曲 B30 + 新曲 N20 成绩图" : "不分新旧的 B30 成绩图",
+    summary: isB50 ? "旧曲 B30 + 新曲 N20 的成绩图，你的 Rating 就是从这儿来的。（@ 别人也看）"
+      : "不分新旧，单曲 Rating 最高的 30 首。（@ 别人也看）",
+    panel: isB50 ? "旧曲 30 + 新曲 20 的成绩图" : "不分新旧的 B30 成绩图",
     group: "查询",
     binding: "any",
     allowOthers: true,

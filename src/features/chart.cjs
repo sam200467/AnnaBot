@@ -176,7 +176,7 @@ module.exports = Object.assign({
   name: "chart",
   words: ["谱面分析", "譜面分析", "chartinfo", "谱面"],
   usage: "/谱面分析 曲名 难度",
-  summary: "一张谱面的分数线和容错，绑定了再看你的成绩和游玩记录（难度不写是 MASTER，@ 别人看 TA 的）",
+  summary: "一张谱面的分数线和容错；绑定了还能看到你的成绩和游玩记录。难度不写就是 MASTER。（@ 别人也看）",
   panel: "谱面分数线、容错和游玩记录",
   group: "查询",
   binding: "none",

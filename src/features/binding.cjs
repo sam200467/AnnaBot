@@ -9,7 +9,8 @@ const bind = {
   name: "bind",
   words: ["绑定", "bind", "綁定"],
   usage: "/绑定 好友码",
-  summary: "用好友码绑定落雪账号",
+  summary: "把好友码交给我吧。名字和 Rating，我都会记住。",
+  panel: "把好友码交给我，我记住你",
   group: "账号",
   async run(ctx) {
     if (!ctx.args) return ctx.reply(ctx.voice.bindUsage);
@@ -22,8 +23,8 @@ const authorize = {
   name: "authorize",
   words: ["授权", "授權", "authorize", "oauth"],
   usage: "/授权",
-  summary: "用落雪账号授权，能读全部成绩的具体分数",
-  panel: "用落雪账号授权，能读全部成绩",
+  summary: "用落雪账号授权。这样我才能看到你的全部成绩——具体到每一分。",
+  panel: "用落雪账号，把全部分数给我",
   group: "账号",
   // 私聊里有进行中的授权时，直接发授权码也认
   matchDirect(text, ctx) {
@@ -46,7 +47,8 @@ const unbind = {
   name: "unbind",
   words: ["解绑", "解綁", "unbind"],
   usage: "/解绑",
-  summary: "解除绑定",
+  summary: "把名字收回去。之后我就当没见过你。",
+  panel: "把名字收回去",
   group: "账号",
   async run(ctx) {
     const entry = ctx.services.bindings.get(ctx.userId);

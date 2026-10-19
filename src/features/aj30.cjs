@@ -14,7 +14,7 @@ module.exports = {
   name: "aj30",
   words: ["aj30"],
   usage: "/aj30",
-  summary: "辅助分表：不分新旧，只挑 AJ（含 AJC）的谱面排成 B30（要授权）",
+  summary: "只要 AJ（含 AJC）的谱面，不分新旧排成 B30。要授权。",
   panel: false,   // 辅助用，不放进 QQ 输入框打 / 弹出的指令面板
   group: "查询",
   binding: "oauth",
