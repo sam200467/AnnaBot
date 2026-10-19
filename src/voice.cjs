@@ -56,10 +56,24 @@ const V = {
   bestMaybeIncomplete: (canAuthorize) => "新曲进了前 30 的不止 20 首，落雪只给了新曲前 20，这张图可能漏了几首。" +
     (canAuthorize ? "发「/授权」后按全部成绩算，就不会漏了。" : ""),
 
-  // ── /aj30（辅助分表）──
+  // ── /aj30、/aj50（辅助分表）──
   aj30Empty: "还没有 AJ（含 AJC）的谱面。打出 AJ 之后再来看吧。",
   // AJ 谱面不到 30 首时，B30 的空位按 0 算（跟 Rating 的算法一致）
   aj30Few: (count) => "AJ（含 AJC）的谱面只有 " + count + " 首，B30 里空着的位置按 0 算。",
+  aj50Empty: "还没有 AJ（含 AJC）的谱面。打出 AJ 之后再来看吧。",
+  // /aj50 分新旧两栏：旧曲 30 个位置、新曲 20 个位置，空位都按 0 算
+  aj50Few: (old, fresh) => "AJ（含 AJC）的谱面没排满：旧曲 " + old + "/30 首、新曲 " + fresh + "/20 首，空着的位置按 0 算。",
+
+  // ── /拟合定数b30 ──
+  fit30NoData: "拟合定数数据没有加载，先让管理员更新一下。",
+  fit30Empty: "还没有能算拟合定数的成绩。先打几首歌再来吧。",
+  // 不到 30 首时空位按 0 算；有谱面不在拟合表里（新曲、国服还没上）就退回官方定数
+  fit30Note: (count, missing) => {
+    const parts = [];
+    if (count < 30) parts.push("只有 " + count + " 首有成绩，B30 的空位按 0 算。");
+    if (missing) parts.push("其中 " + missing + " 张没有拟合定数，按官方定数算。");
+    return parts.join("");
+  },
 
   // ── /单曲 ──
   songUsage: "用法：/单曲 曲名\n写曲名的一部分、别名或者曲目 ID（id850）都行，简体繁体、假名罗马音也认。@ 别人可以看 TA 的成绩。",
@@ -71,6 +85,25 @@ const V = {
     lines.join("\n") + (more > 0 ? "\n……还有 " + more + " 首" : ""),
   // 候选列表的一行：id850　《混乱》 ～ Muspell（Norn）；WE 版在后面标出来
   songCandidate: (song, worldsEnd) => "id" + song.id + "　" + song.title + (worldsEnd ? "【WORLD'S END】" : "") + (song.artist ? "（" + song.artist + "）" : ""),
+
+  // ── /搜索歌曲 ──
+  searchUsage: "用法：/搜索歌曲 曲名线索\n写曲名的一部分、别名或者曲目 ID（id850）都行，简体繁体、假名罗马音也认。结果多时加「--page 2」翻页。",
+  searchNotFound: (query) => "没找到「" + query + "」相关的歌。换一小段曲名、别名或者 ID 试试？",
+  searchNoPage: (pages) => "这一页没有结果，一共只有 " + pages + " 页。",
+  // total 是全部结果数，不是这一页的；只有一页时不写页码，少占一行
+  searchFound: (total, page, pages) => "查到 " + total + " 首" + (pages > 1 ? "（第 " + page + "/" + pages + " 页）" : "") + "：",
+  searchNoCharts: "落雪没有这首歌的谱面数据。",
+  searchFuzzy: "以上是曲名比较接近的候选。",
+  searchPage: (page, pages) => "第 " + page + "/" + pages + " 页",
+  searchPageButtons: (page, pages) => "第 " + page + "/" + pages + " 页，" +
+    (page < pages ? "点下面的按钮翻页" : "点下面的按钮回到前面的页") + "；点页码可以自己填页数",
+  // 只在 Markdown 里出现：纯文本没有可点的曲名，写这句反而让人以为点不了
+  searchHint: "（点曲名会填入 /谱面分析 和曲目 ID，再补一个难度字：绿/黄/红/紫/黑；WE 的整条已经填好）",
+  searchPagerLabels: {
+    prev: "◀ 上一页", next: "下一页 ▶", first: "⏮ 首页", last: "末页 ⏭",
+    page: (page, pages) => "第" + page + "/" + pages + "页",
+    unsupported: "这个版本的 QQ 不支持按钮，请手动发送翻页指令",
+  },
 
   // ── /谱面分析 ──
   chartUsage: "用法：/谱面分析 曲名 难度\n难度写在最后，不写就是 MASTER：绿 黄 红 紫 黑、bas adv exp mas ult、WE 都认。" +

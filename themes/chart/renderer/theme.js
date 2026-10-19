@@ -94,9 +94,14 @@
       : chart.constant ? ThemeKit.format.constant(chart.constant) : chart.level || "";
     const facts = $("facts");
     facts.append(fact(LEVELS[chart.levelIndex] || "", level, "level d" + chart.levelIndex));
+    // 拟合定数（EazyChu 的体感定数，不是官方定数）紧挨着难度那格：跟官方定数并排，一眼能对上。
+    // 拟合表里没有这张谱面（新曲、WORLD'S END）就不写。数据来自 src/fit-diffs.cjs
+    if (chart.fitConstant) facts.append(fact("拟合定数", "≈" + Number(chart.fitConstant).toFixed(2), "fit plate"));
     const notes = chart.notes || {};
     if (notes.total) facts.append(fact("物量", num(notes.total)));
     if (song.bpm) facts.append(fact("BPM", song.bpm));
+    // 版本：这首歌第一次上线的版本（跟 /单曲 一样写短）
+    if (song.version) facts.append(fact("版本", song.version, "version plate"));
     if (chart.designer) {
       const box = fact("谱师", chart.designer, "plate wide");
       box.querySelector("dd").lang = "ja";

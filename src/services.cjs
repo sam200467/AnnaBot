@@ -15,6 +15,7 @@ const { createCatalog } = require("./catalog.cjs");
 const { createAssets } = require("./assets.cjs");
 const { createRenderer } = require("./renderer.cjs");
 const { loadSongExtras } = require("./song-extras.cjs");
+const { loadFitDiffs } = require("./fit-diffs.cjs");
 
 // needs：只装用得到的部分。工具脚本出个预览图不需要碰绑定库（也就不用解主密钥）。
 // vaultDir：绑定库和主密钥放哪（默认 workDir）。npm run try 用单独的一份，不碰正式绑定。
@@ -30,7 +31,9 @@ async function createServices(config, { log = () => {}, fetchImpl, needs = ["bin
   const renderer = createRenderer({ themesDir: path.join(config.root, "themes"), browserPath: config.browserPath, scale: config.renderScale, log });
   // 日服上线日期、原创曲的对应角色（随程序发布的一份表，见 song-extras.cjs）
   const songExtras = loadSongExtras();
-  const services = { lxns, oauth, catalog, assets, renderer, songExtras, vault: null, bindings: null, keySource: "" };
+  // 拟合定数快照（EazyChu，见 fit-diffs.cjs 和 tools/build-fit-diffs.cjs）
+  const fitDiffs = loadFitDiffs();
+  const services = { lxns, oauth, catalog, assets, renderer, songExtras, fitDiffs, vault: null, bindings: null, keySource: "" };
 
   if (needs.includes("bindings")) {
     const dir = vaultDir || workDir;

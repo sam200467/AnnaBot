@@ -1,10 +1,18 @@
-# best：B30 / B50 / AJ30 成绩图
+# best：B30 / B50 / AJ30 / AJ50 / 拟合 B30 成绩图
 
-`/b50`、`/b30`、辅助表 `/aj30` 用的主题（功能代码在 `src/features/best.cjs`、`src/features/aj30.cjs`）。风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
+`/b50`、`/b30`、辅助表 `/aj30`、`/aj50`、`/拟合定数b30` 用的主题（功能代码在 `src/features/best.cjs`、
+`src/features/aj30.cjs`、`src/features/aj50.cjs`、`src/features/fit30.cjs`）。风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
 
 - `/aj30` 跟 `/b30` 是同一套版式：一栏 30 首，只挑 AJ（含 AJC）的谱面、不分新曲老曲。章节名是「全曲 AJ」、
   缎带和图表标题写「AJ 30」、页眉的统计格也是「AJ 30」，跟 `/b30` 的「全曲 / Best 30」区分开；新曲照样带 New 标记。
-  这是辅助用的表，不进 QQ 输入框的指令面板。
+- `/aj50` 跟 `/b50` 是同一套版式：分旧曲 30 首、新曲 20 首两栏，也只挑 AJ（含 AJC）的谱面。图表标题写「AJ 50」，
+  页眉三格是「AJ 50」（这张表 50 首的均值，不是玩家总 Rating）、「AJ 30」、「AJ 20」，新曲在右边那一栏、
+  不再单独挂 New 标记。`/aj30`、`/aj50` 都是辅助用的表，不进 QQ 输入框的指令面板。
+- `/拟合定数b30` 跟 `/b30` 是同一套版式：一栏 30 首，不分新旧；但每张谱的定数换成 EazyChu 的拟合定数
+  （`src/data/fit-diffs.json`），单曲 Rating 用 `score-math.rating(拟合定数, 分数)` 重算，排序也按重算后的值。
+  章节名是「拟合定数」、缎带和图表标题写「Fit 30」、页眉三格是「拟合 B30」「Top」「原 B30」；
+  卡片上的定数写成 `≈15.47`，跟官方定数区分开。拟合表里没有的谱面（新曲、WORLD'S END）退回官方定数，
+  图注会说明有几张。
 - **整张图是一幅镶在金框里的画**：最外面是洛可可金色画框（`assets/frame.png`），框里一圈羊皮纸，画面是撕开、烧焦的边，
   跟这个系列的曲绘一样。画里上半截是五位巫女（`assets/sibyls.webp`），往下沉进黑暗；最底下是着火的战场（`assets/battlefield.webp`）。
 - **画框是拼出来的**：原图框的比例跟成绩图差太远，四个角、每条边中间的雕花原样缩小贴上去，平直的线脚取原图里一段，
@@ -62,9 +70,11 @@
 
 ## 数据
 
-`src/features/best.cjs` 的 `buildData` 给出，形状看 `examples/preview-data.json`（B50）、`examples/b30.json`（B30）和
-`examples/aj30.json`（AJ30：`mode` 和章节 key 不同，示例里每首的 `fullCombo` 都是 AJ / AJC）。示例数据的曲目是真的、分数是编的。
-柱状图直接用各栏的 `scores[].rating` 和 `average` 画，不另要数据。
+`src/features/best.cjs` 的 `buildData` 给出，形状看 `examples/preview-data.json`（B50）、`examples/b30.json`（B30）、
+`examples/aj30.json`（AJ30）、`examples/aj50.json`（AJ50，跟 B50 同形状，`mode` 是 `aj50`；这两个 AJ 示例里每首的
+`fullCombo` 都是 AJ / AJC）和 `examples/fit30.json`（拟合 B30，`mode` 是 `fit30`，章节 key 是 `fit`）。
+示例数据的曲目是真的、分数是编的。柱状图直接用各栏的 `scores[].rating` 和 `average` 画，不另要数据。
+拟合表由 `npm run fit-diffs` 从 EazyChu 重新生成（见 `tools/build-fit-diffs.cjs`），新版本出曲后跑一次。
 
 ## 预览
 
@@ -73,8 +83,10 @@ npm run theme -- best                                                  实时预
 npm run preview -- best --out themes/best/previews/b50.jpg               正式出图流程渲染 B50 示例
 npm run preview -- best themes/best/examples/b30.json --out themes/best/previews/b30.jpg
 npm run preview -- best themes/best/examples/aj30.json --out themes/best/previews/aj30.jpg
+npm run preview -- best themes/best/examples/aj50.json --out themes/best/previews/aj50.jpg
+npm run preview -- best themes/best/examples/fit30.json --out themes/best/previews/fit30.jpg
 ```
 
 出图是 2040 CSS 像素宽（内容 1824 + 羊皮纸 + 画框）、两倍输出，JPEG 质量 76。
-B50 大约 4080×6410、4 MB，B30 / AJ30 大约 4080×4390、2.7 MB（作者要求单张在 5 MB 以内）。
+B50 / AJ50 大约 4080×6410、4 MB，B30 / AJ30 / 拟合 B30 大约 4080×4390、2.7 MB（作者要求单张在 5 MB 以内）。
 预览的输出路径写 `.png` 就出 PNG，但这个主题纹理多，PNG 有十几 MB。

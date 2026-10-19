@@ -12,7 +12,7 @@
 //     关着就在曲线的位置写一句原因，不让整张图出不来
 //   - 落雪排名：score/ranking，只有玩家接口有（授权的才有）。返回前 10 名加自己那一条、同分同名次，按最好成绩认自己
 // 分数线、容错、Rating、OP 的算法在 src/score-math.cjs。主题吃的数据形状见 themes/chart/examples/preview-data.json；
-// buildData 是纯函数，测试和示例数据都用它。
+// buildData 是纯函数，测试和示例数据都用它。版本名（曲库的版本表）和拟合定数（src/fit-diffs.cjs 的表）也在这里算好。
 
 const { rankOf, stamp } = require("./best.cjs");
 const { attachAssets, charactersOf, MAX_CANDIDATES } = require("./song.cjs");
@@ -114,10 +114,13 @@ function playerView({ best, history, ranking }, constant, { isSelf = true } = {}
   return view;
 }
 
-// song、chart：曲库里的曲目和谱面；player：loadPlayer 拿来的（没绑定、没打过是 null）；extras：song-extras.cjs
-function buildData({ song, chart, catalog, extras = null, player = null, isSelf = true, now = new Date() }) {
+// song、chart：曲库里的曲目和谱面；player：loadPlayer 拿来的（没绑定、没打过是 null）；extras：song-extras.cjs；
+// fitDiffs：拟合定数表（src/fit-diffs.cjs，/拟合定数b30 也用）。表里没有这张谱面就是 null，图上不写
+function buildData({ song, chart, catalog, extras = null, fitDiffs = null, player = null, isSelf = true, now = new Date() }) {
   const notes = chart.notes || {};
   const constant = chart.difficulty !== WORLDS_END && Number(chart.level_value) > 0 ? Number(chart.level_value) : null;
+  // 拟合定数只对普通难度有意义：WORLD'S END 没有定数，EazyChu 的表里也没有
+  const fitConstant = constant && fitDiffs ? fitDiffs.get(song.id, chart.difficulty) : null;
   const view = player ? playerView(player, constant, { isSelf }) : null;
   const unit = unitLoss(notes.total);
   return {
@@ -126,6 +129,8 @@ function buildData({ song, chart, catalog, extras = null, player = null, isSelf 
       title: song.title,
       artist: song.artist || "",
       bpm: song.bpm || null,
+      // 「CHUNITHM CRYSTAL」写成「CRYSTAL」，跟 /单曲 一样
+      version: song.version ? catalog.versionTitle(song).replace(/^CHUNITHM\s+(?=\S)/, "") : "",
       jacketId: catalog.jacketId(song),
       jacket: null,   // 出图前换成本地 file:// 地址（attachAssets）
       characters: charactersOf(song, extras, catalog),
@@ -134,6 +139,7 @@ function buildData({ song, chart, catalog, extras = null, player = null, isSelf 
       levelIndex: chart.difficulty,
       level: chart.level || "",
       constant,
+      fitConstant,
       designer: chart.note_designer || "",
       notes: { total: notes.total, tap: notes.tap || 0, hold: notes.hold || 0, slide: notes.slide || 0, air: notes.air || 0, flick: notes.flick || 0 },
       ...(chart.difficulty === WORLDS_END ? { kanji: chart.kanji || "", star: Number(chart.star) || 0 } : {}),
@@ -209,9 +215,9 @@ module.exports = Object.assign({
       kind: "chart",
       label: "谱面分析图",
       render: async () => {
-        const { assets, renderer, songExtras } = ctx.services;
+        const { assets, renderer, songExtras, fitDiffs } = ctx.services;
         const player = api ? await loadPlayer(api, song.id, chart.difficulty, { log: ctx.log }) : null;
-        const data = buildData({ song, chart, catalog, extras: songExtras, player, isSelf });
+        const data = buildData({ song, chart, catalog, extras: songExtras, fitDiffs, player, isSelf });
         await attachAssets(data, assets);
         // 油画纹理多，出 JPEG 质量 76（同 /b50、/单曲）：两倍图 4480×2850 左右约 1.5 MB。页面 2240 宽、高跟着内容走，视口给大一点
         const image = await renderer.render("chart", data, { width: 2300, height: 1500, format: "jpeg", quality: 76 });

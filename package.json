@@ -12,6 +12,7 @@
     "character-icons": "node tools/character-icons.cjs",
     "check:lxns": "node tools/check-lxns.cjs",
     "check:oauth": "node tools/check-oauth.cjs",
+    "fit-diffs": "node tools/build-fit-diffs.cjs",
     "launchers": "node tools/make-launchers.cjs",
     "package": "node tools/build-package.cjs",
     "package:folder": "node tools/build-package.cjs --no-zip",

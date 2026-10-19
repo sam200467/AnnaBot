@@ -1,5 +1,5 @@
 "use strict";
-// /b50、/b30：先测挑歌和整理出图数据（纯函数），再走一遍端到端（假 QQ + 假落雪，出图换成假的、记下主题拿到的数据），
+// /b50、/b30、/aj30、/aj50：先测挑歌和整理出图数据（纯函数），再走一遍端到端（假 QQ + 假落雪，出图换成假的、记下主题拿到的数据），
 // 最后用本机的 Chrome / Edge 把 best 主题真的渲染一次。
 const test = require("node:test");
 const assert = require("node:assert/strict");
@@ -20,7 +20,7 @@ const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
 const panel = require("../src/command-panel.cjs");
 const features = require("../src/features/index.cjs");
-const { buildData, attachAssets, pickBest30, pickAj30, rankScores } = require("../src/features/best.cjs");
+const { buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores } = require("../src/features/best.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 const FC1 = "123456789012345";
@@ -179,11 +179,87 @@ test("/aj30 挑歌：只留 AJ / AJC（不分新旧），去掉 FC、disabled、
   assert.ok(Math.abs(few.chapters[0].average - 5 * 16 / 30) < 1e-9);
 });
 
-test("/aj30 是辅助表：功能表里有，指令面板里没有", () => {
-  const feature = features.find((entry) => entry.name === "aj30");
-  assert.ok(feature);
-  assert.equal(feature.panel, false);
-  assert.ok(!panel.panelItems(features).some((item) => item.name === "/aj30"));
+test("/aj50 挑歌：AJ 谱面分新老版本，旧曲前 30 + 新曲前 20；去掉 FC、disabled、WE", async (t) => {
+  const catalog = await loadCatalog(t);
+  const old = ajRange(1, 35, (i) => 16 - i * 0.01);
+  const fresh = ajRange(101, 125, (i) => 17 - i * 0.01);
+  const bests = { bests: old.slice(0, 30), new_bests: fresh.slice(0, 20), selections: [] };
+  const scores = [
+    ...old, ...fresh,
+    sc(31, 18, { full_combo: "fullcombo" }),   // 只有 FC，不算
+    sc(41, 19, { full_combo: "alljustice" }),  // 曲库标了 disabled
+    sc(8001, 20, { level_index: 5, full_combo: "alljustice" }),   // WE 没有 Rating
+  ];
+
+  const picked = pickAj50({ scores, bests, catalog });
+  assert.deepEqual(ids(picked.old), ids(old.slice(0, 30)));
+  assert.deepEqual(ids(picked.fresh), ids(fresh.slice(0, 20)));
+
+  const data = buildData({ mode: "aj50", player: { name: "测试玩家", rating: 16.5 }, scores, bests, catalog });
+  assert.deepEqual(data.chapters.map((chapter) => [chapter.key, chapter.slots, chapter.scores.length]),
+    [["old", 30, 30], ["new", 20, 20]]);
+  const sum = (list) => list.reduce((total, score) => total + score.rating, 0);
+  const expected = (sum(old.slice(0, 30)) + sum(fresh.slice(0, 20))) / 50;
+  assert.ok(Math.abs(data.rating - expected) < 1e-9);
+  assert.equal(data.exact, true);
+  assert.ok(data.chapters[0].scores.every((score) => !score.isNew));
+  assert.ok(data.chapters[1].scores.every((score) => score.isNew));
+  assert.ok(data.chapters.flatMap((chapter) => chapter.scores).every((score) =>
+    score.fullCombo === "alljustice" || score.fullCombo === "alljusticecritical"));
+
+  // 不到 50 首：旧曲 30 个位置、新曲 20 个位置，空位按 0 算
+  const few = buildData({
+    mode: "aj50", player: { name: "测试玩家" }, catalog,
+    scores: [...ajRange(1, 5, () => 16), ...ajRange(101, 103, () => 17)],
+    bests: { new_bests: [sc(101, 17, { full_combo: "alljustice" })] },
+  });
+  assert.deepEqual(few.chapters.map((chapter) => chapter.scores.length), [5, 3]);
+  assert.ok(Math.abs(few.chapters[0].average - 5 * 16 / 30) < 1e-9);
+  assert.ok(Math.abs(few.chapters[1].average - 3 * 17 / 20) < 1e-9);
+  assert.ok(Math.abs(few.rating - (5 * 16 + 3 * 17) / 50) < 1e-9);
+});
+
+test("/拟合定数b30：定数换成拟合值后重算 Rating、重新排序；没有拟合值的退回官方定数", async (t) => {
+  const catalog = await loadCatalog(t);
+  // 三首官方定数都是 14.x；拟合定数把 3 号抬到 16.0、1 号抬到 15.5、2 号压到 14.0
+  const fit = (id) => ({ 1: 15.5, 2: 14.0, 3: 16.0 }[id] ?? null);
+  const scores = [
+    sc(1, 16.0, { score: 1009000 }),
+    sc(2, 16.5, { score: 1009000 }),
+    sc(3, 15.0, { score: 1009000 }),
+    sc(999, 17.0, { song_name: "还没进曲库的歌", level: "15+" }),   // 拟合表里没有，退回官方/原 Rating
+  ];
+  const data = buildData({ mode: "fit30", player: { name: "测试玩家", rating: 16.3 }, scores, catalog, fitConstantOf: fit });
+
+  assert.deepEqual([data.mode, data.exact, data.chapters.length], ["fit30", true, 1]);
+  const chapter = data.chapters[0];
+  assert.deepEqual([chapter.key, chapter.slots, chapter.scores.length], ["fit", 30, 4]);
+  // 重算后的 Rating：3 号 18.15 > 1 号 17.65 > 未知 17.0 > 2 号 16.15
+  assert.deepEqual(chapter.scores.map((score) => score.id), [3, 1, 999, 2]);
+  const first = chapter.scores[0];
+  assert.equal(first.constant, 16);
+  assert.equal(first.constantText, "≈16.00");
+  assert.equal(first.officialConstant, 14.3);
+  assert.equal(first.fitted, true);
+  assert.equal(first.rating, 18.15);
+  assert.equal(first.isNew, false);
+  const unknown = chapter.scores[2];
+  assert.deepEqual([unknown.constant, unknown.constantText, unknown.officialConstant, unknown.fitted, unknown.rating],
+    [null, null, null, false, 17]);
+  assert.deepEqual(data.fit, { fitted: 3, missing: 1, officialAverage: 2.15 });
+  assert.ok(Math.abs(data.rating - (18.15 + 17.65 + 17 + 16.15) / 30) < 1e-9);
+
+  // 只从 /bests 前 50 挑会漏：这里确认 pickFit30 读的是全部成绩
+  assert.deepEqual(pickFit30({ scores, catalog, fitConstantOf: fit }).map((score) => score.id), [3, 1, 999, 2]);
+});
+
+test("/aj30、/aj50 是辅助表：功能表里有，指令面板里没有", () => {
+  for (const name of ["aj30", "aj50"]) {
+    const feature = features.find((entry) => entry.name === name);
+    assert.ok(feature, name);
+    assert.equal(feature.panel, false, name);
+    assert.ok(!panel.panelItems(features).some((item) => item.name === "/" + name), name);
+  }
 });
 
 test("attachAssets：曲绘、名牌版、角色一次要齐，没有的是 null", async (t) => {
@@ -226,7 +302,12 @@ async function setup(t) {
     allowedGroupIds: ["G1"], allowPrivateChat: true, admins: [], receiptDelayMs: 5000, generateCooldownMs: 0,
     qq: { appId: "1", clientSecret: "x", tokenUrl: qq.tokenUrl, apiBase: qq.apiBase, sandboxApiBase: qq.apiBase, sandbox: false,
       minSendIntervalMs: 0, jitterMs: 0, perTargetIntervalMs: 0, perTargetPerHour: 1000 },
-  }, { lxns, oauth, bindings, catalog, assets, renderer, log: () => {} });
+  }, { lxns, oauth, bindings, catalog, assets, renderer, log: () => {},
+    fitDiffs: {
+      get: (id) => ({ 1: 15.5, 2: 14.0, 3: 16.0 }[id] ?? null),
+      source: "测试拟合表", capturedAt: "2026-10-19", size: 3,
+    },
+  });
   t.after(async () => {
     bot.stop();
     await qq.stop();
@@ -341,6 +422,102 @@ test("/aj30 端到端：好友码请去授权；授权后只排 AJ/AJC 的 B30�
   assert.equal(s.renders.length, count);
 });
 
+test("/aj50 端到端：好友码请去授权；授权后分新旧两栏只排 AJ/AJC；不足 50 首、没有 AJ 都有说法", async (t) => {
+  const s = await setup(t);
+  const old = ajRange(1, 25, (i) => 16 - i * 0.01);
+  const fresh = ajRange(101, 110, (i) => 17 - i * 0.01);
+  const bests = { bests: old.slice(0, 20), new_bests: fresh.slice(0, 10), selections: [] };
+  const scores = [...old, ...fresh, sc(31, 18.5, { full_combo: "fullcombo" })];   // 高分但只是 FC
+  s.lx.addPlayer({ friendCode: FC1, name: "好友码玩家", rating: 16.2, scores, bests });
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", rating: 16.5, scores, bests });
+  s.lx.addPlayer({ friendCode: FC3, name: "五首旧曲 AJ", rating: 12, scores: ajRange(1, 5, () => 15) });
+  s.lx.addPlayer({ friendCode: FC4, name: "没有 AJ", rating: 10, scores: [sc(1, 18, { full_combo: "fullcombo" })] });
+  for (const id of [...Array.from({ length: 25 }, (_, i) => i + 1), ...Array.from({ length: 10 }, (_, i) => 101 + i)]) {
+    s.lx.state.assets.set("jacket/" + id, PNG);
+  }
+
+  await s.group("/aj50");
+  assert.equal(s.last().content, V.needBinding);
+
+  await s.group("/绑定 " + FC1);
+  await s.group("/aj50");
+  assert.equal(s.last().content, V.needOAuth("aj50"));
+  assert.equal(s.renders.length, 0);
+
+  await s.authorize("U3", FC2);
+  await s.group("/aj50", { user: "U3" });
+  const render = s.renders.at(-1);
+  assert.equal(render.theme, "best");
+  assert.deepEqual([render.data.mode, render.data.chapters.length], ["aj50", 2]);
+  assert.deepEqual(render.data.chapters.map((chapter) => [chapter.key, chapter.slots, chapter.scores.length]),
+    [["old", 30, 25], ["new", 20, 10]]);
+  const cards = render.data.chapters.flatMap((chapter) => chapter.scores);
+  assert.ok(cards.every((score) => score.fullCombo === "alljustice" || score.fullCombo === "alljusticecritical"));
+  assert.ok(!cards.some((score) => score.id === 31), "只是 FC 的高分不能挤进 AJ50");
+  assert.ok(render.data.chapters[0].scores.every((score) => !score.isNew));
+  assert.ok(render.data.chapters[1].scores.every((score) => score.isNew));
+  assert.equal(s.last().msg_type, 7);
+  assert.equal(s.last().content, V.aj50Few(25, 10));
+
+  // 只有 5 首旧曲 AJ、没有新曲 AJ：两栏位置照旧，图注说清空位按 0 算
+  await s.authorize("U4", FC3);
+  await s.group("/aj50", { user: "U4" });
+  assert.deepEqual(s.renders.at(-1).data.chapters.map((chapter) => chapter.scores.length), [5, 0]);
+  assert.equal(s.last().content, V.aj50Few(5, 0));
+
+  // 一张 AJ 都没有：不出一张空图，直接用文字回
+  await s.authorize("U5", FC4);
+  const count = s.renders.length;
+  await s.group("/aj50", { user: "U5" });
+  assert.equal(s.last().content, V.aj50Empty);
+  assert.equal(s.renders.length, count);
+});
+
+test("/拟合定数b30 端到端：好友码请去授权；授权后按拟合定数重排；不足 30 首有图注", async (t) => {
+  const s = await setup(t);
+  const scores = [
+    sc(1, 16.0, { score: 1009000 }),
+    sc(2, 16.5, { score: 1009000 }),
+    sc(3, 15.0, { score: 1009000 }),
+  ];
+  s.lx.addPlayer({ friendCode: FC1, name: "好友码玩家", rating: 16.2, scores });
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", rating: 16.3, scores });
+  for (const id of [1, 2, 3]) s.lx.state.assets.set("jacket/" + id, PNG);
+
+  await s.group("/拟合定数b30");
+  assert.equal(s.last().content, V.needBinding);
+
+  await s.group("/绑定 " + FC1);
+  await s.group("/拟合定数b30");
+  assert.equal(s.last().content, V.needOAuth("拟合定数b30"));
+  assert.equal(s.renders.length, 0);
+
+  await s.authorize("U3", FC2);
+  await s.group("/拟合定数b30", { user: "U3" });
+  const render = s.renders.at(-1);
+  assert.equal(render.theme, "best");
+  assert.deepEqual([render.data.mode, render.data.chapters.length], ["fit30", 1]);
+  const [chapter] = render.data.chapters;
+  assert.deepEqual([chapter.key, chapter.slots, chapter.scores.length], ["fit", 30, 3]);
+  // 拟合定数：3 号 16.0（18.15）> 1 号 15.5（17.65）> 2 号 14.0（16.15）
+  assert.deepEqual(chapter.scores.map((score) => score.id), [3, 1, 2]);
+  assert.deepEqual([chapter.scores[0].constant, chapter.scores[0].rating, chapter.scores[0].constantText],
+    [16, 18.15, "≈16.00"]);
+  assert.deepEqual(render.data.fit, {
+    fitted: 3, missing: 0, officialAverage: (16 + 16.5 + 15) / 30,
+    source: "测试拟合表", capturedAt: "2026-10-19",
+  });
+  assert.equal(s.last().msg_type, 7);
+  assert.equal(s.last().content, V.fit30Note(3, 0));
+
+  // 功能表里有、指令面板里也有（不是辅助表）
+  const feature = features.find((entry) => entry.name === "fit30");
+  assert.ok(feature);
+  assert.ok(panel.panelItems(features).some((item) => item.name === "/拟合定数b30"));
+});
+
+
+
 // ── 真的渲染一次 ──
 const skip = !findBrowser() && "没找到 Chrome / Edge";
 
@@ -351,12 +528,12 @@ function exampleData(file) {
 }
 
 // 宽 = 内容 1824 + 两边羊皮纸 12 + 画框（左 97、右 95，按画框原图量的尺寸算，见 theme.js 的 FRAME）
-test("best 主题：B50、B30、AJ30 都能出图，宽 2040", { skip }, async (t) => {
+test("best 主题：B50、B30、AJ30、AJ50、拟合 B30 都能出图，宽 2040", { skip }, async (t) => {
   // 浏览器临时目录放测试自己的目录里，不碰系统临时目录
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
-  for (const file of ["preview-data.json", "b30.json", "aj30.json"]) {
+  for (const file of ["preview-data.json", "b30.json", "aj30.json", "aj50.json", "fit30.json"]) {
     const out = await renderer.render("best", exampleData(file), { width: 2100, format: "jpeg" });
     assert.equal(out.width, 2040, file);
     assert.ok(out.height > 1500, file);

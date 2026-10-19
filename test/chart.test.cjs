@@ -122,15 +122,29 @@ test("buildData：曲目、谱面、每个判定扣几分、四档分数线；�
   const catalog = await loadCatalog(t);
   const song = catalog.getSong(853);
   const data = buildData({ song, chart: catalog.chart(song, 3), catalog, extras, now: new Date("2026-10-17T04:00:00Z") });
-  assert.deepEqual(data.song, { id: 853, title: "《最愛》 ～ Curse", artist: "James Landino", bpm: 157, jacketId: 853, jacket: null,
+  assert.deepEqual(data.song, { id: 853, title: "《最愛》 ～ Curse", artist: "James Landino", bpm: 157, version: "CRYSTAL", jacketId: 853, jacket: null,
     characters: [{ name: "ジュナ・サラキア", id: 8820, face: null, icon: null }] });
-  assert.deepEqual(data.chart, { levelIndex: 3, level: "13+", constant: 13.5, designer: "谱师3", notes: { total: 1497, tap: 1457, hold: 10, slide: 10, air: 10, flick: 10 } });
+  assert.deepEqual(data.chart, { levelIndex: 3, level: "13+", constant: 13.5, fitConstant: null, designer: "谱师3",
+    notes: { total: 1497, tap: 1457, hold: 10, slide: 10, air: 10, flick: 10 } });
   assert.deepEqual(data.unit, { justice: 6.68, attack: 340.7, miss: 674.7 });
   assert.deepEqual(data.lines.map((line) => [line.rank, line.justice, "gap" in line]), [["sssp", 149, false], ["sss", 374, false], ["ssp", 748, false], ["ss", 1497, false]]);
   assert.equal(data.player, null);
   assert.equal(data.time, "2026-10-17 12:00");
   const worldsEnd = buildData({ song: catalog.getSong(8020), chart: catalog.chart(catalog.getSong(8020), 5), catalog });
   assert.deepEqual([worldsEnd.song.jacketId, worldsEnd.chart.constant, worldsEnd.chart.kanji, worldsEnd.lines[0].rating], [3, null, "戻", null]);
+});
+
+test("buildData：拟合定数从 EazyChu 的表里拿（跟官方定数分开）；WE 和表里没有的谱面是 null", async (t) => {
+  const catalog = await loadCatalog(t);
+  const fitDiffs = { get: (songId, levelIndex) => (songId === 853 && levelIndex === 3 ? 13.502 : null) };
+  const song = catalog.getSong(853);
+  const data = buildData({ song, chart: catalog.chart(song, 3), catalog, fitDiffs });
+  assert.deepEqual([data.chart.constant, data.chart.fitConstant], [13.5, 13.502]);
+  // 拟合表里没有这张谱面：图上不写拟合定数
+  const missing = buildData({ song: catalog.getSong(851), chart: catalog.chart(catalog.getSong(851), 3), catalog, fitDiffs });
+  assert.equal(missing.chart.fitConstant, null);
+  const worldsEnd = buildData({ song: catalog.getSong(8020), chart: catalog.chart(catalog.getSong(8020), 5), catalog, fitDiffs });
+  assert.equal(worldsEnd.chart.fitConstant, null);
 });
 
 // ── 端到端 ──
@@ -149,12 +163,14 @@ async function setup(t) {
   const assets = createAssets({ cacheDir: path.join(dir, "assets"), baseUrl: lx.assetsBase });
   const renders = [];
   const renderer = { render: async (theme, data, options) => { renders.push({ theme, data, options }); return { buffer: PNG }; } };
+  // 拟合定数表：853 MASTER 有一份，别的谱面没有（跟真表一样，WE 永远没有）
+  const fitDiffs = { get: (songId, levelIndex) => (songId === 853 && levelIndex === 3 ? 13.502 : null) };
   const logs = [];
   const bot = createAnnaBot({
     allowedGroupIds: ["G1"], allowPrivateChat: true, admins: [], receiptDelayMs: 5000, generateCooldownMs: 0,
     qq: { appId: "1", clientSecret: "x", tokenUrl: qq.tokenUrl, apiBase: qq.apiBase, sandboxApiBase: qq.apiBase, sandbox: false,
       minSendIntervalMs: 0, jitterMs: 0, perTargetIntervalMs: 0, perTargetPerHour: 1000 },
-  }, { lxns, oauth, bindings, catalog, assets, renderer, songExtras: extras, log: (line) => logs.push(line) });
+  }, { lxns, oauth, bindings, catalog, assets, renderer, songExtras: extras, fitDiffs, log: (line) => logs.push(line) });
   t.after(async () => {
     bot.stop();
     await qq.stop();
@@ -197,6 +213,8 @@ test("/谱面分析 端到端：没绑定也出图（只有分数线）；用法
   assert.equal(plain.theme, "chart");
   assert.deepEqual([plain.options.format, plain.options.quality], ["jpeg", 76]);
   assert.deepEqual([plain.data.song.id, plain.data.chart.levelIndex, plain.data.player], [853, 3, null]);
+  // 版本和拟合定数也在数据里（图上写在难度旁边那格和版本那格）
+  assert.deepEqual([plain.data.song.version, plain.data.chart.constant, plain.data.chart.fitConstant], ["CRYSTAL", 13.5, 13.502]);
   assert.match(plain.data.song.jacket, /^file:\/\/.*jacket[\\/]853\.png$/);
   assert.match(plain.data.song.characters[0].icon, /^file:\/\/.*character[\\/]8820\.png$/);
 
@@ -265,7 +283,11 @@ test("chart 主题：示例数据（带曲线）、没有玩家、玩家没曲�
   const out = await renderer.render("chart", full, { width: 2300, height: 1500, format: "jpeg" });
   assert.equal(out.width, 2240);
   assert.ok(out.height > 1280 && out.height < 1500, "带曲线的高度：" + out.height);
-  const bare = { ...exampleData(), player: null, lines: exampleData().lines.map(({ gap: _g, gapJustice: _j, ...line }) => line) };
+  // 没有玩家那块：顺便去掉拟合定数、换一个长版本名（PARADISE LOST），主题都要撑得住
+  const bare = { ...exampleData(), player: null };
+  bare.chart = { ...bare.chart, fitConstant: null };
+  bare.song = { ...bare.song, version: "PARADISE LOST" };
+  bare.lines = bare.lines.map(({ gap: _g, gapJustice: _j, ...line }) => line);
   const short = await renderer.render("chart", bare, { width: 2300, height: 1500, format: "jpeg" });
   assert.deepEqual([short.width, short.height], [2240, 1280]);
   const noted = exampleData();

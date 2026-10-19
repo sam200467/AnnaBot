@@ -129,6 +129,12 @@ body {
 .fact.level { background: var(--band); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 236, 200, 0.18); border: 1px solid rgba(217, 180, 106, 0.7); }
 .fact.level dt { color: #fff0d6; letter-spacing: 0.03em; }
 .fact.level dd { font-family: var(--script); font-weight: 700; font-size: 38px; line-height: 1.05; color: #fff3dc; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45); }
+/* 拟合定数那格：紧挨着难度那格，数字也用 Segoe Script，一眼看得出是同一类数 */
+.fact.fit dd { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.1; color: #fff3dc; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45); }
+
+/* 版本名长短差得多（X-VERSE 到 PARADISE LOST），太长就用省略号，不挤掉谱师那格 */
+.fact.version { max-width: 320px; }
+.fact.version dd { overflow: hidden; text-overflow: ellipsis; }
 
 /* 物量构成：一根按比例分段的横条，下面一排写数 */
 .notes { margin-top: auto; }

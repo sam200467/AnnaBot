@@ -9,8 +9,12 @@
 //         （/bests 还有 selections：旧曲 B30 以外、理论上能进 B30 的成绩，Rating 都比旧曲第 30 低，挑前 30 用不上。）
 //
 // /aj30（src/features/aj30.cjs）的整理函数也放这里：数据形状跟 /b30 一样，只是只留 AJ / AJC 的谱面、不分新旧。
+// /aj50（src/features/aj50.cjs）同理，只是分新老版本、旧曲 30 + 新曲 20（跟 /b50 一样）。
+// /拟合定数b30（src/features/fit30.cjs）：把官方定数换成 EazyChu 的拟合定数，重算单曲 Rating 后取前 30，不分新旧。
 //
 // 主题吃的数据形状见 themes/best/examples/preview-data.json。buildData 是纯函数，测试和示例数据都用它。
+
+const { rating: singleRating, truncate } = require("../score-math.cjs");
 
 const OLD_SLOTS = 30;
 const NEW_SLOTS = 20;
@@ -46,12 +50,28 @@ function pickBest30({ scores, bests, catalog }) {
   return { list, exact: !(fresh.length >= NEW_SLOTS && freshIn >= NEW_SLOTS) };
 }
 
-// /aj30 挑哪些：全部成绩里 FULL COMBO 是 AJ / AJC 的谱面，不分新旧，按单曲 Rating 取前 30。
+// /拟合定数b30：把每张谱面的官方定数换成拟合定数，重算单曲 Rating 后取前 30。
+// 拟合定数可能把原本排在 50 名开外的谱面抬进来，所以一定要读全部成绩；好友码的 /bests 不够。
+function pickFit30({ scores, catalog, fitConstantOf }) {
+  const usable = (scores || []).filter((score) => score && !catalog?.getSong(score.id)?.disabled);
+  const rated = usable.map((score) => {
+    const fit = fitConstantOf ? fitConstantOf(Number(score.id), Number(score.level_index)) : null;
+    if (!fit) return score;
+    return { ...score, fitConstant: fit, rating: truncate(singleRating(fit, Number(score.score) || 0), 2) };
+  });
+  return rankScores(rated).slice(0, OLD_SLOTS);
+}
+
+// /aj30、/aj50 共用的筛选：全部成绩里 FULL COMBO 是 AJ / AJC 的谱面。
 // 跟 B30 一样，落雪标了 disabled 的曲目不算；WE 没有 Rating，rankScores 会滤掉。
-function pickAj30({ scores, catalog }) {
-  const usable = (scores || []).filter((score) =>
+function ajScores(scores, catalog) {
+  return (scores || []).filter((score) =>
     score && AJ.has(score.full_combo) && !catalog?.getSong(score.id)?.disabled);
-  return rankScores(usable).slice(0, OLD_SLOTS);
+}
+
+// /aj30 挑哪些：AJ 谱面不分新旧，按单曲 Rating 取前 30。
+function pickAj30({ scores, catalog }) {
+  return rankScores(ajScores(scores, catalog)).slice(0, OLD_SLOTS);
 }
 
 // 新曲的判定跟着落雪走：new_bests 里最老的那个版本往后都算新曲；落雪没给新曲时退回曲库的最新版本。
@@ -60,25 +80,50 @@ function newVersionFloor(bests, catalog) {
   return versions.length ? Math.min(...versions) : catalog.currentVersion().version;
 }
 
-function scoreView(score, { catalog, floor }) {
+const isNewVersion = (song, floor) => Boolean(song && floor !== null && song.version >= floor);
+
+// /aj50 挑哪些：AJ 谱面里分新老版本，旧曲取前 30、新曲取前 20（跟 /b50 的两栏一样）。
+// floor 用 /bests 的 new_bests 算，查不到就退回当前版本，所以这个功能要顺手读一下 /bests。
+function pickAj50({ scores, bests, catalog }) {
+  const floor = newVersionFloor(bests, catalog);
+  const usable = ajScores(scores, catalog);
+  const split = (fresh) => usable.filter((score) => isNewVersion(catalog?.getSong(score.id), floor) === fresh);
+  return {
+    old: rankScores(split(false)).slice(0, OLD_SLOTS),
+    fresh: rankScores(split(true)).slice(0, NEW_SLOTS),
+  };
+}
+
+function scoreView(score, { catalog, floor, fit, fitConstantOf }) {
   const song = catalog.getSong(score.id);
   const chart = song ? catalog.chart(song, score.level_index) : null;
-  return {
+  const officialConstant = Number.isFinite(chart?.level_value) && chart.level_value > 0 ? chart.level_value : null;
+  // fit30 的 rating 在 pickFit30 里已经按拟合定数算好；没拟合定数的谱面退回官方定数和原来的 rating
+  const fitConstant = fit && fitConstantOf
+    ? (Number(score.fitConstant || fitConstantOf(Number(score.id), Number(score.level_index))) || null)
+    : null;
+  const view = {
     id: score.id,
     title: score.song_name || song?.title || "曲目 " + score.id,
     levelIndex: Number(score.level_index),
     level: score.level || chart?.level || "",
-    constant: Number.isFinite(chart?.level_value) && chart.level_value > 0 ? chart.level_value : null,
+    constant: fit ? (fitConstant || officialConstant) : officialConstant,
     score: Number(score.score) || 0,
     rating: Number(score.rating) || 0,
     rank: score.rank || rankOf(score.score),
     clear: score.clear || null,
     fullCombo: score.full_combo || null,
     fullChain: score.full_chain || null,
-    isNew: Boolean(song && floor !== null && song.version >= floor),
+    isNew: fit ? false : isNewVersion(song, floor),
     jacketId: song ? catalog.jacketId(song) : Number(score.id),
     jacket: null,   // 出图前换成本地 file:// 地址（attachAssets）
   };
+  if (fit) {
+    view.constantText = fitConstant ? "≈" + fitConstant.toFixed(2) : null;
+    view.officialConstant = officialConstant;
+    view.fitted = Boolean(fitConstant);
+  }
+  return view;
 }
 
 const sumOf = (list) => list.reduce((total, score) => total + (Number(score.rating) || 0), 0);
@@ -119,10 +164,12 @@ function stamp(date) {
   return parts.year + "-" + parts.month + "-" + parts.day + " " + parts.hour + ":" + parts.minute;
 }
 
-// mode：b50 | b30。scores 只有 /b30 的授权绑定才有。
-function buildData({ mode, player, bests, scores = null, catalog, now = new Date() }) {
-  const floor = newVersionFloor(bests, catalog);
-  const options = { catalog, floor };
+// mode：b50 | b30 | aj30 | aj50 | fit30。scores 只有授权绑定才有（aj30 / aj50 / fit30 一定要）。
+// fit30 的 fitConstantOf(songId, levelIndex) 由 /拟合定数b30 传进来（src/fit-diffs.cjs 的表）。
+function buildData({ mode, player, bests, scores = null, catalog, now = new Date(), fitConstantOf = null }) {
+  const fit = mode === "fit30";
+  const floor = fit ? null : newVersionFloor(bests, catalog);
+  const options = { catalog, floor, fit, fitConstantOf };
   let chapters;
   let rating;
   let exact = true;
@@ -131,10 +178,20 @@ function buildData({ mode, player, bests, scores = null, catalog, now = new Date
     const fresh = rankScores(bests?.new_bests).slice(0, NEW_SLOTS);
     chapters = [chapter("old", old, OLD_SLOTS, options), chapter("new", fresh, NEW_SLOTS, options)];
     rating = (sumOf(old) + sumOf(fresh)) / (OLD_SLOTS + NEW_SLOTS);
+  } else if (mode === "aj50") {
+    // 分新旧两栏、只留 AJ 谱面：旧曲 30 个位置、新曲 20 个位置，均值按 50 算
+    const picked = pickAj50({ scores, bests, catalog });
+    chapters = [chapter("old", picked.old, OLD_SLOTS, options), chapter("new", picked.fresh, NEW_SLOTS, options)];
+    rating = (sumOf(picked.old) + sumOf(picked.fresh)) / (OLD_SLOTS + NEW_SLOTS);
   } else if (mode === "aj30") {
     // 只认授权读到的全部成绩：只从 /bests 的前 50 首里挑会漏掉排名更低的 AJ 谱面
     const picked = pickAj30({ scores, catalog });
     chapters = [chapter("aj", picked, OLD_SLOTS, options)];
+    rating = chapters[0].average;
+  } else if (fit) {
+    // 拟合定数会改变排名，必须从全部成绩里挑；只读 /bests 的前 50 首会漏
+    const picked = pickFit30({ scores, catalog, fitConstantOf });
+    chapters = [chapter("fit", picked, OLD_SLOTS, options)];
     rating = chapters[0].average;
   } else {
     const picked = pickBest30({ scores, bests, catalog });
@@ -142,7 +199,15 @@ function buildData({ mode, player, bests, scores = null, catalog, now = new Date
     rating = chapters[0].average;
     exact = picked.exact;
   }
-  return { mode, player: playerView(player), chapters, rating, exact, time: stamp(now) };
+  const data = { mode, player: playerView(player), chapters, rating, exact, time: stamp(now) };
+  if (fit) {
+    const picked = chapters[0].scores;
+    const missing = picked.filter((score) => !score.fitted).length;
+    // 页眉第三格要跟 /b30 的「Best 30」对得上：官方定数下全部成绩的前 30 首均值，不是玩家总 Rating（B50）
+    const official = pickBest30({ scores, catalog }).list;
+    data.fit = { fitted: picked.length - missing, missing, officialAverage: sumOf(official) / OLD_SLOTS };
+  }
+  return data;
 }
 
 // 曲绘、名牌版、角色换成本地 file:// 地址。落雪素材很慢，第一次出 B50 可能要现下几十张，所以只在出图队列里调。
@@ -206,5 +271,5 @@ function feature(mode) {
 
 // 功能清单（index.cjs 里展开）只认数组里的两个功能；整理数据的函数挂在数组上，给测试和示例数据用。
 module.exports = Object.assign([feature("b50"), feature("b30")], {
-  buildData, attachAssets, pickBest30, pickAj30, rankScores, rankOf, stamp, playerView, OLD_SLOTS, NEW_SLOTS,
+  buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores, rankOf, stamp, playerView, OLD_SLOTS, NEW_SLOTS,
 });

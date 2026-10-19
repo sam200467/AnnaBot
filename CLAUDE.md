@@ -28,6 +28,7 @@ npm run panel                    指令面板（QQ 输入框打 / 弹出的清�
 npm run check:lxns               落雪接口连通性检查
 npm run song-extras              重新生成 src/data/song-extras.json（日服上线日期、对应角色）；新版本出曲后跑，wikiwiki 限频要慢慢来
 npm run song-search              重新生成 src/data/song-search.json（简繁日异体字表、官方假名读音）；新版本出曲后跑，要先 npm install
+npm run fit-diffs                重新生成 src/data/fit-diffs.json（EazyChu 拟合定数，/拟合定数b30 用）；新版本出曲后跑
 npm run character-icons          从 wikiwiki 立绘截落雪没有的角色头像（截哪块见 tools/character-icons.json）；-- --sheet 文件 出总览图
 ```
 
@@ -54,6 +55,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/catalog.cjs` | 曲库和别名：缓存（带物量）、搜索（`search` / `resolve`，规则在 `song-search.cjs`）、版本名 |
 | `src/song-search.cjs` | 认歌：简繁日汉字互通、假名和罗马音、拼错了给相近的候选（排名表在文件头）。数据是 `src/data/song-search.json`，由 `tools/build-song-search.cjs` 生成后提交 |
 | `src/score-math.cjs` | 单曲 Rating、OVER POWER、分数线和容错的算法（公式照落雪前端，拿真成绩核过），`/谱面分析` 用 |
+| `src/fit-diffs.cjs` | 拟合定数快照（EazyChu），`/拟合定数b30` 用；数据是 `src/data/fit-diffs.json`，由 `tools/build-fit-diffs.cjs` 生成后提交 |
 | `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
@@ -85,8 +87,13 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 那种阴沉的暗色幻想风 —— 最外面一个洛可可金色画框、框里烧焦撕边的羊皮纸、上面五位巫女下面火烧的战场、旧纸片卡片、
 封蜡评级、缎带章节名、手写的字。设计说明在 `themes/best/README.md`，新的出图主题沿用同一套：
 
-- `/aj30` 是辅助分表：只挑 AJ（含 AJC）的谱面、不分新旧，按单曲 Rating 排成 B30；数据整理在 `best.cjs` 的 `buildData`
-  （`mode: "aj30"`、章节 key `aj`），功能在 `src/features/aj30.cjs`。主题沿用 best，`panel: false` 不进指令面板。
+- `/aj30` / `/aj50` 是辅助分表：只挑 AJ（含 AJC）的谱面；30 不分新旧（一栏 30 首），50 分新旧（旧曲 30 + 新曲 20）。
+  数据整理在 `best.cjs` 的 `buildData`（`mode: "aj30"` / `"aj50"`，章节 key 分别是 `aj` / `old`+`new`），
+  功能在 `src/features/aj30.cjs`、`aj50.cjs`。主题沿用 best，`panel: false` 不进指令面板。
+- `/拟合定数b30` 跟 `/b30` 同一套版式：把官方定数换成 EazyChu 拟合定数（`src/data/fit-diffs.json`），
+  用 `score-math.rating(拟合定数, 分数)` 重算单曲 Rating，再不分新旧取前 30。数据整理是 `buildData` 的
+  `mode: "fit30"`、章节 key `fit`，功能在 `src/features/fit30.cjs`。要全部成绩，`binding: "oauth"`。
+  卡片上定数写 `≈15.47`，页眉三格是「拟合 B30 / Top / 原 B30」；主题沿用 best，`npm run fit-diffs` 更新拟合表。
 - 正文只用一种手写字体：霞鹜文楷 Medium（`themes/shared/fonts.css` 的 `Anna Hand`，写成 `"Anna Hand", "Segoe UI Symbol", serif`）。
   它一个字体就有简体、繁体、日文汉字、假名、西文，曲名混排时大小、笔迹才对得齐 —— 之前几种字体叠着用（Segoe Script、
   辰宇落雁體、华文楷体补假名），作者嫌大小不统一。别再往同一段字里叠别的字体
@@ -105,7 +112,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   设计说明在 `themes/song/README.md`
 - 第三个出图功能 `/谱面分析`（`themes/chart/`）连框子也换了（作者要的）：画框是荷兰代尔夫特陶镜框、背景油画染成月光蓝、
   右边叠水之巫女朱娜的立绘，底板照她重新设计（深水焦散光、四芒星、菱格缎带），字、颜料色、金属封印照旧。图宽 2240、高跟着内容走。
-  设计说明在 `themes/chart/README.md`
+  谱面信息里有版本名（曲库版本表）和拟合定数（`src/fit-diffs.cjs`，紧挨着难度那格写 `≈13.50` 这样），
+  拟合表里没有的谱面、WORLD'S END 不画拟合定数。设计说明在 `themes/chart/README.md`
 - 第四个出图功能 `/分数列表`（原名 `/等级`，`themes/list/`）：一批谱面的成绩列表，一页 78 张卡片、五列
   （安娜占掉前 7 行，前 6 行卡片只能排 3 列，18 + 12×5 正好填满最后一行；最后一页最多 80 张）。画框是安娜专属的（不用通用金框）：
   一本中世纪福音书封皮的钴蓝珐琅框，框里上半截是布莱兴的《哥特教堂废墟》，右边是安娜的全身立绘（半透明、不镜像，
@@ -156,7 +164,8 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
 - 指令面板（`/v2/panels`）没公开的机器人也能建：群聊面板（挂白名单里的群）、私聊面板（对所有人）都建上了。
   平台读回来的指令名去掉了开头的斜杠（跟 MiaBot 记的一样），归一化以后再同步一次不会再写。
 - 取网关地址会被限频（40023001），断线重连失败要接着退避（`official-transport.cjs` 的 `scheduleReconnect`）。
-- 还没验证：Markdown 和按钮权限（还没有功能用到）；公开以后别人用起来怎样。
+- Markdown 和按钮权限：`/搜索歌曲` 已经在用（曲名指令链接、翻页按钮），还没在真 QQ 上实测；平台拒收时传输层会自动退回纯文本 / 不带按钮的 Markdown。
+- 公开以后别人用起来怎样。
 
 ## 底座层面还没做的
 

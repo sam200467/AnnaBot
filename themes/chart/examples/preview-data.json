@@ -4,6 +4,7 @@
     "title": "《最愛》 ～ Curse",
     "artist": "James Landino feat.N i i",
     "bpm": 157,
+    "version": "CRYSTAL",
     "jacketId": 853,
     "jacket": "lxns:jacket/853",
     "characters": [
@@ -19,6 +20,7 @@
     "levelIndex": 3,
     "level": "13+",
     "constant": 13.5,
+    "fitConstant": 13.502,
     "designer": "月梟",
     "notes": {
       "total": 1497,

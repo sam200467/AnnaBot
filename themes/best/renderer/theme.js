@@ -1,4 +1,4 @@
-// B30 / B50 / AJ30 成绩图。数据由 src/features/best.cjs 的 buildData 给出，形状见 ../examples/preview-data.json。
+// B30 / B50 / AJ30 / AJ50 成绩图。数据由 src/features/best.cjs 的 buildData 给出，形状见 ../examples/preview-data.json。
 // 撕边、封蜡、余烬这些「随机」的东西都用固定种子的伪随机数生成：同一份数据每次出图都一模一样。
 (function () {
   "use strict";
@@ -10,8 +10,13 @@
     old: { zh: "旧曲", en: "Best 30", side: "旧版本曲目" },
     new: { zh: "新曲", en: "New 20", side: "当前版本新曲" },
     all: { zh: "全曲", en: "Best 30", side: "不分新旧" },
+    // /拟合定数b30：定数换成 EazyChu 的拟合值，单曲 Rating 也按拟合值重算
+    fit: { zh: "拟合定数", en: "Fit 30", side: "按拟合定数重算" },
     // /aj30 的辅助表：只放 AJ / AJC 的谱面，标题跟 /b30 区分开
     aj: { zh: "全曲 AJ", en: "AJ 30", side: "AJ / AJC" },
+    // /aj50 分新旧两栏，章节名和缎带也标上 AJ，免得跟普通 B50 混在一起
+    ajold: { zh: "旧曲 AJ", en: "AJ 30", side: "旧版本曲目" },
+    ajnew: { zh: "新曲 AJ", en: "AJ 20", side: "当前版本新曲" },
   };
   const LEVELS = ["BASIC", "ADVANCED", "EXPERT", "MASTER", "ULTIMA", "WORLD'S END"];
   const RANK_TEXT = { sssp: "SSS+", sss: "SSS", ssp: "SS+", ss: "SS", sp: "S+", s: "S", aaa: "AAA", aa: "AA", a: "A", bbb: "BBB", bb: "BB", b: "B", c: "C", d: "D" };
@@ -477,10 +482,26 @@
 
     const stats = $("stats");
     const chapters = data.chapters || [];
-    // B50：Rating、旧曲 30 首的均值、新曲 20 首的均值；B30：Rating、30 首的均值、第一位
-    stats.append(stat("Rating", rating(player.rating), "main tier-" + ThemeKit.ratingTier(player.rating)));
-    if (mode === "b50") {
-      for (const chapter of chapters) stats.append(stat(chapter.key === "new" ? "New 20" : "Best 30", rating(chapter.average)));
+    // B50：Rating、旧曲 30 首的均值、新曲 20 首的均值；B30 / AJ30：Rating、30 首的均值、第一位。
+    // AJ50 的第一格换成这张表自己的 50 首均值（不是玩家总 Rating），右边两格是旧曲 / 新曲的 AJ 均值
+    // fit30 第一格是这张表 30 首重算后的均值，第三格放玩家原来的 Rating 做对照
+    if (mode === "fit30") {
+      const list = chapters[0]?.scores || [];
+      stats.append(stat("拟合 B30", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating)));
+      stats.append(stat("Top", list.length ? rating(list[0].rating) : "—"));
+      stats.append(stat("原 B30", rating(data.fit?.officialAverage)));
+      return;
+    }
+    const main = mode === "aj50"
+      ? stat("AJ 50", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating))
+      : stat("Rating", rating(player.rating), "main tier-" + ThemeKit.ratingTier(player.rating));
+    stats.append(main);
+    if (mode === "b50" || mode === "aj50") {
+      for (const chapter of chapters) {
+        const fresh = chapter.key === "new";
+        const label = mode === "aj50" ? (fresh ? "AJ 20" : "AJ 30") : (fresh ? "New 20" : "Best 30");
+        stats.append(stat(label, rating(chapter.average)));
+      }
     } else if (chapters[0]) {
       const list = chapters[0].scores;
       stats.append(stat(mode === "aj30" ? "AJ 30" : "Best 30", rating(chapters[0].average)));
@@ -524,7 +545,7 @@
       average: Number(chapter.average) || 0,
       bars: (chapter.scores || []).map((score) => ({
         value: Number(score.rating) || 0,
-        fresh: chapter.key === "new" || (mode !== "b50" && Boolean(score.isNew)),
+        fresh: chapter.key === "new" || ((mode === "b30" || mode === "aj30") && Boolean(score.isNew)),
       })),
     }));
     const values = groups.flatMap((group) => group.bars.map((bar) => bar.value));
@@ -582,11 +603,16 @@
 
   function renderChart(mode) {
     const title = $("chart-title");
-    const name = mode === "b50" ? "Best 50" : mode === "aj30" ? "AJ 30" : "Best 30";
-    title.append(el("b", null, name), el("span", null, "单曲 Rating"));
+    const name = mode === "b50" ? "Best 50" : mode === "aj50" ? "AJ 50" : mode === "aj30" ? "AJ 30"
+      : mode === "fit30" ? "Fit 30" : "Best 30";
+    title.append(el("b", null, name), el("span", null, mode === "fit30" ? "按拟合定数重算" : "单曲 Rating"));
     const chapters = data.chapters || [];
     const hasNew = chapters.some((chapter) => chapter.key === "new" ? chapter.scores.length : chapter.scores.some((score) => score.isNew));
     const legend = $("chart-legend");
+    if (mode === "fit30") {
+      legend.append(el("i", "swatch old"), "全曲");
+      return;
+    }
     legend.append(el("i", "swatch old"), "旧曲");
     if (hasNew) legend.append(el("i", "swatch new"), "新曲");
   }
@@ -613,7 +639,7 @@
     img.addEventListener("error", () => jacket.classList.add("missing"), { once: true });
     jacket.append(img, el("div", "band", LEVELS[score.levelIndex] || ""));
     item.append(jacket, el("span", "idx", index + 1));
-    if (mode !== "b50" && score.isNew) item.append(el("span", "new-tag", "New"));
+    if ((mode === "b30" || mode === "aj30") && score.isNew) item.append(el("span", "new-tag", "New"));
 
     const seal = el("div", "seal " + (SEALED.has(score.rank) ? score.rank : "low"));
     const wax = el("div", "wax");
@@ -632,8 +658,9 @@
     if (FULL_COMBO[score.fullCombo]) marks.append(el("span", "mark " + FULL_COMBO[score.fullCombo][1], FULL_COMBO[score.fullCombo][0]));
     if (CLEARS[score.clear]) marks.append(el("span", "mark tag " + score.clear, CLEARS[score.clear]));
     if (score.fullChain) marks.append(el("span", "mark chain" + (score.fullChain === "fullchain2" ? " gold" : ""), "FULL CHAIN"));
-    // 定数 › 单曲 Rating（落雪曲库里没有定数时退回等级「15+」）
-    const constant = el("span", "const", score.constant ? ThemeKit.format.constant(score.constant) : score.level || "");
+    // 定数 › 单曲 Rating（落雪曲库里没有定数时退回等级「15+」）。拟合定数显示成 ≈13.92，跟官方定数区分开
+    const constant = el("span", "const" + (score.constantText ? " fit" : ""),
+      score.constantText || (score.constant ? ThemeKit.format.constant(score.constant) : score.level || ""));
     constant.append(el("i", null, "›"));
     const foot = el("div", "foot");
     foot.append(constant, el("span", "rating", rating(score.rating)));
@@ -698,7 +725,7 @@
   function renderChapters(mode) {
     const box = $("chapters");
     for (const [index, chapter] of (data.chapters || []).entries()) {
-      const words = CHAPTERS[chapter.key] || CHAPTERS.all;
+      const words = CHAPTERS[mode === "aj50" ? (chapter.key === "new" ? "ajnew" : "ajold") : chapter.key] || CHAPTERS.all;
       const section = el("section", "chapter");
       const head = el("header", "chapter-head");
       // 第二栏（B50 的新曲）跟上一栏的交界：章节名上面一整排花饰（排版好以后 drawFrieze 再按宽度排）
@@ -772,7 +799,7 @@
   }
 
   async function main() {
-    const mode = data.mode === "b50" ? "b50" : data.mode === "aj30" ? "aj30" : "b30";
+    const mode = ["b50", "aj30", "aj50", "fit30"].includes(data.mode) ? data.mode : "b30";
     document.body.classList.add("mode-" + mode);
     // 纹理跟排版无关，先开始画，跟等字体同时进行。画不成就还用 CSS 里的 SVG（慢一点而已），不能让整张图出不来
     const textures = bakeTextures().catch(() => {});
