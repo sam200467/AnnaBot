@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page" class="page">
+    <!-- 画框（theme.js 拼出来，放在 #frame 里）里面是一幅油画：右边淡淡地站着朱娜，左边两张平行的表（旧曲 B30、新曲 N20） -->
+    <div id="canvas" class="canvas">
+      <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
+      <div class="veil"></div>
+      <img id="sibyl" class="sibyl" src="../assets/juna-felix-fullbody.png" alt="">
+      <img id="card-shadows" class="card-shadows" alt="">
+
+      <div id="layout" class="layout">
+        <header class="head">
+          <section class="chart">
+            <div class="chart-head">
+              <span id="chart-title" class="chart-title"></span>
+              <span id="chart-legend" class="chart-legend"></span>
+            </div>
+            <svg id="chart" class="chart-plot" aria-hidden="true"></svg>
+          </section>
+
+          <section class="identity">
+            <div id="plate" class="plate">
+              <img id="plate-img" class="plate-img" alt="">
+              <div id="trophy" class="trophy"></div>
+              <div class="plate-name"><span id="level" class="level"></span><span id="name" class="name"></span></div>
+            </div>
+            <div class="ledger">
+              <div class="portrait">
+                <div class="medallion"><img id="chara" class="chara" alt=""></div>
+                <div id="emblem" class="emblem"></div>
+              </div>
+              <dl id="stats" class="stats"></dl>
+            </div>
+          </section>
+        </header>
+
+        <div id="tables" class="tables"></div>
+      </div>
+
+      <p id="credit" class="credit"></p>
+    </div>
+    <div id="frame" class="frame" aria-hidden="true"></div>
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

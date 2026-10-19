@@ -1,6 +1,6 @@
 "use strict";
 // /b50、/b30、/aj30、/aj50：先测挑歌和整理出图数据（纯函数），再走一遍端到端（假 QQ + 假落雪，出图换成假的、记下主题拿到的数据），
-// 最后用本机的 Chrome / Edge 把 best 主题真的渲染一次。
+// 最后用本机的 Chrome / Edge 把 felix（/b50 /b30）和 best（/aj30 这几个）主题真的渲染一次。
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const crypto = require("node:crypto");
@@ -20,7 +20,7 @@ const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
 const panel = require("../src/command-panel.cjs");
 const features = require("../src/features/index.cjs");
-const { buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores } = require("../src/features/best.cjs");
+const { buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores, RENDER_SCALE } = require("../src/features/best.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 const FC1 = "123456789012345";
@@ -350,13 +350,15 @@ test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲�
   assert.equal(s.last().msg_type, 7);
   assert.equal(s.last().content, undefined);                    // 没有图注就不带文字（带空格会在图下面多一行空白）
   const b50 = s.renders.at(-1);
-  assert.equal(b50.theme, "best");
-  assert.deepEqual([b50.options.format, b50.options.quality], ["jpeg", 76]);
+  assert.equal(b50.theme, "felix");                              // 2026-10-20 起横版；/aj30 这几个还是竖版的 best
+  assert.deepEqual([b50.options.format, b50.options.quality, b50.options.scale], ["jpeg", 76, RENDER_SCALE]);
+  assert.equal(b50.options.maxBytes, 5_000_000);                 // 作者要单张 5 MB 以内，超了降质量重截
   assert.deepEqual(b50.data.chapters.map((chapter) => chapter.scores.length), [30, 20]);
   assert.match(b50.data.chapters[0].scores[0].jacket, /^file:\/\/.*jacket[\\/]1\.png$/);
   assert.equal(b50.data.chapters[0].scores[1].jacket, null);   // 落雪上没有这张图
 
   await s.group("/b30");
+  assert.equal(s.renders.at(-1).theme, "felix");
   assert.equal(s.renders.at(-1).data.mode, "b30");
   assert.equal(s.renders.at(-1).data.exact, false);
   assert.equal(s.last().content, V.bestMaybeIncomplete(true));
@@ -516,14 +518,12 @@ test("/拟合定数b30 端到端：好友码请去授权；授权后按拟合定
   assert.ok(!panel.panelItems(features).some((item) => item.name === "/拟合定数b30"));
 });
 
-
-
 // ── 真的渲染一次 ──
 const skip = !findBrowser() && "没找到 Chrome / Edge";
 
 // 示例数据里的 "lxns:jacket/123" 不联网，换成空（主题要能照样出图）
-function exampleData(file) {
-  const raw = fs.readFileSync(path.join(ROOT, "themes", "best", "examples", file), "utf8");
+function exampleData(file, theme = "best") {
+  const raw = fs.readFileSync(path.join(ROOT, "themes", theme, "examples", file), "utf8");
   return JSON.parse(raw, (key, value) => (typeof value === "string" && value.startsWith("lxns:") ? null : value));
 }
 
@@ -544,6 +544,29 @@ test("best 主题：B50、B30、AJ30、AJ50、拟合 B30 都能出图，宽 2040
   const greek = await renderer.render("best", withGreek, { width: 2100, format: "jpeg" });
   assert.equal(greek.width, 2040, "greek");
   assert.ok(greek.height > 1500, "greek");
+  await renderer.idle();
+  assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");
+});
+
+// 宽 = 正文 2228（左边距 56 + 旧曲表 1280 + 空 28 + 新曲表 864）+ 朱娜那一栏 + 画框（左 98、右 97，见 theme.js 的 FRAME）。
+// 那一栏：/b50 照油画比例有 1800 多，收到上限 1500；/b30 正文矮，照比例不够，放宽到下限 1100（theme.js 的 SIZE），再凑成偶数。
+// 背景、画框、立绘是不进仓库的素材，没有也照样出图，所以只量尺寸
+test("felix 主题：B50、B30、有空位的 B50 都能出图，宽 3924 / 3524", { skip }, async (t) => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
+  t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
+  const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
+  const b50 = await renderer.render("felix", exampleData("preview-data.json", "felix"), { width: 3400, format: "jpeg" });
+  assert.equal(b50.width, 3924);
+  assert.ok(b50.height > 2500 && b50.height < 2900, "B50 高 " + b50.height);
+  const b30 = await renderer.render("felix", exampleData("b30.json", "felix"), { width: 3400, format: "jpeg" });
+  assert.equal(b30.width, 3524);
+  assert.ok(b30.height > 1800 && b30.height < 2100, "B30 高 " + b30.height);
+  // 旧曲只有 26 首、新曲一首都没有：空位照画，表一样高，图的大小不变
+  const partial = exampleData("preview-data.json", "felix");
+  partial.chapters[0].scores = partial.chapters[0].scores.slice(0, 26);
+  partial.chapters[1].scores = [];
+  const sparse = await renderer.render("felix", partial, { width: 3400, format: "jpeg" });
+  assert.deepEqual([sparse.width, sparse.height], [b50.width, b50.height]);
   await renderer.idle();
   assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");
 });

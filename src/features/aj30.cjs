@@ -30,7 +30,7 @@ module.exports = {
         const { assets, renderer } = ctx.services;
         const data = buildData({ mode: "aj30", player, scores, catalog });
         await attachAssets(data, assets);
-        // 跟 /b50 /b30 同一种图：纹理多，JPEG 质量 76、宽 2100 的视口
+        // 竖版的 best 主题（/b50 /b30 原来的样子，它们 2026-10-20 换成了横版 felix）：纹理多，JPEG 质量 76、宽 2100 的视口
         const image = await renderer.render("best", data, { width: 2100, height: 1000, format: "jpeg", quality: 76 });
         const count = data.chapters[0].scores.length;
         return { buffer: image.buffer, caption: count < OLD_SLOTS ? ctx.voice.aj30Few(count) : "" };

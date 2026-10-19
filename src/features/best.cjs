@@ -1,5 +1,6 @@
 "use strict";
-// /b50、/b30：成绩图，主题是 themes/best/（西比拉精灵记风格）。
+// /b50、/b30：成绩图，主题是 themes/felix/（横版，小时候的朱娜·菲利克斯，2026-10-20 起）。
+// 以前的竖版 themes/best/（西比拉精灵记风格）还给 /aj30、/aj50、/拟合定数b30 用，两个主题吃同一种数据。
 //
 //   /b50  现行 Rating 的构成：旧版本曲目的 Best 30 + 当前版本新曲的 Best 20，这 50 首单曲 Rating 的平均就是玩家 Rating。
 //         直接用落雪的 /bests（bests + new_bests），好友码绑定也带分数。
@@ -12,12 +13,14 @@
 // /aj50（src/features/aj50.cjs）同理，只是分新老版本、旧曲 30 + 新曲 20（跟 /b50 一样）。
 // /拟合定数b30（src/features/fit30.cjs）：把官方定数换成 EazyChu 的拟合定数，重算单曲 Rating 后取前 30，不分新旧。
 //
-// 主题吃的数据形状见 themes/best/examples/preview-data.json。buildData 是纯函数，测试和示例数据都用它。
+// 主题吃的数据形状见 themes/best/examples/preview-data.json（felix 的示例数据同形）。buildData 是纯函数，测试和示例数据都用它。
 
 const { rating: singleRating, truncate } = require("../score-math.cjs");
 
 const OLD_SLOTS = 30;
 const NEW_SLOTS = 20;
+// felix 的图很大（B50 约 3900×2700 CSS 像素）：按 1.5 倍出，JPEG 质量 76 约 3.5 MB；2 倍就超过作者要的 5 MB 了
+const RENDER_SCALE = 1.5;
 // AJ 含 AJC：AJC 是 AJ 的更严一档，/牌子进度的 Legend 也是这么算的
 const AJ = new Set(["alljustice", "alljusticecritical"]);
 const RANKS = [[1009000, "sssp"], [1007500, "sss"], [1005000, "ssp"], [1000000, "ss"], [990000, "sp"], [975000, "s"],
@@ -258,9 +261,12 @@ function feature(mode) {
           ]);
           const data = buildData({ mode, player, bests, scores, catalog });
           await attachAssets(data, assets);
-          // 纹理多，PNG 要十几 MB。JPEG 质量 76：卡片加宽以后 B50 约 4 MB（82 是 4.7 MB，作者要 5 MB 以内，曲绘花哨的号还会更大），放大看也没有明显的压缩痕迹
-          // 宽度以主题量出来的为准（画框加上内容约 2040 CSS 像素），这里的视口只要不比它窄
-          const image = await renderer.render("best", data, { width: 2100, height: 1000, format: "jpeg", quality: 76 });
+          // 纹理多，出 JPEG（质量 76 同其他图）。尺寸以主题量出来的为准（B50 宽约 3900、/b30 约 3500 CSS 像素，
+          // 画框里的画面照油画的比例），视口只要别太窄。曲绘花哨的号可能更大，超过 5 MB 就在同一页面降质量重新截
+          const image = await renderer.render("felix", data, {
+            width: 3400, height: 1200, format: "jpeg", quality: 76, scale: RENDER_SCALE,
+            maxBytes: 5_000_000, fallbackQualities: [70, 64],
+          });
           const caption = data.exact ? "" : ctx.voice.bestMaybeIncomplete(ctx.subject.isSelf && Boolean(ctx.services.bindings?.oauthEnabled));
           return { buffer: image.buffer, caption };
         },
@@ -272,5 +278,5 @@ function feature(mode) {
 // 功能清单（index.cjs 里展开）只认数组里的两个功能；整理数据的函数挂在数组上，给测试和示例数据用。
 module.exports = Object.assign([feature("b50"), feature("b30")], {
   buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores, rankOf, stamp, playerView, newVersionFloor,
-  OLD_SLOTS, NEW_SLOTS,
+  OLD_SLOTS, NEW_SLOTS, RENDER_SCALE,
 });

@@ -1,7 +1,9 @@
 # best：B30 / B50 / AJ30 / AJ50 / 拟合 B30 成绩图
 
-`/b50`、`/b30`、辅助表 `/aj30`、`/aj50`、`/拟合定数b30` 用的主题（功能代码在 `src/features/best.cjs`、
-`src/features/aj30.cjs`、`src/features/aj50.cjs`、`src/features/fit30.cjs`）。风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
+辅助表 `/aj30`、`/aj50`、`/拟合定数b30` 用的主题（功能代码在 `src/features/aj30.cjs`、`src/features/aj50.cjs`、
+`src/features/fit30.cjs`，数据整理在 `src/features/best.cjs`）。`/b50`、`/b30` 原来也用它，2026-10-20 换成了横版的
+`../felix/`（数据同形，卡片画法照搬这里，这边改了那边也要看）；下面说到 `/b50`、`/b30` 的地方指的是原来竖版的样子。
+风格照中二节奏的「西比拉精灵记」（シビュラ精霊記）：
 
 - `/aj30` 跟 `/b30` 是同一套版式：一栏 30 首，只挑 AJ（含 AJC）的谱面、不分新曲老曲。章节名是「全曲 AJ」、
   缎带和图表标题写「AJ 30」、页眉的统计格也是「AJ 30」，跟 `/b30` 的「全曲 / Best 30」区分开；新曲照样带 New 标记。
