@@ -29,7 +29,6 @@ const { rating: singleRating } = require("./score-math.cjs");
 
 const VERSION = 1;
 const BATCH_GAP_MS = 15000;
-const BEIJING_OFFSET_MS = 8 * 60 * 60 * 1000;
 const FC_RANK = { alljusticecritical: 3, alljustice: 2, fullcombo: 1 };
 
 const BEIJING = new Intl.DateTimeFormat("en-CA", {
@@ -42,13 +41,6 @@ const pad = (value) => String(value).padStart(2, "0");
 function beijingParts(date) {
   const parts = Object.fromEntries(BEIJING.formatToParts(date).map(({ type, value }) => [type, value]));
   return { year: Number(parts.year), month: Number(parts.month), day: Number(parts.day), hour: Number(parts.hour), minute: Number(parts.minute) };
-}
-
-// 北京时间某一天的 0 点（days 是相对今天的天数，month 是本月 1 日）
-function beijingMidnight(date = new Date(), { days = 0, month = false } = {}) {
-  const parts = beijingParts(date);
-  const utc = month ? Date.UTC(parts.year, parts.month - 1, 1) : Date.UTC(parts.year, parts.month - 1, parts.day + days);
-  return new Date(utc - BEIJING_OFFSET_MS);
 }
 
 function formatTime(ms, { withDate = true } = {}) {
@@ -65,17 +57,6 @@ function formatDay(ms) {
 function dayKey(ms) {
   const parts = beijingParts(new Date(ms));
   return parts.year + "-" + pad(parts.month) + "-" + pad(parts.day);
-}
-
-// 命令参数：不带、最新、今天、7天、15天、本月。别的天数（14 天、8 天）不认。
-function parseWindow(arg, { now = new Date() } = {}) {
-  const text = String(arg ?? "").normalize("NFKC").replace(/\s+/g, "").trim();
-  if (!text || text === "最新") return { kind: "latest", label: "最近一次", from: null };
-  if (text === "今天") return { kind: "today", label: "今天", from: beijingMidnight(now) };
-  if (text === "7天" || text === "七天") return { kind: "7d", label: "最近 7 天", from: beijingMidnight(now, { days: -6 }) };
-  if (text === "15天" || text === "十五天") return { kind: "15d", label: "最近 15 天", from: beijingMidnight(now, { days: -14 }) };
-  if (text === "本月" || text === "这个月") return { kind: "month", label: "本月", from: beijingMidnight(now, { month: true }) };
-  return null;
 }
 
 function keyOf(value, levelIndex) {
@@ -280,7 +261,7 @@ function b50(map, info) {
     if (!meta || meta.disabled || !(meta.constant > 0)) continue;
     const value = singleRating(meta.constant, Number(record.score) || 0);
     if (!(value > 0)) continue;
-    rows.push({ key, title: meta.title, level: meta.level, isNew: meta.isNew, score: Number(record.score) || 0, fc: record.fc || null, rating: value });
+    rows.push({ key, title: meta.title, level: meta.level, constant: meta.constant, isNew: meta.isNew, score: Number(record.score) || 0, fc: record.fc || null, rating: value });
   }
   const order = (a, b) => b.rating - a.rating || b.score - a.score;
   const old = rows.filter((row) => !row.isNew).sort(order).slice(0, 30);
@@ -386,7 +367,7 @@ function groupDays(batches) {
   }));
 }
 
-// 画图/回话用的整理结果。window 是 parseWindow 的结果（最新档的 from 由调用方补上）。
+// 画图/回话用的整理结果。window 的 from 由调用方设为最近一批的起点。
 function buildReport({ state, window, to = new Date(), catalog, floor, player } = {}) {
   const { points, batches: all, initial } = replay(state, { catalog, floor });
   const from = window?.from || new Date(state.at);
@@ -487,7 +468,7 @@ function createHistoryStore({ dir, log = () => {} } = {}) {
 }
 
 module.exports = {
-  VERSION, BATCH_GAP_MS, parseWindow, beijingMidnight, formatTime, formatDay,
+  VERSION, BATCH_GAP_MS, formatTime, formatDay,
   keyOf, latestFrom, buildFrom, collect, replay, buildReport, groupEvents, toEvents, b50,
   createHistoryStore, hashOpenid,
 };

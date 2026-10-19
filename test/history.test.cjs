@@ -1,5 +1,5 @@
 "use strict";
-// /推分记录：窗口边界、按 upload_time 分批、补历史、重放 B50、进榜/移出、存储，
+// /推分记录：北京时间、按 upload_time 分批、补历史、重放 B50、进榜/移出、存储，
 // 再走一遍端到端（假 QQ + 假落雪，检查图片数据与无记录文案）。
 const test = require("node:test");
 const assert = require("node:assert/strict");
@@ -18,7 +18,7 @@ const { createAssets } = require("../src/assets.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
 const {
-  parseWindow, latestFrom, buildFrom, collect, buildReport, toEvents, createHistoryStore, hashOpenid,
+  formatTime, latestFrom, buildFrom, collect, buildReport, toEvents, createHistoryStore, hashOpenid,
 } = require("../src/history.cjs");
 
 const FC1 = "123456789012345";
@@ -48,19 +48,9 @@ function score(id, levelIndex, value, time, extra = {}) {
   };
 }
 
-test("窗口：最新 / 今天 / 7天 / 15天 / 本月，别的天数不认；日期按北京时间 0 点", () => {
-  const now = new Date("2026-10-19T12:00:00+08:00");
-  assert.deepEqual(parseWindow("", { now }), { kind: "latest", label: "最近一次", from: null });
-  assert.deepEqual(parseWindow("最新", { now }), { kind: "latest", label: "最近一次", from: null });
-  assert.equal(parseWindow("今天", { now }).from.toISOString(), "2026-10-18T16:00:00.000Z");
-  assert.equal(parseWindow("7天", { now }).from.toISOString(), "2026-10-12T16:00:00.000Z");
-  assert.equal(parseWindow(" 7 天 ", { now }).from.toISOString(), "2026-10-12T16:00:00.000Z");
-  assert.equal(parseWindow("七天", { now }).from.toISOString(), "2026-10-12T16:00:00.000Z");
-  assert.equal(parseWindow("15天", { now }).from.toISOString(), "2026-10-04T16:00:00.000Z");
-  assert.equal(parseWindow("本月", { now }).from.toISOString(), "2026-09-30T16:00:00.000Z");
-  assert.equal(parseWindow("14天", { now }), null);
-  assert.equal(parseWindow("8天", { now }), null);
-  assert.equal(parseWindow("上周", { now }), null);
+test("时间：上传日期按北京时间展示，跨日仍正确", () => {
+  assert.equal(formatTime(Date.parse("2026-10-19T16:05:00Z")), "10/20 00:05");
+  assert.equal(formatTime(Date.parse("2026-10-19T16:05:00Z"), { withDate: false }), "00:05");
 });
 
 test("最近一批：upload_time 相差 ≤15 秒算同一批", () => {
@@ -160,6 +150,8 @@ test("进榜/移出：一首挤进前 50，把第 50 名挤出去，影响是两
   assert.equal(report.latest.entered.length, 1);
   assert.equal(report.latest.entered[0].key, "3000:3");
   assert.equal(report.latest.left.length, 1);
+  assert.equal(report.latest.entered[0].constant, catalog.chart(catalog.getSong(3000), 3).level_value);
+  assert.equal(report.latest.left[0].constant, 15);
   assert.ok(Math.abs(report.latest.impact - 0.003) < 1e-9);
   assert.equal(report.counts.entered, 1);
   assert.equal(report.counts.left, 1);
@@ -231,7 +223,7 @@ function todayAt(hour) {
   return new Date(start.getTime() + hour * 3600 * 1000).toISOString();
 }
 
-test("/推分记录 端到端：授权、参数、最新/今天出图，没记录仍回文字", async (t) => {
+test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒绝且不访问历史", async (t) => {
   const s = await setup(t);
   const songs = s.lx.state.songList.songs;
   const current = [
@@ -259,29 +251,29 @@ test("/推分记录 端到端：授权、参数、最新/今天出图，没记�
   assert.equal(s.last().msg_type, 7);
   let image = s.rendered.at(-1);
   assert.equal(image.theme, "history");
-  assert.equal(image.data.batches[0].timeText, "10/19 11:00");
+  assert.equal(image.data.batchTime, "10/19 11:00");
   assert.equal(image.data.rating.end.toFixed(3), "0.646");
-  assert.equal(image.data.batches[0].events[0].rating.toFixed(4), "17.6500");
+  assert.equal(image.data.events[0].rating.toFixed(4), "17.6500");
 
   await s.group("/推分记录 14天", opts);
   assert.equal(s.last().content, V.historyUsage);
   assert.equal(s.lx.state.requests.filter((request) => request.path.includes("/score/history")).length, 1,
     "参数不认时不读历史");
 
-  await s.group("/推分记录 今天", opts);
-  image = s.rendered.at(-1);
-  assert.equal(image.data.windowLabel, "今天");
-  assert.equal(image.data.counts.batches, 2);
-  assert.equal(image.data.composition.entered, 2);
-  await s.group("/推分记录 今天 第99页", opts);
-  assert.match(s.last().content, /只有 1 页/);
+  const requests = s.lx.state.requests.length;
+  const rendered = s.rendered.length;
+  for (const arg of ["今天", "7天", "15天", "本月", "最新", "第2页", "今天 第99页"]) {
+    await s.group("/推分记录 " + arg, opts);
+    assert.equal(s.last().content, V.historyUsage);
+  }
+  assert.equal(s.lx.state.requests.length, requests);
+  assert.equal(s.rendered.length, rendered);
 
-  // 今天没有推分：说最近一次是什么时候
+  // 昨天的最新批次照样能展示，不会因为今天没上传而变成空白。
   s.lx.addPlayer({ friendCode: FC3, name: "昨天玩家", scores: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))],
     history: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))] });
   await s.authorize("U3", FC3);
-  await s.group("/推分记录 今天", { user: "U3" });
-  const text = s.last().content;
-  assert.match(text, /^今天还没有推分记录。最近一次是 10\/18 22:00/);
-  assert.match(text, /\/推分记录 最新/);
+  await s.group("/推分记录", { user: "U3" });
+  assert.equal(s.last().msg_type, 7);
+  assert.equal(s.rendered.at(-1).data.batchTime, "10/18 22:00");
 });

@@ -61,12 +61,12 @@ body {
     linear-gradient(180deg, rgba(16, 11, 6, 0.08) 0px, rgba(16, 11, 6, 0.22) 900px, rgba(16, 11, 6, 0.55) 1700px, rgba(16, 11, 6, 0.66) 100%);
 }
 /* 安娜：位置、大小由 theme.js 按 .stand 那块的位置写上；脚下渐隐。
-   比 /单曲（0.5）、/谱面分析（0.55）实一些：0.55 跟背景建筑糊在一起、0.7 还嫌淡，最后定 0.85（作者 2026-10-18 试的） */
+   比 /单曲（0.5）、/谱面分析（0.55）实一些；作者 2026-10-19 指定透明度 23%，对应不透明度 0.77。 */
 .anna {
   position: absolute;
   display: block;
   max-width: none;
-  opacity: 0.85;
+  opacity: 0.77;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 99%);
 }

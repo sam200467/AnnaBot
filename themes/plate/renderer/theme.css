@@ -99,7 +99,7 @@ body {
   position: absolute;
   display: block;
   max-width: none;
-  opacity: 0.9;
+  opacity: 0.75;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 99%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 99%);
 }
