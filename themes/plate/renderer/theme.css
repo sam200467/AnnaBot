@@ -343,7 +343,8 @@ body {
 /* 通关标记：跟 /分数列表 一样的实心小牌子。2026-10-19 作者要求徽标更显眼：字号 18→22px、牌子 27→32px；
    长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS），一行才放得下 */
 .marks { display: flex; gap: 5px; height: 32px; margin-top: 2px; overflow: hidden; font-size: 22px; }
-.mark { flex: none; display: flex; align-items: center; height: 32px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+/* 文楷大写字母视觉上偏下，底部留 4px，将文字上提 2px，牌子本身不动。 */
+.mark { flex: none; display: flex; align-items: center; height: 32px; padding: 0 0.45em 4px; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
 .mark.fc, .mark.aj, .mark.ajc {
   box-shadow:
     inset 0 0 0 1px rgba(30, 12, 4, 0.55),

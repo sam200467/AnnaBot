@@ -216,13 +216,11 @@ module.exports = Object.assign({
         const data = buildData({ version, songs, scores, player, catalog });
         await attachAssets(data, assets);
         // 宽 4300 左右（画框加十列卡片），高跟着曲数走；视口只要不比它窄。JPEG 质量 76 同其他图，倍率见 RENDER_SCALE
-        const options = { width: 4600, height: 2400, format: "jpeg", quality: 76, scale: RENDER_SCALE };
-        let image = await renderer.render("plate", data, options);
-        // 实物框和卡片纹理增加 JPEG 体积；仅超限时降低压缩质量，保持文字大小和出图分辨率。
-        for (const quality of [68, 60, 52]) {
-          if (image.buffer.length <= 5_000_000) break;
-          image = await renderer.render("plate", data, { ...options, quality });
-        }
+        // 超限时在同一页面重新截图压缩，省掉重开浏览器、加载字体和整页排版。
+        const image = await renderer.render("plate", data, {
+          width: 4600, height: 2400, format: "jpeg", quality: 76, scale: RENDER_SCALE,
+          maxBytes: 5_000_000, fallbackQualities: [68, 60, 52],
+        });
         return { buffer: image.buffer };
       },
     });

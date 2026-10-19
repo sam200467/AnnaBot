@@ -77,3 +77,10 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
 
 `best` 主题的 `bakeTextures`（纹理先画成位图）、`shadowImage`（影子画进 canvas 再转成 `<img>`）可以照搬，做法和量出来的数在
 `best/README.md` 的「出图要快」。在本机模拟服务器：把出图进程限制在 1 个核，浏览器加 `--disable-gpu`（`createRenderer` 的 `browserArgs`）。
+
+2026-10-19：服务器的牌子进度遇到 `Runtime.evaluate` 30 秒超时，页面执行现在单独给 60 秒，
+等待页面导航和主题就绪各给 90 秒，截图仍是 180 秒。失败日志会写明测量尺寸、等待布局稳定等具体阶段；
+浏览器命令超时且首次尝试总用时不足 90 秒时，先清理旧浏览器，再重开一次；主题脚本错误不重试。
+
+JPEG 超限时可以给 `render` 传 `maxBytes` 和 `fallbackQualities`（如 `[68, 60, 52]`）：
+只在当前页面重新截图编码，不重复起浏览器、加载字体和排版。牌子进度已使用这个方式，分辨率和原有质量档位不变。

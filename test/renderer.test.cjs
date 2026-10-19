@@ -77,10 +77,78 @@ test("按主题量出来的尺寸截图，倍率生效；本地图片能加载�
 
 test("主题脚本出错时马上带着原因失败，不等到超时；浏览器和临时目录照样收拾掉", { skip }, async (t) => {
   const tmp = scratch(t);
-  const renderer = createRenderer({ themesDir: themes(t), timeoutMs: 20000, tmpDir: tmp });
+  const logs = [];
+  const renderer = createRenderer({ themesDir: themes(t), timeoutMs: 20000, tmpDir: tmp, log: (line) => logs.push(line) });
   const started = Date.now();
   await assert.rejects(renderer.render("boom", {}), /主题 boom 出错：TypeError/);
   assert.ok(Date.now() - started < 15000);
+  assert.ok(logs.some((line) => line.includes("「等待主题就绪」失败")));
+  assert.ok(!logs.some((line) => line.includes("重试一次")), "主题脚本错误不重试");
+  await renderer.idle();
+  assert.deepEqual(leftovers(tmp), []);
+});
+
+// 保留真实浏览器，只丢弃指定次数的布局稳定命令来模拟服务器偶发无响应。
+function stallLayout(t, count) {
+  const NativeWebSocket = globalThis.WebSocket;
+  const state = { browsers: 0, stalled: 0 };
+  t.after(() => { globalThis.WebSocket = NativeWebSocket; });
+  globalThis.WebSocket = class extends NativeWebSocket {
+    constructor(...args) { super(...args); state.browsers++; }
+    send(raw) {
+      const message = JSON.parse(raw);
+      if (message.method === "Runtime.evaluate" && message.params.expression.includes("requestAnimationFrame") && state.stalled < count) {
+        state.stalled++;
+        return;
+      }
+      return super.send(raw);
+    }
+  };
+  return state;
+}
+
+test("页面执行偶发超时：记录失败阶段，结束旧浏览器后换新浏览器重试，最终正常出图", { skip }, async (t) => {
+  const tmp = scratch(t);
+  const state = stallLayout(t, 1);
+  const logs = [];
+  const renderer = createRenderer({ themesDir: themes(t), tmpDir: tmp, evaluateTimeoutMs: 1000, log: (line) => logs.push(line) });
+  t.after(() => renderer.idle());
+  const out = await renderer.render("sized", { image: "" });
+  assert.deepEqual(pngSize(out.buffer), { width: 600, height: 400 });
+  assert.equal(state.browsers, 2);
+  assert.equal(state.stalled, 1);
+  assert.ok(logs.some((line) => line.includes("「等待布局稳定」失败") && line.includes("Runtime.evaluate")));
+  assert.equal(logs.filter((line) => line.includes("重试一次")).length, 1);
+  await renderer.idle();
+  assert.deepEqual(leftovers(tmp), []);
+});
+
+test("页面执行连续超时：最多重试一次，最终保留原始错误，两次临时目录都清掉", { skip }, async (t) => {
+  const tmp = scratch(t);
+  const state = stallLayout(t, Infinity);
+  const renderer = createRenderer({ themesDir: themes(t), tmpDir: tmp, evaluateTimeoutMs: 1000 });
+  t.after(() => renderer.idle());
+  await assert.rejects(renderer.render("sized", { image: "" }), { code: "BROWSER_TIMEOUT", message: "浏览器命令 Runtime.evaluate 超时（1 秒）" });
+  assert.equal(state.browsers, 2);
+  await renderer.idle();
+  assert.deepEqual(leftovers(tmp), []);
+});
+
+test("JPEG 超限后复用页面重新压缩：只起一次浏览器、不重新排版，尺寸保持一致", { skip }, async (t) => {
+  const tmp = scratch(t);
+  const NativeWebSocket = globalThis.WebSocket;
+  const commands = [];
+  t.after(() => { globalThis.WebSocket = NativeWebSocket; });
+  globalThis.WebSocket = class extends NativeWebSocket {
+    send(raw) { commands.push(JSON.parse(raw)); return super.send(raw); }
+  };
+  const renderer = createRenderer({ themesDir: themes(t), tmpDir: tmp });
+  t.after(() => renderer.idle());
+  const out = await renderer.render("sized", { image: "" }, { format: "jpeg", quality: 76, maxBytes: 1, fallbackQualities: [68, 52] });
+  assert.equal(out.buffer[0], 0xff);
+  assert.deepEqual([out.width, out.height], [600, 400]);
+  assert.equal(commands.filter((item) => item.method === "Page.navigate").length, 1);
+  assert.deepEqual(commands.filter((item) => item.method === "Page.captureScreenshot").map((item) => item.params.quality), [76, 68, 52]);
   await renderer.idle();
   assert.deepEqual(leftovers(tmp), []);
 });

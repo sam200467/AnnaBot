@@ -237,6 +237,7 @@ test("/牌子进度 端到端：好友码绑定请去授权；授权的出图（
   const first = s.renders.at(-1);
   assert.equal(first.theme, "plate");
   assert.deepEqual([first.options.format, first.options.quality, first.options.scale], ["jpeg", 76, RENDER_SCALE]);
+  assert.deepEqual([first.options.maxBytes, first.options.fallbackQualities], [5_000_000, [68, 60, 52]]);
   assert.deepEqual([first.data.version.name, first.data.cards.length, first.data.table.rows[0].counts], ["SUN PLUS", 5, [3, 3, 4, 4]]);
   assert.deepEqual([first.data.player.name, first.data.player.rating], ["授权玩家", 17], "名片板上的名字和总 Rating 跟着出图数据一起取");
   assert.match(first.data.cards[0].jacket, /^file:\/\/.*jacket[\\/]2402\.png$/);

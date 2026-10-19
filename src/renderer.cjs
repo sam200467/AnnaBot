@@ -45,12 +45,18 @@ const MAX_PIXELS = 50_000_000;
 
 // 浏览器临时目录的前缀，清扫按它认
 const PROFILE_PREFIX = "anna-render-";
-// 清扫只删建了这么久的：一张图最多几分钟（起浏览器 30 秒 + 等主题 60 秒 + 截图 3 分钟），正在用的目录不会这么旧。
+// 清扫只删建了这么久的：单次出图、重试都只花几分钟，正在用的目录不会这么旧。
 // 别的进程（比如开着 Anna 的同时跑 npm run try）正在出图的目录也就不会被误删。
 const LEFTOVER_AGE_MS = 60 * 60 * 1000;
 
-// 截图（Page.captureScreenshot）的时限，见 render 里的说明。别的浏览器命令还是 30 秒
+// 无显卡服务器上，测量尺寸、等布局稳定也可能超过 30 秒，页面执行单独给 60 秒。
+const EVALUATE_TIMEOUT_MS = 60 * 1000;
+// 截图（Page.captureScreenshot）的时限，见 render 里的说明。
 const CAPTURE_TIMEOUT_MS = 180 * 1000;
+
+function browserTimeout(message) {
+  return Object.assign(new Error(message), { code: "BROWSER_TIMEOUT" });
+}
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -91,12 +97,13 @@ async function closeBrowser({ proc, gone, userDataDir }) {
 
 // Chrome DevTools Protocol 客户端，照 MiaBot 的 CDP 类写的。用 Node 22 自带的 WebSocket。
 class CDP {
-  constructor(wsUrl, { commandTimeoutMs = 30000 } = {}) {
+  constructor(wsUrl, { commandTimeoutMs = 30000, evaluateTimeoutMs = EVALUATE_TIMEOUT_MS } = {}) {
     this.wsUrl = wsUrl;
     this.ws = null;
     this.id = 0;
     this.pending = new Map();
     this.commandTimeoutMs = commandTimeoutMs;
+    this.evaluateTimeoutMs = evaluateTimeoutMs;
   }
 
   async connect() {
@@ -123,7 +130,7 @@ class CDP {
       const id = ++this.id;
       const timer = setTimeout(() => {
         this.pending.delete(id);
-        reject(new Error("浏览器命令 " + method + " 超时（" + timeoutMs / 1000 + " 秒）"));
+        reject(browserTimeout("浏览器命令 " + method + " 超时（" + timeoutMs / 1000 + " 秒）"));
       }, timeoutMs);
       this.pending.set(id, { resolve, reject, timer });
       try { this.ws.send(JSON.stringify({ id, method, params })); }
@@ -131,8 +138,8 @@ class CDP {
     });
   }
 
-  async evaluate(expression) {
-    const result = await this.send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true });
+  async evaluate(expression, timeoutMs = this.evaluateTimeoutMs) {
+    const result = await this.send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true }, timeoutMs);
     if (result.exceptionDetails) {
       const detail = result.exceptionDetails.exception?.description || result.exceptionDetails.text || "未知错误";
       throw new Error("页面执行出错：" + String(detail).slice(0, 500));
@@ -149,12 +156,16 @@ class CDP {
   async waitFor(expression, timeoutMs, intervalMs) {
     const started = Date.now();
     for (;;) {
+      const remaining = timeoutMs - (Date.now() - started);
+      if (remaining <= 0) throw new Error("等待超时：" + expression.slice(0, 80));
       try {
-        const value = await this.evaluate(expression);
+        const value = await this.evaluate(expression, Math.min(this.evaluateTimeoutMs, remaining));
         if (value) return value;
-      } catch { /* 导航途中上下文会换，下一轮再试 */ }
-      if (Date.now() - started > timeoutMs) throw new Error("等待超时：" + expression.slice(0, 80));
-      await sleep(intervalMs);
+      } catch (error) {
+        // 只有导航切换上下文值得再轮询；命令已经超时就交给外层重开浏览器，避免吞掉真正原因。
+        if (!/Cannot find context|Execution context was destroyed|Inspected target navigated/.test(error.message)) throw error;
+      }
+      await sleep(Math.min(intervalMs, Math.max(0, timeoutMs - (Date.now() - started))));
     }
   }
 
@@ -227,7 +238,8 @@ async function launchBrowser(browserPath, timeoutMs, tmpDir, extraArgs = []) {
 
 // tmpDir：浏览器临时目录放哪，默认系统临时目录（测试换成自己的临时目录，好检查删干净没有）。
 function createRenderer({
-  themesDir, browserPath = "", scale = 2, timeoutMs = 60000, captureTimeoutMs = CAPTURE_TIMEOUT_MS, browserArgs = [],
+  themesDir, browserPath = "", scale = 2, timeoutMs = 90000, evaluateTimeoutMs = EVALUATE_TIMEOUT_MS,
+  captureTimeoutMs = CAPTURE_TIMEOUT_MS, browserArgs = [],
   tmpDir = os.tmpdir(), log = () => {},
 } = {}) {
   // 还没收拾完的浏览器、正在清扫的目录。出完图先把图交出去，这些在后台做；idle() 等它们都做完
@@ -266,9 +278,9 @@ function createRenderer({
 
   // 返回 { buffer, width, height, format }，width/height 是输出图片的像素尺寸。
   // options.width/height 是初始视口（CSS 像素），主题按它排版；截图尺寸以主题量出来的为准。
-  async function render(theme, data, options = {}) {
+  async function renderOnce(theme, data, options = {}) {
     const {
-      width = 1280, height = 720, format = "png", quality = 90,
+      width = 1280, height = 720, format = "png", quality = 90, maxBytes = 0, fallbackQualities = [],
     } = options;
     const outputScale = options.scale || scale;
     const html = path.join(themesDir, theme, "renderer", "theme.html");
@@ -280,21 +292,27 @@ function createRenderer({
     const marks = [started];   // 起浏览器、排版、截图各花了多久，记进日志
     let browser = null;
     let cdp = null;
+    let stage = "启动浏览器";
+    let failed = false;
     try {
       browser = await launchBrowser(executable, 30000, tmpDir, browserArgs);
       marks.push(Date.now());
-      cdp = new CDP(browser.wsUrl);
+      stage = "连接并初始化页面";
+      cdp = new CDP(browser.wsUrl, { evaluateTimeoutMs });
       await cdp.connect();
       await cdp.send("Page.enable");
       await cdp.send("Runtime.enable");
       await cdp.send("Page.addScriptToEvaluateOnNewDocument", { source: "window.__THEME_DATA__ = " + JSON.stringify(data ?? null) + ";" });
       await cdp.send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: outputScale, mobile: false });
+      stage = "打开主题页面";
       await cdp.navigate(pathToFileURL(html).href, timeoutMs);
+      stage = "等待主题就绪";
       const state = await cdp.waitFor(
         "window.__THEME_ERROR__ ? { error: String(window.__THEME_ERROR__) } : (window.__THEME_READY__ === true ? { ok: true } : null)",
         timeoutMs, 100);
       if (state.error) throw new Error("主题 " + theme + " 出错：" + state.error);
 
+      stage = "测量图片尺寸";
       const size = await cdp.evaluate(`(() => {
         const s = window.__THEME_SIZE__;
         if (s && s.width > 0 && s.height > 0) return { width: Math.ceil(s.width), height: Math.ceil(s.height) };
@@ -305,36 +323,70 @@ function createRenderer({
         throw new Error("图太大了：" + size.width + "×" + size.height + " ×" + outputScale + " 倍");
       }
       marks.push(Date.now());
+      stage = "调整截图视口";
       // 视口改成内容的大小再截，长图才不会被视口截断；改完等两帧让布局稳定。
       await cdp.send("Emulation.setDeviceMetricsOverride", { width: size.width, height: size.height, deviceScaleFactor: outputScale, mobile: false });
+      stage = "等待布局稳定";
       await cdp.evaluate("new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))");
       // 截图要把整张图光栅化一遍，没有显卡的机器上全靠 CPU，比别的命令慢得多：2026-10-16 服务器上出 B30 用了 32 秒，
       // B50 截图一步就超过了 30 秒（当时所有命令共用 30 秒的时限），所以截图单独给一个宽得多的时限
-      const shot = await cdp.send("Page.captureScreenshot", {
+      stage = "截图";
+      const capture = (jpegQuality) => cdp.send("Page.captureScreenshot", {
         format,
-        ...(format === "jpeg" ? { quality } : {}),
+        ...(format === "jpeg" ? { quality: jpegQuality } : {}),
         fromSurface: true,
         captureBeyondViewport: true,
         clip: { x: 0, y: 0, width: size.width, height: size.height, scale: 1 },
       }, captureTimeoutMs);
-      const buffer = Buffer.from(shot.data || "", "base64");
+      let shot = await capture(quality);
+      let buffer = Buffer.from(shot.data || "", "base64");
       if (buffer.length < 100) throw new Error("截图数据异常");
+      // 超过 QQ 大小时只重新截图编码：页面、字体和纹理都保留，省掉重开浏览器和整页排版。
+      if (format === "jpeg" && maxBytes > 0) {
+        for (const nextQuality of fallbackQualities) {
+          if (buffer.length <= maxBytes) break;
+          stage = "截图压缩（质量 " + nextQuality + "）";
+          log("出图 " + theme + " 超过体积限制，复用页面以质量 " + nextQuality + " 重新截图");
+          shot = await capture(nextQuality);
+          buffer = Buffer.from(shot.data || "", "base64");
+          if (buffer.length < 100) throw new Error("截图数据异常");
+        }
+      }
       marks.push(Date.now());
       const seconds = (from, to) => ((to - from) / 1000).toFixed(1);
       log("出图 " + theme + "：" + size.width * outputScale + "×" + size.height * outputScale + "，" +
         Math.round(buffer.length / 1024) + " KiB，" + seconds(started, marks[3]) + " 秒" +
         "（起浏览器 " + seconds(marks[0], marks[1]) + "、排版 " + seconds(marks[1], marks[2]) + "、截图 " + seconds(marks[2], marks[3]) + "）");
       return { buffer, width: size.width * outputScale, height: size.height * outputScale, format };
+    } catch (error) {
+      failed = true;
+      log("⚠ 出图 " + theme + " 在「" + stage + "」失败（已用 " + ((Date.now() - started) / 1000).toFixed(1) + " 秒）：" + error.message);
+      throw error;
     } finally {
       cdp?.close();
       if (browser) {
         // 图先交出去，浏览器和目录在后台收拾；顺带每小时最多清扫一次以前留下的（这个进程里第一张图出完就扫一次）
         const { userDataDir } = browser;
-        track(closeBrowser(browser).then((removed) => {
+        const cleanup = track(closeBrowser(browser).then((removed) => {
           if (!removed) log("⚠ 出图的临时浏览器目录没删掉，以后清扫时再删：" + userDataDir);
           if (Date.now() - lastSweep >= LEFTOVER_AGE_MS) return sweep();
         }));
+        // 失败时先彻底结束旧浏览器，再允许重试，避免两份大图争 CPU 和内存。
+        if (failed) await cleanup;
       }
+    }
+  }
+
+  async function render(theme, data, options = {}) {
+    const started = Date.now();
+    try {
+      return await renderOnce(theme, data, options);
+    } catch (error) {
+      // 重试只覆盖浏览器命令超时；主题脚本错误、尺寸错误等重画也不会好。
+      // 已耗时太久就不重试，给 QQ 群聊的 5 分钟回复窗口留余量。
+      if (error.code !== "BROWSER_TIMEOUT" || Date.now() - started >= 90000) throw error;
+      log("出图 " + theme + " 遇到浏览器超时，换一个临时浏览器重试一次");
+      return renderOnce(theme, data, options);
     }
   }
 
