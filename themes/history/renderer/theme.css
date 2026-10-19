@@ -40,9 +40,10 @@ footer { margin-top:26px; font-size:24px; color:#c8b69c; text-shadow:0 2px 5px #
 
 .constant { flex:none; min-width:59px; font-size:27px; color:#ddcba7; text-align:center; }
 
-/* 定数跟随难度；在深色底板上使用较亮的同色文字。ULT 保留黑红描边。 */
+/* 定数跟随难度标识的底色、提亮。ULT 的底色近黑（#211c20），同一色相只提亮到刚好认得出：再暗在底板上就看不见，
+   再亮成了浅灰，跟黑底标识对不上（作者要的是底色，不是砖红边框）。用实心字，描边在缩小后会吞掉数字笔画。 */
 .difficulty.d0 + .constant { color:#a6ce94; }
 .difficulty.d1 + .constant { color:#e8ca6e; }
 .difficulty.d2 + .constant { color:#eb9187; }
 .difficulty.d3 + .constant { color:#c79cde; }
-.difficulty.d4 + .constant { color:#32202a; -webkit-text-stroke:1.2px #dda9aa; text-shadow:0 0 3px #dda9aa55; }
+.difficulty.d4 + .constant { color:#746370; }
