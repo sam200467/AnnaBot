@@ -1,6 +1,6 @@
 /* 牌子进度（一个版本的 Spirit / Tribute / Legend 称号完成到哪了）：西比拉精灵记里希望之巫女涅菲谢（希望の巫女 ネフェシェ）的画面。
  *
- * 横图。框里是科尔的《人生的旅程·青年》（作者挑的），按原比例铺满宽度、不压暗；涅菲谢站在右边，前几行卡片排在她左边，
+ * 横图。框里是科尔的《人生的旅程·青年》（作者挑的），按画布高度等比铺满（左右裁一点）、不压暗；涅菲谢站在右边三列，前五行卡片排在她左边，
  * 过了她再铺满十列。左上角名片板、中间版本名、右边统计表；左下角是版本总览。
  *
  * 画框是 B 的象牙白 + 香槟金：直边是 CSS 线脚，四角是矢量金花，顶/底中心是紫花金椭圆。
@@ -93,11 +93,7 @@ body {
 
 .canvas { position: relative; overflow: hidden; display: flex; flex-direction: column; background: #24261a; }
 .canvas::after { content: ""; position: absolute; inset: 0; z-index: 20; pointer-events: none; box-shadow: inset 0 0 0 1.5px rgba(20, 14, 6, 0.85), inset 0 0 16px 3px rgba(10, 8, 4, 0.45); }
-.painting { position: absolute; left: 0; top: 0; display: block; max-width: none; }
-.painting.fade {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
-}
+.painting { position: absolute; left: 0; top: 0; display: block; max-width: none; object-fit: cover; object-position: center top; }
 
 .sibyl {
   position: absolute;
@@ -114,9 +110,11 @@ body {
 .grid { flex: none; list-style: none; display: grid; grid-template-columns: repeat(10, 400px); gap: 18px 16px; grid-auto-flow: row dense; }
 
 
-.head { grid-column: 1 / 9; grid-row: 1; display: flex; align-items: flex-start; gap: 46px; padding: 60px 110px 22px 100px; }
+/* 抬头只占前七列：右边统计表的右缘跟第 3～7 行卡片的右缘（第 7 列右边界）对齐，
+ * 右边三列整块留给涅菲谢，表格不再压在她的透明留白上（作者 2026-10-19 要的）。 */
+.head { grid-column: 1 / 8; grid-row: 1; display: flex; align-items: flex-start; gap: 46px; padding: 60px 0 22px 100px; }
 
-.stand { grid-column: 9 / 11; grid-row: 1 / span 4; }
+.stand { grid-column: 8 / 11; grid-row: 1 / span 7; }
 
 .lead { grid-column: 1 / -1; grid-row: 2; height: 78px; }
 

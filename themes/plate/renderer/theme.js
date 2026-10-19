@@ -15,16 +15,18 @@
   const TIER_TEXT = { aj: "AJ", sss: "SSS", s: "S" };
   const DIFFICULTIES = ["BASIC", "ADVANCED", "EXPERT", "MASTER"];
 
-  // 版面：十列，右边两列只在前两行卡片处是涅菲谢；跟 theme.css 的 .grid / .card 一致
+  // 版面：十列，右边三列从抬头一直占到第 7 行（前五行卡片）是涅菲谢；跟 theme.css 的 .grid / .card 一致
   const COLUMNS = 10;
-  const STAND_COLUMNS = 2;
-  // 立绘占右边两列；从抬头一直占到前两行卡片（第 1～4 行），挡住 dense 把卡片塞到表格右边
-  const STAND_SPAN = 4;
+  const STAND_COLUMNS = 3;
+  // 立绘占右边三列（1232 宽）；第 1 行抬头、第 2 行空着，第 3～7 行卡片只排七列，
+  // 第 8 行起才铺满十列。立绘按宽度等比放大，可见的脚正好在第 7 行末尾（见 placeSibyl）
+  const STAND_SPAN = 7;
   // 第 1 行抬头、第 2 行空着（半张卡的高度），第 3 行才是第一行卡片
   const FIRST_ROW = 3;
-  // 涅菲谢的立绘（assets/nefeshe-fullbody.png，900×1136）画多高：两列宽 816，按比例 1030
-  const SIBYL = { size: [900, 1136], height: 1030 };
-  // 油画（assets/painting.jpg，科尔《人生的旅程·青年》）的原图比例：按宽铺满，不裁左右
+  // 涅菲谢的立绘（assets/nefeshe-fullbody.png，900×1136）：占满右边三列，宽度 × 1136/900 约 1555 高
+  const SIBYL = { size: [900, 1136] };
+  // 油画（assets/painting.jpg，科尔《人生的旅程·青年》）的原图比例：画布至少留到按宽铺满的高度；
+  // 油画本身按画布高度 cover（.painting 的 object-fit），左右裁多少见 README
   const PAINTING = { size: [5117, 3501] };
   // A 的绿珐琅实物框收窄到 100；分块等比裁切见 materials.js。
   const FRAME = 100;
@@ -282,24 +284,29 @@
     while (row.scrollWidth > row.clientWidth + 0.5 && row.lastChild) row.lastChild.remove();
   }
 
-  // 版本名太长（PARADISE LOST、LUMINOUS PLUS）挤到统计表：大字往小缩，最小 84px
+  // 版本名太长（PARADISE LOST、LUMINOUS PLUS）会挤到统计表：看统计表的右缘有没有越过抬头的右边界
+  // （抬头只占前七列，右边界就是前几行卡片的右缘），超了就把大字往小缩，最小 84px。
+  // 不能用 head.scrollWidth：flex 子项溢出时它不算，长标题会直接从表格底下穿过去（2026-10-19 实测）。
   function fitHeading() {
     const head = document.querySelector(".head");
     const main = $("main");
+    const table = $("table");
+    const padding = parseFloat(getComputedStyle(head).paddingRight) || 0;
+    const limit = head.getBoundingClientRect().right - padding;
     let size = parseFloat(getComputedStyle(main).fontSize);
-    while (head.scrollWidth > head.clientWidth + 0.5 && size > 84) {
+    while (table.getBoundingClientRect().right > limit + 0.5 && size > 84) {
       size -= 4;
       main.style.fontSize = size + "px";
     }
   }
 
-  // 摆格子：涅菲谢只在前两行卡片处占两列（第 3、4 行），卡片从第 3 行开始；
+  // 摆格子：涅菲谢占右边三列，从第 1 行一直占到第 7 行；第 3～7 行卡片各少三格（七张），第 8 行起铺满十列。
   // 版本总览固定在画布左下角，不占网格位置；收尾时根据最后一行卡片加高画布，给总览留出空间。
   // 从少到多试总行数，卡片放得下的最少行数就是答案，卡片按 dense 自动填进剩下的格子
   function placeGrid() {
     const cards = (data.cards || []).length;
     const beside = COLUMNS - STAND_COLUMNS;
-    const upperEnd = FIRST_ROW + 1;
+    const upperEnd = STAND_SPAN;
     let rows = Math.max(STAND_SPAN, FIRST_ROW + 1);
     for (;;) {
       let free = 0;
@@ -310,28 +317,26 @@
     $("stand").style.gridRow = "1 / span " + STAND_SPAN;
   }
 
-  // 涅菲谢贴在右边两列的最右侧（作者要她再往右），从画布顶上开始
+  // 涅菲谢贴在右边三列的最右侧（作者要她再往右），从画布顶上开始；
+  // 宽度吃满三列、高度按原图比例走（不裁也不压扁）。曲子少的版本下面还有空画布，所以不按 stand 的底边截断。
   function placeSibyl(canvas) {
     const base = canvas.getBoundingClientRect();
     const box = $("stand").getBoundingClientRect();
-    const height = Math.max(240, Math.min(SIBYL.height, box.bottom - base.top - 12));
-    const width = height * SIBYL.size[0] / SIBYL.size[1];
+    const width = box.width;
+    const height = width * SIBYL.size[1] / SIBYL.size[0];
     Object.assign($("sibyl").style, {
       height: height + "px",
       width: width + "px",
-      left: (box.left - base.left + box.width - width) + "px",
+      left: (box.left - base.left) + "px",
       top: "8px",
     });
   }
 
-  // 画按原比例铺满宽度；画布比画高时下沿渐隐，比画矮时裁掉画的下面（左右一点不裁）
+  // 油画按画布高度铺满整张画布（cover，左右等比裁一点），底部不会露出画布底色；
+  // 裁切比例见 theme.css 的 .painting 和 themes/plate/README.md。
   function placePainting(canvas) {
     const img = $("painting");
-    const w = canvas.offsetWidth;
-    const h = w * PAINTING.size[1] / PAINTING.size[0];
-    Object.assign(img.style, { width: w + "px", height: h + "px" });
-    // 只比画高几个像素（凑整高）时不要把画的下沿渐隐掉，否则整幅画会被吃掉一截
-    img.classList.toggle("fade", canvas.offsetHeight > h + 120);
+    Object.assign(img.style, { width: canvas.offsetWidth + "px", height: canvas.offsetHeight + "px" });
   }
 
   async function main() {

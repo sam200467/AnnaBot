@@ -94,7 +94,7 @@
     </symbol>
   </svg>
   <main id="page" class="page">
-    <!-- 画框（theme.js 画，放在 #frame 里）；框里是科尔的《人生的旅程·青年》（assets/painting.jpg）按原比例铺满宽度，
+    <!-- 画框（theme.js 画，放在 #frame 里）；框里是科尔的《人生的旅程·青年》（assets/painting.jpg）按画布高度等比铺满（左右裁一点），
          希望之巫女涅菲谢站在右边（assets/nefeshe-fullbody.png），背后是画里右边那片暗的树 -->
     <div id="canvas" class="canvas">
       <img id="painting" class="painting" src="../assets/painting.jpg" alt="">
@@ -102,8 +102,8 @@
 
       <section class="content">
         <!-- 十列。第 1 行是抬头（左上名片板、版本名、右边统计表），第 2 行整行空着，
-             让第一张卡片比抬头低半行；右边两列只在前两行卡片处给涅菲谢让位，第三行起铺满十列。
-             版本总览固定在画布左下角（作者 2026-10-18 要的），不占网格位置；曲子最多 102 首，卡片铺不到它下面 -->
+             让第一张卡片比抬头低半行；右边三列从抬头一直给涅菲谢让到第 7 行（前五行卡片只排七列），
+             第 8 行起铺满十列。版本总览固定在画布左下角（作者 2026-10-18 要的），不占网格位置 -->
         <ol id="grid" class="grid">
           <li class="head">
             <div id="identity" class="identity">
