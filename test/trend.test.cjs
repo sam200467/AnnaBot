@@ -114,6 +114,25 @@ test("功能入口拒绝所有其他参数，拒绝时不请求玩家数据", as
   }
 });
 
+test("名片板：玩家资料随图片数据下发，名牌版和头像在出图队列里换成本地地址", async () => {
+  const data = {
+    player: { name: "测试玩家", plateId: 12, characterId: 34, plate: null, character: null },
+  };
+  const seen = [];
+  await feature.attachAssets(data, {
+    fileUrls: async (items) => {
+      seen.push(...items);
+      return items.map(([kind, id]) => "file:///" + kind + "/" + id + ".png");
+    },
+  });
+  assert.deepEqual(seen, [["plate", 12], ["character", 34]]);
+  assert.equal(data.player.plate, "file:///plate/12.png");
+  assert.equal(data.player.character, "file:///character/34.png");
+  // 玩家没设名牌版 / 没拿到图时不去下，主题那边有象牙纸牌子和一颗星的退路
+  const empty = { player: { plateId: null, characterId: null } };
+  await feature.attachAssets(empty, { fileUrls: async () => assert.fail("没有素材可下时不该调用 fileUrls") });
+});
+
 test("功能入口与推分记录共用基线，月查询扩展历史，重复查询增量复用，无更新仍出图", async () => {
   const now = new Date("2026-10-20T12:00:00+08:00");
   let saved = null, calls = 0;
@@ -123,16 +142,31 @@ test("功能入口与推分记录共用基线，月查询扩展历史，重复�
   ];
   const ctx = {
     args: "本周", now: () => now, userId: "test", voice: V, log() {},
-    player: { player: async () => ({ friend_code: "1" }), scores: async () => [histories.at(-1)], bests: async () => ({}),
-      scoreHistory: async () => { calls++; return histories; } },
+    player: {
+      player: async () => ({
+        friend_code: "1", name: "测试玩家", level: 50, reborn_count: 1, rating: 16.4,
+        trophy: { name: "测试称号", color: "gold" }, class_emblem: { base: 4, medal: 3 },
+        name_plate: { id: 12 }, character: { id: 34 },
+      }),
+      scores: async () => [histories.at(-1)], bests: async () => ({}),
+      scoreHistory: async () => { calls++; return histories; },
+    },
     services: { catalog: { ...catalog, currentVersion: () => ({ version: 24000 }) },
       historyStore: { withLock: async (_, fn) => fn(), read: () => saved, write: async (_, value) => { saved = value; } },
+      assets: { fileUrls: async (items) => items.map(([kind, id]) => "file:///" + kind + "/" + id + ".png") },
       renderer: { render: async (theme, data) => { rendered.push({ theme, data }); return { buffer: Buffer.from("image") }; } },
     },
     image: async ({ render }) => render(),
   };
   await feature.run(ctx);
   assert.equal(rendered.at(-1).data.batches, 0);
+  // 右上角名片板：称号、★转生 Lv.等级、头像和段位都跟玩家资料走
+  assert.deepEqual(rendered.at(-1).data.player.trophy, { name: "测试称号", color: "gold" });
+  assert.equal(rendered.at(-1).data.player.level, 50);
+  assert.equal(rendered.at(-1).data.player.reborn, 1);
+  assert.deepEqual(rendered.at(-1).data.player.classEmblem, { base: 4, medal: 3 });
+  assert.equal(rendered.at(-1).data.player.plate, "file:///plate/12.png");
+  assert.equal(rendered.at(-1).data.player.character, "file:///character/34.png");
   assert.equal(calls, 0);
   ctx.args = "本月";
   await feature.run(ctx);

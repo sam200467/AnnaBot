@@ -252,10 +252,10 @@
       const ratio = trophy.parentElement.clientWidth / trophy.scrollWidth;
       if (ratio < 1) trophy.style.transform = "scale(" + ratio.toFixed(3) + ")";
     }
-    const name = $("name");
-    if (!name) return;
-    const room = name.parentElement.clientWidth - $("level").offsetWidth - 10;
-    if (room > 0 && name.scrollWidth > room) name.style.transform = "scale(" + (room / name.scrollWidth).toFixed(3) + ")";
+    const who = document.querySelector(".plate-name .who");
+    if (!who) return;
+    const room = who.parentElement.clientWidth - 6;
+    if (room > 0 && who.scrollWidth > room) who.style.transform = "scale(" + (room / who.scrollWidth).toFixed(3) + ")";
   }
 
   // ── 一张卡片 ──

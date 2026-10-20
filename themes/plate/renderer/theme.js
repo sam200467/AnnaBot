@@ -139,10 +139,10 @@
       const ratio = trophy.parentElement.clientWidth / trophy.scrollWidth;
       if (ratio < 1) trophy.style.transform = "scale(" + ratio.toFixed(3) + ")";
     }
-    const name = $("name");
-    if (!name || !$("level")) return;
-    const room = name.parentElement.clientWidth - $("level").offsetWidth - 10;
-    if (room > 0 && name.scrollWidth > room) name.style.transform = "scale(" + (room / name.scrollWidth).toFixed(3) + ")";
+    const who = document.querySelector(".plate-name .who");
+    if (!who) return;
+    const room = who.parentElement.clientWidth - 6;
+    if (room > 0 && who.scrollWidth > room) who.style.transform = "scale(" + (room / who.scrollWidth).toFixed(3) + ")";
   }
 
   // 统计表：三行（S / SSS / AJ），四列难度；称号名不写在表里（作者 2026-10-18 要去掉），S/SSS/AJ 放大居中

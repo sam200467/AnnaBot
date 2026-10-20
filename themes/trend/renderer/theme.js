@@ -67,11 +67,81 @@
     root.append(title, summary, svg, baseline);
     return root;
   }
+  // ── 右上角的名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位（跟 /分数列表 一样） ──
+  function renderIdentity() {
+    const player = data.player || {};
+    // 没有玩家资料（老示例数据、或者接口没给）就不画这块，天空里空着也不影响图表
+    if (!player.name) { $("identity").remove(); return false; }
+    const plate = $("plate");
+    if (player.plate) {
+      const img = $("plate-img");
+      img.src = player.plate;
+      img.addEventListener("error", () => { img.remove(); plate.classList.add("empty"); }, { once: true });
+    } else {
+      plate.classList.add("empty");
+    }
+    const trophy = $("trophy");
+    if (player.trophy && player.trophy.name) {
+      trophy.classList.add(player.trophy.color || "normal");
+      trophy.append(el("span", null, player.trophy.name));
+    } else {
+      trophy.remove();
+    }
+    // 「★1 Lv.51」跟名字一行，星数和等级一样大（照 /b50）
+    const level = $("level");
+    if (player.reborn) level.append(el("span", "star", "★" + player.reborn));
+    if (player.level !== null && player.level !== undefined) level.append(el("span", "lv", "Lv."), el("span", null, player.level));
+    $("name").textContent = player.name || "";
+    // 名字下面的总 Rating（p2 格式）：标签和数值差不多大，数值按游戏色档上色
+    const overall = $("rating");
+    overall.textContent = ThemeKit.format.rating(player.rating);
+    overall.classList.add("tier-" + ThemeKit.ratingTier(player.rating));
+
+    const medallion = document.querySelector(".medallion");
+    if (player.character) {
+      const chara = $("chara");
+      chara.src = player.character;
+      chara.addEventListener("error", () => { chara.remove(); medallion.classList.add("empty"); }, { once: true });
+    } else {
+      medallion.classList.add("empty");
+    }
+    // 段位（CLASS 勋章）挂在头像下面：缎带在下、勋章压在上面（照 /分数列表）
+    const emblem = $("emblem");
+    const { base = 0, medal = 0 } = player.classEmblem || {};
+    const badge = (kind, n) => {
+      const img = el("img", kind);
+      img.alt = "";
+      img.src = "../../shared/icons/class_emblem/" + kind + "/" + n + ".webp";
+      img.addEventListener("error", () => img.remove(), { once: true });
+      return img;
+    };
+    if (base) emblem.append(badge("base", base));
+    if (medal) emblem.append(badge("medal", medal));
+    if (!base && !medal) emblem.remove();
+    return true;
+  }
+
+  // 牌子上放不下的字往小缩（称号、名字；照 /分数列表 的 fitPlate）
+  function fitPlate() {
+    const trophy = document.querySelector(".trophy span");
+    if (trophy) {
+      // 称号条左右各 12px 内边距，减掉以后才是字真正能占的宽度
+      const ratio = (trophy.parentElement.clientWidth - 24) / trophy.scrollWidth;
+      if (ratio < 1) trophy.style.transform = "scale(" + ratio.toFixed(3) + ")";
+    }
+    const who = document.querySelector(".plate-name .who");
+    if (!who) return;
+    // 整行（等级 + 名字）一起缩，缩放原点在中间，缩完还是居中的；留 6px 余量，最后一个字不压在裁切线上
+    const room = who.parentElement.clientWidth - 6;
+    if (room > 0 && who.scrollWidth > room) who.style.transform = "scale(" + Math.max(0.3, room / who.scrollWidth).toFixed(3) + ")";
+  }
+
   async function main() {
     $("period").textContent = data.period;
     $("range").textContent = data.rangeText;
     $("updates").append(data.period + "内 B50 共 ", el("strong", "", String(data.updatedCharts)), " 个谱面成绩更新");
     $("credit").textContent = "Anna Bot · 落雪查分器" + (data.example ? " · 示例数据" : "");
+    renderIdentity();
     const meve = $("meve");
     await meve.decode();
     // 面板底纹取衣料原画，保留这位角色的绘画笔触。
@@ -81,6 +151,7 @@
     data.series.forEach((series, i) => $("charts").append(chart(series, i)));
     await window.drawTrendFrame($("frame"));
     await document.fonts.ready;
+    fitPlate();
     await ThemeKit.done({ element:$("page") });
   }
   main().catch(ThemeKit.fail);

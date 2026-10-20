@@ -7,6 +7,18 @@
   "batches": 9,
   "updatedCharts": 12,
   "example": true,
+  "player": {
+    "name": "テストプレイヤー",
+    "level": 51,
+    "reborn": 1,
+    "rating": 16.4783,
+    "trophy": { "name": "《運命》～Ray of Hope", "color": "normal" },
+    "classEmblem": { "base": 4, "medal": 4 },
+    "plateId": 20002,
+    "characterId": 8830,
+    "plate": "lxns:plate/20002",
+    "character": "lxns:character/8830"
+  },
   "ticks": [
     {
       "ms": 1790784000000,

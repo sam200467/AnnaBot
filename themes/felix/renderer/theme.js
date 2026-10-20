@@ -249,6 +249,10 @@
     if (player.reborn) level.append(el("span", "star", "★" + player.reborn));
     if (player.level !== null && player.level !== undefined) level.append(el("span", "lv", "Lv."), el("span", null, player.level));
     $("name").textContent = player.name || "";
+    // 名牌版下面的总 Rating（p2 格式）：标签和数值差不多大
+    const overall = $("rating");
+    overall.textContent = rating(player.rating);
+    overall.classList.add("tier-" + ThemeKit.ratingTier(player.rating));
     if (player.character) $("chara").src = player.character;
     else document.querySelector(".medallion").classList.add("empty");
 
@@ -274,10 +278,11 @@
       stats.append(stat("原 B30", rating(data.fit?.officialAverage)));
       return;
     }
-    const main = mode === "aj50"
-      ? stat("AJ 50", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating))
-      : stat("Rating", rating(player.rating), "main tier-" + ThemeKit.ratingTier(player.rating));
-    stats.append(main);
+    // 总 Rating 已经写在名牌版下面了：b50 / b30 / aj30 不再放一块重复的 Rating 格子；
+    // aj50 的 AJ 50 是 AJ 谱面自己的均值、fit30 的拟合 B30 是重算值，都跟账号总 Rating 不是一回事，保留
+    if (mode === "aj50") {
+      stats.append(stat("AJ 50", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating)));
+    }
     if (mode === "b50" || mode === "aj50") {
       for (const chapter of chapters) {
         const fresh = chapter.key === "new";
@@ -289,6 +294,7 @@
       stats.append(stat(mode === "aj30" ? "AJ 30" : "Best 30", rating(chapters[0].average)));
       stats.append(stat("Top", list.length ? rating(list[0].rating) : "—"));
     }
+    if (stats.children.length === 2) stats.classList.add("two");
   }
 
   // ── 页眉左边：柱状图（照 best：每一栏自己的纵轴，旧曲刻度在左、新曲在右；旧曲金色、新曲换成她的蓝）──
@@ -502,9 +508,13 @@
     };
     const trophy = document.querySelector(".trophy span");
     if (trophy) scale(trophy, trophy.parentElement);
-    const name = $("name");
-    const room = name.parentElement.clientWidth - $("level").offsetWidth - 12;
-    if (name.scrollWidth > room) name.style.transform = "scale(" + (room / name.scrollWidth).toFixed(3) + ")";
+    const who = document.querySelector(".plate-name .who");
+    if (who) {
+      // 留 6px 余量，最后一个字不压在裁切线上
+      const room = who.parentElement.clientWidth - 6;
+      const ratio = room / who.scrollWidth;
+      if (ratio < 1) who.style.transform = "scale(" + ratio.toFixed(3) + ")";
+    }
   }
 
   // 画布（画框里的画面）的大小：高度跟着正文（页眉 + 表）走，宽度先照油画原图的比例（作者 2026-10-20 要的），

@@ -127,19 +127,20 @@ body {
   z-index: 5;
   align-self: start;
   justify-self: center;
-  width: 596px;
+  width: 634px;
   display: flex;
-  align-items: center;
+  /* 2026-10-20 作者要求头像最上端和名牌版最上端平齐（原来垂直居中，150 的头像比 186 的牌子低 18px） */
+  align-items: flex-start;
   gap: 14px;
   padding-bottom: 30px;   /* 给头像下面的段位勋章留出压下来的位置 */
 }
 
 .portrait { position: relative; flex: none; }
-/* 角色头像：金圈奖章（跟 /b50 一样大） */
+/* 角色头像：金圈奖章。2026-10-20 作者要照 /牌子进度（p3）的比例放大，直径约名牌版高度的八成，段位一起放大 */
 .medallion {
   position: relative;
-  width: 112px;
-  height: 112px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   padding: 6px;
   background: conic-gradient(from 200deg, #8e6a33, #f1dca6, #a77a3b, #e8cd8d, #8e6a33);
@@ -173,7 +174,7 @@ body {
 .emblem {
   position: absolute;
   left: 50%;
-  bottom: -26px;
+  bottom: -30px;
   z-index: 2;
   transform: translateX(-50%);
   display: flex;
@@ -181,8 +182,8 @@ body {
   justify-content: center;
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.7));
 }
-.emblem .base { display: block; height: 30px; }
-.emblem .medal { display: block; height: 54px; }
+.emblem .base { display: block; height: 40px; }
+.emblem .medal { display: block; height: 72px; }
 .emblem .base + .medal { position: absolute; }
 
 /* 名牌版：落雪的 plate 图，文字照游戏里的位置叠上去 */
@@ -233,18 +234,20 @@ body {
 
 .plate-name {
   position: absolute;
-  left: 34%;
-  right: 6%;
-  top: 39%;
+  left: 33%;
+  right: 5.5%;
+  top: 37%;
   height: 27%;
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  justify-content: center;
   color: #2a170b;
   white-space: nowrap;
   overflow: hidden;
   text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
 }
+/* 等级 + 名字整行一起缩放，缩放原点在中间，长名字缩完仍然居中（作者 2026-10-20 要放到称号条下方居中） */
+.who { display: inline-flex; align-items: baseline; gap: 10px; flex: none; transform-origin: center; }
 /* 「★1 Lv.72 名字」：转生星数、Lv.、等级一样大，比名字略小（照 /b50） */
 .level { display: flex; align-items: baseline; flex: none; font-family: var(--hand); font-weight: 700; font-size: 28px; color: #4a2f1c; }
 .level .star { color: #b0302f; margin-right: 10px; }
@@ -257,9 +260,9 @@ body {
    标签和数值作为一组，在名牌右侧文字区域内居中，与上方名字共用左右边界。 */
 .overall {
   position: absolute;
-  left: 34%;
-  right: 6%;
-  top: 61%;
+  left: 33%;
+  right: 5.5%;
+  top: 62%;
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -269,9 +272,9 @@ body {
   text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
 }
 .overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 28px; line-height: 1; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.04em; color: #5d3a15; }
-/* 对合成后的字形外扩加粗白边，保留渐变填色和原版文字效果。 */
+/* 对合成后的字形外扩加粗白边，保留渐变填色和原版文字效果。数值只比标签大一点（作者 2026-10-20 要差不多大）。 */
 .overall-value {
-  font-family: var(--script); font-weight: 700; font-size: 36px; line-height: 1; color: var(--cobalt);
+  font-family: var(--script); font-weight: 700; font-size: 32px; line-height: 1; color: var(--cobalt);
   transform: translateY(3px); /* 手写数字的视觉中线略高于标签，下移对齐。 */
   filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
           drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff);

@@ -2,7 +2,26 @@
 const path = require("node:path");
 const { buildFrom, collect, createHistoryStore } = require("../history.cjs");
 const { parseWindow, buildTrendData } = require("../trend.cjs");
-const { newVersionFloor } = require("./best.cjs");
+const { newVersionFloor, playerView } = require("./best.cjs");
+
+// 名牌版、角色头像换成本地 file:// 地址。落雪素材慢，只在出图队列里做（跟 /分数列表 一样）。
+// 少了任何一张（玩家没设、图没下到）主题那边有退路：象牙纸的牌子、一颗星。
+async function attachAssets(data, assets) {
+  const items = [];
+  const targets = [];
+  if (data.player.plateId !== null) {
+    items.push(["plate", data.player.plateId]);
+    targets.push((url) => { data.player.plate = url; });
+  }
+  if (data.player.characterId !== null) {
+    items.push(["character", data.player.characterId]);
+    targets.push((url) => { data.player.character = url; });
+  }
+  if (!items.length) return data;
+  const urls = await assets.fileUrls(items);
+  urls.forEach((url, i) => targets[i](url));
+  return data;
+}
 
 module.exports = {
   name: "trend",
@@ -12,6 +31,7 @@ module.exports = {
   panel: "看本周或本月分表变化",
   group: "查询",
   binding: "oauth",
+  attachAssets,
   async run(ctx) {
     const now = ctx.now ? ctx.now() : new Date();
     const window = parseWindow(ctx.args, now);
@@ -36,13 +56,18 @@ module.exports = {
       catch (error) { ctx.log("⚠ 分表变化写盘失败（本次照常显示）：" + error.message); }
       return current;
     });
-    const data = buildTrendData({
-      state, window, to: now, catalog: ctx.services.catalog,
-      floor: newVersionFloor(bests, ctx.services.catalog),
-    });
+    const data = {
+      ...buildTrendData({
+        state, window, to: now, catalog: ctx.services.catalog,
+        floor: newVersionFloor(bests, ctx.services.catalog),
+      }),
+      // 右上角名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位（跟 /分数列表 一样）
+      player: playerView(player),
+    };
     return ctx.image({
       kind: "trend", label: "分表变化图",
       render: async () => {
+        await attachAssets(data, ctx.services.assets);
         const image = await ctx.services.renderer.render("trend", data, { format: "jpeg", quality: 76, scale: 1.5 });
         return { buffer: image.buffer };
       },

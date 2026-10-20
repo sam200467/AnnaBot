@@ -10,6 +10,20 @@
   <main id="page">
     <div class="scene"><img src="../assets/painting.jpg" alt=""><div class="shade"></div></div>
     <img class="fullbody" id="meve" src="../assets/meve-fullbody.png" alt="原初的风之巫女梅薇">
+    <!-- 右上角、梅薇头顶上方的天空里是玩家的名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位，
+         下面补一行总 Rating（作者 2026-10-20 要的，跟 /分数列表 的名片板一样） -->
+    <aside id="identity" class="identity">
+      <div class="portrait">
+        <div class="medallion"><img id="chara" class="chara" alt=""></div>
+        <div id="emblem" class="emblem"></div>
+      </div>
+      <div id="plate" class="plate">
+        <img id="plate-img" class="plate-img" alt="">
+        <div id="trophy" class="trophy"></div>
+        <div class="plate-name"><span class="who"><span id="level" class="level"></span><span id="name" class="name"></span></span></div>
+        <div class="overall"><span class="overall-label">总 Rating</span><span id="rating" class="overall-value"></span></div>
+      </div>
+    </aside>
     <div class="content">
       <header>
         <div><h1>分表变化 <span id="period"></span></h1><p id="range"></p></div>
