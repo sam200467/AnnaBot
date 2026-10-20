@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page">
+    <div class="scene"><img src="../assets/painting.jpg" alt=""><div class="shade"></div></div>
+    <img class="fullbody" id="meve" src="../assets/meve-fullbody.png" alt="原初的风之巫女梅薇">
+    <div class="content">
+      <header>
+        <div><h1>分表变化 <span id="period"></span></h1><p id="range"></p></div>
+        <div class="updates"><p id="updates"></p></div>
+      </header>
+      <div class="charts" id="charts"></div>
+      <footer>
+        <p>按上传时间记录 · 北京时间 · 各图独立纵轴 · B50 = B30 × 0.6 + N20 × 0.4</p>
+        <p>依现存上传记录、当前定数及新旧曲分组重算，空位计零 · <span id="credit"></span></p>
+      </footer>
+    </div>
+    <canvas id="frame"></canvas>
+  </main>
+  <script src="frame.js"></script>
+  <script src="theme.js"></script>
+</body>
+</html>

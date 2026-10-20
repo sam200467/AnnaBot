@@ -1,6 +1,6 @@
 "use strict";
 // /b50、/b30、/aj30、/aj50：先测挑歌和整理出图数据（纯函数），再走一遍端到端（假 QQ + 假落雪，出图换成假的、记下主题拿到的数据），
-// 最后用本机的 Chrome / Edge 把 felix（/b50 /b30）和 best（/aj30 这几个）主题真的渲染一次。
+// 最后用本机的 Chrome / Edge 把所有分表共用的横版 felix 主题真的渲染一次。
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const crypto = require("node:crypto");
@@ -350,7 +350,7 @@ test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲�
   assert.equal(s.last().msg_type, 7);
   assert.equal(s.last().content, undefined);                    // 没有图注就不带文字（带空格会在图下面多一行空白）
   const b50 = s.renders.at(-1);
-  assert.equal(b50.theme, "felix");                              // 2026-10-20 起横版；/aj30 这几个还是竖版的 best
+  assert.equal(b50.theme, "felix");                              // 所有 B30/B50 分表统一用横版
   assert.deepEqual([b50.options.format, b50.options.quality, b50.options.scale], ["jpeg", 76, RENDER_SCALE]);
   assert.equal(b50.options.maxBytes, 5_000_000);                 // 作者要单张 5 MB 以内，超了降质量重截
   assert.deepEqual(b50.data.chapters.map((chapter) => chapter.scores.length), [30, 20]);
@@ -401,7 +401,8 @@ test("/aj30 端到端：好友码请去授权；授权后只排 AJ/AJC 的 B30�
   await s.authorize("U3", FC2);
   await s.group("/aj30", { user: "U3" });
   const render = s.renders.at(-1);
-  assert.equal(render.theme, "best");
+  assert.equal(render.theme, "felix");
+  assert.deepEqual([render.options.scale, render.options.maxBytes, render.options.fallbackQualities], [RENDER_SCALE, 5_000_000, [70, 64]]);
   assert.deepEqual([render.data.mode, render.data.chapters.length, render.data.chapters[0].key], ["aj30", 1, "aj"]);
   const cards = render.data.chapters[0].scores;
   assert.deepEqual([cards.length, render.data.chapters[0].slots], [30, 30]);
@@ -449,7 +450,8 @@ test("/aj50 端到端：好友码请去授权；授权后分新旧两栏只排 A
   await s.authorize("U3", FC2);
   await s.group("/aj50", { user: "U3" });
   const render = s.renders.at(-1);
-  assert.equal(render.theme, "best");
+  assert.equal(render.theme, "felix");
+  assert.deepEqual([render.options.scale, render.options.maxBytes, render.options.fallbackQualities], [RENDER_SCALE, 5_000_000, [70, 64]]);
   assert.deepEqual([render.data.mode, render.data.chapters.length], ["aj50", 2]);
   assert.deepEqual(render.data.chapters.map((chapter) => [chapter.key, chapter.slots, chapter.scores.length]),
     [["old", 30, 25], ["new", 20, 10]]);
@@ -497,7 +499,8 @@ test("/拟合定数b30 端到端：好友码请去授权；授权后按拟合定
   await s.authorize("U3", FC2);
   await s.group("/拟合定数b30", { user: "U3" });
   const render = s.renders.at(-1);
-  assert.equal(render.theme, "best");
+  assert.equal(render.theme, "felix");
+  assert.deepEqual([render.options.scale, render.options.maxBytes, render.options.fallbackQualities], [RENDER_SCALE, 5_000_000, [70, 64]]);
   assert.deepEqual([render.data.mode, render.data.chapters.length], ["fit30", 1]);
   const [chapter] = render.data.chapters;
   assert.deepEqual([chapter.key, chapter.slots, chapter.scores.length], ["fit", 30, 3]);
@@ -522,27 +525,26 @@ test("/拟合定数b30 端到端：好友码请去授权；授权后按拟合定
 const skip = !findBrowser() && "没找到 Chrome / Edge";
 
 // 示例数据里的 "lxns:jacket/123" 不联网，换成空（主题要能照样出图）
-function exampleData(file, theme = "best") {
+function exampleData(file, theme = "felix") {
   const raw = fs.readFileSync(path.join(ROOT, "themes", theme, "examples", file), "utf8");
   return JSON.parse(raw, (key, value) => (typeof value === "string" && value.startsWith("lxns:") ? null : value));
 }
 
-// 宽 = 内容 1824 + 两边羊皮纸 12 + 画框（左 97、右 95，按画框原图量的尺寸算，见 theme.js 的 FRAME）
-test("best 主题：B50、B30、AJ30、AJ50、拟合 B30 都能出图，宽 2040", { skip }, async (t) => {
+test("横版 felix：B50、B30、AJ30、AJ50、拟合 B30 都能出图，宽 3924 / 3524", { skip }, async (t) => {
   // 浏览器临时目录放测试自己的目录里，不碰系统临时目录
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
   for (const file of ["preview-data.json", "b30.json", "aj30.json", "aj50.json", "fit30.json"]) {
-    const out = await renderer.render("best", exampleData(file), { width: 2100, format: "jpeg" });
-    assert.equal(out.width, 2040, file);
+    const out = await renderer.render("felix", exampleData(file), { width: 3400, format: "jpeg" });
+    assert.equal(out.width, file === "preview-data.json" || file === "aj50.json" ? 3924 : 3524, file);
     assert.ok(out.height > 1500, file);
   }
   // 希腊字母曲名走另一条排版路径（两倍字号 + zoom，见 theme.css 的 .title-line.greek），也出一张确认版式没被撑坏
   const withGreek = exampleData("preview-data.json");
   withGreek.chapters[0].scores[0].title = "ΩΩPARTS";
-  const greek = await renderer.render("best", withGreek, { width: 2100, format: "jpeg" });
-  assert.equal(greek.width, 2040, "greek");
+  const greek = await renderer.render("felix", withGreek, { width: 3400, format: "jpeg" });
+  assert.equal(greek.width, 3924, "greek");
   assert.ok(greek.height > 1500, "greek");
   await renderer.idle();
   assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");

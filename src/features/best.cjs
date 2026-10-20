@@ -1,6 +1,6 @@
 "use strict";
 // /b50、/b30：成绩图，主题是 themes/felix/（横版，小时候的朱娜·菲利克斯，2026-10-20 起）。
-// 以前的竖版 themes/best/（西比拉精灵记风格）还给 /aj30、/aj50、/拟合定数b30 用，两个主题吃同一种数据。
+// /aj30、/aj50、/拟合定数b30 也共用横版 felix；旧竖版 best 已停用。
 //
 //   /b50  现行 Rating 的构成：旧版本曲目的 Best 30 + 当前版本新曲的 Best 20，这 50 首单曲 Rating 的平均就是玩家 Rating。
 //         直接用落雪的 /bests（bests + new_bests），好友码绑定也带分数。
@@ -13,7 +13,7 @@
 // /aj50（src/features/aj50.cjs）同理，只是分新老版本、旧曲 30 + 新曲 20（跟 /b50 一样）。
 // /拟合定数b30（src/features/fit30.cjs）：把官方定数换成 EazyChu 的拟合定数，重算单曲 Rating 后取前 30，不分新旧。
 //
-// 主题吃的数据形状见 themes/best/examples/preview-data.json（felix 的示例数据同形）。buildData 是纯函数，测试和示例数据都用它。
+// 主题吃的数据形状见 themes/felix/examples/。buildData 是纯函数，测试和示例数据都用它。
 
 const { rating: singleRating, truncate } = require("../score-math.cjs");
 
@@ -236,6 +236,14 @@ async function attachAssets(data, assets) {
   return data;
 }
 
+// 所有 B30/B50 分表共用主题和输出规格，避免辅助分表继续走旧 UI 或超过 5 MB。
+function renderBest(renderer, data) {
+  return renderer.render("felix", data, {
+    width: 3400, height: 1200, format: "jpeg", quality: 76, scale: RENDER_SCALE,
+    maxBytes: 5_000_000, fallbackQualities: [70, 64],
+  });
+}
+
 function feature(mode) {
   const isB50 = mode === "b50";
   return {
@@ -263,10 +271,7 @@ function feature(mode) {
           await attachAssets(data, assets);
           // 纹理多，出 JPEG（质量 76 同其他图）。尺寸以主题量出来的为准（B50 宽约 3900、/b30 约 3500 CSS 像素，
           // 画框里的画面照油画的比例），视口只要别太窄。曲绘花哨的号可能更大，超过 5 MB 就在同一页面降质量重新截
-          const image = await renderer.render("felix", data, {
-            width: 3400, height: 1200, format: "jpeg", quality: 76, scale: RENDER_SCALE,
-            maxBytes: 5_000_000, fallbackQualities: [70, 64],
-          });
+          const image = await renderBest(renderer, data);
           const caption = data.exact ? "" : ctx.voice.bestMaybeIncomplete(ctx.subject.isSelf && Boolean(ctx.services.bindings?.oauthEnabled));
           return { buffer: image.buffer, caption };
         },
@@ -278,5 +283,5 @@ function feature(mode) {
 // 功能清单（index.cjs 里展开）只认数组里的两个功能；整理数据的函数挂在数组上，给测试和示例数据用。
 module.exports = Object.assign([feature("b50"), feature("b30")], {
   buildData, attachAssets, pickBest30, pickAj30, pickAj50, pickFit30, rankScores, rankOf, stamp, playerView, newVersionFloor,
-  OLD_SLOTS, NEW_SLOTS, RENDER_SCALE,
+  OLD_SLOTS, NEW_SLOTS, RENDER_SCALE, renderBest,
 });

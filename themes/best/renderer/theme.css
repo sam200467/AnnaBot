@@ -10,7 +10,7 @@
 
 :root {
   --ink: #2b190d;          /* 褐墨：纸上的字 */
-  --blood: #7a1a14;        /* 干掉的血色：单曲 Rating */
+  --blood: #852e3b;        /* 深酒红：小卡片分数 */
   --parch: #dcc7a0;        /* 羊皮纸色：暗处的字 */
   --gold: #c9a35e;
   --night: #120d0b;
@@ -596,15 +596,17 @@ body {
   zoom: 0.5;
 }
 
-/* 分数、定数、单曲 Rating 用 Segoe Script（作者指定：数字跟正文的楷书区分开）。定数和 Rating 差不多大 */
+/* 分数、定数、单曲 Rating 保留 Segoe Script；分数放大并独占深酒红。 */
 .score {
+  flex-shrink: 0;
   margin-top: 2px;
   font-family: "Anna Script", var(--hand);
   font-weight: 700;
-  font-size: 30px;
-  line-height: 1.2;
+  font-size: 36px;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
   white-space: nowrap;
-  color: #3a2212;
+  color: var(--blood);
 }
 
 /* 通关标记：实心的颜料色小牌子。FC/AJ/AJC 是金、淡彩、鲜彩虹（2026-10-20 换过色，原来是铜、金、珠光），通关等级是剪了燕尾的缎带签。
@@ -650,7 +652,7 @@ body {
 .foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; padding-left: 10px; }
 .const { font-family: "Anna Script", var(--hand); font-weight: 700; font-size: 28px; line-height: 1.2; color: var(--diff-ink); white-space: nowrap; }
 .const i { font-style: normal; margin-left: 5px; color: rgba(91, 61, 38, 0.7); }
-.rating { flex: none; font-family: "Anna Script", var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--blood); }
+.rating { flex: none; font-family: "Anna Script", var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: #284a88; }
 
 /* 曲绘底部的难度条 */
 .band {

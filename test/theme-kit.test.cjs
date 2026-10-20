@@ -30,7 +30,7 @@ test("ratingTier：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 �
     [14.5, "gold"], [15.24, "gold"],
     [15.25, "platina"], [15.99, "platina"],
     [16, "rainbow"], [16.99, "rainbow"],
-    [17, "rainbow-deep"], [17.5, "rainbow-deep"],
+    [17, "rainbow-deep"], [17.23, "rainbow-deep"], [17.5, "rainbow-deep"],
   ];
   for (const [value, tier] of cases) assert.equal(ratingTier(value), tier, "Rating " + value);
   // 没有 Rating（还没绑定、接口没给）当 0 算，落在绿档

@@ -1,6 +1,6 @@
-// /b50、/b30 横版成绩图（朱娜·菲利克斯），设计说明见 ../README.md。数据由 src/features/best.cjs 的 buildData 给出，
-// 跟 best 主题同一个形状，见 ../examples/preview-data.json（B50）、../examples/b30.json（B30）。
-// 卡片、名牌版、Rating 三格、柱状图的画法照 best 的 theme.js 搬过来（改动只在材质和排版），那边改了这边也要跟着看。
+// B50 / B30 / AJ30 / AJ50 / 拟合 B30 共用横版成绩图（朱娜·菲利克斯），设计说明见 ../README.md。
+// 数据由 src/features/best.cjs 的 buildData 给出，五种模式的示例见 ../examples/。
+// 最初从旧版 best 移植卡片、名牌版、Rating 三格和柱状图；旧 UI 已停用，分表 UI 在这里维护。
 // 封印的边用固定种子的伪随机数生成：同一份数据每次出图都一模一样。
 (function () {
   "use strict";

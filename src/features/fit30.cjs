@@ -8,9 +8,9 @@
 //     好友码绑定只有 /bests 的前 50 首，会漏。
 //   - 不分新旧，只排一栏 30 首。
 //
-// 主题沿用 themes/best/（mode 是 fit30，章节 key 是 fit）。图注会说清：不到 30 首、以及有几张谱面没有拟合定数。
+// 主题沿用 themes/felix/（mode 是 fit30，章节 key 是 fit）。图注会说清：不到 30 首、以及有几张谱面没有拟合定数。
 
-const { buildData, attachAssets } = require("./best.cjs");
+const { buildData, attachAssets, renderBest } = require("./best.cjs");
 const { loadFitDiffs } = require("../fit-diffs.cjs");
 
 const fallback = loadFitDiffs();
@@ -47,8 +47,7 @@ module.exports = {
       render: async () => {
         const { assets, renderer } = ctx.services;
         await attachAssets(data, assets);
-        // 竖版的 best 主题（/b30 原来的样子，它 2026-10-20 换成了横版 felix）：纹理多，JPEG 质量 76、宽 2100 的视口
-        const image = await renderer.render("best", data, { width: 2100, height: 1000, format: "jpeg", quality: 76 });
+        const image = await renderBest(renderer, data);
         return { buffer: image.buffer, caption };
       },
     });

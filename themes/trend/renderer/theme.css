@@ -1,0 +1,57 @@
+:root { --ink:#efe8d8; --muted:#c3c5bd; --gold:#c7ae7c; --jade:#84d6a5; --hand:"Anna Hand",serif; --script:"Anna Script",var(--hand); }
+* { box-sizing:border-box; }
+body { margin:0; font:28px/1.35 var(--hand); color:var(--ink); background:#171e20; }
+#page { position:relative; width:2700px; height:1620px; overflow:hidden; background:#192623; }
+.scene { position:absolute; inset:35px; overflow:hidden; }
+.scene>img { width:100%; height:100%; object-fit:cover; }
+.shade { position:absolute; inset:0; background:linear-gradient(90deg,#12212d9c,#14232c42 67%,#1c292b12),linear-gradient(0deg,#101f25c9,transparent 38%,transparent 78%,#14252b55); }
+.fullbody { position:absolute; left:1850px; top:220px; width:770px; height:1190px; object-fit:contain; opacity:.75; filter:saturate(.82) drop-shadow(0 10px 15px #10202b50); }
+.content { position:absolute; left:112px; top:80px; width:1745px; }
+header { display:flex; justify-content:space-between; align-items:center; height:180px; gap:35px; text-shadow:0 2px 8px #08151c; }
+h1 { font-weight:500; font-size:82px; line-height:1.18; letter-spacing:8px; margin:0; }
+h1 span { font-size:35px; letter-spacing:4px; border-left:1px solid #d5c9a6; padding-left:25px; margin-left:8px; vertical-align:middle; }
+header p { margin:15px 0 0; font-size:34px; color:#ddd5c3; white-space:nowrap; }
+.updates { text-align:right; flex:none; }
+.updates p { font-size:36px; color:#d0d9cc; }
+.updates strong { font:700 43px var(--script); color:var(--jade); }
+.charts { display:grid; grid-template-columns:1030px 685px; grid-template-rows:555px 555px; gap:28px 30px; margin-top:28px; }
+.panel { position:relative; min-width:0; overflow:hidden; background:linear-gradient(120deg,#24354bf3,#15263bf3),var(--cloth); background-size:auto,145px 220px; border:1px solid #c0ad83; box-shadow:inset 0 0 0 5px #26374a,inset 0 0 0 6px #ad987460,0 8px 26px #07121a70; padding:0 26px 22px; }
+.panel.large { grid-row:span 2; padding:0 35px 26px; }
+.panel h2 { display:flex; gap:20px; align-items:center; margin:0 -26px; padding:15px 28px; height:75px; background:linear-gradient(95deg,#e3dbca,#c7c3b2e8); color:#293748; font-weight:500; border-bottom:5px double #6c7068; }
+.panel.large h2 { margin:0 -35px; padding-left:36px; height:88px; }
+h2 .latin { font:700 33px var(--script); letter-spacing:1px; }
+h2 .subtitle { font-size:29px; letter-spacing:4px; }
+h2:after { content:"✧"; margin-left:auto; font-size:40px; color:#697669; }
+.summary { display:flex; justify-content:space-between; align-items:center; padding:22px 2px 12px; }
+.current label,.gain label { display:block; font-size:22px; color:#bfcabd; margin-bottom:3px; }
+.current strong { font:700 46px/1.5 var(--script); color:#f5e8c9; }
+.gain { text-align:right; }.gain strong { font:700 33px/1.6 var(--script); color:var(--jade); }
+.gain.negative strong { color:#e3a99e; }
+.large .summary { padding:34px 4px 20px; }
+.large .current strong { font-size:80px; }.large .gain strong { font-size:48px; }
+.large .current label,.large .gain label { font-size:26px; margin-bottom:7px; }
+.plot { display:block; width:100%; height:278px; overflow:visible; }
+.large .plot { height:710px; margin-top:12px; }
+.gridline { stroke:#c3cfc1; stroke-opacity:.18; stroke-width:1; }
+.axis-text { fill:#bec8c9; font:22px var(--hand); }
+.plot-line { fill:none; stroke:var(--line); stroke-width:4; stroke-linejoin:round; stroke-linecap:round; }
+.large .plot-line { stroke-width:5; }
+.dot { fill:var(--line); stroke:#203044; stroke-width:2; }
+.baseline { margin:9px 0 0; padding-top:10px; border-top:1px solid #a5b6b033; color:#cbd1c5; font-size:22px; display:flex; justify-content:space-between; }
+.baseline b { font:700 22px var(--script); color:#dfd8c7; margin-left:10px; }
+.large .baseline { margin-top:20px; padding-top:20px; font-size:25px; }.large .baseline b { font-size:26px; }
+footer { margin-top:30px; text-shadow:0 2px 5px #0b141b; }
+footer p { margin:8px 0; color:#d2cdbb; font-size:24px; }
+footer p+p { color:#b8c0b5; font-size:23px; }
+/* 分档复用 ThemeKit；暗蓝底使用明亮的颜料色，虹与虹极保持不同渐变。
+   17 起的虹极照 best 的暗底配色：上暖下冷的竖渐变、颜色要够浓。以前这里用的是浅粉彩
+   （#e89e99…），在靛蓝底上跟 16 段的浅虹几乎一样，17.23 会被看成没上对色。 */
+.rating.tier-green { color:#a5c89f; }.rating.tier-orange { color:#edb57a; }
+.rating.tier-red { color:#df9282; }.rating.tier-purple { color:#c2a5d3; }
+.rating.tier-bronze { color:#d4ad8b; }.rating.tier-silver { color:#d5dde0; }
+.rating.tier-gold { color:#ead091; }
+.rating.tier-platina { color:#ebe7ba; background:linear-gradient(180deg,#fff5d6,#c7c5b0); }
+.rating.tier-rainbow { background:linear-gradient(100deg,#e4a9b7,#ecc58b,#e5df9e,#a4d6b0,#a8c9e7,#c7afe1); }
+.rating.tier-rainbow-deep { background:linear-gradient(180deg,#ff3b2f 24%,#ff9f1c 34%,#ffe23d 42%,#ff2f9a 50%,#8a4dff 58%,#20c8ff 68%,#3ee8b0 80%); }
+.rating.tier-platina,.rating.tier-rainbow,.rating.tier-rainbow-deep { background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+#frame { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:8; }

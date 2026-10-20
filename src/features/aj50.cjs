@@ -5,10 +5,10 @@
 // 新曲的边界跟 /b50 一样看落雪 /bests 的 new_bests（最老的那首新曲的版本）；所以除了全部成绩，还要读一下 /bests。
 // 要每张谱面的分数和 FULL COMBO 标记，只收授权绑定（binding: "oauth"）；好友码绑定会被请去 /授权。
 //
-// 主题沿用 themes/best/（数据形状跟 /b50 一样，章节 key 是 old / new，见 best.cjs 的 buildData）。
+// 主题沿用 themes/felix/（数据形状跟 /b50 一样，章节 key 是 old / new，见 best.cjs 的 buildData）。
 // 这是辅助用的表，跟 /aj30 一样不进指令面板（panel: false），/帮助 里还会列出来。
 
-const { buildData, attachAssets, pickAj50, OLD_SLOTS, NEW_SLOTS } = require("./best.cjs");
+const { buildData, attachAssets, pickAj50, OLD_SLOTS, NEW_SLOTS, renderBest } = require("./best.cjs");
 
 module.exports = {
   name: "aj50",
@@ -31,8 +31,7 @@ module.exports = {
         const { assets, renderer } = ctx.services;
         const data = buildData({ mode: "aj50", player, scores, bests, catalog });
         await attachAssets(data, assets);
-        // 竖版的 best 主题（/b50 /b30 原来的样子，它们 2026-10-20 换成了横版 felix）：纹理多，JPEG 质量 76、宽 2100 的视口
-        const image = await renderer.render("best", data, { width: 2100, height: 1000, format: "jpeg", quality: 76 });
+        const image = await renderBest(renderer, data);
         const old = data.chapters[0].scores.length;
         const fresh = data.chapters[1].scores.length;
         const caption = old < OLD_SLOTS || fresh < NEW_SLOTS ? ctx.voice.aj50Few(old, fresh) : "";

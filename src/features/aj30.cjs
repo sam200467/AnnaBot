@@ -5,10 +5,10 @@
 // 要读全部成绩里每张谱面的分数和 FULL COMBO 标记，所以跟 /分数列表、/牌子进度 一样只收授权绑定
 // （binding: "oauth"，好友码绑定的人会被请去 /授权）。
 //
-// 主题沿用 themes/best/（数据形状跟 /b30 一样，章节 key 是 "aj"，见 best.cjs 的 buildData）。
+// 主题沿用 themes/felix/（数据形状跟 /b30 一样，章节 key 是 "aj"，见 best.cjs 的 buildData）。
 // 这是辅助用的表，作者 2026-10-19 要求不进指令面板（panel: false），/帮助 里还会列出来。
 
-const { buildData, attachAssets, pickAj30, OLD_SLOTS } = require("./best.cjs");
+const { buildData, attachAssets, pickAj30, OLD_SLOTS, renderBest } = require("./best.cjs");
 
 module.exports = {
   name: "aj30",
@@ -30,8 +30,7 @@ module.exports = {
         const { assets, renderer } = ctx.services;
         const data = buildData({ mode: "aj30", player, scores, catalog });
         await attachAssets(data, assets);
-        // 竖版的 best 主题（/b50 /b30 原来的样子，它们 2026-10-20 换成了横版 felix）：纹理多，JPEG 质量 76、宽 2100 的视口
-        const image = await renderer.render("best", data, { width: 2100, height: 1000, format: "jpeg", quality: 76 });
+        const image = await renderBest(renderer, data);
         const count = data.chapters[0].scores.length;
         return { buffer: image.buffer, caption: count < OLD_SLOTS ? ctx.voice.aj30Few(count) : "" };
       },
