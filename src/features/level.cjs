@@ -399,8 +399,12 @@ module.exports = Object.assign({
         const [allScores, player] = await Promise.all([scores || ctx.player.scores(), ctx.player.player()]);
         const data = buildData({ query, charts, scores: allScores, player, catalog, page, tags });
         await attachAssets(data, assets);
-        // 宽 2060（画框加五列卡片），高跟着卡片走；视口只要不比它窄。JPEG 质量 76 同其他图，倍率见 RENDER_SCALE
-        const image = await renderer.render("list", data, { width: 2100, height: 1500, format: "jpeg", quality: 76, scale: RENDER_SCALE });
+        // 宽 2060（画框加五列卡片），高跟着卡片走；视口只要不比它窄。JPEG 质量 76 同其他图，倍率见 RENDER_SCALE。
+        // 平常 4.6 MB 左右，曲绘花哨的一页可能超过 5 MB，超了就在同一页面降质量重新截（同 /b50、/牌子进度）
+        const image = await renderer.render("list", data, {
+          width: 2100, height: 1500, format: "jpeg", quality: 76, scale: RENDER_SCALE,
+          maxBytes: 5_000_000, fallbackQualities: [70, 64],
+        });
         const next = data.page < data.pages ? commandOf(ctx.feature.words[0], query, data.page + 1, tags) : null;
         return { buffer: image.buffer, caption: data.pages > 1 ? voice.levelPage(data.page, data.pages, next) : "" };
       },

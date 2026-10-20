@@ -85,7 +85,7 @@ body {
 .sub .pageno { font-family: var(--hand-bold); font-size: 32px; color: #e2cd9b; }
 
 /* 统计：一排七格，分三类（作者要用颜色分开，跟 MiaBot 一样）—— 谱面数是钴蓝，通关（AJC / AJ / FC）是琥珀，评级（SSS+ / SSS）是茜红；
-   类和类之间空宽一点。顶上一道色条跟卡片上的东西对得上：AJC 珠光、AJ 金、FC 铜（通关标记的颜色），SSS+ 珠光金、SSS 金（封印的颜色）。
+   类和类之间空宽一点。顶上一道色条跟卡片上的东西对得上：AJC 鲜彩虹、AJ 淡彩、FC 金（通关标记的颜色），SSS+ 珠光金、SSS 金（封印的颜色）。
    数都是包含关系（FC 里含 AJ、AJ 里含 AJC，SSS 里含 SSS+），见 src/features/ 里的统计 */
 .stats { display: flex; gap: 8px; margin-top: 28px; }
 .stat {
@@ -108,9 +108,9 @@ body {
 .stat.ajc, .stat.sssp { margin-left: 16px; }
 .stat.ajc, .stat.aj, .stat.fc { --cat: #8c4f0c; }
 .stat.sssp, .stat.sss { --cat: #9c2b45; }
-.stat.ajc { --accent: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
-.stat.aj { --accent: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
-.stat.fc { --accent: linear-gradient(180deg, #c07f41, #6e3d14); }
+.stat.ajc { --accent: linear-gradient(90deg, #f0346a 0%, #ff7a1a 18%, #e0a800 34%, #1fae58 50%, #138ee0 66%, #6248f0 82%, #c23bd8 100%); }
+.stat.aj { --accent: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.stat.fc { --accent: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
 .stat.sssp { --accent: linear-gradient(90deg, #d6ac55, #fff2c0, #f2c3d5, #c3e8c8, #b9dbf0, #dccafa, #d6ac55); }
 .stat.sss { --accent: linear-gradient(90deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c); }
 
@@ -378,13 +378,15 @@ body {
   zoom: 0.5;
 }
 
-/* 分数：整张卡最大的字 */
-.score { font-family: var(--script); font-weight: 700; font-size: 34px; line-height: 1.15; white-space: nowrap; color: var(--ink); }
+/* 分数：整张卡最显眼的字（作者 2026-10-20 要分数更突出）。Segoe Script 再描粗一层（Anna Script Heavy）、34 → 44px、墨色，
+   同 /b50；卡片窄，放不下时 theme.js 往小缩 */
+.score { flex-shrink: 0; font-family: "Anna Script Heavy", var(--hand); font-weight: 700; font-size: 44px; line-height: 46px; letter-spacing: -0.8px; white-space: nowrap; color: #21150a; }
 
-/* 通关标记：跟 /b50 一样的实心小牌子。2026-10-19 作者要求徽标更显眼：字号 18→22px、牌子 27→32px；
-   长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS），一行才放得下 */
-.marks { display: flex; gap: 5px; height: 32px; margin-top: 2px; overflow: hidden; font-size: 22px; }
-.mark { flex: none; display: flex; align-items: center; height: 32px; padding: 0 0.45em; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
+/* 通关标记：跟 /b50 一样的实心小牌子，长的通关标记缩写成 CATA / ABS / CHAIN（ThemeKit.MARKS），一行才放得下。
+   2026-10-19 放大到 22px；2026-10-20 分数放大以后作者嫌牌子抢眼，缩到 18px、挪到卡片最底下一行，跟评级封印挨着
+   （定数 › Rating 挪上去紧跟分数）。左边跟 .foot 一样让开封印；文楷的大写字母偏下，底下多留 2px 把字提上去（同 plate） */
+.marks { display: flex; gap: 4px; height: 26px; margin-top: auto; padding-left: 14px; overflow: hidden; font-size: 18px; }
+.mark { flex: none; display: flex; align-items: center; height: 26px; padding: 0 0.42em 2px; font-family: var(--hand-bold); font-weight: 700; font-size: inherit; white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 0 1px rgba(30, 12, 4, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.35); }
 /* FC/AJ/AJC 再加一道暖色细边和投影，从一排牌子里先跳出来 */
 .mark.fc, .mark.aj, .mark.ajc {
   box-shadow:
@@ -393,58 +395,49 @@ body {
     0 0 0 1px rgba(255, 236, 190, 0.55),
     0 2px 4px rgba(0, 0, 0, 0.35);
 }
-.mark.fc { background: linear-gradient(180deg, #c07f41, #6e3d14); }
-.mark.aj { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
-.mark.ajc { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+/* 2026-10-20 作者换的色：FC 用原来 AJ 的金，AJ 用原来 AJC 的淡彩，AJC 换成鲜彩虹（中间的黄、绿压深一点，白字才看得清） */
+.mark.fc { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.mark.aj { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.mark.ajc { color: #fff; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6), 0 0 2px rgba(30, 0, 40, 0.7); background: linear-gradient(90deg, #f0346a 0%, #ff7a1a 18%, #e0a800 34%, #1fae58 50%, #138ee0 66%, #6248f0 82%, #c23bd8 100%); }
 .mark.tag { padding-right: 0.95em; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - 0.42em) 50%, 100% 100%, 0 100%); }
 .mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
 .mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
 .mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }
 .mark.catastrophy { color: #f5d68e; background: linear-gradient(180deg, #3a1a1a, #080303); }
 .mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
-.mark.chain.gold { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ecd28e, #b7903a); }
+/* CHAIN+（FULL CHAIN 2）：原来是金色，2026-10-20 FC 换成金色以后撞色，换成青碧（跟别的牌子都不撞） */
+.mark.chain.plus { color: #fff; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); background: linear-gradient(180deg, #4fc9b8, #1b8f81 55%, #0f5e55); }
 
-/* 定数和单曲 Rating：定数写在难度色的小牌子上，Rating 是钴蓝的字 —— 跟分数一眼分得开。
+/* 定数 › 单曲 Rating：紧跟在分数下面（2026-10-20 通关标记挪到了最底下）。定数是难度色的字、Rating 是钴蓝的字，
+   跟 /b50 一样（定数原来垫着难度色的小牌子，2026-10-20 作者要去掉）。
    左边的缩进要让开压在曲绘角上的评级封印：封印 54px 宽、左边缘在 91px，右边缘差不多 145px，
    再算上不规则蜡边和投影；原来缩进 6px（定数从 144px 开始）会被 SSS / SSS+ 的金印压住一点（作者 2026-10-18 反馈），
-   所以缩进加到 14px（定数从 152px 开始）。Rating 右端离卡片边仍留 8px 以上 */
-.foot { margin-top: auto; display: flex; align-items: center; gap: 4px; padding-left: 14px; }
-.const {
-  flex: none;
-  height: 31px;
-  padding: 0 9px;
-  display: flex;
-  align-items: center;
-  font-family: var(--script);
-  font-weight: 700;
-  font-size: 22px;
-  color: #fff6e2;
-  border-radius: 3px;
-  background: var(--pill);
-  box-shadow: inset 0 0 0 1px rgba(20, 8, 2, 0.45), inset 0 1px 0 rgba(255, 240, 215, 0.3);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
-}
-.arrow { font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(106, 76, 42, 0.75); position: relative; left: 0px; top: -1.5px; }
-.rating { font-family: var(--script); font-weight: 700; font-size: 28px; line-height: 1; color: var(--cobalt); position: relative; left: -3px; top: 1px; }
+   所以缩进加到 14px（定数从 152px 开始） */
+.foot { margin-top: 3px; display: flex; align-items: baseline; padding-left: 14px; white-space: nowrap; }
+.const { flex: none; font-family: var(--script); font-weight: 700; font-size: 26px; line-height: 1.2; color: var(--diff-ink); }
+.arrow { margin: 0 6px 0 5px; font-family: var(--hand-bold); font-weight: 700; font-size: 22px; color: rgba(106, 76, 42, 0.6); }
+.rating { font-family: var(--script); font-weight: 700; font-size: 28px; line-height: 1.2; color: var(--cobalt); }
 
 /* 没打过：灰下去（曲绘去色、纸发灰），只留曲名和定数 */
 .card.unplayed .vellum { background: radial-gradient(ellipse 120% 100% at 26% 12%, #e9e6df 0%, #d6d2c8 60%, #c4bfb3 100%); box-shadow: inset 0 0 0 1.5px #8d887c, inset 0 0 0 4px #ebe8e1, inset 0 0 0 5px rgba(141, 136, 124, 0.5), 0 5px 12px rgba(10, 6, 2, 0.5); }
 .card.unplayed .jacket img { filter: grayscale(1) brightness(0.9) contrast(0.9); opacity: 0.8; }
 .card.unplayed .title-line { color: #57524a; }
-.card.unplayed .score { font-family: var(--hand-bold); font-size: 27px; line-height: 39px; color: #7a746a; }
+.card.unplayed .score { font-family: var(--hand-bold); font-size: 27px; letter-spacing: normal; line-height: 39px; color: #7a746a; }
 /* 难度色留着、褪一半：没打过的谱面也要看得出是 MASTER 还是 ULTIMA */
 .card.unplayed .jacket { filter: saturate(0.4); }
 .card.unplayed .const { filter: saturate(0.4) brightness(1.08); }
+/* 没打过的卡片没有通关标记：定数照旧排在最底下（2026-10-20 打过的卡片把定数挪到了分数下面） */
+.card.unplayed .marks { display: none; }
+.card.unplayed .foot { margin-top: auto; }
 .card.unplayed .idx { background: linear-gradient(180deg, #6b6a74, #45444c); color: #e6e2d8; box-shadow: 0 0 0 1px rgba(200, 196, 186, 0.8); }
 
-/* 难度：颜料色（跟 /b50 一样）。--frame 曲绘的框，--pill 定数牌子，--wash 纸右侧的晕染 */
-.d0 { --frame: #4f8b52; --pill: linear-gradient(180deg, #5b9a5e, #2f6232); --wash: rgba(79, 139, 82, 0.16); }
-.d1 { --frame: #c28b25; --pill: linear-gradient(180deg, #cf9a33, #8a5c0c); --wash: rgba(194, 139, 37, 0.16); }
-.d2 { --frame: #b4362f; --pill: linear-gradient(180deg, #c2453c, #7d1f18); --wash: rgba(180, 54, 47, 0.16); }
-.d3 { --frame: #7c3a95; --pill: linear-gradient(180deg, #8a4aa3, #4f1f66); --wash: rgba(124, 58, 149, 0.16); }
-.d4 { --frame: #9b1219; --pill: linear-gradient(180deg, #3a1214, #120607); --wash: rgba(26, 8, 10, 0.2); }
+/* 难度：颜料色（跟 /b50 一样）。--frame 曲绘的框，--diff-ink 定数的字，--wash 纸右侧的晕染 */
+.d0 { --frame: #4f8b52; --diff-ink: #2f5a31; --wash: rgba(79, 139, 82, 0.16); }
+.d1 { --frame: #c28b25; --diff-ink: #7a5208; --wash: rgba(194, 139, 37, 0.16); }
+.d2 { --frame: #b4362f; --diff-ink: #8a231c; --wash: rgba(180, 54, 47, 0.16); }
+.d3 { --frame: #7c3a95; --diff-ink: #55216b; --wash: rgba(124, 58, 149, 0.16); }
+.d4 { --frame: #9b1219; --diff-ink: #1a0a0b; --wash: rgba(26, 8, 10, 0.2); }
 .d4 .jacket { box-shadow: 0 0 0 2px #120607, 0 0 0 3px #9b1219, 0 0 0 4px rgba(30, 14, 4, 0.8), 0 3px 6px rgba(0, 0, 0, 0.4); }
-.d4 .const { box-shadow: inset 0 0 0 1px #9b1219, inset 0 1px 0 rgba(255, 220, 215, 0.2); }
 
 /* ── 页脚：一行落款 ── */
 .credit { margin-top: 34px; text-align: center; font-family: var(--hand-bold); font-weight: 700; font-size: 26px; color: rgba(236, 222, 190, 0.85); text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); }

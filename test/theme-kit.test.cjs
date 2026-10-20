@@ -52,7 +52,7 @@ test("MARKS：FC/AJ/AJC 原样，长的通关标记缩写到牌子上放得下",
   assert.equal(MARKS.catastrophy.text, "CATA");
   assert.equal(MARKS.fullchain.text, "CHAIN");
   assert.equal(MARKS.fullchain2.text, "CHAIN+");
-  assert.equal(MARKS.fullchain2.kind, "chain gold");
+  assert.equal(MARKS.fullchain2.kind, "chain plus");
   // 所有标记都得有配色 class，不然牌子上没有底色
   for (const [key, item] of Object.entries(MARKS)) {
     assert.ok(item.text && item.kind, key + " 缺文字或 class");

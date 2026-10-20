@@ -298,11 +298,11 @@
       if (clear) marks.append(clear);
       if (chain) marks.append(chain);
     }
-    body.append(marks);
     const foot = el("div", "foot");
     foot.append(el("span", "const", chart.constant ? ThemeKit.format.constant(chart.constant) : chart.level || ""));
     if (played) foot.append(el("span", "arrow", "›"), el("span", "rating", ThemeKit.format.rating(chart.rating)));
-    body.append(foot);
+    // 定数 › Rating 紧跟分数，通关标记在最底下一行（2026-10-20）
+    body.append(foot, marks);
     item.append(body);
     return item;
   }
@@ -332,10 +332,10 @@
     }
   }
 
-  // 一行通关标记放不下：整行先缩（最小 20px），还放不下从后往前去掉
+  // 一行通关标记放不下：整行先缩（最小 15px），还放不下从后往前去掉
   function fitMarks(row) {
     let size = parseFloat(getComputedStyle(row).fontSize);
-    while (row.scrollWidth > row.clientWidth + 0.5 && size > 20) {
+    while (row.scrollWidth > row.clientWidth + 0.5 && size > 15) {
       size -= 1;
       row.style.fontSize = size + "px";
     }

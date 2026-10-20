@@ -53,7 +53,7 @@
     }
   }
 
-  // 通关标记：key 是落雪给的取值，text 是牌子上写的字，kind 是各主题配色的 class（FULL CHAIN 2 多一个 gold）。
+  // 通关标记：key 是落雪给的取值，text 是牌子上写的字，kind 是各主题配色的 class（FULL CHAIN 2 多一个 plus）。
   // CATASTROPHY / ABSOLUTE / FULL CHAIN 太长：卡片一行还要放 FC/AJ/AJC，标记放大以后更放不下，
   // 所以缩写成 CATA / ABS / CHAIN（作者 2026-10-19 允许“cata”这种写法）；FC/AJ/AJC 保持原样。
   const MARKS = {
@@ -65,7 +65,7 @@
     absolute: { text: "ABS", kind: "absolute" },
     catastrophy: { text: "CATA", kind: "catastrophy" },
     fullchain: { text: "CHAIN", kind: "chain" },
-    fullchain2: { text: "CHAIN+", kind: "chain gold" },
+    fullchain2: { text: "CHAIN+", kind: "chain plus" },
   };
 
   // 定数、分数这些格式化小函数各主题都要用，放这里免得每个主题写一遍。

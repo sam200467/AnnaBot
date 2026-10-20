@@ -106,7 +106,9 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 - 正文只用一种手写字体：霞鹜文楷 Medium（`themes/shared/fonts.css` 的 `Anna Hand`，写成 `"Anna Hand", "Segoe UI Symbol", serif`）。
   它一个字体就有简体、繁体、日文汉字、假名、西文，曲名混排时大小、笔迹才对得齐 —— 之前几种字体叠着用（Segoe Script、
   辰宇落雁體、华文楷体补假名），作者嫌大小不统一。别再往同一段字里叠别的字体
-- 作者另外指定了几处纯数字、纯西文用 Segoe Script（`Anna Script`），跟正文区分开：单曲分数、定数、单曲 Rating（定数和 Rating 差不多大）、页脚格言
+- 作者另外指定了几处纯数字、纯西文用 Segoe Script（`Anna Script`），跟正文区分开：单曲分数、定数、单曲 Rating（定数和 Rating 差不多大）、页脚格言。
+  成绩卡片（/b50 一族、/分数列表、/牌子进度）上的分数要是整张卡最显眼的字（作者 2026-10-20）：换成再描粗一层的 `Anna Script Heavy`
+  （还是 Segoe Script Bold，`fonts.css` 里声明成 400、写 700 让浏览器描粗）、43～46px、墨色。只换颜色（深酒红）、色带反白都试过，没选
 - 玩家总 Rating 的颜色按游戏 VERSE 以后的色档：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹、17 虹极。
   阈值只在 `themes/shared/theme-kit.js` 的 `ratingTier`，各主题按自己的底（暗色 / 象牙纸）配色；游戏里 15.25 以后的星不画，
   字体也不跟着换（作者 2026-10-18：只改颜色，不动字体）
@@ -114,9 +116,11 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   见 `themes/song/README.md`）；标签、说明能省就省（第一版的大标题和说明文字被删了）。图上不写玩家名（`/单曲` 页脚的被删了）
 - 名牌版上的称号栏 2026-10-19 也按作者要求放大：best 23px、list 20px、plate 30px（原来 19 / 16 / 26px），
   写不下时照旧整行等比缩小（`fitText` / `fitPlate`），不会溢出彩色条。
-- 通关徽标要显眼：FC / AJ / AJC 这类小牌子 2026-10-19 作者又叫放大，五套出图主题统一到 22～23px（原来 18～19px），
-  FC/AJ/AJC 再加一道暖色细边；CATASTROPHY / ABSOLUTE / FULL CHAIN 太长，在 `themes/shared/theme-kit.js` 的 `MARKS`
-  里统一缩写成 CATA / ABS / CHAIN（`CHAIN+` 是 fullchain2）。卡片一行放不下时先缩到 20px，再去掉最后的连段标记。
+- 通关徽标：FC / AJ / AJC 这类小牌子 2026-10-19 统一放大到 22～23px，FC/AJ/AJC 再加一道暖色细边；CATASTROPHY / ABSOLUTE /
+  FULL CHAIN 太长，在 `themes/shared/theme-kit.js` 的 `MARKS` 里统一缩写成 CATA / ABS / CHAIN（`CHAIN+` 是 fullchain2，kind `chain plus`）。
+  2026-10-20 分数放大以后，成绩卡片上的牌子缩回 18～19px、挪到卡片最底下一行跟评级封印挨着，定数 › Rating 挪到分数下面
+  （/单曲、/谱面分析 还是 23px）；卡片一行放不下时先缩到 15～16px，再去掉最后的标记。/分数列表、/牌子进度 的定数也不再垫难度色小牌子，
+  跟 /b50 一样是难度色的字。配色 2026-10-20 换过（五个主题一样）：FC 金（原来 AJ 的）、AJ 淡彩（原来 AJC 的）、AJC 鲜彩虹白字、CHAIN+ 青碧。
 - 难度用颜料色（铜绿、赭黄、朱红、紫、黑红），不用游戏里的亮色；画框、撕边、封蜡、缎带、装饰线、柱状图可以直接从
   `themes/best/renderer/theme.js` 拿（画框素材 `themes/best/assets/frame.png`，拼法见 `FRAME`）
 - 纹理多的图出 JPEG（`renderer.render(主题, 数据, { format: "jpeg", quality: 76 })`）：B50 出 PNG 要 18 MB，

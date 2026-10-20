@@ -5,6 +5,7 @@
  *
  *   Anna Hand     霞鹜文楷 Medium：手写楷书，Anna 出图的正文字体
  *   Anna Script   Segoe Script：手写西文，只用在数字和格言这种纯西文的地方（best 主题的分数、定数、单曲 Rating、格言）
+ *   Anna Script Heavy  Segoe Script Bold 再描粗一层：成绩卡片上的分数（felix、list、plate）
  *   Anna Caps     Cinzel：罗马碑刻体大写
  *   Anna Serif    Cormorant Infant：Garamond 一路的西文衬线
  *   Anna Mincho   游明朝（Windows 自带）/ Noto Serif JP：日文明朝
@@ -42,6 +43,14 @@
 @font-face {
   font-family: "Anna Script";
   font-weight: 700 900;
+  src: local("Segoe Script Bold"), local("SegoeScript-Bold");
+}
+
+/* 成绩卡片上的分数：Segoe Script Bold 再让浏览器描粗一层（作者 2026-10-20 要分数更显眼，Segoe Script 的笔画太细，
+   光换颜色、放大都压不过旁边的曲名和牌子）。跟 Anna Hand Bold 一个办法：只声明成 400，写 font-weight: 700 时浏览器就会描粗 */
+@font-face {
+  font-family: "Anna Script Heavy";
+  font-weight: 400;
   src: local("Segoe Script Bold"), local("SegoeScript-Bold");
 }
 
