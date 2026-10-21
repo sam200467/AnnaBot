@@ -25,8 +25,8 @@ function createUpdateNotice(config, { log = () => {} } = {}) {
     if (error.code !== "ENOENT") log("⚠ 读取更新通知记录失败：" + error.message);
   }
   const busy = new Set();
-  const text = ["【Anna 更新日志】", "更新完成，Anna 已重新上线♪",
-    "版本：" + release.version,
+  const text = ["【Anna 更新日志】", "更新完成，Anna 已重新上线♪", "",
+    "版本：" + release.version, "",
     ...(Array.isArray(release.notes) && release.notes.length ? release.notes.map((note) => "· " + note) : ["· 程序已更新至最新安装包。"]),
   ].join("\n");
   const markdown = text.replace("【Anna 更新日志】", "### **Anna 更新日志**");
