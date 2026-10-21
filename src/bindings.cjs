@@ -154,6 +154,9 @@ function createBindings({ vault, lxns, oauth = null, now = Date.now, log = () =>
       scoreRanking: (songId, levelIndex) => (oauthOk ? viaUser((u) => u.scoreRanking(songId, levelIndex), () => null) : Promise.resolve(null)),
       // type: trophy | character | plate | icon
       collection: (type, id) => either((u) => u.collection(type, id), () => lxns.dev.collection(friendCode, type, id)),
+      // 年度总结只有玩家接口有：好友码绑定、授权失效时报 need_oauth / oauth_expired
+      yearInReview: (year, options) => (oauthOk ? viaUser((u) => u.yearInReview(year, options), null)
+        : Promise.reject(new LxnsError("需要授权才能读年度总结", { code: isOAuth ? "oauth_expired" : "need_oauth" }))),
     };
   }
 

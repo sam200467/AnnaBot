@@ -16,6 +16,7 @@ module.exports = [
   require("./plate.cjs"),
   require("./history.cjs"),
   require("./trend.cjs"),
+  require("./year-review.cjs"),
   require("./help.cjs"),
   ...require("./status.cjs"),
   require("./example-image.cjs"),

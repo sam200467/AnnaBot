@@ -36,6 +36,11 @@ function classify(status, message) {
   if (status === 403 && text.includes("allow third party fetch scores")) return "privacy_scores";
   if (status === 403 && text.includes("allow third party")) return "privacy_player";
   if (status === 403) return "forbidden";
+  // 年度总结（2026-10-21 实测）：没生成过是 400 agree is required；不能生成的年份是 400 invalid year；
+  // 分享链接不对是 404 year in review not found
+  if (status === 400 && text.includes("agree is required")) return "agree_required";
+  if (status === 400 && text.includes("invalid year")) return "invalid_year";
+  if (status === 404 && text.includes("year in review")) return "review_not_found";
   if (status === 404 && text.includes("player")) return "player_not_found";
   if (status === 404) return "not_found";
   if (status === 400 && text.includes("friend code")) return "invalid_friend_code";
@@ -56,14 +61,14 @@ function createLxnsClient(options = {}) {
   const log = options.log || (() => {});
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async function once(path, { headers, query }) {
+  async function once(path, { headers, query, timeout = timeoutMs }) {
     const url = new URL(base + path);
     for (const [key, value] of Object.entries(query || {})) {
       if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));
     }
     let res;
     try {
-      res = await fetchImpl(url, { headers, signal: AbortSignal.timeout(timeoutMs) });
+      res = await fetchImpl(url, { headers, signal: AbortSignal.timeout(timeout) });
     } catch (error) {
       const timeout = error?.name === "TimeoutError" || error?.name === "AbortError";
       throw new LxnsError(timeout ? "请求落雪查分器超时" : "连不上落雪查分器：" + (error?.cause?.code || error?.message || error),
@@ -81,12 +86,13 @@ function createLxnsClient(options = {}) {
   }
 
   // 只重试一次「过一会儿可能就好」的错误；401/403/404 这类重试也没用。
-  async function get(path, { headers = {}, query } = {}) {
+  // 有副作用、又慢的请求（生成年度总结）单独给超时、不重试：超时了落雪那边可能还在生成，再发一遍没意义
+  async function get(path, { headers = {}, query, timeout, retry = true } = {}) {
     for (let attempt = 0; ; attempt++) {
       try {
-        return await once(path, { headers, query });
+        return await once(path, { headers, query, timeout });
       } catch (error) {
-        if (!(error instanceof LxnsError) || !RETRYABLE.has(error.code) || attempt >= retries) throw error;
+        if (!(error instanceof LxnsError) || !RETRYABLE.has(error.code) || !retry || attempt >= retries) throw error;
         log("落雪接口 " + path.replace(/\/player\/\d+/, "/player/…") + " 失败（" + error.code + "），稍后重试");
         await sleep(error.code === "rate_limited" ? retryDelayMs * 2 : retryDelayMs);
       }
@@ -130,7 +136,7 @@ function createLxnsClient(options = {}) {
     const headers = auth?.bearer ? { Authorization: "Bearer " + auth.bearer }
       : auth?.userToken ? { "X-User-Token": auth.userToken } : null;
     if (!headers) throw new LxnsError("玩家接口缺少令牌", { code: "unauthorized" });
-    const userGet = (path, query) => get("/user/chunithm/player" + path, { headers, query });
+    const userGet = (path, query, options) => get("/user/chunithm/player" + path, { headers, query, ...options });
     return {
       player: () => userGet(""),
       bests: () => userGet("/bests"),
@@ -144,6 +150,11 @@ function createLxnsClient(options = {}) {
       // 文档没列，前端的成绩详情在用（2026-10-17 用个人密钥实测）；开发者接口没有这个
       scoreRanking: (songId, levelIndex) => userGet("/score/ranking", { song_id: songId, level_index: levelIndex }),
       collection: (type, id) => userGet("/" + type + "/" + id),
+      // 年度总结（文档没列，落雪前端的年度总结页在用；2026-10-21 用 OAuth 实测能读，开发者接口没有这条路由）。
+      // 没生成过的年份先是 400 agree_required，带 agree=true 就是网页上的「生成数据」：当场统计、慢，
+      // 只有 Y 年的数据能在 Y+1 年里生成，别的年份是 400 invalid_year
+      yearInReview: (year, { agree = false } = {}) => userGet("/year-in-review/" + year, agree ? { agree: "true" } : undefined,
+        agree ? { timeout: 180000, retry: false } : undefined),
     };
   }
 
@@ -157,6 +168,8 @@ function createLxnsClient(options = {}) {
     aliasList: () => get("/chunithm/alias/list"),
     // type: trophy | character | plate | icon
     collectionList: (type) => get("/chunithm/" + type + "/list"),
+    // 玩家在落雪网页上公开分享的年度总结（链接 …/year-in-review/{年}/share/{token} 里的 token），不用鉴权
+    yearInReviewShare: (year, token) => get("/chunithm/year-in-review/" + year + "/share/" + encodeURIComponent(token)),
   };
 }
 

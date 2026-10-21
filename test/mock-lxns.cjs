@@ -40,6 +40,7 @@ function createMockLxns(options = {}) {
       versions: [{ id: 1, title: "CHUNITHM", version: 10000 }, { id: 2, title: "CHUNITHM X-VERSE", version: 13000 }, { id: 3, title: "NEXT", version: 99999 }],
     },
     aliasList: options.aliasList || { aliases: [{ song_id: 3, aliases: ["bbkkbkk"] }, { song_id: 407, aliases: ["混沌"] }, { song_id: 999, aliases: ["不存在"] }] },
+    shares: new Map(),        // "年份/token" -> 公开分享的年度总结
     failNext: null,           // { status, body, times }
     tokenDelayMs: 0,          // 令牌接口故意慢一点，测并发刷新
   };
@@ -80,6 +81,18 @@ function createMockLxns(options = {}) {
     }
     // 排名只有玩家接口有（开发者接口走到最后的 404）
     if (rest === "/score/ranking" && !viaDev) return ok(res, p.ranking || []);
+    // 年度总结只有玩家接口有。reviews: { 年份: { data, needsAgree } }：needsAgree 时不带 agree=true 是 400 agree is required，
+    // 带了就当场「生成」（以后不带也能读）；没列的年份是 400 invalid year（照 2026-10-21 实测）
+    const review = !viaDev && rest.match(/^\/year-in-review\/(\d+)$/);
+    if (review) {
+      const entry = p.reviews[review[1]];
+      if (!entry) return fail(res, 400, "invalid year");
+      if (entry.needsAgree) {
+        if (query.get("agree") !== "true") return fail(res, 400, "agree is required");
+        entry.needsAgree = false;
+      }
+      return ok(res, entry.data);
+    }
     if (rest === "/best") {
       const hit = p.scores.find((s) => String(s.id) === query.get("song_id") && String(s.level_index) === query.get("level_index"));
       return ok(res, hit || null);
@@ -145,6 +158,12 @@ function createMockLxns(options = {}) {
     }
     if (url.pathname === "/api/v0/chunithm/song/list") return json(res, 200, state.songList);
     if (url.pathname === "/api/v0/chunithm/alias/list") return json(res, 200, state.aliasList);
+    // 公开分享的年度总结：不用鉴权，token 不对是 404 year in review not found
+    const share = url.pathname.match(/^\/api\/v0\/chunithm\/year-in-review\/(\d+)\/share\/([^/]+)$/);
+    if (share) {
+      const data = state.shares.get(share[1] + "/" + decodeURIComponent(share[2]));
+      return data ? ok(res, data) : fail(res, 404, "year in review not found");
+    }
 
     const dev = url.pathname.match(/^\/api\/v0\/chunithm\/player\/([^/]+)(\/.*)?$/);
     if (dev) {
@@ -180,8 +199,9 @@ function createMockLxns(options = {}) {
       return new Promise((resolve) => server.close(() => resolve()));
     },
     // bests：/bests 原样返回的 { bests, new_bests, selections }，不给就拿 scores 的前 30 凑；
-    // history：score/history 用的 Score[]（按 id、level_index 筛）；ranking：score/ranking 原样返回的列表
-    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [] } = {}) {
+    // history：score/history 用的 Score[]（按 id、level_index 筛）；ranking：score/ranking 原样返回的列表；
+    // reviews：年度总结 { 年份: { data, needsAgree } }
+    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [], reviews = {} } = {}) {
       const p = {
         friendCode: String(friendCode), name, rating,
         privacy: { player: true, scores: true, history: false, ...privacy },
@@ -189,6 +209,7 @@ function createMockLxns(options = {}) {
         bests: bests || null,
         history,
         ranking,
+        reviews,
       };
       state.players.set(String(friendCode), p);
       return p;

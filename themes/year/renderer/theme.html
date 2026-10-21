@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="../../shared/rating-tiers.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page">
+    <div class="scene"><img class="painting" src="../assets/painting.jpg" alt=""><div class="shade"></div></div>
+    <img class="fullbody" id="avenius" src="../assets/avenius-fullbody.png" alt="原初的巫女艾薇妮娅斯">
+    <div class="content">
+      <header>
+        <div class="title"><h1>年度总结<span id="year" class="year"></span></h1><p id="subtitle"></p></div>
+        <!-- 玩家的名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位、总 Rating（照 /推分记录）。
+             艾薇妮娅斯举着剑、右上角被剑和缎带占了，所以放在左栏抬头的右边 -->
+        <aside id="identity" class="identity">
+          <div class="portrait">
+            <div class="medallion"><img id="chara" class="chara" alt=""></div>
+            <div id="emblem" class="emblem"></div>
+          </div>
+          <div id="plate" class="plate">
+            <img id="plate-img" class="plate-img" alt="">
+            <div id="trophy" class="trophy"></div>
+            <div class="plate-name"><span class="who"><span id="level" class="level"></span><span id="name" class="name"></span></span></div>
+            <div class="overall rating-floor"><span class="overall-label">总 Rating</span><span id="rating" class="overall-value"></span></div>
+          </div>
+        </aside>
+      </header>
+      <section class="overview material" id="overview"></section>
+      <div class="main">
+        <section class="panel material top"><h2>上传最多的歌</h2><div class="podium" id="podium"></div><ol class="rest" id="rest"></ol></section>
+        <section class="panel material months"><h2>每月上传次数统计</h2><div class="month-grid" id="months"></div></section>
+      </div>
+      <div class="bottom" id="bottom">
+        <section class="panel material marks" id="marks-panel"><h2>评级/全连统计</h2><div class="cells" id="cells"></div></section>
+        <section class="panel material levels" id="levels-panel"><h2>难度分布</h2><div class="bars" id="bars"></div></section>
+      </div>
+    </div>
+    <footer><p id="credit"></p><p id="note"></p></footer>
+    <img class="frame" src="../assets/frame.webp" alt="">
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

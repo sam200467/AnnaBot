@@ -88,6 +88,15 @@ const V = {
   historyNoScores: "你还没有成绩。先打几首再来吧。",
   historyNoRecords: "还没有同步记录。等下一次同步再来吧。",
 
+  // ── /年度总结 ──
+  yearReviewUsage: "用法：/年度总结（看去年的），或者「/年度总结 2024」写年份。要授权，只能看自己的。",
+  yearReviewTooEarly: (year) => year + " 年还没过完呢。年度总结要等到第二年才能看。",
+  yearReviewTooOld: (first) => "落雪的年度总结是从 " + first + " 年开始的，再早的没有。",
+  // 落雪规定 Y 年的数据只能在 Y+1 年里生成
+  yearReviewClosed: (year) => year + " 年的年度总结只能在 " + (year + 1) + " 年里生成。那时候没有生成过，落雪那边已经没有了……",
+  yearReviewGenerating: (year) => "第一次看 " + year + " 年的，要先请落雪统计一下。……稍等，可能要一会儿。",
+  yearReviewEmpty: (year) => year + " 年你没有在落雪上传过成绩，没什么可总结的。",
+
   // ── /单曲 ──
   songUsage: "用法：/单曲 曲名\n曲名记不全也没关系：写一部分、别名或者曲目 ID（id850）都行，简体繁体、假名罗马音我也认。@ 别人可以看 TA 的成绩。",
   songNotFound: (query) => "没找到「" + query + "」……再给我一点线索？曲名的一部分、别名，或者曲目 ID（id850）都行。",

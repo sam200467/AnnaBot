@@ -1,0 +1,141 @@
+/* 年度总结：固定横版 2700×1780。画框（荷兰国立 BK-15994 红玳瑁乌木波纹镜框）是按画布拼好的整张图（design/prepare-materials.py），
+   油画是赖特《那不勒斯海边的岩洞（日落）》，右边那一栏站着原初的巫女艾薇妮娅斯（60% 不透明度，跟 /同步记录 的伊迪亚一样）。
+   底板照 TA 的衣服配：黑外套的衣料做底、旧金饰边做边线，标题条是胭脂红披风。 */
+:root { --ink:#efe4d0; --muted:#c9b9a1; --gold:#d3b271; --trim:#b59a62; --hand:"Anna Hand","Segoe UI Symbol",serif; --hand-bold:"Anna Hand Bold",var(--hand); --script:"Anna Script",var(--hand); }
+* { box-sizing:border-box; }
+body { margin:0; background:#160f0d; color:var(--ink); font-family:var(--hand); font-size:28px; line-height:1.3; }
+#page { position:relative; width:2700px; height:1780px; overflow:hidden; background:#1a1210; }
+/* 框宽 88，油画垫到框下 4px，免得框的内口露缝 */
+.scene { position:absolute; inset:84px; overflow:hidden; }
+.painting { width:100%; height:100%; object-fit:cover; object-position:center 42%; }
+/* 左边压暗放表格，右边洞口的落日留亮 */
+.shade { position:absolute; inset:0; background:linear-gradient(90deg,#110b0ad9 0%,#140d0bb3 42%,#1a110d4d 62%,#1a110d00 74%),linear-gradient(0deg,#0e0a09b0,#0e0a0900 32%),linear-gradient(180deg,#0e0a0980,#0e0a0900 22%); }
+.frame { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:8; }
+/* 立绘 755×1134 等比缩到 870 宽，脚落在洞口的地面上（作者 2026-10-21 要缩小一点，原来 990 宽） */
+.fullbody { position:absolute; left:1730px; top:290px; width:870px; height:1307px; object-fit:contain; opacity:.6; filter:saturate(.92); }
+.content { position:absolute; left:132px; top:136px; width:1600px; }
+
+header { height:240px; display:flex; justify-content:space-between; align-items:flex-start; }
+.title { text-shadow:0 2px 8px #0c0807; padding-top:6px; }
+h1 { margin:0; font-size:92px; font-weight:500; letter-spacing:10px; line-height:1.15; }
+.year { font:700 72px var(--script); color:#ead193; letter-spacing:2px; margin-left:22px; }
+header p { margin:16px 0 0; font-size:28px; color:#d8c8ae; }
+
+/* 黑外套的衣料：--coat 是从立绘裁下来的一小块（theme.js），叠在深色底下面，只留一点织物的笔触 */
+.material { position:relative; background:linear-gradient(110deg,#140f10f0,#1c1415f0),var(--coat); background-size:auto,150px 230px; border:1px solid var(--trim); box-shadow:inset 0 0 0 5px #151011,inset 0 0 0 7px #a3864f80,0 6px 20px #0008; }
+.panel h2 { position:relative; margin:0; height:66px; padding:0 26px; display:flex; align-items:center; font-size:33px; font-weight:500; letter-spacing:5px; color:#f6e9d1; background:linear-gradient(90deg,#8d1e25f2,#6a1419f2 70%,#55101af2),var(--cape); background-size:auto,200px 140px; border-bottom:4px double #c9a865; text-shadow:0 1px 3px #2a0507; }
+.panel h2:after { content:""; position:absolute; right:24px; top:50%; width:16px; height:16px; margin-top:-8px; border:2px solid #e2c587; transform:rotate(45deg); }
+
+/* ── 总览：上传条数、天数、Rating ── */
+.overview { margin-top:0; height:140px; display:flex; align-items:center; padding:0 38px; }
+.overview .stat { flex:1 1 auto; }
+.overview .stat.rating { flex-grow:2; }
+.stat { display:flex; flex-direction:column; justify-content:center; height:100%; padding-left:44px; border-left:1px solid #b59a6255; }
+.stat:first-child { border-left:none; padding-left:0; }
+.stat label { font-size:25px; color:var(--muted); margin-bottom:4px; letter-spacing:1px; }
+.stat .value { display:flex; align-items:baseline; gap:10px; white-space:nowrap; }
+/* 不给 strong 写颜色：比 .tier-* 具体，会盖掉 Rating 的色档（只有渐变档碰巧不受影响）。
+   strong 在 flex 里是块，背景盒就是行高 1.25 em，虹极的竖渐变要按它定位（shared/rating-tiers.css 开头），否则颜色整体往下错 */
+.stat strong { font:700 58px/1.25 var(--script); --tier-lh:1.25; }
+.stat strong.plain { color:#f3e3c2; }
+.stat .unit { font-size:28px; color:#dccbb0; }
+.stat .aside { font-size:24px; color:var(--muted); margin-left:6px; }
+.stat .arrow { font-size:36px; color:#bfae93; margin:0 6px; }
+.stat .gain { font:700 34px var(--script); color:#9fd8a7; margin-left:12px; }
+.stat .gain.loss { color:#e7a39a; }
+
+/* ── 中间两块：上传最多的歌、十二个月 ── */
+.main { display:grid; grid-template-columns:930px 646px; gap:24px; margin-top:24px; height:806px; }
+.top { display:flex; flex-direction:column; }
+.podium { display:flex; justify-content:center; align-items:flex-end; gap:44px; height:384px; padding:0 20px 6px; }
+.place { display:flex; flex-direction:column; align-items:center; width:var(--size); }
+.place.p1 { --size:222px; margin-bottom:36px; }
+.place.p2 { --size:184px; margin-bottom:14px; }
+.place.p3 { --size:184px; margin-bottom:0; }
+.jacket-box { position:relative; width:var(--size); height:var(--size); }
+.jacket-box img { display:block; width:100%; height:100%; object-fit:cover; border:3px solid #d8bb7c; box-shadow:0 6px 16px #000a; background:#2a2020; }
+.place.p1 .jacket-box img { border-width:4px; border-color:#ecd08f; }
+.rank-badge { position:absolute; left:-16px; top:-16px; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font:700 30px Georgia,serif; color:#2b1a0c; background:radial-gradient(circle at 35% 30%,#fff3cf,#d9b467 60%,#9f7b39); box-shadow:0 3px 8px #000b,inset 0 0 0 2px #fff6da88; }
+.place.p2 .rank-badge { background:radial-gradient(circle at 35% 30%,#ffffff,#c6ccd3 60%,#8d949d); }
+.place.p3 .rank-badge { background:radial-gradient(circle at 35% 30%,#ffe2c8,#c88a5a 60%,#8b5631); }
+.place .song-title { width:100%; margin-top:12px; text-align:center; font-size:27px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.place .count { font:700 32px var(--script); color:var(--gold); line-height:1.2; }
+.count small { font:24px var(--hand); color:var(--muted); margin-left:6px; }
+.rest { list-style:none; margin:0; padding:10px 26px 0; display:grid; grid-template-columns:1fr 1fr; gap:6px 34px; }
+.rest li { display:flex; align-items:center; gap:14px; height:72px; border-bottom:1px solid #b59a6230; min-width:0; }
+.rest .no { flex:none; width:34px; text-align:right; font:700 28px Georgia,serif; color:#bfa874; }
+.rest img { flex:none; width:60px; height:60px; object-fit:cover; border:2px solid #b59a62aa; background:#2a2020; }
+.rest .song-title { flex:1; min-width:0; font-size:27px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rest .count { flex:none; font:700 28px var(--script); color:var(--gold); }
+
+.month-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(4,1fr); gap:12px; padding:16px 18px 20px; height:calc(100% - 66px); }
+.month { position:relative; display:flex; flex-direction:column; justify-content:space-between; padding:9px 12px 14px; background:#ffffff08; border:1px solid #b59a6255; overflow:hidden; }
+.month .head { display:flex; justify-content:space-between; align-items:baseline; }
+.month .name { font-size:26px; color:#e3d3b7; }
+.month .n { font:700 40px/1.1 var(--script); color:#f3e3c2; }
+/* 三张曲绘平分格子的宽（格子约 170px，写死 62px 会挤出去） */
+.month .jackets { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
+.month .jackets img { width:100%; aspect-ratio:1; object-fit:cover; border:2px solid #b59a62aa; background:#2a2020; }
+.month .jackets img:first-child { border-color:#e2c587; }
+.month .bar { position:absolute; left:0; bottom:0; height:5px; background:linear-gradient(90deg,#a3242b,#e0b45f); }
+.month.empty { opacity:.4; }
+.month.empty .n { font-size:34px; color:#a8998a; }
+
+/* ── 下面一排：评级 / 连击（包含关系），难度 ── */
+.bottom { display:grid; grid-template-columns:930px 646px; gap:24px; margin-top:24px; height:204px; }
+.cells { display:flex; align-items:center; gap:14px; padding:20px 24px 0; }
+.cell { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.cell .chip { min-width:92px; padding:3px 10px; text-align:center; font:700 25px Georgia,serif; letter-spacing:1px; border:1px solid #d8bb7c; color:#2b1a0c; background:linear-gradient(180deg,#f6e3b0,#d2ad62); }
+.cell .chip.r-sssp { background:linear-gradient(90deg,#f7c7c3,#f6e4ae,#cdeec6,#bfe2f0,#d9c8f1); }
+.cell .chip.r-ss { background:linear-gradient(180deg,#f4f6f8,#b9c0c8); border-color:#d0d6dc; }
+.cell .chip.r-s { background:linear-gradient(180deg,#f3d6bd,#c48a5b); border-color:#d9a679; }
+.cell .chip.fc { background:linear-gradient(180deg,#fff0b5,#e2b649); }
+.cell .chip.aj { background:linear-gradient(90deg,#f6d7e6,#f8edc6,#d5f0dd,#d3e6f8); }
+.cell .chip.ajc { color:#fff; background:linear-gradient(90deg,#e8505b,#f0a63a,#5cc46b,#3f8fe0,#8d5ad8); border-color:#fff8; text-shadow:0 1px 2px #0008; }
+.cell .gap { width:1px; align-self:stretch; background:#b59a6255; flex:none; }
+.cell b { font:700 40px/1.2 var(--script); color:#f3e3c2; }
+.cells .divider { flex:none; width:1px; height:100px; background:#b59a6255; }
+.bars { display:flex; align-items:flex-end; justify-content:space-between; gap:4px; height:calc(100% - 66px); padding:12px 22px 14px; }
+.bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; min-width:0; }
+.bar-col .v { font-size:20px; color:#dccbb0; line-height:1.1; }
+.bar-col .b { width:70%; min-height:3px; margin:3px 0 4px; background:linear-gradient(180deg,#e0b45f,#a3242b); }
+.bar-col .l { font:700 20px Georgia,serif; color:#c9b9a1; white-space:nowrap; }
+
+/* 页脚贴着画框下沿（作者 2026-10-21 嫌原来跟着内容走太靠上） */
+footer { position:absolute; left:132px; bottom:94px; width:1600px; text-shadow:0 2px 5px #0b0807; }
+footer p { margin:4px 0; font-size:23px; color:#cdbda4; }
+footer p + p { color:#b4a48d; font-size:22px; }
+
+/* ── 名片板：照 /推分记录（注释和来由见 themes/trend/renderer/theme.css），这里放在抬头右边、跟着排版走 ── */
+.identity { position:relative; flex:none; display:flex; align-items:flex-start; gap:16px; padding-bottom:30px; filter:drop-shadow(0 8px 17px #0a0606b3); }
+.portrait { position:relative; flex:none; }
+.medallion { position:relative; width:168px; height:168px; border-radius:50%; padding:6px; background:conic-gradient(from 200deg,#8e6a33,#f1dca6,#a77a3b,#e8cd8d,#8e6a33); box-shadow:0 5px 12px #000a, inset 0 0 0 1px #321905cc; }
+.medallion::after { content:""; position:absolute; inset:6px; border-radius:50%; box-shadow:inset 0 0 0 2px #281405d9, inset 0 0 12px #0000008c; }
+.chara { display:block; width:100%; height:100%; border-radius:50%; object-fit:cover; background:#241818; }
+.medallion.empty .chara { visibility:hidden; }
+.medallion.empty::before { content:"✦"; position:absolute; inset:6px; z-index:1; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#241818; font-family:"Segoe UI Symbol",serif; font-size:36px; color:#d6b26cbb; }
+.emblem { position:absolute; left:50%; bottom:-30px; z-index:2; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; filter:drop-shadow(0 3px 4px #000000b3); }
+.emblem .base { display:block; height:44px; }
+.emblem .medal { display:block; height:80px; }
+.emblem .base + .medal { position:absolute; }
+.plate { position:relative; flex:none; width:540px; height:214px; }
+.plate-img { position:absolute; inset:0; width:100%; height:100%; }
+.plate.empty { border:1px solid #b48a3ccc; background:radial-gradient(ellipse 120% 100% at 30% 10%,#fbf7ee 0%,#efe5d0 62%,#e2d3b6 100%); box-shadow:inset 0 0 0 4px #f8f1e2, inset 0 0 0 5px #b48a3c80; }
+.trophy { position:absolute; left:33%; right:5.5%; top:12%; height:20%; display:flex; align-items:center; justify-content:center; padding:0 12px; border-radius:3px; font-family:var(--hand-bold); font-size:24px; font-weight:700; color:#2a1a10; white-space:nowrap; overflow:hidden; box-shadow:inset 0 0 0 1px #ffffff59, 0 1px 3px #00000073; }
+.trophy:empty { display:none; }
+.trophy span { display:inline-block; transform-origin:center; }
+.trophy.normal { background:linear-gradient(180deg,#f7f0df,#e0cfab 60%,#cdb98f); box-shadow:inset 0 0 0 1px #fffdf766, inset 0 0 0 2px #a98a4f4d, 0 1px 3px #00000073; }
+.trophy.silver { background:linear-gradient(180deg,#f4f6f8,#b9c0c8 55%,#9aa3ad); }
+.trophy.gold { background:linear-gradient(180deg,#fff1b8,#e3b951 55%,#b8862a); }
+.trophy.platina { background:linear-gradient(180deg,#fffdf2,#eadfb6 50%,#c7b98a); }
+.trophy.rainbow,.trophy.ultima,.trophy.image { background:linear-gradient(90deg,#f6c4c4,#f5e3b0,#c9ebc0,#bfe1ef,#d6c6ef,#f3c4dd); }
+.trophy.ultima { color:#f5e6d0; background:linear-gradient(180deg,#4b1416,#1b0b0c); }
+.plate-name { position:absolute; left:33%; right:5.5%; top:37%; height:24%; display:flex; align-items:baseline; justify-content:center; color:#2a170b; white-space:nowrap; overflow:hidden; text-shadow:0 1px 0 #fff8e159; }
+.who { display:inline-flex; align-items:baseline; gap:10px; flex:none; transform-origin:center; }
+.level { display:flex; align-items:baseline; flex:none; font-family:var(--hand); font-weight:700; font-size:30px; color:#4a2f1c; }
+.level .star { color:#b0302f; margin-right:10px; }
+.level .lv { margin-right:2px; }
+.name { font-weight:700; font-size:36px; line-height:1.2; transform-origin:left center; display:inline-block; }
+.overall { position:absolute; left:33%; right:5.5%; top:61%; display:flex; align-items:baseline; justify-content:center; gap:10px; padding:3px 10px 2px; }
+.overall-label { font-family:var(--hand-bold); font-weight:700; font-size:26px; line-height:1; letter-spacing:.04em; color:#5d3a15; }
+.overall-value { font-family:var(--script); font-weight:700; font-size:30px; line-height:1; --tier-lh:1; transform:translateY(2px); }

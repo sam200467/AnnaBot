@@ -1,0 +1,472 @@
+{
+  "year": 2025,
+  "example": true,
+  "generatedAt": "2026-01-03 20:15",
+  "player": {
+    "name": "テストプレイヤー",
+    "level": 51,
+    "reborn": 1,
+    "rating": 17.0215,
+    "trophy": {
+      "name": "《自戒》～Paganelope",
+      "color": "gold"
+    },
+    "classEmblem": {
+      "base": 4,
+      "medal": 4
+    },
+    "plateId": 20002,
+    "characterId": 8830,
+    "plate": "lxns:plate/20002",
+    "character": "lxns:character/8830"
+  },
+  "uploads": 1284,
+  "days": 63,
+  "rating": {
+    "start": 16.4231,
+    "end": 17.0215,
+    "gain": 0.5984,
+    "legacy": false
+  },
+  "top": [
+    {
+      "rank": 1,
+      "count": 41,
+      "id": 2090,
+      "title": "《自戒》 ～ Paganelope",
+      "jacketId": 2090,
+      "jacket": "lxns:jacket/2090"
+    },
+    {
+      "rank": 2,
+      "count": 38,
+      "id": 850,
+      "title": "《混乱》 ～ Muspell",
+      "jacketId": 850,
+      "jacket": "lxns:jacket/850"
+    },
+    {
+      "rank": 3,
+      "count": 33,
+      "id": 854,
+      "title": "《運命》 ～ Ray of Hope",
+      "jacketId": 854,
+      "jacket": "lxns:jacket/854"
+    },
+    {
+      "rank": 4,
+      "count": 29,
+      "id": 2461,
+      "title": "《創造》 ～ Cries, beyond The End",
+      "jacketId": 2461,
+      "jacket": "lxns:jacket/2461"
+    },
+    {
+      "rank": 5,
+      "count": 27,
+      "id": 918,
+      "title": "《破滅》 ～ Rhapsody for The End",
+      "jacketId": 918,
+      "jacket": "lxns:jacket/918"
+    },
+    {
+      "rank": 6,
+      "count": 24,
+      "id": 853,
+      "title": "《最愛》 ～ Curse",
+      "jacketId": 853,
+      "jacket": "lxns:jacket/853"
+    },
+    {
+      "rank": 7,
+      "count": 21,
+      "id": 1032,
+      "title": "《選別》 ～ Refuge",
+      "jacketId": 1032,
+      "jacket": "lxns:jacket/1032"
+    },
+    {
+      "rank": 8,
+      "count": 18,
+      "id": 2457,
+      "title": "《真紅》 ～ Pavane Pour La Flamme",
+      "jacketId": 2457,
+      "jacket": "lxns:jacket/2457"
+    },
+    {
+      "rank": 9,
+      "count": 15,
+      "id": 1029,
+      "title": "《狂乱》 ～ Cataclysm",
+      "jacketId": 1029,
+      "jacket": "lxns:jacket/1029"
+    },
+    {
+      "rank": 10,
+      "count": 12,
+      "id": 851,
+      "title": "《理想》 ～ Cloudland",
+      "jacketId": 851,
+      "jacket": "lxns:jacket/851"
+    }
+  ],
+  "months": [
+    {
+      "month": 1,
+      "count": 64,
+      "songs": [
+        {
+          "id": 2090,
+          "title": "《自戒》 ～ Paganelope",
+          "jacketId": 2090,
+          "jacket": "lxns:jacket/2090"
+        },
+        {
+          "id": 850,
+          "title": "《混乱》 ～ Muspell",
+          "jacketId": 850,
+          "jacket": "lxns:jacket/850"
+        },
+        {
+          "id": 854,
+          "title": "《運命》 ～ Ray of Hope",
+          "jacketId": 854,
+          "jacket": "lxns:jacket/854"
+        }
+      ]
+    },
+    {
+      "month": 2,
+      "count": 88,
+      "songs": [
+        {
+          "id": 854,
+          "title": "《運命》 ～ Ray of Hope",
+          "jacketId": 854,
+          "jacket": "lxns:jacket/854"
+        },
+        {
+          "id": 2461,
+          "title": "《創造》 ～ Cries, beyond The End",
+          "jacketId": 2461,
+          "jacket": "lxns:jacket/2461"
+        },
+        {
+          "id": 918,
+          "title": "《破滅》 ～ Rhapsody for The End",
+          "jacketId": 918,
+          "jacket": "lxns:jacket/918"
+        }
+      ]
+    },
+    {
+      "month": 3,
+      "count": 120,
+      "songs": [
+        {
+          "id": 918,
+          "title": "《破滅》 ～ Rhapsody for The End",
+          "jacketId": 918,
+          "jacket": "lxns:jacket/918"
+        },
+        {
+          "id": 853,
+          "title": "《最愛》 ～ Curse",
+          "jacketId": 853,
+          "jacket": "lxns:jacket/853"
+        },
+        {
+          "id": 1032,
+          "title": "《選別》 ～ Refuge",
+          "jacketId": 1032,
+          "jacket": "lxns:jacket/1032"
+        }
+      ]
+    },
+    {
+      "month": 4,
+      "count": 95,
+      "songs": [
+        {
+          "id": 1032,
+          "title": "《選別》 ～ Refuge",
+          "jacketId": 1032,
+          "jacket": "lxns:jacket/1032"
+        },
+        {
+          "id": 2457,
+          "title": "《真紅》 ～ Pavane Pour La Flamme",
+          "jacketId": 2457,
+          "jacket": "lxns:jacket/2457"
+        },
+        {
+          "id": 1029,
+          "title": "《狂乱》 ～ Cataclysm",
+          "jacketId": 1029,
+          "jacket": "lxns:jacket/1029"
+        }
+      ]
+    },
+    {
+      "month": 5,
+      "count": 72,
+      "songs": [
+        {
+          "id": 1029,
+          "title": "《狂乱》 ～ Cataclysm",
+          "jacketId": 1029,
+          "jacket": "lxns:jacket/1029"
+        },
+        {
+          "id": 851,
+          "title": "《理想》 ～ Cloudland",
+          "jacketId": 851,
+          "jacket": "lxns:jacket/851"
+        },
+        {
+          "id": 2458,
+          "title": "《楽土》 ～ One and Only One",
+          "jacketId": 2458,
+          "jacket": "lxns:jacket/2458"
+        }
+      ]
+    },
+    {
+      "month": 6,
+      "count": 0,
+      "songs": []
+    },
+    {
+      "month": 7,
+      "count": 41,
+      "songs": [
+        {
+          "id": 2460,
+          "title": "《慈雨》 ～ La Symphonie de Salacia: Agony Movement",
+          "jacketId": 2460,
+          "jacket": "lxns:jacket/2460"
+        },
+        {
+          "id": 1030,
+          "title": "《投影》 ～ Oh My Baby Doll",
+          "jacketId": 1030,
+          "jacket": "lxns:jacket/1030"
+        },
+        {
+          "id": 1031,
+          "title": "《信仰》 ～ Eudaimonia",
+          "jacketId": 1031,
+          "jacket": "lxns:jacket/1031"
+        }
+      ]
+    },
+    {
+      "month": 8,
+      "count": 133,
+      "songs": [
+        {
+          "id": 1031,
+          "title": "《信仰》 ～ Eudaimonia",
+          "jacketId": 1031,
+          "jacket": "lxns:jacket/1031"
+        },
+        {
+          "id": 1033,
+          "title": "《本能》 ～ ReCoda",
+          "jacketId": 1033,
+          "jacket": "lxns:jacket/1033"
+        },
+        {
+          "id": 852,
+          "title": "《逃避》 ～ The Deserter",
+          "jacketId": 852,
+          "jacket": "lxns:jacket/852"
+        }
+      ]
+    },
+    {
+      "month": 9,
+      "count": 156,
+      "songs": [
+        {
+          "id": 852,
+          "title": "《逃避》 ～ The Deserter",
+          "jacketId": 852,
+          "jacket": "lxns:jacket/852"
+        },
+        {
+          "id": 2090,
+          "title": "《自戒》 ～ Paganelope",
+          "jacketId": 2090,
+          "jacket": "lxns:jacket/2090"
+        },
+        {
+          "id": 850,
+          "title": "《混乱》 ～ Muspell",
+          "jacketId": 850,
+          "jacket": "lxns:jacket/850"
+        }
+      ]
+    },
+    {
+      "month": 10,
+      "count": 101,
+      "songs": [
+        {
+          "id": 850,
+          "title": "《混乱》 ～ Muspell",
+          "jacketId": 850,
+          "jacket": "lxns:jacket/850"
+        },
+        {
+          "id": 854,
+          "title": "《運命》 ～ Ray of Hope",
+          "jacketId": 854,
+          "jacket": "lxns:jacket/854"
+        },
+        {
+          "id": 2461,
+          "title": "《創造》 ～ Cries, beyond The End",
+          "jacketId": 2461,
+          "jacket": "lxns:jacket/2461"
+        }
+      ]
+    },
+    {
+      "month": 11,
+      "count": 210,
+      "songs": [
+        {
+          "id": 2461,
+          "title": "《創造》 ～ Cries, beyond The End",
+          "jacketId": 2461,
+          "jacket": "lxns:jacket/2461"
+        },
+        {
+          "id": 918,
+          "title": "《破滅》 ～ Rhapsody for The End",
+          "jacketId": 918,
+          "jacket": "lxns:jacket/918"
+        },
+        {
+          "id": 853,
+          "title": "《最愛》 ～ Curse",
+          "jacketId": 853,
+          "jacket": "lxns:jacket/853"
+        }
+      ]
+    },
+    {
+      "month": 12,
+      "count": 204,
+      "songs": [
+        {
+          "id": 853,
+          "title": "《最愛》 ～ Curse",
+          "jacketId": 853,
+          "jacket": "lxns:jacket/853"
+        },
+        {
+          "id": 1032,
+          "title": "《選別》 ～ Refuge",
+          "jacketId": 1032,
+          "jacket": "lxns:jacket/1032"
+        },
+        {
+          "id": 2457,
+          "title": "《真紅》 ～ Pavane Pour La Flamme",
+          "jacketId": 2457,
+          "jacket": "lxns:jacket/2457"
+        }
+      ]
+    }
+  ],
+  "activeMonths": 11,
+  "ranks": [
+    {
+      "label": "SSS+",
+      "key": "sssp",
+      "count": 96
+    },
+    {
+      "label": "SSS",
+      "key": "sss",
+      "count": 402
+    },
+    {
+      "label": "SS",
+      "key": "ss",
+      "count": 871
+    },
+    {
+      "label": "S",
+      "key": "s",
+      "count": 1155
+    }
+  ],
+  "marks": [
+    {
+      "label": "FC",
+      "kind": "fc",
+      "count": 388
+    },
+    {
+      "label": "AJ",
+      "kind": "aj",
+      "count": 121
+    },
+    {
+      "label": "AJC",
+      "kind": "ajc",
+      "count": 7
+    }
+  ],
+  "levels": [
+    {
+      "level": "11",
+      "count": 12
+    },
+    {
+      "level": "11+",
+      "count": 20
+    },
+    {
+      "level": "12",
+      "count": 41
+    },
+    {
+      "level": "12+",
+      "count": 66
+    },
+    {
+      "level": "13",
+      "count": 98
+    },
+    {
+      "level": "13+",
+      "count": 187
+    },
+    {
+      "level": "14",
+      "count": 263
+    },
+    {
+      "level": "14+",
+      "count": 301
+    },
+    {
+      "level": "15",
+      "count": 240
+    },
+    {
+      "level": "15+",
+      "count": 56
+    }
+  ],
+  "newest": {
+    "id": 2461,
+    "title": "《創造》 ～ Cries, beyond The End",
+    "jacketId": 2461,
+    "jacket": "lxns:jacket/2461"
+  }
+}

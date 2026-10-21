@@ -98,7 +98,10 @@ async function finishAuthorization(code) {
   const rotated = second.refresh_token !== first.refresh_token ? '，刷新令牌也换了新的' : '';
   console.log(`  ✓ 刷新令牌：新的访问令牌可用${rotated}`);
 
-  console.log('\nOAuth 流程全部通过。测试令牌没有保存，可以在落雪「账号详情 → 第三方应用」里撤销这次授权。');
+  // 别再提示去落雪「第三方应用」里撤销：那里是按应用撤销的，会把服务器上 Anna 的授权一起撤掉（2026-10-21 查落雪前端确认）。
+  // 测试令牌没保存，放着不用，30 天后自己过期
+  console.log('\nOAuth 流程全部通过。测试令牌没有保存，30 天不用会自己过期。' +
+    '\n不要去落雪「第三方应用」里撤销：那里按应用撤销，会连服务器上 Anna 的授权一起撤掉。');
 }
 
 (async () => {
