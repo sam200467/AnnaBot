@@ -19,6 +19,7 @@ const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
 const { createSongTags } = require("../src/song-tags.cjs");
+const { createDesignerIndex } = require("../src/chart-designers.cjs");
 const { parseQuery, resolveCharts, buildData, attachAssets, describe, commandOf, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -260,6 +261,26 @@ test("分类的标题和翻页指令：分类单独做标题，默认副标题�
   assert.deepEqual(build("BMS 紫").data.title, { prefix: "", main: "BMS", sub: "紫谱" });
 });
 
+test("谱师按具体谱面的署名筛选，默认紫黑，不混入同曲其他谱面；标题和翻页保留谱师", () => {
+  const catalog = catalogLike();
+  catalog.songs.find((song) => song.id === 1000).difficulties[1].note_designer = "Techno Kitchen";
+  catalog.songs.find((song) => song.id === 2000).difficulties[1].note_designer = "Techno Kitchen";
+  catalog.songs.find((song) => song.id === 1001).difficulties[1].note_designer = "Techno Kitchen vs x";
+  catalog.songs.find((song) => song.id === 1002).difficulties[1].note_designer = "wonder*";
+  const designers = createDesignerIndex(catalog.songs, { "Techno Kitchen": ["厨房"] });
+  const parsed = parseQuery("厨房 2", { designers });
+  const { query, charts } = resolveCharts(catalog, parsed);
+  assert.deepEqual(charts.map(({ song, chart }) => [song.id, chart.difficulty]), [[1000, 3], [1002, 3], [2000, 4]]);
+  const data = buildData({ query, charts, scores: myScores(), catalog });
+  assert.deepEqual(data.title, { prefix: "谱师", main: "Techno Kitchen", sub: "紫谱 · 黑谱" });
+  assert.equal(describe(query), "谱师 Techno Kitchen");
+  const next = commandOf("分数列表", query, 2);
+  assert.equal(next, "/分数列表 厨房 2", "翻页保留用户输入的别名，不要求重新输入日文署名");
+  assert.equal(parseQuery(next.replace("/分数列表 ", ""), { designers }).page, 2);
+  assert.equal(data.stats.total, 3, "有来源的马甲计入同一位谱师");
+  assert.deepEqual(resolveCharts(catalog, parseQuery("wonder*", { designers })).charts, charts);
+});
+
 // ── 端到端 ──
 async function setup(t) {
   const qq = createMockOfficial();
@@ -391,6 +412,32 @@ test("/分数列表 分类端到端：默认只列紫/黑、分类做标题；�
   assert.equal(s.last().content, V.levelTagDifficulty, "红黄绿不放进来");
   await s.group("/分数列表 精灵记 2", opts);
   assert.equal(s.last().content, V.levelNoPage(1), "分类后面的数字是页码");
+});
+
+test("/分数列表 谱师筛选端到端：直接写名字，数字翻页，额外条件或未知名字用文字提示", async (t) => {
+  const s = await setup(t);
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", scores: myScores() });
+  for (let id = 1000; id < 1100; id++) s.lx.state.assets.set("jacket/" + id, PNG);
+  for (const id of [2000, 4000]) s.lx.state.assets.set("jacket/" + id, PNG);
+  await s.authorize("U2", FC2);
+  const opts = { user: "U2" };
+  await s.group("/分数列表 x", opts);
+  assert.deepEqual([s.renders.at(-1).data.stats.total, s.renders.at(-1).data.title.main], [102, "x"]);
+  assert.equal(s.last().content, V.levelPage(1, 2, "/分数列表 x 2"));
+  await s.group("/分数列表 x 2", opts);
+  assert.deepEqual([s.renders.at(-1).data.page, s.renders.at(-1).data.charts.length], [2, 24]);
+  const before = s.renders.length;
+  await s.group("/分数列表 x 紫", opts);
+  assert.equal(s.last().content, V.levelDesignerOnly);
+  await s.group("/分数列表 x SSS以下", opts);
+  assert.equal(s.last().content, V.levelDesignerOnly);
+  await s.group("/分数列表 没这位", opts);
+  assert.equal(s.last().content, V.levelUnknown(["没这位"]));
+  await s.group("/分数列表 x 0", opts);
+  assert.equal(s.last().content, V.levelDesignerUsage);
+  await s.group("/分数列表 x 3", opts);
+  assert.equal(s.last().content, V.levelNoPage(2));
+  assert.equal(s.renders.length, before);
 });
 
 // ── 真的渲染一次 ──

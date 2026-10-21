@@ -152,11 +152,14 @@ const V = {
     "· 版本：X-VERSE、LUMINOUS PLUS 这样的版本名\n" +
     "· 评级：SSS以下（还没到 SSS 的，没打过的也算）、SSS以上，只写 SSS 是正好 SSS 这一档\n" +
     "· 分类：精灵记、音击、舞萌、BMS、东方、彩绿、原创……（一次一个；默认只列紫谱/黑谱，分类后只能再加紫/黑和页码）\n" +
+    "· 谱师：/分数列表 Techno Kitchen；翻页：/分数列表 Techno Kitchen 2（只列紫谱/黑谱，只接受名字和数字页码）\n" +
     "想让我按每一分的成绩来列，得先「/授权」。",
   levelUnknown: (words) => "「" + words.join(" ") + "」……我看不懂。\n" + V.levelUsage,
   levelNoWorldsEnd: "WORLD'S END 没有等级和定数，列不出来。",
   levelTagOnly: "分类后面只能加紫/黑和页码；等级、定数、版本、评级、第二个分类都不能一起写。比如「/分数列表 精灵记 紫 2」。",
   levelTagDifficulty: "分类默认只统计紫谱（MASTER）和黑谱（ULTIMA），红黄绿不放进来。",
+  levelDesignerUsage: "用法：/分数列表 名字；翻页在名字后面空格加数字，比如「/分数列表 Techno Kitchen 2」。默认只列紫谱、黑谱。",
+  levelDesignerOnly: "按谱师查只写名字和页码，不叠加其他条件。比如「/分数列表 Techno Kitchen 2」。",
   levelNeedMain: "只按评级筛，没打过的几千张谱面都算进来，没法看。加上等级、定数、难度、版本或者分类吧，比如「/分数列表 14+ SSS以下」。",
   // label：条件写成的一行字（Lv.14+ · MASTER · 未达 SSS）
   levelEmpty: (label) => "没有符合条件的谱面（" + label + "）。",

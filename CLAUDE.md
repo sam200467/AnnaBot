@@ -60,6 +60,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/fit-diffs.cjs` | 拟合定数快照（EazyChu），`/拟合定数b30` 用；数据是 `src/data/fit-diffs.json`，由 `tools/build-fit-diffs.cjs` 生成后提交 |
 | `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期、原创 / 彩绿 / 音击舞萌曲的对应角色、世界观厂牌 labels。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/song-tags.cjs` | 曲目分类标签：官方分类、世界观厂牌、音击 / 舞萌、BMS；别名和 `has(song, tag)`。数据是 `src/data/song-origins.json`（`tools/build-song-origins.cjs`）和 `src/data/song-bms.json`（`tools/build-song-bms.cjs`），`/分数列表 精灵记` 用 |
+| `src/chart-designers.cjs` | 谱师原始署名和别名索引；别名在 `src/data/chart-designer-aliases.json`，由作者补。用 `node tools/list-chart-designers.cjs` 导出署名和谱面数量清单 |
 | `src/assets.cjs` | 落雪图片素材本地缓存 |
 | `src/renderer.cjs` | 无头 Chrome/Edge 出图（每张图一个临时浏览器目录，出完删；删不掉的定时清扫） |
 | `src/services.cjs` | 按配置把上面这些装起来（`main.cjs` 和 `tools/` 共用） |
@@ -156,6 +157,16 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   还能按分类筛：`/分数列表 精灵记`、`/分数列表 音击 紫 2`、`/分数列表 BMS`。分类只保留顶层（精霊編/地上編这种章名
   落到父分类，不单独统计），词表和别称在 `src/song-tags.cjs`；数据来自 `song-extras.json` 的 `labels`、`song-origins.json`、
   `song-bms.json`；分类默认只列紫谱/黑谱，一次一个分类，后面只能再加紫/黑和页码（数字就是页码）
+  2026-10-21 加入谱师筛选：直接 `/分数列表 Techno Kitchen`、`/分数列表 Techno Kitchen 2`，命令不加「谱师」前缀。
+  只接受原始署名/别名和数字页码，不叠加紫、评级、等级等条件；只列 MASTER／ULTIMA。按每张谱面的 `note_designer` 匹配，
+  马甲只按 `src/data/chart-designer-identities.json` 的有来源关系归并；合作谱不自动拆分。翻页保留用户输入的别名。
+  完整署名清单在 `docs/chart-designers.md`，优先给归并后的谱师填写中文别名；完整马甲见 `docs/chart-designer-credits.md`。
+  `tools/fetch-designer-wiki.cjs` 只取五张汇总页，缓存优先、串行至少隔 45 秒，403/429 立即停；默认冷却一小时，
+  作者明确要求继续时 `--resume` 可在至少五分钟冷却后新开一轮。2026-10-21 命令行被 Cloudflare 403 拒绝，网页阅读工具可读取源码快照，
+  五页均已缓存为 `data/wiki-pages/designers/{1..5}.wiki.txt`。离线运行 `node tools/build-chart-designers.cjs` 生成候选表和 audit.json，
+  人工核查后再替换归属 JSON。目前 42 组覆盖 589 种原始署名；全局排除合作/未确认栏目，Violetta/Ragnarok 的推测身份不合并。
+  作者进一步确认：Violetta、Ragnarok、START "A I R "、Fahrenheit 212、透明絵具按各自独立名义保留，不按推测归入其他谱师；Toaster 不添加。
+  START "A I R " 暂不在当前落雪曲库，不能凭 wiki 的曲目表造本地谱面。
 
 ## /同步记录（伊迪亚主题）
 

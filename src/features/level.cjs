@@ -13,6 +13,8 @@
 //   /分数列表 精灵记        按分类筛（官方分类、世界观厂牌、音击/舞萌、BMS，词表见 src/song-tags.cjs）
 //   /分数列表 精灵记 紫     分类只和难度、页码组合；分类默认只列紫谱、黑谱
 //   /分数列表 精灵记 2      分类后面的数字是页码（不会再当成等级）
+//   /分数列表 Techno Kitchen    按谱师原始署名或配置的别名筛，只列紫谱、黑谱
+//   /分数列表 Techno Kitchen 2  名字后空格加数字翻页，不叠加其他条件
 // 条件随便组合、顺序随意，作者 2026-10-17 定的这几种（「只看没 FC 的」不要）。至少要有等级、定数、难度、版本、分类里的一样：
 // 只按评级筛的话，没打过的几千张谱面全算「SSS 以下」，没法看。
 // 分类是离线表：官方分类直接看落雪的 genre；世界观厂牌在 song-extras.json 的 labels；音击/舞萌在 song-origins.json；
@@ -32,6 +34,7 @@ const { LEVEL_WORDS } = require("./chart.cjs");
 const { rating } = require("../score-math.cjs");
 const { LEVELS, WORLDS_END } = require("../catalog.cjs");
 const { loadSongTags } = require("../song-tags.cjs");
+const { createDesignerIndex, parseDesignerQuery, normalize: designerKey } = require("../chart-designers.cjs");
 
 // 主题的网格：抬头占第 1 行，安娜占右边两列、从第 1 行往下 7 行，所以前 6 行卡片只能排 3 列（18 张），
 // 从第 8 行起才是 5 列。非最后一页排 18 + 12×5 = 78 张，最后一行正好填满（作者 2026-10-18 提的：
@@ -83,16 +86,19 @@ function levelOf(token) {
   return match ? String(Number(match[1])) + match[2] : null;
 }
 
-// 拆参数。versions 是曲库的版本表（认版本名用），tags 是分类表（认精灵记、音击、BMS 用）。
+// 拆参数。versions 是版本表，tags 是分类表，designers 是从当前曲库建的谱师索引。
+// 完整名字/别名（可带数字页码）优先识别为谱师；谱师查询单独返回，不走组合筛选。
 // 返回：
 //   { level, constant, levelIndex, version, rank: { key, mode: below | above | exact }, tag, tagConflict, page, unknown: [看不懂的词], worldsEnd, bare }
 // level 是字符串（"14+"），constant 是数（14.5），version 是版本表里的一项，tag 是 song-tags 的一项；没写的是 null。page 没写是 null。
 // bare：等级是从光秃秃的整数认的（「/分数列表 master 2」的 2），对不上谱面时 resolveCharts 会改当页码；
 // 分类后面的裸数字在 parseQuery 末尾直接当页码，不会留成等级。
 // tagConflict：分类又跟等级、定数、版本、评级或第二个分类一起写了，调用方要提示只允许难度和页码。
-function parseQuery(args, { versions = [], tags = null } = {}) {
+function parseQuery(args, { versions = [], tags = null, designers = null } = {}) {
   const tagIndex = tags || loadSongTags();
   const query = { level: null, constant: null, levelIndex: null, version: null, rank: null, tag: null, tagConflict: false, page: null, unknown: [], worldsEnd: false, bare: false };
+  const designerQuery = parseDesignerQuery(args, designers);
+  if (designerQuery) return Object.assign(query, designerQuery);
   let text = String(args || "").normalize("NFKC").toLowerCase();
   // 页码先拿掉：「第 2 页」「2页」「p2」「page 2」
   text = text.replace(/第\s*(\d+)\s*页|(\d+)\s*页|(?<![a-z])p(?:age)?\s*(\d+)(?![\d.+])/g, (all, a, b, c) => {
@@ -183,6 +189,7 @@ function describe(query, skip = null, tags = null) {
   if (query.level && skip !== "level") parts.push("Lv." + query.level);
   if (query.constant !== null && skip !== "constant") parts.push("定数 " + query.constant.toFixed(1));
   if (query.tag && skip !== "tag") parts.push(tagIndex.name(query.tag));
+  if (query.designer && skip !== "designer") parts.push("谱师 " + query.designer.name);
   if (query.levelIndex !== null && skip !== "levelIndex") {
     parts.push(query.tag && query.levelIndex === 3 ? "紫谱" : query.tag && query.levelIndex === 4 ? "黑谱" : LEVELS[query.levelIndex]);
   }
@@ -202,14 +209,16 @@ function titleOf(query, tags = null) {
   if (query.level) [title, skip] = [{ prefix: "Lv.", main: query.level }, "level"];
   else if (query.constant !== null) [title, skip] = [{ prefix: "定数", main: query.constant.toFixed(1) }, "constant"];
   else if (query.tag) [title, skip] = [{ prefix: "", main: tagIndex.name(query.tag) }, "tag"];
+  else if (query.designer) [title, skip] = [{ prefix: "谱师", main: query.designer.name }, "designer"];
   else if (query.version) [title, skip] = [{ prefix: "", main: versionLabel(query.version) }, "version"];
   else [title, skip] = [{ prefix: "", main: LEVELS[query.levelIndex] }, "levelIndex"];
-  const sub = describe(query, skip, tagIndex) || (query.tag ? "紫谱 · 黑谱" : "全谱面成绩");
+  const sub = describe(query, skip, tagIndex) || (query.tag || query.designer ? "紫谱 · 黑谱" : "全谱面成绩");
   return { ...title, sub };
 }
 
 // 翻页提示里写的指令：照着 parseQuery 认得的写法拼回去。页码写成光秃秃的数要前面有等级或定数，不然会被当成等级
 function commandOf(word, query, page, tags = null) {
+  if (query.designer) return "/" + word + " " + (query.designerInput || query.designer.name) + " " + page;
   const tagIndex = tags || loadSongTags();
   const parts = ["/" + word];
   if (query.level) parts.push(query.level);
@@ -238,6 +247,7 @@ function selectCharts(catalog, query, tags = null) {
       if (!(chart.difficulty >= 0 && chart.difficulty < WORLDS_END)) continue;
       // 分类列表默认只统计紫谱（MASTER）和黑谱（ULTIMA），红黄绿不放进来
       if (query.tag && chart.difficulty < 3) continue;
+      if (query.designer && (chart.difficulty < 3 || !query.designer.credits.includes(designerKey(chart.note_designer)))) continue;
       if (query.levelIndex !== null && chart.difficulty !== query.levelIndex) continue;
       if (query.level && chart.level !== query.level) continue;
       if (query.constant !== null && Math.round(Number(chart.level_value) * 10) !== Math.round(query.constant * 10)) continue;
@@ -355,7 +365,7 @@ module.exports = Object.assign({
   // 正式名是 /分数列表；等级 / 等級 / level / lv 是旧名和简称，照旧能打
   words: ["分数列表", "等级", "等級", "level", "lv"],
   usage: "/分数列表 14+（或 /分数列表 精灵记）",
-  summary: "按等级、定数或者分类（精灵记、音击、BMS……）列一批谱面，没打过的灰着排在最后；分类默认只列紫谱/黑谱，最多再加紫/黑和页码；一页 78 张。要授权。",
+  summary: "按等级、定数、分类或谱师列一批谱面，没打过的灰着排在最后；谱师默认列紫谱/黑谱，只接受名字和数字页码；一页 78 张。要授权。",
   panel: "按等级、定数、分类查成绩",
   group: "查询",
   binding: "oauth",
@@ -363,11 +373,13 @@ module.exports = Object.assign({
     const { catalog } = ctx.services;
     const voice = ctx.voice;
     const tags = ctx.services.songTags || loadSongTags();
-    const parsed = parseQuery(ctx.args, { versions: catalog.versions, tags });
+    const parsed = parseQuery(ctx.args, { versions: catalog.versions, tags, designers: createDesignerIndex(catalog.songs) });
+    if (parsed.designerError === "usage") return ctx.reply(voice.levelDesignerUsage);
+    if (parsed.designerError === "only") return ctx.reply(voice.levelDesignerOnly);
     if (parsed.worldsEnd) return ctx.reply(voice.levelNoWorldsEnd);
     if (parsed.tagConflict) return ctx.reply(voice.levelTagOnly);
     if (parsed.unknown.length) return ctx.reply(voice.levelUnknown(parsed.unknown));
-    if (!parsed.level && parsed.constant === null && parsed.levelIndex === null && !parsed.version && !parsed.tag) {
+    if (!parsed.level && parsed.constant === null && parsed.levelIndex === null && !parsed.version && !parsed.tag && !parsed.designer) {
       return ctx.reply(parsed.rank ? voice.levelNeedMain : voice.levelUsage);
     }
     if (parsed.page !== null && parsed.page < 1) return ctx.reply(voice.levelUsage);

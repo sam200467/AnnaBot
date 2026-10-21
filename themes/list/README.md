@@ -81,6 +81,13 @@
 成绩是固定种子的伪随机数，跟真出图走同一套 `parseQuery` / `resolveCharts` / `buildData`；`player` 是假玩家，
 名牌版和角色写成 `lxns:plate/...`、`lxns:character/...` 引用。
 
+按谱师查询直接写 `/分数列表 Techno Kitchen` 或 `/分数列表 Techno Kitchen 2`，只接受名字和数字页码，默认列 MASTER／ULTIMA。
+标题使用原始署名，沿用列表的统计、排序和分页。别名表在 `src/data/chart-designer-aliases.json`，格式为“原始署名 → 别名数组”；
+马甲按 `src/data/chart-designer-identities.json` 中有来源的关系归并，合作署名不自动拆分。
+用 `node tools/list-chart-designers.cjs` 从本地曲库导出完整署名清单和已知马甲关系到 `docs/chart-designers.md`。
+清单优先展示归并后的谱师名义，完整马甲在 `docs/chart-designer-credits.md`；谱面数按全半角、大小写、空格统一后统计，和实际筛选一致。
+归属数据由 `tools/build-chart-designers.cjs` 离线读五张 wiki 汇总页缓存生成候选，再人工核查；合作/未知栏全局排除，不合并文中的推测身份。
+
 ## 预览
 
 ```

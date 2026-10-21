@@ -1,0 +1,4570 @@
+{
+  "あまくちジンジャー": {
+    "credits": [
+      "あまくちジンジャー"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "あまくちジンジャー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 17,
+        "song": "Valsqotch",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "Ataraxia": {
+    "credits": [
+      "Ataraxia",
+      "Ataraxia beyond the horizon"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "Ataraxia": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 26,
+        "song": "黎命に殉ず",
+        "difficulty": 3
+      },
+      "Ataraxia beyond the horizon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 29,
+        "song": "並行天涯",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "アミノハバキリ": {
+    "credits": [
+      "アミノハバキリ",
+      "Blade of Justice",
+      "Blade of Witch",
+      "DANCE TIME with habakiri",
+      "Elastic Blade",
+      "habakiri -Ignited-",
+      "habakiri -Testament-",
+      "habakiri-Psychedelic-",
+      "habaqili",
+      "INFiNiTE BLADE -Overforge-",
+      "Mystery Blade",
+      "Piercing Blade",
+      "Piercing Blade -For KOP5th-",
+      "Piercing Blade 'Sharp Eyes'",
+      "Remnants of Blade",
+      "The Tempest Blade",
+      "あみのきゃはばないことばきり",
+      "アミノハバキリ 2k20",
+      "アミノハバスター",
+      "アミノホワァ(゜Д゜)バキリ",
+      "ハバキリ@こしあん派",
+      "ハバキリ＠涙の薫りがする",
+      "剣技「気炎万丈の刃」",
+      "斬っぽいな",
+      "爆仙破々",
+      "葉 芭穐莉",
+      "羅・ハBぁ斬i",
+      "羅叢雲剣",
+      "羅波露斯",
+      "羅破々斬",
+      "羅破々斬 -焔乱撃鱗-",
+      "羅破々斬　★★",
+      "羅雷切",
+      "βλαδε"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "アミノハバキリ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 61,
+        "song": "Colorful Starting Line",
+        "difficulty": 3
+      },
+      "ハバキリ＠涙の薫りがする": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 80,
+        "song": "愛包ダンスホール",
+        "difficulty": 3
+      },
+      "斬っぽいな": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 109,
+        "song": "神っぽいな",
+        "difficulty": 3
+      },
+      "剣技「気炎万丈の刃」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 130,
+        "song": "有頂天ドリーマーズ",
+        "difficulty": 3
+      },
+      "爆仙破々": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 136,
+        "song": "デザイアシューティング",
+        "difficulty": 3
+      },
+      "羅波露斯": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 140,
+        "song": "無間嫉妬劇場『666』",
+        "difficulty": 3
+      },
+      "アミノホワァ(゜Д゜)バキリ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 143,
+        "song": "No Life Queen  [DJ Command Remix]",
+        "difficulty": 3
+      },
+      "Piercing Blade": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 160,
+        "song": "アルストロメリア",
+        "difficulty": 4
+      },
+      "羅叢雲剣": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 164,
+        "song": "8OROCHI",
+        "difficulty": 3
+      },
+      "羅破々斬 -焔乱撃鱗-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 166,
+        "song": "BUCHiGiRE Berserker",
+        "difficulty": 3
+      },
+      "The Tempest Blade": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 173,
+        "song": "Tempestissimo",
+        "difficulty": 3
+      },
+      "Mystery Blade": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 180,
+        "song": "NIGHTWAVE FRAGMENTS",
+        "difficulty": 3
+      },
+      "INFiNiTE BLADE -Overforge-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 184,
+        "song": "INFiNiTE ENERZY -Overdoze-",
+        "difficulty": 3
+      },
+      "Blade of Justice": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 190,
+        "song": "本物のヒーローとの戦い",
+        "difficulty": 3
+      },
+      "DANCE TIME with habakiri": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 195,
+        "song": "Be A Shooter！ ～NORMAL BIG BONUS～",
+        "difficulty": 3
+      },
+      "羅破々斬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 200,
+        "song": "MARENOL",
+        "difficulty": 3
+      },
+      "羅破々斬　★★": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 202,
+        "song": "真千年女王",
+        "difficulty": 3
+      },
+      "habakiri-Psychedelic-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 204,
+        "song": "Tuk Tuk Boshi",
+        "difficulty": 3
+      },
+      "Blade of Witch": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 211,
+        "song": "A c i - L",
+        "difficulty": 3
+      },
+      "あみのきゃはばないことばきり": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 222,
+        "song": "やらなきゃいけないことばかり",
+        "difficulty": 3
+      },
+      "羅・ハBぁ斬i": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 232,
+        "song": "HERA",
+        "difficulty": 3
+      },
+      "羅雷切": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 234,
+        "song": "雷切-RAIKIRI-",
+        "difficulty": 3
+      },
+      "habakiri -Ignited-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 235,
+        "song": "Aiolos",
+        "difficulty": 3
+      },
+      "Piercing Blade -For KOP5th-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 238,
+        "song": "Mutation",
+        "difficulty": 3
+      },
+      "habakiri -Testament-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 239,
+        "song": "Alcyone",
+        "difficulty": 3
+      },
+      "Remnants of Blade": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 241,
+        "song": "チューリングの跡",
+        "difficulty": 3
+      },
+      "ハバキリ@こしあん派": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 250,
+        "song": "UTAKATA",
+        "difficulty": 3
+      },
+      "アミノハバキリ 2k20": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 257,
+        "song": "Vibes 2k20",
+        "difficulty": 3
+      },
+      "アミノハバスター": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 261,
+        "song": "Galaxy Blaster",
+        "difficulty": 3
+      },
+      "Elastic Blade": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 262,
+        "song": "BOUNCE & DANCE",
+        "difficulty": 3
+      },
+      "葉 芭穐莉": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 286,
+        "song": "萌豚♥功夫♥大乱舞",
+        "difficulty": 3
+      },
+      "habaqili": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 297,
+        "song": "Inpaqq",
+        "difficulty": 3
+      },
+      "Piercing Blade 'Sharp Eyes'": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 313,
+        "song": "deadeye",
+        "difficulty": 3
+      },
+      "βλαδε": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 335,
+        "song": "χρόνος",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "Violetta": {
+    "credits": [
+      "Violetta",
+      "CODE:Violetta",
+      "Violetta + ω"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "VIoletta": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 451,
+        "song": "Rrhar'il",
+        "difficulty": 3
+      },
+      "Violetta + ω": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 452,
+        "song": "ΩΩPARTS",
+        "difficulty": 3
+      },
+      "CODE:Violetta": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 458,
+        "song": "Disruptor Array",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "うさぎランドリー": {
+    "credits": [
+      "うさぎランドリー"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "うさぎランドリー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 474,
+        "song": "ハッピーエンドをはじめから",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "écologie": {
+    "credits": [
+      "écologie",
+      "éco3r",
+      "écoroだー！"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "écologie": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 497,
+        "song": "白ゆき",
+        "difficulty": 3
+      },
+      "écoroだー！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 519,
+        "song": "Auxesia",
+        "difficulty": 3
+      },
+      "éco3r": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 551,
+        "song": "Fidget Dancer",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "Emerald": {
+    "credits": [
+      "Emerald",
+      "eme＊rald",
+      "エメラルド星人",
+      "エメリャルド",
+      "プレミアムエメラルデー"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "Emerald": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 574,
+        "song": "はやくそれになりたい！",
+        "difficulty": 3
+      },
+      "エメリャルド": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 576,
+        "song": "マトリョシカ",
+        "difficulty": 3
+      },
+      "エメラルド星人": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 577,
+        "song": "ダンスロボットダンス",
+        "difficulty": 3
+      },
+      "プレミアムエメラルデー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 615,
+        "song": "FRIDAY FRIDAY",
+        "difficulty": 3
+      },
+      "eme＊rald": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 621,
+        "song": "Sqlupp",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "如月 ゆかり": {
+    "credits": [
+      "如月 ゆかり",
+      "Club Yukari in Oh Hit Lucky",
+      "狂気のゆかり",
+      "如月ゆかりの消失"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "如月 ゆかり": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 644,
+        "song": "いーあるふぁんくらぶ",
+        "difficulty": 3
+      },
+      "如月ゆかりの消失": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 647,
+        "song": "初音ミクの消失",
+        "difficulty": 3
+      },
+      "Club Yukari in Oh Hit Lucky": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 654,
+        "song": "Club Ibuki in Break All",
+        "difficulty": 3
+      },
+      "狂気のゆかり": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 658,
+        "song": "患部で止まってすぐ溶ける～狂気の優曇華院",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "Clematis": {
+    "credits": [
+      "Clematis"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "Clematis": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 693,
+        "song": "",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "サファ太": {
+    "credits": [
+      "サファ太",
+      "SaFaRi",
+      "ずんずんサファタ",
+      "デンジャラスハイテンション♥サファ太",
+      "超サファ的譜面記",
+      "譜面戦士サフ"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "サファ太": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 725,
+        "song": "失敗作少女",
+        "difficulty": 3
+      },
+      "デンジャラスハイテンション♥サファ太": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 726,
+        "song": "バイオレンストリガー",
+        "difficulty": 3
+      },
+      "譜面戦士サフ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 735,
+        "song": "Rush B",
+        "difficulty": 3
+      },
+      "超サファ的譜面記": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 746,
+        "song": "超熊猫的周遊記 (ワンダーパンダートラベラー)",
+        "difficulty": 3
+      },
+      "ずんずんサファタ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 757,
+        "song": "ずんずんサファリ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "じゃこレモン": {
+    "credits": [
+      "じゃこレモン",
+      "\"Fire Vampires\"Lemon",
+      "《檸檬》 ～ Fruit",
+      "2step lemon",
+      "BASSLEMON YATTERU? lol",
+      "CHAOTIC LEMON",
+      "fantasic lemon",
+      "FRANTIC LEMON",
+      "Free-stylemon",
+      "GODLEMONESS",
+      "Hi-EnergeTech Lemon",
+      "Innocent Lemon",
+      "J-Lemon",
+      "J.J.L.L.J.L.L.",
+      "J.K.L.",
+      "J4K0 L5M0N",
+      "Komplemon",
+      "Lemmoon",
+      "Lemon",
+      "Lemon -Arced for the Ace-",
+      "Lemon Kingdom",
+      "Lemon possessed by MONSTER",
+      "Lost Lemon's Weeping",
+      "MANIAC LEMON",
+      "MONSTER",
+      "MTO-XXX:Lem Nemesis",
+      "Otoware Lemon",
+      "POETIC LEMON",
+      "SEGA Fumen Man",
+      "SILENT LEMON",
+      "Unlimited Lemon!",
+      "XXX:THE MONSTER",
+      "いけないレモン",
+      "おもしレモン",
+      "カードゲーマー†レモン",
+      "キャプテン・レモン",
+      "キュートなレモン",
+      "ごろごろレモン",
+      "サイバーじゃこレモン",
+      "じゃーんレモン",
+      "じゃこーレット警察、出動!!",
+      "じゃこだね",
+      "じゃこぺったん",
+      "じゃこみるく & れもしゃま",
+      "じゃコメモン",
+      "ジャコレモ",
+      "ジャコレモサンバ",
+      "じゃこレモン -desperado-",
+      "じゃこレモン respect for rioN",
+      "じゃこレモン synthetic",
+      "じゃこレモン！",
+      "じゃこレモン!!!",
+      "じゃこレモン＠7sRefちほー",
+      "じゃこレモン＠TANO*C TOUR 2022",
+      "じゃこレモン＠アテインリレイション",
+      "じゃこレモン＠ステージXII",
+      "じゃこレモン＠雨の日の思い出",
+      "じゃこレモン＠攻略中",
+      "じゃこレモン＠親知らず抜いた",
+      "じゃこレモンさん（１１）",
+      "じゃこレモンスター",
+      "じゃこレモンだよ☆JKL",
+      "じゃこレモンドロップ",
+      "じゃこレモンの突撃!",
+      "じゃこレモン裁判長",
+      "じゃンこラボックス",
+      "せかせかレモン",
+      "ターボレモン",
+      "どうすんの　こレモン",
+      "ハードコア大好き！じゃこレモン",
+      "バックダンサーズじゃこ&レモン",
+      "パラレルじゃこレモン",
+      "みこレモン",
+      "みんなで歌おう！じゃこレモン",
+      "レーモンスパークEx",
+      "レモンとじゃこ",
+      "れもんなよ",
+      "レモン探偵事務所",
+      "音楽的同位体　檸檬",
+      "廻り回ってじゃこレモン",
+      "愚民取締役・じゃこレモン",
+      "少年じゃこ　～ 3rd lemon",
+      "大振檸檬",
+      "知識と日陰のじゃこレモン",
+      "冬の窓辺に、じゃこ一尾",
+      "白狼天狗じゃこレモン",
+      "亡失のレモーション",
+      "檸檬"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "じゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 780,
+        "song": "アイドル",
+        "difficulty": 3
+      },
+      "ジャコレモサンバ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 784,
+        "song": "マツケンサンバⅡ",
+        "difficulty": 3
+      },
+      "ターボレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 788,
+        "song": "TAIDADA",
+        "difficulty": 3
+      },
+      "パラレルじゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 806,
+        "song": "パラレルサーチライト",
+        "difficulty": 3
+      },
+      "じゃこレモン＠親知らず抜いた": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 835,
+        "song": "私の歯医者さん",
+        "difficulty": 3
+      },
+      "じゃこレモンさん（１１）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 837,
+        "song": "テトリス",
+        "difficulty": 3
+      },
+      "MANIAC LEMON": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 840,
+        "song": "人マニア",
+        "difficulty": 3
+      },
+      "レモンとじゃこ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 844,
+        "song": "絶対敵対メチャキライヤー",
+        "difficulty": 3
+      },
+      "POETIC LEMON": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 846,
+        "song": "マシンガンポエムドール",
+        "difficulty": 3
+      },
+      "どうすんの　こレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 850,
+        "song": "寝起きヤシの木",
+        "difficulty": 3
+      },
+      "せかせかレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 854,
+        "song": "星界ちゃんと可不ちゃんのおつかい合騒曲",
+        "difficulty": 3
+      },
+      "音楽的同位体　檸檬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 855,
+        "song": "異星にいこうね",
+        "difficulty": 3
+      },
+      "キュートなレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 864,
+        "song": "キュートなカノジョ",
+        "difficulty": 3
+      },
+      "いけないレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 865,
+        "song": "The secret garden",
+        "difficulty": 3
+      },
+      "サイバーじゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 872,
+        "song": "サイバーサンダーサイダー",
+        "difficulty": 3
+      },
+      "Lost Lemon's Weeping": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 889,
+        "song": "ロストワンの号哭",
+        "difficulty": 4
+      },
+      "じゃこーレット警察、出動!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 899,
+        "song": "スカーレット警察のゲットーパトロール24時",
+        "difficulty": 3
+      },
+      "白狼天狗じゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 901,
+        "song": "寡黙なるフォール",
+        "difficulty": 3
+      },
+      "廻り回ってじゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 902,
+        "song": "回転 feat.あやぽんず＊",
+        "difficulty": 3
+      },
+      "キャプテン・レモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 906,
+        "song": "キャプテン・ムラサのケツアンカー",
+        "difficulty": 3
+      },
+      "ごろごろレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 907,
+        "song": "ふぃーばー",
+        "difficulty": 3
+      },
+      "亡失のレモーション": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 909,
+        "song": "ポーカーフェイス",
+        "difficulty": 3
+      },
+      "じゃこレモンドロップ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 910,
+        "song": "しゅわスパ大作戦☆",
+        "difficulty": 3
+      },
+      "知識と日陰のじゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 912,
+        "song": "7 days a week",
+        "difficulty": 3
+      },
+      "レーモンスパークEx": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 915,
+        "song": "レータイスパークEx",
+        "difficulty": 3
+      },
+      "檸檬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 917,
+        "song": "神楽",
+        "difficulty": 3
+      },
+      "バックダンサーズじゃこ&レモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 925,
+        "song": "トランスダンスアナーキー",
+        "difficulty": 3
+      },
+      "ジャコレモ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 927,
+        "song": "ウサテイ",
+        "difficulty": 3
+      },
+      "少年じゃこ　～ 3rd lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 929,
+        "song": "聖少女サクリファイス",
+        "difficulty": 3
+      },
+      "じゃこぺったん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 930,
+        "song": "つるぺったん",
+        "difficulty": 3
+      },
+      "Unlimited Lemon!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 932,
+        "song": "Unlimited Spark!",
+        "difficulty": 4
+      },
+      "じゃこレモンだよ☆JKL": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 935,
+        "song": "ちくわパフェだよ☆CKP",
+        "difficulty": 4
+      },
+      "じゃこレモン＠ステージXII": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 945,
+        "song": "Knight Rider",
+        "difficulty": 3
+      },
+      "XXX:THE MONSTER": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 947,
+        "song": "Exitium",
+        "difficulty": 3
+      },
+      "FRANTIC LEMON": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 948,
+        "song": "Invisible Frenzy",
+        "difficulty": 3
+      },
+      "Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 949,
+        "song": "Quon",
+        "difficulty": 3
+      },
+      "SEGA Fumen Man": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 950,
+        "song": "Big Bang",
+        "difficulty": 3
+      },
+      "\"Fire Vampires\"Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 959,
+        "song": "Cthugha",
+        "difficulty": 3
+      },
+      "じゃこレモン＠TANO*C TOUR 2022": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 962,
+        "song": "Breaking Dawn (feat. 棗いつき)",
+        "difficulty": 3
+      },
+      "Otoware Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 963,
+        "song": "Joe Fight",
+        "difficulty": 3
+      },
+      "J-Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 964,
+        "song": "D-Birth",
+        "difficulty": 3
+      },
+      "BASSLEMON YATTERU? lol": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 965,
+        "song": "ベースラインやってる？笑",
+        "difficulty": 3
+      },
+      "じゃこだね": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 967,
+        "song": "ばかみたい 〖Taxi Driver Edition〗",
+        "difficulty": 3
+      },
+      "じゃンこラボックス": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 975,
+        "song": "ZEUS",
+        "difficulty": 3
+      },
+      "じゃこレモン！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 988,
+        "song": "Agitation！",
+        "difficulty": 3
+      },
+      "じゃこレモン synthetic": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 992,
+        "song": "We Are Us (IOSYS TRAX Remix)",
+        "difficulty": 3
+      },
+      "じゃこレモン!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1003,
+        "song": "Burn!!!",
+        "difficulty": 3
+      },
+      "おもしレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1006,
+        "song": "燃えてもエンジョイ！宛城、炎上！！",
+        "difficulty": 3
+      },
+      "みんなで歌おう！じゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1007,
+        "song": "conflict(斉唱)",
+        "difficulty": 3
+      },
+      "J.J.L.L.J.L.L.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1010,
+        "song": "痛快リズムアクション 「B.B.K.K.B.K.K.」",
+        "difficulty": 3
+      },
+      "じゃこレモンスター": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1014,
+        "song": "CITRUS MONSTER",
+        "difficulty": 3
+      },
+      "じゃこみるく & れもしゃま": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1017,
+        "song": "Oshama Scramble!",
+        "difficulty": 4
+      },
+      "冬の窓辺に、じゃこ一尾": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1018,
+        "song": "花と、雪と、ドラムンベース。",
+        "difficulty": 3
+      },
+      "大振檸檬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1022,
+        "song": "封焔の135秒",
+        "difficulty": 3
+      },
+      "Komplemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1024,
+        "song": "Komplexe",
+        "difficulty": 3
+      },
+      "じゃこレモン respect for rioN": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1027,
+        "song": "Moon of Noon",
+        "difficulty": 3
+      },
+      "SILENT LEMON": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1031,
+        "song": "SILENT BLUE",
+        "difficulty": 3
+      },
+      "じゃこレモン＠7sRefちほー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1037,
+        "song": "躯樹の墓守",
+        "difficulty": 3
+      },
+      "レモン探偵事務所": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1039,
+        "song": "Secret Sleuth",
+        "difficulty": 3
+      },
+      "MTO-XXX:Lem Nemesis": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1043,
+        "song": "Iudicium “Apocalypsis Mix”",
+        "difficulty": 3
+      },
+      "じゃこレモンの突撃!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1045,
+        "song": "反撃! 突撃! Back To Back!",
+        "difficulty": 3
+      },
+      "じゃーんレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1048,
+        "song": "どうぶつ☆パラダイス",
+        "difficulty": 3
+      },
+      "GODLEMONESS": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1049,
+        "song": "GODLINESS",
+        "difficulty": 3
+      },
+      "Lemon Kingdom": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1052,
+        "song": "Last Kingdom",
+        "difficulty": 3
+      },
+      "Hi-EnergeTech Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1053,
+        "song": "Falsum Atlantis.",
+        "difficulty": 3
+      },
+      "じゃこレモン -desperado-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1054,
+        "song": "Desperado Waltz",
+        "difficulty": 3
+      },
+      "Lemon -Arced for the Ace-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1065,
+        "song": "Aether Crest: Celestial",
+        "difficulty": 3
+      },
+      "じゃこレモン＠雨の日の思い出": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1067,
+        "song": "After the rain",
+        "difficulty": 4
+      },
+      "愚民取締役・じゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1073,
+        "song": "せかいせいふく！ゆりあちゃん！",
+        "difficulty": 3
+      },
+      "みこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1076,
+        "song": "エキセントリックコンコン",
+        "difficulty": 3
+      },
+      "ハードコア大好き！じゃこレモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1078,
+        "song": "ハードコア・シンドローム",
+        "difficulty": 3
+      },
+      "じゃこレモン＠アテインリレイション": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1079,
+        "song": "Just You",
+        "difficulty": 3
+      },
+      "《檸檬》 ～ Fruit": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1080,
+        "song": "《信仰》 ～ Eudaimonia",
+        "difficulty": 3
+      },
+      "れもんなよ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1083,
+        "song": "つっぱれ！にゃんきー魂",
+        "difficulty": 3
+      },
+      "Lemmoon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1084,
+        "song": "Tattoo",
+        "difficulty": 3
+      },
+      "じゃこレモン＠攻略中": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1091,
+        "song": "人生攻略☆Tips",
+        "difficulty": 3
+      },
+      "Free-stylemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1094,
+        "song": "Fantasm",
+        "difficulty": 3
+      },
+      "CHAOTIC LEMON": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1099,
+        "song": "Everlasting Liberty",
+        "difficulty": 3
+      },
+      "カードゲーマー†レモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1103,
+        "song": "†大闘士＝クライン・フォーゲル・シュピール＝えりか†",
+        "difficulty": 3
+      },
+      "J4K0 L5M0N": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1109,
+        "song": "REL0VE REL1VE",
+        "difficulty": 3
+      },
+      "fantasic lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1110,
+        "song": "夢と幻想の終点にて",
+        "difficulty": 3
+      },
+      "Lemon possessed by MONSTER": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1112,
+        "song": "《創造》 ～ Cries, beyond The End",
+        "difficulty": 3
+      },
+      "2step lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1115,
+        "song": "First Light",
+        "difficulty": 3
+      },
+      "じゃコメモン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1118,
+        "song": "コメクエスト",
+        "difficulty": 3
+      },
+      "Innocent Lemon": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1120,
+        "song": "Elusive Enforcer",
+        "difficulty": 3
+      },
+      "J.K.L.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1121,
+        "song": "X.Y.Z.",
+        "difficulty": 3
+      },
+      "じゃこレモン裁判長": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1127,
+        "song": "ラブリージャッジメント",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "Jack": {
+    "credits": [
+      "Jack",
+      "[!!DataJaCk!!]",
+      "[SS4]Jack＠フルHGG蛇",
+      "BlazinG JAQ",
+      "Jack Assault X",
+      "Jack TP",
+      "Queen J.A.Q.",
+      "切裂きジャック◆"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "Jack": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1161,
+        "song": "ラヴィ",
+        "difficulty": 3
+      },
+      "Jack TP": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1183,
+        "song": "BlythE",
+        "difficulty": 3
+      },
+      "[SS4]Jack＠フルHGG蛇": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1186,
+        "song": "STAIRWAY TO GENERATION",
+        "difficulty": 3
+      },
+      "切裂きジャック◆": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1193,
+        "song": "Jack-the-Ripper◆",
+        "difficulty": 3
+      },
+      "[!!DataJaCk!!]": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1194,
+        "song": "DataErr0r",
+        "difficulty": 3
+      },
+      "Queen J.A.Q.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1197,
+        "song": "JULIAN",
+        "difficulty": 3
+      },
+      "Jack Assault X": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1217,
+        "song": "Xevel",
+        "difficulty": 3
+      },
+      "BlazinG JAQ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1243,
+        "song": "BlazinG AIR",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "翠楼屋": {
+    "credits": [
+      "翠楼屋",
+      "SUILOUYA　COLORS"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "SUILOUYA　COLORS": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1266,
+        "song": "Reach For The Stars",
+        "difficulty": 4
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "すきやき奉行": {
+    "credits": [
+      "すきやき奉行",
+      "_ す き や き 奉 行",
+      ".357 Sukiyaki",
+      "[THE_MAGISTRATE]",
+      "5UK1Y4KI Magistrate",
+      "A Lucidness",
+      "CODE:SacrIfIce",
+      "ETARTSIGAM",
+      "Magistrate",
+      "Magistrate -for KoP2020-",
+      "Magistrate vs A Lucidness",
+      "SacrIfIce",
+      "Sukiyaki SC",
+      "SUKIYAKYPSIS JOHANNIS",
+      "The Magistrate",
+      "The Magistrate vs SUKIYAKI",
+      "いまきた奉行",
+      "すきやき が てんこもり",
+      "すきやきアドベンチャー",
+      "すきやきケーキ",
+      "すきやきの奉行が君に襲い掛かる！",
+      "すきやき解剖",
+      "すきやき東京",
+      "すきやき卑怯",
+      "すきやき奉行(Hr)",
+      "すきやき奉行＠初代132万",
+      "すき山 誠十行",
+      "モスきやき奉行",
+      "わるのり奉行",
+      "吸きや鬼奉行",
+      "大奉行になったらね",
+      "奉行の達人",
+      "奉行隊長とSukiyaki親分",
+      "毎日1箱1缶奉行",
+      "巫女みこ奉行"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "すきやき奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1296,
+        "song": "ただ君に晴れ",
+        "difficulty": 3
+      },
+      "大奉行になったらね": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1297,
+        "song": "シル・ヴ・プレジデント",
+        "difficulty": 3
+      },
+      "すきやきケーキ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1299,
+        "song": "▲MEW▲△MEW△CAKE",
+        "difficulty": 3
+      },
+      "吸きや鬼奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1300,
+        "song": "Vampire",
+        "difficulty": 3
+      },
+      "巫女みこ奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1303,
+        "song": "巫女みこナース・愛のテーマ",
+        "difficulty": 3
+      },
+      "すきやき東京": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1309,
+        "song": "幽霊東京",
+        "difficulty": 3
+      },
+      "モスきやき奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1312,
+        "song": "彗星ハネムーン",
+        "difficulty": 3
+      },
+      "すきやき解剖": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1314,
+        "song": "乙女解剖",
+        "difficulty": 3
+      },
+      "すきやき が てんこもり": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1316,
+        "song": "クレイジー・ビート",
+        "difficulty": 3
+      },
+      "毎日1箱1缶奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1317,
+        "song": "おねがいダーリン",
+        "difficulty": 3
+      },
+      "すきやき卑怯": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1329,
+        "song": "卑怯戦隊うろたんだー",
+        "difficulty": 3
+      },
+      "いまきた奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1342,
+        "song": "Scream out! -CHUNITHM Tuning-",
+        "difficulty": 3
+      },
+      "奉行の達人": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1350,
+        "song": "Taiko Drum Monster",
+        "difficulty": 3
+      },
+      "The Magistrate vs SUKIYAKI": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1351,
+        "song": "Lemegeton -little key of solomon-",
+        "difficulty": 3
+      },
+      "すきやき奉行＠初代132万": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1353,
+        "song": "JET",
+        "difficulty": 4
+      },
+      "The Magistrate": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1355,
+        "song": "Axium Crisis",
+        "difficulty": 3
+      },
+      "Sukiyaki SC": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1359,
+        "song": "Memory of Beach",
+        "difficulty": 3
+      },
+      "すき山 誠十行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1365,
+        "song": "檄！帝国華撃団＜新章＞",
+        "difficulty": 3
+      },
+      "すきやき奉行(Hr)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1367,
+        "song": "Our Fighting",
+        "difficulty": 3
+      },
+      "_ す き や き 奉 行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1370,
+        "song": "G e n g a o z o",
+        "difficulty": 3
+      },
+      "すきやきの奉行が君に襲い掛かる！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1371,
+        "song": "volcanic",
+        "difficulty": 3
+      },
+      "SUKIYAKYPSIS JOHANNIS": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1374,
+        "song": "Parousia",
+        "difficulty": 3
+      },
+      "5UK1Y4KI Magistrate": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1376,
+        "song": "CO5M1C R4ILR0AD",
+        "difficulty": 3
+      },
+      "A Lucidness": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1377,
+        "song": "Pure Ruby",
+        "difficulty": 3
+      },
+      "わるのり奉行": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1397,
+        "song": "イロドリミドリ杯花映塚全一決定戦 公式テーマソング『ウソテイ』",
+        "difficulty": 3
+      },
+      "奉行隊長とSukiyaki親分": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1404,
+        "song": "高気圧ねこロック",
+        "difficulty": 3
+      },
+      "SacrIfIce": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1412,
+        "song": "Opfer",
+        "difficulty": 3
+      },
+      "Magistrate -for KoP2020-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1420,
+        "song": "ANU",
+        "difficulty": 3
+      },
+      ".357 Sukiyaki": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1423,
+        "song": "Sparking Revolver",
+        "difficulty": 3
+      },
+      "すきやきアドベンチャー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1432,
+        "song": "2DVenture",
+        "difficulty": 3
+      },
+      "CODE:SacrIfIce": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1437,
+        "song": "Killing Rhythm",
+        "difficulty": 3
+      },
+      "Magistrate vs A Lucidness": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1452,
+        "song": "Last Celebration",
+        "difficulty": 3
+      },
+      "[THE_MAGISTRATE]": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1465,
+        "song": "［CRYSTAL_ACCESS］",
+        "difficulty": 3
+      },
+      "ETARTSIGAM": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1468,
+        "song": "Reverberate",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "そらいろカリン": {
+    "credits": [
+      "そらいろカリン",
+      "そらいろカリン（アルバイト）",
+      "そらいろカリン＠シンラリコネクト",
+      "そらいろカリンドロップ",
+      "ぱくぱくカリン"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+    ],
+    "evidenceByCredit": {
+      "そらいろカリン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1505,
+        "song": "さくらんぼキッス～爆発だも～ん～",
+        "difficulty": 3
+      },
+      "そらいろカリン（アルバイト）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1506,
+        "song": "Unwelcome School",
+        "difficulty": 3
+      },
+      "そらいろカリン＠シンラリコネクト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1531,
+        "song": "カリスマ煉獄天神",
+        "difficulty": 3
+      },
+      "そらいろカリンドロップ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1534,
+        "song": "みずいろレインドロップ",
+        "difficulty": 3
+      },
+      "ぱくぱくカリン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1",
+        "line": 1560,
+        "song": "ぱくぱく☆がーる",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1"
+  },
+  "小鳥遊さん": {
+    "credits": [
+      "小鳥遊さん",
+      "⊥∀K∀И∀2HI2∀И",
+      "DX超性能フルメタル小鳥遊",
+      "FIGHT ACT ITEM ♥PHOENIX",
+      "Op.hx",
+      "Phoenix",
+      "Queen P.H.X.",
+      "SAMBA MASTER 小鳥遊",
+      "t+phoenix",
+      "with Phoenix",
+      "たかなしさん",
+      "たけなしさん",
+      "音ゲーみたいなウニに住んでる小鳥遊",
+      "音ゲー戦士小鳥遊さん",
+      "小鳥遊さん ～Phoenix～",
+      "小鳥遊さん VERYHARD"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "音ゲーみたいなウニに住んでる小鳥遊": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 18,
+        "song": "非実在系女子達はどうすりゃいいですか？",
+        "difficulty": 3
+      },
+      "小鳥遊さん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 27,
+        "song": "Mami Mami Zone",
+        "difficulty": 3
+      },
+      "with Phoenix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 33,
+        "song": "Evans",
+        "difficulty": 4
+      },
+      "Op.hx": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 35,
+        "song": "ピアノ協奏曲第１番”蠍火”",
+        "difficulty": 3
+      },
+      "小鳥遊さん VERYHARD": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 37,
+        "song": "ミュージック・リボルバー",
+        "difficulty": 3
+      },
+      "DX超性能フルメタル小鳥遊": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 38,
+        "song": "DX超性能フルメタル少女",
+        "difficulty": 3
+      },
+      "FIGHT ACT ITEM ♥PHOENIX": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 41,
+        "song": "MEGALOVANIA",
+        "difficulty": 3
+      },
+      "⊥∀K∀И∀2HI2∀И": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 43,
+        "song": "Doppelganger",
+        "difficulty": 3
+      },
+      "音ゲー戦士小鳥遊さん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 44,
+        "song": "ETERNAL DRAIN",
+        "difficulty": 3
+      },
+      "小鳥遊さん ～Phoenix～": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 46,
+        "song": "水晶世界 ～Fracture～",
+        "difficulty": 3
+      },
+      "たかなしさん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 49,
+        "song": "プナイプナイたいそう",
+        "difficulty": 3
+      },
+      "たけなしさん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 51,
+        "song": "竹",
+        "difficulty": 3
+      },
+      "SAMBA MASTER 小鳥遊": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 53,
+        "song": "ホーリーサンバランド",
+        "difficulty": 3
+      },
+      "Phoenix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 54,
+        "song": "Aleph-0",
+        "difficulty": 3
+      },
+      "t+phoenix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 77,
+        "song": "Paqqin (tpz Despair Remix)",
+        "difficulty": 3
+      },
+      "Queen P.H.X.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 80,
+        "song": "We Gonna Journey",
+        "difficulty": 4
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "玉子豆腐": {
+    "credits": [
+      "玉子豆腐",
+      "タマゴのお考え",
+      "玉子が豆腐れしゅごいぃのぉおおょぉぉぅ!!",
+      "玉子星からの物体ＴＯＦＵ"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "タマゴのお考え": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 102,
+        "song": "ネ！コ！",
+        "difficulty": 3
+      },
+      "玉子豆腐": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 106,
+        "song": "レトロマニア狂想曲",
+        "difficulty": 3
+      },
+      "玉子星からの物体ＴＯＦＵ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 107,
+        "song": "パーフェクト生命",
+        "difficulty": 3
+      },
+      "玉子が豆腐れしゅごいぃのぉおおょぉぉぅ!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 122,
+        "song": "オススメ☆♂♀☆でぃすとぴあ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "チャン@DP皆伝": {
+    "credits": [
+      "チャン@DP皆伝",
+      "チャン@DP皆伝からのメリークリスマス",
+      "チャン＠ちっちゃなドキドキ皆伝"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "チャン@DP皆伝からのメリークリスマス": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 137,
+        "song": "ジングルベル",
+        "difficulty": 3
+      },
+      "チャン＠ちっちゃなドキドキ皆伝": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 139,
+        "song": "★LittlE HearTs★",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "Techno Kitchen": {
+    "credits": [
+      "Techno Kitchen",
+      "NEW Techno Kitchen+",
+      "Techno Kitchen -For KOP4th-",
+      "Techno Kitchen [Reborn]",
+      "Techno Kitchen [Spherical]",
+      "Techno Kitchen MX",
+      "Techno Kitchen SC",
+      "Techno Kitchen vs wonder*",
+      "Techno Kitchen!!!!",
+      "Techno Kitchen+",
+      "techno*kitchen",
+      "TEKNOKITCHEN 1796",
+      "wonder*",
+      "wonder* vs Techno Kitchen",
+      "てーちゃんとくーちゃんとのーちゃん",
+      "テクノ★キッチン♂",
+      "ひとりでキッチン",
+      "戦慄のテクノキッチン！"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "Techno Kitchen": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 178,
+        "song": "Advance （CHUNITHM edit）",
+        "difficulty": 3
+      },
+      "wonder*": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 208,
+        "song": "WAVE",
+        "difficulty": 3
+      },
+      "Techno Kitchen MX": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 256,
+        "song": "SINister Evolution",
+        "difficulty": 3
+      },
+      "Techno Kitchen [Spherical]": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 257,
+        "song": "Finite",
+        "difficulty": 3
+      },
+      "Techno Kitchen SC": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 260,
+        "song": "SON OF SUN",
+        "difficulty": 4
+      },
+      "ひとりでキッチン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 266,
+        "song": "ぷよぷよのうた ピコピコミックス",
+        "difficulty": 3
+      },
+      "Techno Kitchen+": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 273,
+        "song": "elegante",
+        "difficulty": 3
+      },
+      "NEW Techno Kitchen+": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 274,
+        "song": "elegante",
+        "difficulty": 4
+      },
+      "Techno Kitchen [Reborn]": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 299,
+        "song": "[[Like the Wind [Reborn]>Like the Wind ［Reborn］]]",
+        "difficulty": 3
+      },
+      "techno*kitchen": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 320,
+        "song": "Baqeela",
+        "difficulty": 3
+      },
+      "Techno Kitchen -For KOP4th-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 324,
+        "song": "FLUFFY FLASH",
+        "difficulty": 3
+      },
+      "てーちゃんとくーちゃんとのーちゃん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 360,
+        "song": "札付きのワル　～マイケルのうた～",
+        "difficulty": 3
+      },
+      "Techno Kitchen vs wonder*": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 365,
+        "song": "JIGOKU STATION CENTRAL GATE",
+        "difficulty": 3
+      },
+      "Techno Kitchen!!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 370,
+        "song": "CHOCOLATE BOMB!!!!",
+        "difficulty": 3
+      },
+      "テクノ★キッチン♂": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 374,
+        "song": "ぜったい！昇天★鎮魂歌♂",
+        "difficulty": 3
+      },
+      "wonder* vs Techno Kitchen": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 377,
+        "song": "Servant of Love",
+        "difficulty": 3
+      },
+      "戦慄のテクノキッチン！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 378,
+        "song": "逃げろ！サテライトキャンパス！！",
+        "difficulty": 3
+      },
+      "TEKNOKITCHEN 1796": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 392,
+        "song": "TECHNOPOLIS 2085",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "透明絵具": {
+    "credits": [
+      "透明絵具",
+      "透明ゾンビ・デ・ダンス"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "透明ゾンビ・デ・ダンス": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 443,
+        "song": "唱",
+        "difficulty": 3
+      },
+      "透明絵具": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 446,
+        "song": "ザムザ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "はっぴー": {
+    "credits": [
+      "はっぴー",
+      "（締切を）ぶった切る犬",
+      "†はっぴー†",
+      "☆スイーツ系はっぴー☆",
+      "A B B A 犬 UP DOG L R",
+      "Hiroyuki Cucumber Harada Works",
+      "Sampling Beginners いぬ",
+      "いぬいぬにぎりずし",
+      "イヌイヌミッション",
+      "いぬうううううううううううううううううう",
+      "いぬなのに。",
+      "イヌネリ",
+      "イヌハッピー",
+      "だって、犬の譜面は、心の叫びだから！",
+      "ハっぴー",
+      "はっぴー　NEW!!",
+      "はっぴー@全都道府県完全制覇",
+      "フメンティック H.P.犬（♂）",
+      "ルンパッピー",
+      "ワンとして舞う犬の如く",
+      "犬のバーゲンセール",
+      "犬はAIRを振り下ろしたかったようだった",
+      "三十代身の丈知った犬",
+      "指押苦手犬の難易度詐称疑惑と苦悩と情熱。",
+      "自然の犬",
+      "渋谷の駅前で丸裸のはっぴー",
+      "譜面、残業、広報、雑用、↑B↓AY↑L犬"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "だって、犬の譜面は、心の叫びだから！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 489,
+        "song": "迷星叫",
+        "difficulty": 3
+      },
+      "はっぴー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 492,
+        "song": "高音厨音域テスト",
+        "difficulty": 3
+      },
+      "いぬいぬにぎりずし": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 493,
+        "song": "ラグトレイン",
+        "difficulty": 3
+      },
+      "ハっぴー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 494,
+        "song": "ハイセンスナンセンス",
+        "difficulty": 3
+      },
+      "犬のバーゲンセール": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 499,
+        "song": "神曲",
+        "difficulty": 3
+      },
+      "譜面、残業、広報、雑用、↑B↓AY↑L犬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 501,
+        "song": "幸せになれる隠しコマンドがあるらしい",
+        "difficulty": 3
+      },
+      "ルンパッピー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 502,
+        "song": "インビジブル",
+        "difficulty": 3
+      },
+      "A B B A 犬 UP DOG L R": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 503,
+        "song": "リモコン",
+        "difficulty": 3
+      },
+      "自然の犬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 505,
+        "song": "如月アテンション",
+        "difficulty": 3
+      },
+      "三十代身の丈知った犬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 506,
+        "song": "すろぉもぉしょん",
+        "difficulty": 3
+      },
+      "フメンティック H.P.犬（♂）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 507,
+        "song": "ギガンティックO.T.N",
+        "difficulty": 3
+      },
+      "渋谷の駅前で丸裸のはっぴー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 508,
+        "song": "腐れ外道とチョコレゐト",
+        "difficulty": 3
+      },
+      "Hiroyuki Cucumber Harada Works": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 513,
+        "song": "きゅうりバーにダイブ",
+        "difficulty": 3
+      },
+      "ワンとして舞う犬の如く": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 521,
+        "song": "凛として咲く花の如く",
+        "difficulty": 3
+      },
+      "はっぴー@全都道府県完全制覇": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 523,
+        "song": "SKYSCRAPER",
+        "difficulty": 3
+      },
+      "いぬうううううううううううううううううう": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 524,
+        "song": "レッツゴー!陰陽師",
+        "difficulty": 3
+      },
+      "イヌイヌミッション": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 531,
+        "song": "なんかノイズにきこえる",
+        "difficulty": 3
+      },
+      "Sampling Beginners いぬ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 534,
+        "song": "The wheel to the Night ～インド人が夢に!?～",
+        "difficulty": 3
+      },
+      "☆スイーツ系はっぴー☆": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 543,
+        "song": "Invitation",
+        "difficulty": 3
+      },
+      "犬はAIRを振り下ろしたかったようだった": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 547,
+        "song": "その群青が愛しかったようだった",
+        "difficulty": 3
+      },
+      "イヌハッピー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 549,
+        "song": "ウソラセラ",
+        "difficulty": 3
+      },
+      "（締切を）ぶった切る犬": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 551,
+        "song": "立川浄穢捕物帳",
+        "difficulty": 3
+      },
+      "指押苦手犬の難易度詐称疑惑と苦悩と情熱。": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 555,
+        "song": "男装女形表裏一体発狂小娘の 詐称疑惑と苦悩と情熱。",
+        "difficulty": 3
+      },
+      "いぬなのに。": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 557,
+        "song": "Yume no hajimari",
+        "difficulty": 3
+      },
+      "はっぴー　NEW!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 558,
+        "song": "コスモポップファンクラブ",
+        "difficulty": 3
+      },
+      "†はっぴー†": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 559,
+        "song": "Breakthrough",
+        "difficulty": 3
+      },
+      "イヌネリ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 560,
+        "song": "MyPaceInvention",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "鳩ホルダー": {
+    "credits": [
+      "鳩ホルダー",
+      "鳩鳩鳩のホル連単"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "鳩ホルダー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 571,
+        "song": "とまどい→レシピ",
+        "difficulty": 3
+      },
+      "鳩鳩鳩のホル連単": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 575,
+        "song": "ハオ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "ぴちネコ": {
+    "credits": [
+      "ぴちネコ",
+      ".__. .. __.. __.. .. _._. ._ _",
+      "Black CaT Darkside",
+      "CatastroPhe",
+      "CatastroPhe\"-UNIVERSE-\"",
+      "CODE:CatastroPhe",
+      "FREEDOM \"over-Over-OVERDRIVE\" CAT!!!!!",
+      "FREEDOM CAT TRAIN 2222形（舞ヶ原高校行き）",
+      "FREEDOM CAT TRAIN 222形（大鳥居行き）",
+      "FREEDOM CAT!",
+      "FREEDOM↑FLYHIGH↑CAT",
+      "GOODCAT",
+      "LOVE ぴちネコ FOREVER",
+      "MSИ-00100",
+      "NeKOTECH NYANJA",
+      "Nyan NyaNyan Nyang!!",
+      "P-CAT",
+      "Panther",
+      "Panther Rampage",
+      "Panther vs Pizzicat",
+      "Panther Zero",
+      "Panther+Black",
+      "PIZ2ICAT  -CODENAME : CRYSTAL-",
+      "pizziCAT -FINAL ROUND-",
+      "pizziCAT -RED Insanity-",
+      "Pizzicat a.k.a. Russianblack",
+      "PizziCAT Electronic",
+      "Pizzicat MX",
+      "Russian Black Square",
+      "RussianB1ack",
+      "アイドル応援！ロシアンブラック",
+      "ネコニャン星人・りた～んず",
+      "ネコニャン星人（好物：ねぎとろ）",
+      "ねこぺったん",
+      "ネコ祭り",
+      "ぴ.ち.ネ.コ.",
+      "ぴちネコ（帝国軍したっぱ）",
+      "ぴちネコ@taterenda lovers",
+      "ぴちネコの激唱",
+      "ぴちネコハート",
+      "ふつうのねこ",
+      "むしとりキャット",
+      "メルティンブラック",
+      "ロシアンブラック",
+      "ロシアンブラッ愚民＠大崎",
+      "永遠に譜面で遊びたいネコタン",
+      "何でも譜面を作ってくれるピチネコチャン",
+      "愚民代表・ロシアンブラック",
+      "黒き弐匹ノ猫、魔汁片手に熾烈な音譜を画く",
+      "黒猫、旧支配者",
+      "漆黒のヒーロー・ロシアンブラック",
+      "猫の名は。"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "ぴちネコ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 640,
+        "song": "夜に駆ける",
+        "difficulty": 3
+      },
+      "猫の名は。": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 642,
+        "song": "前前前世",
+        "difficulty": 3
+      },
+      "ぴちネコハート": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 645,
+        "song": "野良猫ハート",
+        "difficulty": 3
+      },
+      "LOVE ぴちネコ FOREVER": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 648,
+        "song": "INTERNET YAMERO",
+        "difficulty": 3
+      },
+      "永遠に譜面で遊びたいネコタン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 656,
+        "song": "永遠にゲームで対戦したいキリタン",
+        "difficulty": 3
+      },
+      "ロシアンブラック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 660,
+        "song": "命に嫌われている",
+        "difficulty": 3
+      },
+      "何でも譜面を作ってくれるピチネコチャン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 664,
+        "song": "Seyana. ～何でも言うことを聞いてくれるアカネチャン～",
+        "difficulty": 3
+      },
+      "ぴちネコの激唱": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 665,
+        "song": "初音ミクの激唱",
+        "difficulty": 3
+      },
+      "Panther Rampage": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 690,
+        "song": "タイガーランペイジ",
+        "difficulty": 4
+      },
+      "Black CaT Darkside": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 710,
+        "song": "Black MInD",
+        "difficulty": 3
+      },
+      "Panther Zero": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 712,
+        "song": "Fracture Ray",
+        "difficulty": 3
+      },
+      "黒猫、旧支配者": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 714,
+        "song": "Cyaegha",
+        "difficulty": 3
+      },
+      "Pizzicat MX": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 720,
+        "song": "Super Lovely (Heavenly Remix)",
+        "difficulty": 3
+      },
+      "Russian Black Square": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 721,
+        "song": "Ladymade Star",
+        "difficulty": 3
+      },
+      "むしとりキャット": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 728,
+        "song": "むしとりのうた",
+        "difficulty": 3
+      },
+      "ぴちネコ@taterenda lovers": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 731,
+        "song": "L9",
+        "difficulty": 4
+      },
+      "FREEDOM CAT!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 736,
+        "song": "FREEDOM DiVE",
+        "difficulty": 3
+      },
+      "GOODCAT": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 742,
+        "song": "GOODTEK",
+        "difficulty": 3
+      },
+      ".__. .. __.. __.. .. _._. ._ _": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 745,
+        "song": "Nhelv",
+        "difficulty": 3
+      },
+      "PizziCAT Electronic": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 760,
+        "song": "We Are Us",
+        "difficulty": 3
+      },
+      "Nyan NyaNyan Nyang!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 764,
+        "song": "Bang Babang Bang!!!",
+        "difficulty": 3
+      },
+      "ネコ祭り": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 768,
+        "song": "猫祭り",
+        "difficulty": 3
+      },
+      "黒き弐匹ノ猫、魔汁片手に熾烈な音譜を画く": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 771,
+        "song": "紅き魔汁、闇より降りて天啓の響きを導く",
+        "difficulty": 3
+      },
+      "ふつうのねこ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 775,
+        "song": "みなえをチェック！",
+        "difficulty": 3
+      },
+      "メルティンブラック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 777,
+        "song": "MELtin' 17",
+        "difficulty": 3
+      },
+      "ねこぺったん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 781,
+        "song": "あねぺったん",
+        "difficulty": 3
+      },
+      "ネコニャン星人・りた～んず": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 787,
+        "song": "光線チューニング ～なずな妄想海フェスイメージトレーニングVer.～",
+        "difficulty": 3
+      },
+      "FREEDOM CAT TRAIN 2222形（舞ヶ原高校行き）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 788,
+        "song": "Kattobi舞高Riders",
+        "difficulty": 3
+      },
+      "Panther vs Pizzicat": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 800,
+        "song": "Everlasting Today",
+        "difficulty": 3
+      },
+      "Panther+Black": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 801,
+        "song": "Viyella's Tears",
+        "difficulty": 3
+      },
+      "MSИ-00100": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 806,
+        "song": "otorii INNOVATED -[i]3-",
+        "difficulty": 3
+      },
+      "ロシアンブラッ愚民＠大崎": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 807,
+        "song": "とーきょー全域★アキハバラ？ (ver.にこる)",
+        "difficulty": 3
+      },
+      "PIZ2ICAT  -CODENAME : CRYSTAL-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 808,
+        "song": "神威 (NAOKI × ZPP MIX)",
+        "difficulty": 3
+      },
+      "ぴちネコ（帝国軍したっぱ）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 810,
+        "song": "Gustav Battle",
+        "difficulty": 4
+      },
+      "ぴ.ち.ネ.コ.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 823,
+        "song": "D.E.A.D.L.Y.",
+        "difficulty": 3
+      },
+      "CODE:CatastroPhe": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 833,
+        "song": "TiamaT:F minor",
+        "difficulty": 3
+      },
+      "ネコニャン星人（好物：ねぎとろ）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 834,
+        "song": "光線チューニング",
+        "difficulty": 3
+      },
+      "FREEDOM CAT TRAIN 222形（大鳥居行き）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 836,
+        "song": "Kattobi KEIKYU Rider",
+        "difficulty": 3
+      },
+      "FREEDOM \"over-Over-OVERDRIVE\" CAT!!!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 837,
+        "song": "Glorious Crown  (tpz over-Over-OVERCUTE REMIX)",
+        "difficulty": 3
+      },
+      "CatastroPhe\"-UNIVERSE-\"": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 846,
+        "song": "macrocosmos",
+        "difficulty": 3
+      },
+      "pizziCAT -RED Insanity-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 853,
+        "song": "夕焼けのRed Parade",
+        "difficulty": 3
+      },
+      "pizziCAT -FINAL ROUND-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 855,
+        "song": "Climax",
+        "difficulty": 3
+      },
+      "愚民代表・ロシアンブラック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 856,
+        "song": "アイリちゃんは暗黒魔導士!",
+        "difficulty": 3
+      },
+      "NeKOTECH NYANJA": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 857,
+        "song": "電光石火",
+        "difficulty": 3
+      },
+      "アイドル応援！ロシアンブラック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 858,
+        "song": "THE BRASS OF GOODSPEED!!",
+        "difficulty": 3
+      },
+      "P-CAT": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 860,
+        "song": "8-EM",
+        "difficulty": 3
+      },
+      "漆黒のヒーロー・ロシアンブラック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 875,
+        "song": "シャッキーーン！！",
+        "difficulty": 3
+      },
+      "RussianB1ack": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 878,
+        "song": "B100d Hunter",
+        "difficulty": 3
+      },
+      "FREEDOM↑FLYHIGH↑CAT": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 879,
+        "song": "Insane Gamemode",
+        "difficulty": 3
+      },
+      "Pizzicat a.k.a. Russianblack": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 884,
+        "song": "Daphnis",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "譜面-100号": {
+    "credits": [
+      "譜面-100号",
+      "C0DE FF9C",
+      "Hyphen Hecto Philharmonic Orchestra",
+      "Op.-C",
+      "Opus Negativus Centum",
+      "危険すぎる譜面-100号",
+      "胡散臭い譜面-100号",
+      "国道-100号",
+      "常識に囚われない譜面-100号",
+      "大入道-100号",
+      "通信売百号",
+      "譜面-100ミ",
+      "譜面-100ンゴ",
+      "譜面-100号号号"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "譜面-100ミ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 909,
+        "song": "レッド・ルーラー",
+        "difficulty": 3
+      },
+      "譜面-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 912,
+        "song": "KILLER B",
+        "difficulty": 3
+      },
+      "大入道-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 919,
+        "song": "Pump!n",
+        "difficulty": 3
+      },
+      "危険すぎる譜面-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 920,
+        "song": "ゴールドビジョン",
+        "difficulty": 3
+      },
+      "常識に囚われない譜面-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 921,
+        "song": "風に乗せた願い",
+        "difficulty": 3
+      },
+      "胡散臭い譜面-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 923,
+        "song": "Jimang Shot",
+        "difficulty": 3
+      },
+      "通信売百号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 930,
+        "song": "PRIVATE SERVICE",
+        "difficulty": 4
+      },
+      "Opus Negativus Centum": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 932,
+        "song": "月の光",
+        "difficulty": 3
+      },
+      "国道-100号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 933,
+        "song": "Love's Theme of BADASS  ～バッド・アス 愛のテーマ～",
+        "difficulty": 3
+      },
+      "C0DE FF9C": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 938,
+        "song": "もぺもぺ",
+        "difficulty": 3
+      },
+      "譜面-100号号号": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 953,
+        "song": "Pastel Party",
+        "difficulty": 3
+      },
+      "譜面-100ンゴ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 954,
+        "song": "足立オウフwwww",
+        "difficulty": 3
+      },
+      "Hyphen Hecto Philharmonic Orchestra": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 956,
+        "song": "《逃避》 ～ The Deserter",
+        "difficulty": 3
+      },
+      "Op.-C": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 958,
+        "song": "創世のコンツェルティーナ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "某S氏": {
+    "credits": [
+      "某S氏",
+      "エスシ・プリズムリバー",
+      "その辺にいたS氏",
+      "宇宙まで飛んでった某S氏",
+      "月まで届け、S氏の煙",
+      "聖S氏",
+      "天上天下S氏独尊！",
+      "半人半霊のS氏",
+      "物凄いスライドでS氏が物凄い譜面",
+      "某⑨氏",
+      "某C氏「らんしゃまあああああああ」",
+      "某R氏「ちぇえええええええん」",
+      "某S「シー」",
+      "某S氏「ひじりんは俺の嫁！」",
+      "某S氏＠三麻天界役満縛り勢",
+      "某愚氏",
+      "某神S郎"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+    ],
+    "evidenceByCredit": {
+      "某S氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 997,
+        "song": "純情-SAKURA-",
+        "difficulty": 3
+      },
+      "天上天下S氏独尊！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1000,
+        "song": "鬼KYOKAN",
+        "difficulty": 3
+      },
+      "聖S氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1008,
+        "song": "Cosmic Magic Shooter",
+        "difficulty": 3
+      },
+      "某S氏「ひじりんは俺の嫁！」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1009,
+        "song": "お嫁にしなさいっ！",
+        "difficulty": 3
+      },
+      "その辺にいたS氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1010,
+        "song": "チルノおかんのさいきょう ☆バイブスごはん",
+        "difficulty": 3
+      },
+      "物凄いスライドでS氏が物凄い譜面": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1011,
+        "song": "物凄い勢いでけーねが物凄いうた",
+        "difficulty": 3
+      },
+      "エスシ・プリズムリバー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1013,
+        "song": "Melody！",
+        "difficulty": 3
+      },
+      "某⑨氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1015,
+        "song": "チルノのパーフェクトさんすう教室 ⑨周年バージョン",
+        "difficulty": 3
+      },
+      "某S氏＠三麻天界役満縛り勢": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1016,
+        "song": "キュアリアス光吉古牌　－祭－",
+        "difficulty": 3
+      },
+      "某S「シー」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1018,
+        "song": "泡沫、哀のまほろば",
+        "difficulty": 3
+      },
+      "某愚氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1021,
+        "song": "ひれ伏せ愚民どもっ！",
+        "difficulty": 3
+      },
+      "月まで届け、S氏の煙": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1022,
+        "song": "エテルニタス・ルドロジー",
+        "difficulty": 3
+      },
+      "宇宙まで飛んでった某S氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1024,
+        "song": "幻想のサテライト",
+        "difficulty": 3
+      },
+      "某R氏「ちぇえええええええん」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1025,
+        "song": "橙の幻想郷音頭",
+        "difficulty": 3
+      },
+      "半人半霊のS氏": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1026,
+        "song": "東方妖々夢 ～the maximum moving about～",
+        "difficulty": 3
+      },
+      "某C氏「らんしゃまあああああああ」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1028,
+        "song": "少女幻葬戦慄曲　～　Necro Fantasia",
+        "difficulty": 3
+      },
+      "某神S郎": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2",
+        "line": 1036,
+        "song": "檄!帝国華撃団",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2"
+  },
+  "mai-Star": {
+    "credits": [
+      "mai-Star"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "mai-Star": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 16,
+        "song": "愛迷エレジー",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "ミストルティン": {
+    "credits": [
+      "ミストルティン",
+      "「ミストルティン」",
+      "Mistilteinn",
+      "Mistilteinn -Burn Apocalypse-",
+      "Mistilteinn -dear our sister-",
+      "Mistilteinn -Flutter-",
+      "Mistilteinn -For KOP6th-",
+      "Mistilteinn -Sense des Todes-",
+      "Mistilteinn -Viscumalbum-",
+      "Mistilteinn -ZTX2 Impulse-",
+      "Mistilteinn in zero-g",
+      "The ruler \"Mistilteinn\"",
+      "ミストルティン -アポートル-",
+      "ミストルティン -禁圧解除-",
+      "ミストルティン vs Mistilteinn",
+      "ミストルティン＠DIVA10周年おめでとう！",
+      "ミストルティン＠Melee",
+      "ミストルティン＠エゴイスト",
+      "ミストルティン＠ネギトロ推し",
+      "ミストルティン＠愛莉ファン",
+      "ミストルティン＠一歩、前へ！",
+      "ミストルティン＠漢字2文字変えたら田中",
+      "ミストルティン＠笑顔の魔法使い",
+      "ミストルティン＠真・皆伝",
+      "ミストルティン＠瑞希ファン",
+      "ミストルティン＠待たれる側に",
+      "ミストルティン／いい夢を。",
+      "ミストルティン／さよならコンクール",
+      "ミストルティン／泣きに泣け 空よ泣け",
+      "ミストルティン／晴れに晴れ 花よ咲け",
+      "ミストルティン／旋律の饗宴",
+      "ミストルティン／息を止める",
+      "ミストルティンが歌っていいんでしょうか？",
+      "ミストルティンの華麗なる伝説集",
+      "患者ミストルティン",
+      "小悪魔ミストルティン",
+      "聖剣ミストルティン",
+      "聖銃ミストルティン",
+      "中に誰もミストルティン"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "ミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 50,
+        "song": "ハッピーラッキーチャッピー",
+        "difficulty": 3
+      },
+      "ミストルティン／晴れに晴れ 花よ咲け": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 52,
+        "song": "晴る",
+        "difficulty": 3
+      },
+      "ミストルティン／泣きに泣け 空よ泣け": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 53,
+        "song": "晴る",
+        "difficulty": 4
+      },
+      "ミストルティン／さよならコンクール": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 60,
+        "song": "トゥッティ！",
+        "difficulty": 3
+      },
+      "ミストルティン＠エゴイスト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 62,
+        "song": "カオスが極まる",
+        "difficulty": 3
+      },
+      "ミストルティン／旋律の饗宴": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 68,
+        "song": "シリウスの輝きのように",
+        "difficulty": 3
+      },
+      "ミストルティンが歌っていいんでしょうか？": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 72,
+        "song": "茉子の日常",
+        "difficulty": 3
+      },
+      "Mistilteinn -Burn Apocalypse-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 75,
+        "song": "Burn it All",
+        "difficulty": 3
+      },
+      "ミストルティンの華麗なる伝説集": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 94,
+        "song": "ラヴィ",
+        "difficulty": 4
+      },
+      "ミストルティン／息を止める": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 96,
+        "song": "ノンブレス・オブリージュ",
+        "difficulty": 3
+      },
+      "「ミストルティン」": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 103,
+        "song": "熱異常",
+        "difficulty": 3
+      },
+      "ミストルティン＠待たれる側に": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 110,
+        "song": "ロウワー",
+        "difficulty": 3
+      },
+      "ミストルティン＠一歩、前へ！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 119,
+        "song": "群青讃歌",
+        "difficulty": 3
+      },
+      "ミストルティン＠笑顔の魔法使い": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 123,
+        "song": "トンデモワンダーズ",
+        "difficulty": 3
+      },
+      "ミストルティン＠愛莉ファン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 129,
+        "song": "モア！ジャンプ！モア！",
+        "difficulty": 3
+      },
+      "ミストルティン＠瑞希ファン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 130,
+        "song": "携帯恋話",
+        "difficulty": 3
+      },
+      "ミストルティン＠真・皆伝": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 132,
+        "song": "セカイ",
+        "difficulty": 3
+      },
+      "患者ミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 133,
+        "song": "二次元ドリームフィーバー",
+        "difficulty": 3
+      },
+      "ミストルティン＠DIVA10周年おめでとう！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 136,
+        "song": "Catch the Wave",
+        "difficulty": 3
+      },
+      "ミストルティン＠ネギトロ推し": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 137,
+        "song": "magnet",
+        "difficulty": 3
+      },
+      "ミストルティン vs Mistilteinn": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 150,
+        "song": "拝啓ドッペルゲンガー",
+        "difficulty": 3
+      },
+      "ミストルティン＠Melee": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 156,
+        "song": "ネトゲ廃人シュプレヒコール",
+        "difficulty": 4
+      },
+      "聖剣ミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 164,
+        "song": "SOUL 2 DIVIDE",
+        "difficulty": 3
+      },
+      "中に誰もミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 173,
+        "song": "ケロ⑨destiny",
+        "difficulty": 3
+      },
+      "Mistilteinn": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 179,
+        "song": "ADAM",
+        "difficulty": 3
+      },
+      "Mistilteinn -Viscumalbum-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 205,
+        "song": "AVALON",
+        "difficulty": 3
+      },
+      "Mistilteinn -Flutter-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 206,
+        "song": "PUPA",
+        "difficulty": 3
+      },
+      "ミストルティン＠漢字2文字変えたら田中": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 209,
+        "song": "田中",
+        "difficulty": 3
+      },
+      "Mistilteinn -dear our sister-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 232,
+        "song": "一世嬉遊曲‐ディヴェルティメント‐",
+        "difficulty": 3
+      },
+      "The ruler \"Mistilteinn\"": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 258,
+        "song": "Rule the World!!",
+        "difficulty": 3
+      },
+      "ミストルティン -アポートル-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 281,
+        "song": "Surveiller et punir",
+        "difficulty": 3
+      },
+      "Mistilteinn -ZTX2 Impulse-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 285,
+        "song": "StufeStern",
+        "difficulty": 3
+      },
+      "小悪魔ミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 292,
+        "song": "エンジェデビ",
+        "difficulty": 3
+      },
+      "Mistilteinn -Sense des Todes-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 297,
+        "song": "Walzer für das Nichts",
+        "difficulty": 3
+      },
+      "Mistilteinn in zero-g": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 306,
+        "song": "宙の隣",
+        "difficulty": 3
+      },
+      "聖銃ミストルティン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 307,
+        "song": "月詠に鳴る",
+        "difficulty": 3
+      },
+      "ミストルティン -禁圧解除-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 321,
+        "song": "白庭",
+        "difficulty": 3
+      },
+      "ミストルティン／いい夢を。": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 327,
+        "song": "DRE4M1N9",
+        "difficulty": 3
+      },
+      "Mistilteinn -For KOP6th-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 334,
+        "song": "Crush the Dystopia",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "みそかつ侍": {
+    "credits": [
+      "みそかつ侍",
+      "cotelette samurai",
+      "みそかつ侍＠北宇治の3年間をありがとう！"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "みそかつ侍＠北宇治の3年間をありがとう！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 358,
+        "song": "ReCoda",
+        "difficulty": 3
+      },
+      "みそかつ侍": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 360,
+        "song": "トウキョウ・シャンディ・ランデヴ  feat. 花譜, ツミキ",
+        "difficulty": 3
+      },
+      "cotelette samurai": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 370,
+        "song": "幻想即興曲",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "みぞれヤナギ": {
+    "credits": [
+      "みぞれヤナギ",
+      "「みぞれ",
+      "Mizo[r]e -Trinity-",
+      "mizoRequiem...",
+      "salix",
+      "みぞれとやなぎ",
+      "みぞれやなぎ",
+      "みぞれヤナギ(笑)(笑)(笑)(笑)(笑)",
+      "みぞれヤナギEXの　おひろめだ！",
+      "みぞれ堕ナギ",
+      "わるいことするみぞれ",
+      "宮廷譜面士　みぞれヤナギ",
+      "前方不注意ヤナギ",
+      "柳の枝に霙なし"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "みぞれヤナギ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 387,
+        "song": "シャオシャオ蘭々♪",
+        "difficulty": 3
+      },
+      "宮廷譜面士　みぞれヤナギ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 390,
+        "song": "勇者",
+        "difficulty": 3
+      },
+      "わるいことするみぞれ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 401,
+        "song": "ドーナドーナのうた",
+        "difficulty": 3
+      },
+      "「みぞれ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 425,
+        "song": "モ　ミ　ア　ゲ　ヲ　シ　ャ　カ　ア　ゲ　ヲ",
+        "difficulty": 3
+      },
+      "みぞれヤナギ(笑)(笑)(笑)(笑)(笑)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 429,
+        "song": "ジェヘナ",
+        "difficulty": 3
+      },
+      "みぞれ堕ナギ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 432,
+        "song": "デビルじゃないもん",
+        "difficulty": 3
+      },
+      "salix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 433,
+        "song": "flos",
+        "difficulty": 3
+      },
+      "みぞれやなぎ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 438,
+        "song": "すろぉもぉしょん",
+        "difficulty": 4
+      },
+      "前方不注意ヤナギ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 439,
+        "song": "脳漿炸裂ガール",
+        "difficulty": 4
+      },
+      "みぞれとやなぎ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 447,
+        "song": "シアワセうさぎ",
+        "difficulty": 3
+      },
+      "mizoRequiem...": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 462,
+        "song": "Odin",
+        "difficulty": 3
+      },
+      "みぞれヤナギEXの　おひろめだ！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 470,
+        "song": "華麗なる死闘",
+        "difficulty": 3
+      },
+      "柳の枝に霙なし": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 505,
+        "song": "其のエメラルドを見よ",
+        "difficulty": 3
+      },
+      "Mizo[r]e -Trinity-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 526,
+        "song": "[[Overhea[r]t>Overhea［r］t]]",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "ミニミライト": {
+    "credits": [
+      "ミニミライト",
+      "[O.N.×STAGE!]ミニミライト",
+      "†ミニミ＠チュウニ病†",
+      "Adverse Light",
+      "MinimiLight -Despair-",
+      "MinimiLight -RENAISSANCE-",
+      "obj:mnnn",
+      "THE IVORY LIGHT",
+      "TwinDeaD LighT@Revenge Bash",
+      "Twinrook",
+      "Twinrook Xrodiena",
+      "Twinrook.",
+      "ずんだライト",
+      "だつりょく系ミニミライト",
+      "びっくりするほどミニミライト!",
+      "ピリ辛勇者ミニミ",
+      "ミニミライト respect for Lycoris",
+      "ミニミライト(^^♪",
+      "ミニミライト@can go to the next stage!!",
+      "ミニミライト@だいたいゴリラ",
+      "ミニミライト@デンカリスト",
+      "ミニミライト@勇気をくれた歌",
+      "ミニミリーダー",
+      "残業!!!!譜面ボーイは帰れま1000!!!!",
+      "嵐を呼ぶみーちゃん"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "嵐を呼ぶみーちゃん": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 599,
+        "song": "ハッピータイフーン",
+        "difficulty": 3
+      },
+      "ミニミリーダー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 600,
+        "song": "M.L.V.G",
+        "difficulty": 3
+      },
+      "びっくりするほどミニミライト!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 602,
+        "song": "キズナヒトツ",
+        "difficulty": 3
+      },
+      "ピリ辛勇者ミニミ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 605,
+        "song": "ネ！コ！",
+        "difficulty": 4
+      },
+      "TwinDeaD LighT@Revenge Bash": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 608,
+        "song": "Vampire",
+        "difficulty": 4
+      },
+      "ミニミライト(^^♪": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 628,
+        "song": "メズマライザー",
+        "difficulty": 4
+      },
+      "ずんだライト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 630,
+        "song": "ずんだパーリナイ",
+        "difficulty": 3
+      },
+      "ミニミライト@勇気をくれた歌": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 635,
+        "song": "Glory Steady Go!",
+        "difficulty": 3
+      },
+      "Adverse Light": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 651,
+        "song": "Ringed Genesis",
+        "difficulty": 3
+      },
+      "MinimiLight -RENAISSANCE-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 670,
+        "song": "Halcyon",
+        "difficulty": 4
+      },
+      "MinimiLight -Despair-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 671,
+        "song": "ERIS -Legend of Gaidelia-",
+        "difficulty": 4
+      },
+      "obj:mnnn": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 673,
+        "song": "New York Back Raise",
+        "difficulty": 3
+      },
+      "ミニミライト respect for Lycoris": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 674,
+        "song": "ヒュブリスの頂に聳えるのは",
+        "difficulty": 3
+      },
+      "Twinrook Xrodiena": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 675,
+        "song": "キミとボクへの葬送歌",
+        "difficulty": 3
+      },
+      "THE IVORY LIGHT": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 677,
+        "song": "ニルヴの心臓",
+        "difficulty": 3
+      },
+      "Twinrook": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 678,
+        "song": "Kaleidoscope",
+        "difficulty": 3
+      },
+      "†ミニミ＠チュウニ病†": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 696,
+        "song": "空威張りビヘイビア",
+        "difficulty": 4
+      },
+      "ミニミライト@can go to the next stage!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 702,
+        "song": "Individual on parade!",
+        "difficulty": 3
+      },
+      "[O.N.×STAGE!]ミニミライト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 703,
+        "song": "オン×ステージ！",
+        "difficulty": 3
+      },
+      "ミニミライト@だいたいゴリラ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 704,
+        "song": "Prominence",
+        "difficulty": 3
+      },
+      "Twinrook.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 710,
+        "song": "MarbleBlue.",
+        "difficulty": 3
+      },
+      "だつりょく系ミニミライト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 725,
+        "song": "驚異の魔法",
+        "difficulty": 3
+      },
+      "残業!!!!譜面ボーイは帰れま1000!!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 738,
+        "song": "激烈!!!!ファミレスガールは帰しま1000!!!!",
+        "difficulty": 3
+      },
+      "ミニミライト@デンカリスト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 742,
+        "song": "Steamed on the Beat",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "Moon Strix": {
+    "credits": [
+      "Moon Strix",
+      "『新入生』Moon Strix",
+      "★スイーツ系すとりっくす★",
+      "Damnation",
+      "M■o◆ S■r◆x",
+      "mnooze strix",
+      "Moon StriGX-04",
+      "Moon Striq",
+      "Moon Strix -Encore-",
+      "Moon Strix -Judgement-",
+      "Moon Strix \"2205\"",
+      "MOON STRIX!!",
+      "Moon Strix(・◇・)",
+      "Moon Strix（バンド）",
+      "Moon Strix＠つぶあん派",
+      "Moon Strix＠ゆづきず推し",
+      "Moon Strix／さよなら、お元気で。",
+      "Moon Strix／僕ら止まれない",
+      "Moon Strix#ΦωΦ",
+      "Moon Strix☆お空のてっぺん目指してゴー！",
+      "Moon Strix♥",
+      "Moon Strixの貴重な捕食シーン",
+      "Moon Strix総帥",
+      "Moon*Strix",
+      "MTO-XXX:Luna Nemesis",
+      "Six Dimensio'N' Motor",
+      "フクロウとダイナミック自演ズ",
+      "ムーンストリックスエイヤッ↑(/>_<)/",
+      "わくわくフクロウ探検隊",
+      "炎のフクロウ",
+      "音楽的同位体 月梟",
+      "空断超人チュウニズマー製作委員会 Moon Strix",
+      "月梟",
+      "月梟 -Moon Strix-",
+      "月梟 as 六次元モーター",
+      "黒き翼Moon Strix vs 白き翼六次元モーター",
+      "食う寝るふくろう",
+      "堕天使《月梟》†vs† 熾天使《月梟》",
+      "超Moon Strix",
+      "六次元モーター",
+      "六次元モーター vs Moon Strix"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "月梟 -Moon Strix-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 777,
+        "song": "不可解",
+        "difficulty": 3
+      },
+      "Moon Strixの貴重な捕食シーン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 782,
+        "song": "スコーピオンガールの貴重な捕食シーン",
+        "difficulty": 3
+      },
+      "mnooze strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 783,
+        "song": "snooze",
+        "difficulty": 3
+      },
+      "音楽的同位体 月梟": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 785,
+        "song": "マーシャル・マキシマイザー",
+        "difficulty": 3
+      },
+      "Moon Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 787,
+        "song": "ジャンキーナイトタウンオーケストラ",
+        "difficulty": 3
+      },
+      "食う寝るふくろう": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 788,
+        "song": "クーネル・エンゲイザー",
+        "difficulty": 3
+      },
+      "Moon Strix／僕ら止まれない": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 790,
+        "song": "ポジティブ・パレード",
+        "difficulty": 3
+      },
+      "Moon Strix総帥": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 795,
+        "song": "残響",
+        "difficulty": 3
+      },
+      "ムーンストリックスエイヤッ↑(/>_<)/": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 798,
+        "song": "絶対にチョコミントを食べるアオイチャン",
+        "difficulty": 3
+      },
+      "Moon Strix＠ゆづきず推し": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 802,
+        "song": "幾望の月",
+        "difficulty": 4
+      },
+      "Moon Strix／さよなら、お元気で。": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 808,
+        "song": "ワールズエンド・ダンスホール",
+        "difficulty": 3
+      },
+      "フクロウとダイナミック自演ズ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 811,
+        "song": "ちがう!!!",
+        "difficulty": 3
+      },
+      "『新入生』Moon Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 817,
+        "song": "放課後ストライド",
+        "difficulty": 3
+      },
+      "六次元モーター": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 836,
+        "song": "Worlds End",
+        "difficulty": 3
+      },
+      "わくわくフクロウ探検隊": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 848,
+        "song": "凛として咲く花の如く",
+        "difficulty": 4
+      },
+      "Moon StriGX-04": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 850,
+        "song": "GERBERA",
+        "difficulty": 3
+      },
+      "堕天使《月梟》†vs† 熾天使《月梟》": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 851,
+        "song": "eden",
+        "difficulty": 3
+      },
+      "Moon Strix \"2205\"": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 853,
+        "song": "Arcahv",
+        "difficulty": 3
+      },
+      "Moon Strix#ΦωΦ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 854,
+        "song": "Hydra",
+        "difficulty": 3
+      },
+      "Moon Striq": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 857,
+        "song": "インドア系ならトラックメイカー",
+        "difficulty": 3
+      },
+      "炎のフクロウ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 859,
+        "song": "Burning Hearts ～炎のANGEL～",
+        "difficulty": 3
+      },
+      "Moon Strix（バンド）": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 862,
+        "song": "彩りキャンバス",
+        "difficulty": 3
+      },
+      "Moon Strix -Encore-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 865,
+        "song": "Strahv",
+        "difficulty": 3
+      },
+      "空断超人チュウニズマー製作委員会 Moon Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 870,
+        "song": "音弾超人ゴリライザー",
+        "difficulty": 3
+      },
+      "超Moon Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 876,
+        "song": "超Rock The Party",
+        "difficulty": 3
+      },
+      "Moon Strix☆お空のてっぺん目指してゴー！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 901,
+        "song": "Perfect Shining!!",
+        "difficulty": 3
+      },
+      "Moon Strix＠つぶあん派": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 902,
+        "song": "タテマエと本心の大乱闘",
+        "difficulty": 3
+      },
+      "★スイーツ系すとりっくす★": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 909,
+        "song": "RevolutionGame",
+        "difficulty": 3
+      },
+      "Moon*Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 917,
+        "song": "PinqPiq",
+        "difficulty": 3
+      },
+      "MTO-XXX:Luna Nemesis": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 920,
+        "song": "Iudicium",
+        "difficulty": 3
+      },
+      "Moon Strix♥": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 927,
+        "song": "NYAN-NYA, More! ラブシャイン、Chu♥",
+        "difficulty": 3
+      },
+      "Moon Strix -Judgement-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 933,
+        "song": "スピカの天秤",
+        "difficulty": 3
+      },
+      "黒き翼Moon Strix vs 白き翼六次元モーター": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 940,
+        "song": "Black Swan Lake",
+        "difficulty": 3
+      },
+      "Six Dimensio'N' Motor": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 946,
+        "song": "《理想》 ～ Cloudland",
+        "difficulty": 3
+      },
+      "月梟": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 947,
+        "song": "《最愛》 ～ Curse",
+        "difficulty": 3
+      },
+      "六次元モーター vs Moon Strix": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 951,
+        "song": "《破滅》 ～ Rhapsody for The End",
+        "difficulty": 3
+      },
+      "Moon Strix(・◇・)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 953,
+        "song": "ちゅんちゅちゅチューン",
+        "difficulty": 3
+      },
+      "月梟 as 六次元モーター": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 958,
+        "song": "《選別》 ～ Refuge",
+        "difficulty": 3
+      },
+      "MOON STRIX!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 967,
+        "song": "WE'RE BACK!!",
+        "difficulty": 3
+      },
+      "M■o◆ S■r◆x": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 972,
+        "song": "とあちゃんのおもちゃ箱",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "Meteian": {
+    "credits": [
+      "Meteian"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "Meteian": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 985,
+        "song": "Death Doll",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "ものくろっく": {
+    "credits": [
+      "ものくろっく",
+      "monoclock.HiTECH",
+      "xmxoxnxoxcxlxoxcxkx",
+      "もの☆くろっく",
+      "もの♂くろっく",
+      "ものくろっく(#)",
+      "ものくろっく＠I ♡ うにプ",
+      "ものくろっく@シンラリウム",
+      "ものくろっく＠リンちゃん推し",
+      "ものくろっく＠レンくん推し",
+      "モノクロデイズ",
+      "ものぽんず＊",
+      "一ノ瀬 リズ"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+    ],
+    "evidenceByCredit": {
+      "ものくろっく": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1009,
+        "song": "セハガガガンバッちゃう！！",
+        "difficulty": 3
+      },
+      "xmxoxnxoxcxlxoxcxkx": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1023,
+        "song": "ÅMARA(大未来電脳)",
+        "difficulty": 3
+      },
+      "一ノ瀬 リズ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1026,
+        "song": "きゅうくらりん",
+        "difficulty": 3
+      },
+      "モノクロデイズ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1028,
+        "song": "カゲロウデイズ",
+        "difficulty": 3
+      },
+      "ものくろっく＠リンちゃん推し": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1032,
+        "song": "炉心融解",
+        "difficulty": 3
+      },
+      "ものくろっく＠レンくん推し": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1033,
+        "song": "Fire◎Flower",
+        "difficulty": 3
+      },
+      "ものくろっく@シンラリウム": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1037,
+        "song": "悪戯センセーション",
+        "difficulty": 3
+      },
+      "もの♂くろっく": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1039,
+        "song": "Last Moments",
+        "difficulty": 3
+      },
+      "monoclock.HiTECH": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1055,
+        "song": "Hyper Active",
+        "difficulty": 3
+      },
+      "もの☆くろっく": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1069,
+        "song": "サンシャインサマー☆夏期講習",
+        "difficulty": 3
+      },
+      "ものぽんず＊": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1070,
+        "song": "中学2年生のアンドロイド",
+        "difficulty": 3
+      },
+      "ものくろっく(#)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1073,
+        "song": "レイニーカラー・ウォーターカラー",
+        "difficulty": 3
+      },
+      "ものくろっく＠I ♡ うにプ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3",
+        "line": 1080,
+        "song": "ウニの歌",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3"
+  },
+  "夕凪アロエ": {
+    "credits": [
+      "夕凪アロエ",
+      "夕凪アロエ／宵闇の大角星"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "夕凪アロエ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 19,
+        "song": "ときめき★メテオストライク",
+        "difficulty": 3
+      },
+      "夕凪アロエ／宵闇の大角星": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 24,
+        "song": "シリウスの輝きのように",
+        "difficulty": 4
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "Ragnarok": {
+    "credits": [
+      "Ragnarok"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "Ragnarok": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 73,
+        "song": "Stardust:RAY",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "LabiLabi": {
+    "credits": [
+      "LabiLabi",
+      "ascribable ALL it",
+      "Baa Deb Fee Hot Silk Nil Tor",
+      "lAbilabI wAndeRing iN tHe NighTmARe",
+      "ラビラビホリック",
+      "右肩が激しく鼓動するLabiLabi"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "右肩が激しく鼓動するLabiLabi": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 98,
+        "song": "木彫り鯰と右肩ゾンビ",
+        "difficulty": 3
+      },
+      "ラビラビホリック": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 101,
+        "song": "サドマミホリック",
+        "difficulty": 3
+      },
+      "ascribable ALL it": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 105,
+        "song": "Scarlet Lance",
+        "difficulty": 3
+      },
+      "Baa Deb Fee Hot Silk Nil Tor": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 106,
+        "song": "ouroboros -twin stroke of the end-",
+        "difficulty": 3
+      },
+      "LabiLabi": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 109,
+        "song": "Barbed Eye",
+        "difficulty": 3
+      },
+      "lAbilabI wAndeRing iN tHe NighTmARe": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 112,
+        "song": "ねぇ、壊れタ人形ハ何処へ棄テらレるノ？",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "rioN": {
+    "credits": [
+      "rioN",
+      "Help me, rioNNNNNN!!",
+      "Hype-rioN",
+      "rio -N-",
+      "少し楽しくなるrioN",
+      "墨染のrioN"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "rioN": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 153,
+        "song": "深海少女",
+        "difficulty": 3
+      },
+      "Help me, rioNNNNNN!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 174,
+        "song": "Help me, ERINNNNNN!!  -Cranky remix-",
+        "difficulty": 3
+      },
+      "墨染のrioN": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 180,
+        "song": "蒼空に舞え、墨染の桜",
+        "difficulty": 3
+      },
+      "rio -N-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 220,
+        "song": "GEMINI -C-",
+        "difficulty": 3
+      },
+      "Hype-rioN": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 231,
+        "song": "Hyperion",
+        "difficulty": 3
+      },
+      "少し楽しくなるrioN": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 237,
+        "song": "bubble attack",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "緑化委員長": {
+    "credits": [
+      "緑化委員長",
+      "白金で遊ぶ緑化委員長",
+      "緑鹿委員長"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "白金で遊ぶ緑化委員長": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 248,
+        "song": "いただきバベル (Prod. ケンモチヒデフミ)",
+        "difficulty": 3
+      },
+      "緑化委員長": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 252,
+        "song": "夜明けのストリング",
+        "difficulty": 3
+      },
+      "緑鹿委員長": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 255,
+        "song": "再生不能",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "Luxizhel": {
+    "credits": [
+      "Luxizhel",
+      "BELiZHEL"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "Luxizhel": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 267,
+        "song": "BOW AND ARROW （アニメ・オープニングver.）",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "Redarrow": {
+    "credits": [
+      "Redarrow",
+      "Little Devil Arrow",
+      "Rainbow:Arrow",
+      "RED IMPACT",
+      "Red→→→Arrow",
+      "Redarrow -For KOP4th-",
+      "Redarrow -LIFE STREAM-",
+      "Redarrow -U&iVERSE-",
+      "Redarrow (L'inverno)",
+      "Redarrow last war",
+      "Redarrow SPEED RAVE!!!",
+      "Redarrow＠ずっと、夏！",
+      "おもしレッドアロー",
+      "レッドアロー隊長",
+      "謎を呼ぶ赤い矢",
+      "物凄いULTIMAで赤矢が物凄い譜面",
+      "夢中になりたい！レッドアロー"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "Redarrow last war": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 302,
+        "song": "僕の戦争",
+        "difficulty": 3
+      },
+      "Redarrow": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 304,
+        "song": "恋ひ恋ふ縁",
+        "difficulty": 3
+      },
+      "レッドアロー隊長": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 341,
+        "song": "お空のニュークリアフュージョン道場",
+        "difficulty": 3
+      },
+      "謎を呼ぶ赤い矢": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 350,
+        "song": "はたてのバッコイ殺人事件",
+        "difficulty": 3
+      },
+      "物凄いULTIMAで赤矢が物凄い譜面": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 354,
+        "song": "物凄い勢いでけーねが物凄いうた",
+        "difficulty": 4
+      },
+      "おもしレッドアロー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 369,
+        "song": "董卓討つべし",
+        "difficulty": 3
+      },
+      "Redarrow SPEED RAVE!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 370,
+        "song": "REDRAVE",
+        "difficulty": 3
+      },
+      "Redarrow (L'inverno)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 373,
+        "song": "「四季」より「冬」",
+        "difficulty": 3
+      },
+      "Little Devil Arrow": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 378,
+        "song": "小悪魔の遊園地",
+        "difficulty": 3
+      },
+      "Redarrow -U&iVERSE-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 398,
+        "song": "U&iVERSE -銀河鸞翔-",
+        "difficulty": 3
+      },
+      "Redarrow＠ずっと、夏！": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 401,
+        "song": "最強 the サマータイム!!!!!",
+        "difficulty": 3
+      },
+      "夢中になりたい！レッドアロー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 403,
+        "song": "最っ高のエンタメだ!!",
+        "difficulty": 3
+      },
+      "Red→→→Arrow": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 411,
+        "song": "まっすぐ→→→ストリーム！",
+        "difficulty": 3
+      },
+      "Redarrow -LIFE STREAM-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 416,
+        "song": "Titania",
+        "difficulty": 3
+      },
+      "Redarrow -For KOP4th-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 430,
+        "song": "To：Be Continued",
+        "difficulty": 3
+      },
+      "Rainbow:Arrow": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 435,
+        "song": "Blazing:Storm",
+        "difficulty": 3
+      },
+      "RED IMPACT": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 439,
+        "song": "IMPACT",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "Revo@LC": {
+    "credits": [
+      "Revo@LC",
+      "Revo@LC [VIT型Assassin]",
+      "Revo@LC respect for ロシェ＠ペンギン",
+      "Revo@LCYYYY!!!!",
+      "Revo＠充電切れ",
+      "Revo2LC  -CODENAME : AIRPLUS-",
+      "Revo2LC -ENDLESS CIRCULATION-",
+      "れぼしゃま",
+      "覚醒者Revo"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "Revo＠充電切れ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 476,
+        "song": "On your mark (104期 Ver.)",
+        "difficulty": 4
+      },
+      "Revo@LC": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 477,
+        "song": "眩耀夜行 （104期Ver.）",
+        "difficulty": 3
+      },
+      "覚醒者Revo": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 507,
+        "song": "セイクリッド　ルイン",
+        "difficulty": 3
+      },
+      "Revo2LC -ENDLESS CIRCULATION-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 509,
+        "song": "A Site De La Rue",
+        "difficulty": 3
+      },
+      "Revo2LC  -CODENAME : AIRPLUS-": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 510,
+        "song": "神威",
+        "difficulty": 3
+      },
+      "Revo@LC [VIT型Assassin]": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 512,
+        "song": "Through The Tower",
+        "difficulty": 3
+      },
+      "Revo@LC respect for ロシェ＠ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 516,
+        "song": "The Formula",
+        "difficulty": 3
+      },
+      "Revo@LCYYYY!!!!": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 544,
+        "song": "AMAZING MIGHTYYYY!!!!",
+        "difficulty": 3
+      },
+      "れぼしゃま": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 567,
+        "song": "Oshama Scramble! (Cranky Remix)",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  },
+  "ロシェ＠ペンギン": {
+    "credits": [
+      "ロシェ＠ペンギン",
+      "†ロシェ＠チュウニ病†",
+      "☆スイーツ系ぺんぎん☆",
+      "CODE:Emperor",
+      "Cyberocher",
+      "Emperor",
+      "R.@.P.",
+      "ROCHER GALACTIC STRIKE",
+      "Rochesthésie",
+      "アイマイペンギン",
+      "あなただけのロシェ＠ペンギン",
+      "いい波きてるよ！ロシェ＠ペンギン",
+      "くっころペンギン",
+      "ズン！と来たペンギン",
+      "ドレスアップ・ペンギン",
+      "ぬめぬめするペンギン",
+      "ぬるぬるするペンギン",
+      "はたらくペンギン",
+      "ぶっかましペンギン",
+      "ペンギンは人になりたかった",
+      "ロシェ＠すごP",
+      "ロシェ＠ヒーロー",
+      "ロシェ＠ペンギン(超上級)",
+      "ロシェ＠移動要塞ママトト",
+      "ロシェ＠九十九里浜",
+      "ロシェ＠再履修",
+      "ロシェ＠大鳥居",
+      "ロシェ＠中野",
+      "ロシェ＠北葛西",
+      "ロシェ＠要検査",
+      "ロシェ＠淀川",
+      "ロシェ＠裏新宿",
+      "ロシェ↑ペンギン",
+      "ロシェ↓ペンギン",
+      "ロシェ★ペンギン",
+      "ロシェ♡ペンギン",
+      "ロシェ⤴ペンギン",
+      "ロシェロシェにしてあげる♪",
+      "ロシェ乙ペンギン",
+      "ロシェ回ペンギン",
+      "何もしてないのに壊れたペンギン",
+      "外出た瞬間ロシェペンギン",
+      "巨大で堅固なペンギン",
+      "結局天井まで回すペンギン",
+      "最終鬼畜ペンギン",
+      "山風に乗るペンギン",
+      "死ぬ気で食い止めろ！おもしロシェ",
+      "侵略型ペンギン",
+      "新参も古参もロシェペンギン",
+      "生き抜き撃ち抜くペンギン",
+      "煽り耐性ゼロペンギン",
+      "全然ロシェです",
+      "地雷系ペンギン",
+      "天才☆ロシェちゃんのお悩み相談室",
+      "匿名R＠P",
+      "南の島のペンギン",
+      "片翼のペンギン",
+      "夢見るペンギン",
+      "夜逃げペンギン",
+      "流星に手を振るペンギン"
+    ],
+    "sources": [
+      "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+    ],
+    "evidenceByCredit": {
+      "ロシェ＠ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 608,
+        "song": "Bunny Bunny Carrot Carrot",
+        "difficulty": 3
+      },
+      "ロシェ回ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 626,
+        "song": "回レ！雪月花",
+        "difficulty": 3
+      },
+      "ロシェ＠移動要塞ママトト": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 636,
+        "song": "Running to the straight ver1.01",
+        "difficulty": 3
+      },
+      "巨大で堅固なペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 639,
+        "song": "Stronghold LandEater",
+        "difficulty": 3
+      },
+      "ロシェ↑ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 651,
+        "song": "もっと！",
+        "difficulty": 3
+      },
+      "侵略型ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 671,
+        "song": "あいたい星人",
+        "difficulty": 3
+      },
+      "匿名R＠P": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 677,
+        "song": "匿名M",
+        "difficulty": 3
+      },
+      "あなただけのロシェ＠ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 679,
+        "song": "ミラクルペイント",
+        "difficulty": 3
+      },
+      "ロシェ★ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 680,
+        "song": "ブラック★ロックシューター",
+        "difficulty": 3
+      },
+      "外出た瞬間ロシェペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 684,
+        "song": "強風オールバック",
+        "difficulty": 3
+      },
+      "Rochesthésie": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 693,
+        "song": "生きる",
+        "difficulty": 3
+      },
+      "夢見るペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 701,
+        "song": "電脳少女は歌姫の夢を見るか？",
+        "difficulty": 3
+      },
+      "生き抜き撃ち抜くペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 706,
+        "song": "ロキ",
+        "difficulty": 4
+      },
+      "流星に手を振るペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 707,
+        "song": "StargazeR",
+        "difficulty": 3
+      },
+      "☆スイーツ系ぺんぎん☆": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 711,
+        "song": "スイートマジック",
+        "difficulty": 3
+      },
+      "ロシェロシェにしてあげる♪": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 724,
+        "song": "みくみくにしてあげる♪〖してやんよ〗",
+        "difficulty": 3
+      },
+      "ペンギンは人になりたかった": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 739,
+        "song": "六兆年と一夜物語",
+        "difficulty": 4
+      },
+      "アイマイペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 742,
+        "song": "ストリーミングハート",
+        "difficulty": 4
+      },
+      "新参も古参もロシェペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 754,
+        "song": "インターネットサバイバー",
+        "difficulty": 3
+      },
+      "山風に乗るペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 765,
+        "song": "天狗の落とし文 feat. ｙｔｒ",
+        "difficulty": 3
+      },
+      "最終鬼畜ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 776,
+        "song": "最終鬼畜妹・一部声",
+        "difficulty": 3
+      },
+      "ROCHER GALACTIC STRIKE": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 783,
+        "song": "ENDYMION",
+        "difficulty": 3
+      },
+      "片翼のペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 785,
+        "song": "VALLIS-NERIA",
+        "difficulty": 3
+      },
+      "ロシェ＠ペンギン(超上級)": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 792,
+        "song": "XL TECHNO -More Dance Remix-",
+        "difficulty": 3
+      },
+      "ロシェ♡ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 796,
+        "song": "Alice's Suitcase",
+        "difficulty": 3
+      },
+      "夜逃げペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 803,
+        "song": "MuseDashを作っている PeroPeroGamesさんが倒産しちゃったよ～",
+        "difficulty": 3
+      },
+      "煽り耐性ゼロペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 805,
+        "song": "めっちゃ煽ってくるタイプの音ゲーボス曲ちゃん なんかに負けないが？？？？？",
+        "difficulty": 3
+      },
+      "ロシェ＠ヒーロー": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 817,
+        "song": "Cosmic twinkle star",
+        "difficulty": 3
+      },
+      "ロシェ⤴ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 846,
+        "song": "Session High⤴",
+        "difficulty": 3
+      },
+      "全然ロシェです": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 855,
+        "song": "正体判明ネームレスガール",
+        "difficulty": 3
+      },
+      "ぶっかましペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 867,
+        "song": "MAIGAHARA パンチラインキッカーズ",
+        "difficulty": 3
+      },
+      "ズン！と来たペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 873,
+        "song": "brilliant better",
+        "difficulty": 4
+      },
+      "ロシェ＠再履修": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 881,
+        "song": "単位がない！",
+        "difficulty": 3
+      },
+      "ロシェ乙ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 893,
+        "song": "SUPER RESULT BEAT vol.1",
+        "difficulty": 3
+      },
+      "ロシェ↓ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 895,
+        "song": "僕らのFreedom DiVE↓",
+        "difficulty": 3
+      },
+      "†ロシェ＠チュウニ病†": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 920,
+        "song": "空威張りビヘイビア",
+        "difficulty": 3
+      },
+      "天才☆ロシェちゃんのお悩み相談室": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 921,
+        "song": "分からない",
+        "difficulty": 3
+      },
+      "いい波きてるよ！ロシェ＠ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 924,
+        "song": "Splash Dance!!",
+        "difficulty": 3
+      },
+      "R.@.P.": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 931,
+        "song": "Y.Y.Y.計画!!!!",
+        "difficulty": 3
+      },
+      "ドレスアップ・ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 934,
+        "song": "シンデレラディスコ",
+        "difficulty": 3
+      },
+      "死ぬ気で食い止めろ！おもしロシェ": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 966,
+        "song": "赤壁、大炎上！！",
+        "difficulty": 3
+      },
+      "南の島のペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 978,
+        "song": "リリーシア",
+        "difficulty": 4
+      },
+      "ロシェ＠大鳥居": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 990,
+        "song": "とーきょー全域★アキハバラ？",
+        "difficulty": 3
+      },
+      "Cyberocher": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 991,
+        "song": "Cyberozar",
+        "difficulty": 3
+      },
+      "ロシェ＠中野": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1001,
+        "song": "BOKUTO",
+        "difficulty": 3
+      },
+      "何もしてないのに壊れたペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1003,
+        "song": "おまかせ！！トラブルメイ娘☆とれびちゃん",
+        "difficulty": 3
+      },
+      "ロシェ＠北葛西": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1011,
+        "song": "〖冒険〗イングリット葛西降臨！〖実況〗",
+        "difficulty": 3
+      },
+      "ぬるぬるするペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1015,
+        "song": "おいでよ！ 高須らいむランド",
+        "difficulty": 3
+      },
+      "ぬめぬめするペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1016,
+        "song": "おいでよ！ 高須らいむランド",
+        "difficulty": 4
+      },
+      "ロシェ＠淀川": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1027,
+        "song": "Give me Love♡",
+        "difficulty": 3
+      },
+      "ロシェ＠すごP": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1034,
+        "song": "恋するみたいに☆かませレッドヘルズ",
+        "difficulty": 3
+      },
+      "結局天井まで回すペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1035,
+        "song": "やめらんないな!",
+        "difficulty": 3
+      },
+      "CODE:Emperor": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1043,
+        "song": "ZegalltA",
+        "difficulty": 3
+      },
+      "はたらくペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1045,
+        "song": "ワーカーホリック",
+        "difficulty": 3
+      },
+      "くっころペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1046,
+        "song": "幻想ロードオブキング",
+        "difficulty": 3
+      },
+      "ロシェ＠裏新宿": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1048,
+        "song": "乙女戦士☆あーし。",
+        "difficulty": 3
+      },
+      "ロシェ＠九十九里浜": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1051,
+        "song": "房総★ミラクル☆てんたくる!?",
+        "difficulty": 3
+      },
+      "地雷系ペンギン": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1053,
+        "song": "メッちゅう殴打",
+        "difficulty": 3
+      },
+      "ロシェ＠要検査": {
+        "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4",
+        "line": 1059,
+        "song": "内臓♡マニピ",
+        "difficulty": 3
+      }
+    },
+    "evidence": "wiki 谱师栏目中的单人署名；排除合作栏，未合并介绍中的推测身份。",
+    "source": "https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4"
+  }
+}
