@@ -70,6 +70,46 @@ async function setup(t, { features, render, config = {} } = {}) {
 
 const BOT_MENTION = { id: "BOT", member_openid: "BOT", is_you: true, bot: true };
 
+test("安装更新后连接 QQ 即主动发送更新日志，无需群消息触发", async (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "anna-update-start-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(root, "version.json"), JSON.stringify({
+    version: "new-version", installedAt: "2026-10-21", notifyUpdate: true, notes: ["上线通知"],
+  }));
+  const s = await setup(t, { config: { root, workDir: path.join(root, "data"), commandPanel: false } });
+  await s.bot.start();
+  assert.ok(await s.qq.waitFor(() => s.qq.state.sent.length === 1, 5000));
+  assert.match(s.last(), /更新日志[\s\S]*上线通知/);
+  assert.ok(s.qq.state.sent[0].body.markdown.content.startsWith("### **Anna 更新日志**\n"));
+  assert.equal(s.qq.state.sent[0].path, "/v2/groups/G1/messages");
+  assert.equal(s.qq.state.sent[0].body.msg_id, undefined);
+  await s.group("/状态");
+  assert.equal(s.texts().filter((text) => text.includes("更新日志")).length, 1);
+});
+
+test("更新通知：仅白名单群触发，普通群消息可触发，指令继续正常回复且重启不重发", async (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "anna-update-bot-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(root, "version.json"), JSON.stringify({
+    version: "new-version", installedAt: "2026-10-21", notifyUpdate: true, notes: ["新增通知"],
+  }));
+  const config = { root, workDir: path.join(root, "data") };
+  const s = await setup(t, { config });
+  await s.group("/状态", { groupId: "G2" });
+  await s.direct("/状态");
+  assert.ok(s.texts().every((text) => !text.includes("更新日志")));
+  await s.groupAll("早上好");
+  assert.match(s.last(), /更新日志[\s\S]*新增通知/);
+  assert.ok(s.qq.state.sent.at(-1).body.markdown.content.startsWith("### **Anna 更新日志**\n"));
+  assert.equal(s.qq.state.sent.at(-1).body.msg_id, "m3");
+  await s.group("/状态");
+  assert.equal(s.texts().filter((text) => text.includes("更新日志")).length, 1);
+  assert.match(s.last(), /已运行/);
+  const restarted = await setup(t, { config });
+  await restarted.group("/状态");
+  assert.equal(restarted.texts().filter((text) => text.includes("更新日志")).length, 0);
+});
+
 test("白名单外的群、没 @ 的群消息、别的机器人被 @ 的指令，一律不理", async (t) => {
   const s = await setup(t);
   await s.group("/帮助", { groupId: "G2" });

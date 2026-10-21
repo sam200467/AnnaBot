@@ -347,6 +347,7 @@ async function install({
   fs.writeFileSync(path.join(target, "version.json"), JSON.stringify({
     name: manifest.name, version: manifest.version, commit: manifest.commit, builtAt: manifest.builtAt,
     installedAt: new Date().toISOString(), previous: where.installed?.version || null,
+    notifyUpdate: !where.fresh, notes: manifest.notes || [],
   }, null, 2) + "\n");
   say("√", "程序：" + (where.fresh ? "装好了" : "换成了 " + manifest.version) + "（" + pkg.app.length + " 个文件）");
 

@@ -36,6 +36,20 @@ test("鉴权：换 token 后所有请求带 QQBot 头", async () => {
   await transport.stop(); await mock.stop();
 });
 
+test("主动通知不带被动凭据，即使群里已有最新消息；正常回复仍带凭据", async (t) => {
+  const { mock, transport, events } = await connected({ reuseLatestPassiveCredential: true });
+  t.after(async () => { transport.stop(); await mock.stop(); });
+  mock.push("GROUP_AT_MESSAGE_CREATE", { id: "fresh-msg", group_openid: "G1", content: "你好", author: { member_openid: "U1" } });
+  assert.ok(await mock.waitFor(() => events.some((event) => event.d.id === "fresh-msg")));
+  await transport.sendProactiveText({ kind: "group", openid: "G1" }, "更新日志");
+  const body = mock.state.sent.at(-1).body;
+  assert.equal(body.content, "更新日志");
+  assert.equal(body.msg_id, undefined);
+  assert.equal(body.event_id, undefined);
+  await transport.sendText({ kind: "group", openid: "G1" }, "正常回复", "fresh-msg");
+  assert.equal(mock.state.sent.at(-1).body.msg_id, "fresh-msg");
+});
+
 test("Identify 带上群+单聊的 intent 位", async () => {
   const { mock, transport } = await connected();
   const intents = mock.state.identified[0].d.intents;

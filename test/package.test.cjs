@@ -122,6 +122,7 @@ test("全新安装：放好程序、配置和数据，生成启动器，主密�
   }
   assert.ok(!fs.existsSync(path.join(target, ".anna-new")) && !fs.existsSync(path.join(target, ".anna-old")), "中转目录收拾掉了");
   assert.equal(JSON.parse(fs.readFileSync(path.join(target, "version.json"), "utf8")).version, pkg.manifest.version);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(target, "version.json"), "utf8")).notifyUpdate, false);
   assert.match(text, /：全新安装/);
   assert.match(text, /放好了 \.env、config\.local\.json、绑定库、曲库和素材缓存（2 个文件）/);
   assert.match(text, /绑定库：2 人，主密钥对得上/);
@@ -162,6 +163,10 @@ test("更新：先停掉正在跑的 Anna 再换文件；程序整个换新，�
   const text = lines.join("\n");
   assert.equal(result.code, 0, text);
   assert.deepEqual(events, ["停：旧版本的 main", "启动"], "停的时候还是旧程序，换完才启动");
+  const release = JSON.parse(fs.readFileSync(path.join(target, "version.json"), "utf8"));
+  assert.equal(release.notifyUpdate, true);
+  assert.deepEqual(release.notes, update.manifest.notes);
+  assert.ok(release.notes.length);
   assert.ok(!fs.existsSync(path.join(target, "src", "old-feature.cjs")));
   assert.equal(fs.readFileSync(path.join(target, "src", "main.cjs"), "utf8"), fs.readFileSync(path.join(__dirname, "..", "src", "main.cjs"), "utf8"));
   assert.deepEqual(JSON.parse(fs.readFileSync(configFile, "utf8")).allowedGroupIds, ["G1", "G2"]);

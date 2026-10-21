@@ -375,6 +375,8 @@ function deployGuide(manifest, { zip = true } = {}) {
     (full ? "五" : "四") + "、更新",
     "  在自己电脑上 npm run package:update 打更新包，" + (zip ? "拷过来解压" : "拷过来") + "，同样双击「安装Anna.cmd」。",
     "  它会先停掉 Anna，换完程序再启动；.env、config.local.json、data 都不动。",
+    "  更新后连上 QQ 会向白名单群主动发送更新日志，需开启群内「机器人主动在群聊内发言」并具备平台权限。",
+    "  主动发送失败时等下一条可回复消息触发补发（未开接收全部消息时需 @Anna）；发送成功后不重复发。",
     "  QQ 输入框里打 / 弹出的指令清单，Anna 启动时会自己更新，不用另外操作。",
     "  回退：把上一个安装包或更新包再装一遍。",
     "",
@@ -402,6 +404,11 @@ async function buildPackage({
 } = {}) {
   if (kind !== "install" && kind !== "update") throw new Error("kind 只能是 install 或 update");
   const { commit, dirty } = git(root);
+  const notesFile = path.join(root, "src", "data", "update-notes.json");
+  const notes = fs.existsSync(notesFile) ? JSON.parse(fs.readFileSync(notesFile, "utf8")) : [];
+  if (!Array.isArray(notes) || notes.some((note) => typeof note !== "string" || !note.trim()) || notes.join("\n").length > 1500) {
+    throw new Error("src/data/update-notes.json 要写成非空文字组成的数组，总长度不超过 1500 字");
+  }
   const version = day(now) + "-" + (commit ? commit.slice(0, 7) : "nogit") + (dirty ? "-dirty" : "");
   const name = "AnnaBot-" + kind + "-" + version;
   const entries = programFiles(root, { listFiles }).filter(filter).map((rel) => ({ path: "app/" + rel, source: path.join(root, rel) }));
@@ -437,7 +444,7 @@ async function buildPackage({
       bytes += data.length;
     }
     const manifest = {
-      name, kind, version, commit, dirty, builtAt: now.toISOString(), node: ">=22",
+      name, kind, version, commit, dirty, builtAt: now.toISOString(), node: ">=22", notes,
       personal: personal && { bindings: personal.bindings, cacheFiles: personal.cacheFiles },
       files,
     };

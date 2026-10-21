@@ -306,7 +306,7 @@ function createOfficial(host) {
     return "/v2/users/" + target.openid + "/files";
   }
 
-  async function sendText(target, text, msgId, refId, markdown, keyboard) {
+  async function sendText(target, text, msgId, refId, markdown, keyboard, { proactive = false } = {}) {
     const run = async () => {
       const key = targetKey(target);
       const suppress = suppressKey(key, text, msgId);
@@ -316,7 +316,7 @@ function createOfficial(host) {
       if (delay > 0) await new Promise((r) => setTimeout(r, delay));
 
       // 被动回复必须带 msg_id；msg_seq 对同一个 msg_id 要递增，否则被当成重复发送
-      const useId = effectiveMsgId(target, msgId);
+      const useId = proactive ? undefined : effectiveMsgId(target, msgId);
       const body = markdown ? { msg_type: 2, markdown: { content: String(markdown) } } : { content: String(text), msg_type: 0 };
       if (markdown && keyboard) body.keyboard = { content: keyboard };
       applyCredential(body, useId);
@@ -371,12 +371,12 @@ function createOfficial(host) {
     // QQ 频道是另一套接口，没实测过，照旧发纯文本。
     if (markdownRejected || !config.markdown || target.kind === "channel") {
       if (options.requireMarkdown) throw new Error("Markdown 不可用（" + (markdownRejected ? "平台拒收过" : "没开或是频道") + "）");
-      return sendText(target, text, msgId, refId);
+      return sendText(target, text, msgId, refId, undefined, undefined, options);
     }
     let keyboardError = null;
     if (options.keyboard && config.keyboard && !keyboardRejected) {
       try {
-        return await sendText(target, text, msgId, refId, headingFirstLine(markdown), options.keyboard);
+        return await sendText(target, text, msgId, refId, headingFirstLine(markdown), options.keyboard, options);
       } catch (error) {
         if (!rejected(error)) throw error;
         keyboardError = error;
@@ -386,10 +386,10 @@ function createOfficial(host) {
     if (options.heading) markdown = headingFirstLine(markdown);
     let result;
     try {
-      result = await sendText(target, text, msgId, refId, markdown);
+      result = await sendText(target, text, msgId, refId, markdown, undefined, options);
     } catch (error) {
       if (!rejected(error) || options.requireMarkdown) throw error;
-      result = await sendText(target, text, msgId, refId);
+      result = await sendText(target, text, msgId, refId, undefined, undefined, options);
       markdownRejected = true;
       log("Markdown 消息被拒（" + (error.code ?? error.status) + "），之后改发纯文本：" + error.message);
       return result;
@@ -809,7 +809,8 @@ function createOfficial(host) {
   // 但要用同一套 access_token 和 base URL）。默认不导出它是有意的 ——
   // 上层不该绕过 sendText/sendImage 自己拼消息，那会把限流、抑制、熔断全绕过去。
   // 用它的人要自己负责：这里**没有**限流、没有去重、没有熔断。
-  return { start, stop, sendText, sendMarkdown, sendImage, ackInteraction, state, healthy, config, normalize, rest };
+  const sendProactiveText = (target, text) => sendText(target, text, undefined, undefined, undefined, undefined, { proactive: true });
+  return { start, stop, sendText, sendProactiveText, sendMarkdown, sendImage, ackInteraction, state, healthy, config, normalize, rest };
 }
 
 module.exports = { createOfficial, DEFAULTS, OP, INTENT_GROUP_AND_C2C, INTENT_GROUP_MEMBER, INTENT_PUBLIC_GUILD_MESSAGES, INTENT_INTERACTION };

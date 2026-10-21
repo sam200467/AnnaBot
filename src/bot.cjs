@@ -10,12 +10,13 @@
 //      别的机器人被 @ 的 /help 也会推过来，光有前缀就执行等于抢答别人的指令。私聊里不带前缀的指令词也认
 //   6. 私聊里各功能的 matchDirect（比如有进行中的 /授权 时直接发授权码）
 //   7. @ 了 Anna 但不是指令：交给 deps.chat（以后的角色聊天），没有就提示发 /帮助
-// 平台的三条硬约束（MiaBot 实测）：不能主动发消息，所有回复都回在原地；群里一条消息 5 分钟内最多回 5 次、
+// 指令回复都回在原地；更新通知可在群和平台允许时主动发送。群里一条消息 5 分钟内最多回 5 次、
 // 私聊 60 分钟 4～5 次；没有按 id 拉消息的接口。
 
 const { createOfficial } = require("./official-transport.cjs");
 const { createCommands } = require("./commands.cjs");
 const { syncPanels } = require("./command-panel.cjs");
+const { createUpdateNotice } = require("./update-notice.cjs");
 const { V } = require("./voice.cjs");
 
 function makeTarget(event) {
@@ -35,6 +36,7 @@ function createAnnaBot(config, deps = {}) {
     songTags: deps.songTags, fitDiffs: deps.fitDiffs, historyStore: deps.historyStore,
   };
   const startedAt = now();
+  const updateNotice = createUpdateNotice(config, { log });
 
   // 回答跟着消息走：群里问的回群里，私聊问的回私聊；一律带 msgId 走被动回复。
   const send = {
@@ -91,6 +93,8 @@ function createAnnaBot(config, deps = {}) {
       return;
     }
 
+    await updateNotice.send(event, (event, text, markdown) => send.markdown(event, markdown, text));
+
     const text = String(event.content || "").trim();
     if (!text) return;
     const direct = event.type === "c2c";
@@ -114,12 +118,19 @@ function createAnnaBot(config, deps = {}) {
 
   let gatewayTimer = null;
   let gatewayUp = false;
+  let updateAttempted = false;
   function watchGateway() {
     gatewayTimer = setInterval(() => {
       const up = Boolean(transport.state?.connected && transport.healthy?.());
       if (up === gatewayUp) return;
       gatewayUp = up;
       log(up ? "QQ 网关已连上" : "⚠ QQ 网关断开，正在重连");
+      if (up && !updateAttempted && typeof transport.sendMarkdown === "function") {
+        updateAttempted = true;
+        void updateNotice.broadcast([...allowGroups], (target, text, markdown) =>
+          transport.sendMarkdown(target, markdown, text, undefined, undefined, { proactive: true }))
+          .catch((error) => log("⚠ 更新日志通知失败：" + error.message));
+      }
     }, 2000);
     gatewayTimer.unref?.();
   }
