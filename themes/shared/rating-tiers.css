@@ -1,0 +1,90 @@
+/* 玩家 Rating 的颜色档：所有出图主题共用这一份（作者 2026-10-21 要求统一：同一档在哪张图上都是一个样子）。
+ *
+ * theme.html 里放在 theme.css 后面：<link rel="stylesheet" href="../../shared/rating-tiers.css">
+ * 档位由 ThemeKit.ratingTier(value) 给出档名，数字加上 class "tier-<档名>"；阈值只在 theme-kit.js。
+ *
+ * 两套底，各一套颜色：
+ *   暗底（/推分记录 的图表、/同步记录）：直接写 tier class，用亮色 —— /推分记录「当前均值」那种，作者说那样最清楚。
+ *   浅底：外面套 .rating-floor（磨砂圆角地板）或 .rating-light（本来就是白底的格子），换成中间调的一套，
+ *         色相跟亮色一样，只是压深到白底上看得清。
+ * 名牌版上的「总 Rating」那一行照游戏里的名片板：一块半透明的白色圆角地板，把后面的名牌版图案模糊掉（backdrop-filter），
+ * 数字再用浅底那套颜色（作者 2026-10-21 拿游戏截图要的；之前试过深蓝珐琅小牌，作者选了这个）。
+ * 主题的名牌版（.plate）或外层带 filter，模糊只取到这一层为止，正好是名牌版的图。
+ *
+ * 以前为什么 17.01 发淡：名牌版那一行有一道米色 text-shadow（给标签做浮雕），数值继承了它。background-clip: text
+ * 的渐变字，text-shadow 是画在渐变「上面」的，等于给数字罩了一层 35% 的米色；再加一圈白描边就更淡了。
+ * 这里渐变档一律 text-shadow: none、不加描边；/牌子进度 那份虹极还写成了横向的深色渐变，罩上米色就成了土黄色。
+ *
+ * 虹极的竖渐变按「数字」定位，不按盒子：同一个百分比，行高、字体一变，落到数字上的颜色就变了。
+ * 数字顶端 = 背景盒中线 + k 个 em，数字高 h 个 em（k = (字体 ascent − descent) / 2 − 数字高，拿浏览器量的）：
+ *   Anna Script（Segoe Script Bold）：k = −0.375，h = 0.67（默认）
+ *   Anna Hand（霞鹜文楷）：k = −0.35，h = 0.72，写 .tier-hand
+ * --tier-lh 是背景盒有几个 em 高：块、flex 子项就是行高；行内元素（span、strong 不改 display）的背景只铺字体本身的高度，
+ * 跟行高无关 —— Segoe Script 是 1.6（默认值），文楷是 1.32。
+ * 颜色停在数字高度的 −2%、20%、37.5%、55%、73%、95%、121% 处，亮色那套跟 /推分记录 原来的样子一模一样。
+ */
+
+/* ── 暗底：亮色 ── */
+.tier-green { color: #a5c89f; }
+.tier-orange { color: #edb57a; }
+.tier-red { color: #df9282; }
+.tier-purple { color: #c2a5d3; }
+.tier-bronze { color: #d4ad8b; }
+.tier-silver { color: #d5dde0; }
+.tier-gold { color: #ead091; }
+.tier-platina { color: #ebe7ba; background-image: linear-gradient(180deg, #fff5d6, #c7c5b0); }
+/* 16 段的虹：横向渐层（暗底上是浅色） */
+.tier-rainbow { color: #e5df9e; background-image: linear-gradient(100deg, #e4a9b7, #ecc58b, #e5df9e, #a4d6b0, #a8c9e7, #c7afe1); }
+/* 17 起的虹极：游戏里是上暖下冷的竖渐变（顶部红橙、中间洋红、底下青绿），跟 16 段的虹反过来，颜色更浓 */
+.tier-rainbow-deep {
+  --tier-top: calc((var(--tier-lh, 1.6) / 2 + var(--tier-k, -0.375)) * 1em);
+  --tier-h: calc(var(--tier-dh, 0.67) * 1em);
+  color: #ff2f9a;
+  background-image: linear-gradient(180deg,
+    #ff3b2f calc(var(--tier-top) - 0.02 * var(--tier-h)),
+    #ff9f1c calc(var(--tier-top) + 0.2 * var(--tier-h)),
+    #ffe23d calc(var(--tier-top) + 0.375 * var(--tier-h)),
+    #ff2f9a calc(var(--tier-top) + 0.55 * var(--tier-h)),
+    #8a4dff calc(var(--tier-top) + 0.73 * var(--tier-h)),
+    #20c8ff calc(var(--tier-top) + 0.95 * var(--tier-h)),
+    #3ee8b0 calc(var(--tier-top) + 1.21 * var(--tier-h)));
+}
+.tier-platina, .tier-rainbow, .tier-rainbow-deep {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+.tier-hand { --tier-k: -0.35; --tier-dh: 0.72; }
+
+/* ── 浅底：中间调 ── */
+:is(.rating-floor, .rating-light) .tier-green { color: #3a8a2e; }
+:is(.rating-floor, .rating-light) .tier-orange { color: #c46a0c; }
+:is(.rating-floor, .rating-light) .tier-red { color: #b8302c; }
+:is(.rating-floor, .rating-light) .tier-purple { color: #7440a8; }
+:is(.rating-floor, .rating-light) .tier-bronze { color: #95592a; }
+:is(.rating-floor, .rating-light) .tier-silver { color: #5f6c78; }
+:is(.rating-floor, .rating-light) .tier-gold { color: #a07c06; }
+:is(.rating-floor, .rating-light) .tier-platina { color: #7d7764; background-image: linear-gradient(180deg, #a8a089 20%, #6f6955 80%); }
+:is(.rating-floor, .rating-light) .tier-rainbow { color: #2c84c8; background-image: linear-gradient(100deg, #d0405e, #df7f1a, #b59a00, #3f9e4f, #2c84c8, #7350c4, #bf3f8f); }
+:is(.rating-floor, .rating-light) .tier-rainbow-deep {
+  color: #e8288a;
+  background-image: linear-gradient(180deg,
+    #ee3a2c calc(var(--tier-top) - 0.02 * var(--tier-h)),
+    #f08c10 calc(var(--tier-top) + 0.2 * var(--tier-h)),
+    #d9a800 calc(var(--tier-top) + 0.375 * var(--tier-h)),
+    #e8288a calc(var(--tier-top) + 0.55 * var(--tier-h)),
+    #7f44ec calc(var(--tier-top) + 0.73 * var(--tier-h)),
+    #1a8fe0 calc(var(--tier-top) + 0.95 * var(--tier-h)),
+    #12a884 calc(var(--tier-top) + 1.21 * var(--tier-h)));
+}
+
+/* 磨砂圆角地板：位置、内边距由主题定，这里只管样子 */
+.rating-floor {
+  border-radius: 10px;
+  text-shadow: none;
+  background: rgba(255, 253, 248, 0.62);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 1px 4px rgba(50, 30, 10, 0.28);
+}

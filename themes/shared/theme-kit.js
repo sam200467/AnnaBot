@@ -82,7 +82,8 @@
   // 玩家 Rating 的颜色档（VERSE 以后，照 chunithm.org 的 Rating 表和 wikiwiki「レーティングの色分け」）：
   // 0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹；17 起是更浓的「虹极」（上暖下冷）。
   // 15.25 以后游戏里还会按 0.25 加星、17 以后分 ★1～3，这里只管颜色（作者 2026-10-18 要求只改颜色，不动星和字体）。
-  // 各主题拿 class 名自己配色：暗底（best）用亮一档的金属色，象牙纸上（list）用深一档的宝石色。
+  // 主题拿返回的档名拼成 class（"tier-" + 档名），颜色只写在 themes/shared/rating-tiers.css，所有主题共用一套（作者 2026-10-21 要统一）；
+  // 浅色底上套那里的 .rating-floor（磨砂地板）或 .rating-light，别在主题里另配颜色。
   const RATING_TIERS = [
     [17, "rainbow-deep"],
     [16, "rainbow"],

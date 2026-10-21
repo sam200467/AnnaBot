@@ -228,9 +228,12 @@
   }
 
   // ── 页眉右边：名牌版、角色、Rating（照 best）──
-  function stat(label, value, extra) {
+  // tierOf：这一格要按 Rating 色档上色时传数值（拟合 B30、AJ 50），颜色用 shared/rating-tiers.css 浅底那一套
+  function stat(label, value, extra, tierOf) {
     const box = el("div", "stat" + (extra ? " " + extra : ""));
-    box.append(el("dt", null, label), el("dd", null, value));
+    const dd = el("dd", tierOf === undefined ? null : "rating-light tier-hand", tierOf === undefined ? value : null);
+    if (tierOf !== undefined) dd.append(el("span", "tier-" + ThemeKit.ratingTier(tierOf), value));
+    box.append(el("dt", null, label), dd);
     return box;
   }
 
@@ -273,7 +276,7 @@
     const chapters = data.chapters || [];
     if (mode === "fit30") {
       const list = chapters[0]?.scores || [];
-      stats.append(stat("拟合 B30", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating)));
+      stats.append(stat("拟合 B30", rating(data.rating), "main", data.rating));
       stats.append(stat("Top", list.length ? rating(list[0].rating) : "—"));
       stats.append(stat("原 B30", rating(data.fit?.officialAverage)));
       return;
@@ -281,7 +284,7 @@
     // 总 Rating 已经写在名牌版下面了：b50 / b30 / aj30 不再放一块重复的 Rating 格子；
     // aj50 的 AJ 50 是 AJ 谱面自己的均值、fit30 的拟合 B30 是重算值，都跟账号总 Rating 不是一回事，保留
     if (mode === "aj50") {
-      stats.append(stat("AJ 50", rating(data.rating), "main tier-" + ThemeKit.ratingTier(data.rating)));
+      stats.append(stat("AJ 50", rating(data.rating), "main", data.rating));
     }
     if (mode === "b50" || mode === "aj50") {
       for (const chapter of chapters) {

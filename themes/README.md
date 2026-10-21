@@ -49,9 +49,14 @@ ThemeKit.done({ element: document.getElementById("card") });   // 等字体和 <
   `CATASTROPHY` / `ABSOLUTE` / `FULL CHAIN` 太长，统一缩写成 `CATA` / `ABS` / `CHAIN`（`FULL CHAIN 2` 是 `CHAIN+`，
   kind 里多个 `gold`），卡片一行才放得下大一点的徽标。
 - `ThemeKit.ratingTier(rating)` 返回玩家总 Rating 在游戏里的颜色档（`green` / `orange` / `red` / `purple` / `bronze` /
-  `silver` / `gold` / `platina` / `rainbow` / `rainbow-deep`），主题自己用 `tier-<名字>` 的 class 配色。
+  `silver` / `gold` / `platina` / `rainbow` / `rainbow-deep`），给数字加上 `tier-<名字>` 的 class。
   分档照 VERSE 以后：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 金、15.25 铂、16 虹、17 虹极；
   游戏里 15.25 以后按 0.25 加星、17 以后分 ★1～3，这里只给颜色。
+- 颜色只写在 `shared/rating-tiers.css`，所有主题共用一套（作者 2026-10-21 要求同一档在哪张图上都一个样）：
+  在 `theme.css` 后面引入 `<link rel="stylesheet" href="../../shared/rating-tiers.css">`，主题里不要再配 `.tier-*` 的颜色
+  （`test/theme-kit.test.cjs` 会查）。直接写 tier class 是暗底那套亮色；浅色底外面套一层 class 换成中间调的一套：
+  名牌版「总 Rating」那一行写 `.rating-floor`（照游戏名片板的磨砂圆角地板），本来就是白底的格子写 `.rating-light`。
+  用法和两个坑（渐变字上的 text-shadow 会罩在字上面、虹极的竖渐变要知道背景盒多高）写在那个文件开头。
 
 ## 素材
 

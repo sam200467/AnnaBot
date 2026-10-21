@@ -188,38 +188,23 @@ body {
   overflow: hidden;
 }
 .who { display: inline-flex; align-items: baseline; gap: 12px; flex: none; transform-origin: center; }
-/* 总 Rating：名字下面一行，居中，上面一道细线跟名字分开（p2 的格式）。
-   标签和数值字号差不多（27 / 31），数值按游戏 Rating 色档上色，底是象牙纸所以用深一档的宝石色。 */
+/* 总 Rating：名字下面一行，居中（p2 的格式），标签和数值字号差不多（27 / 31）。
+   这一行垫一块磨砂圆角地板、跟称号条一样宽，照游戏里的名片板（作者 2026-10-21 要的）；地板的样子和数值的颜色档都在
+   shared/rating-tiers.css（所有主题共用）。以前这里是一道细线 + 米色 text-shadow，渐变的数值被那道 text-shadow 罩得发淡。
+   数值的行高 1，--tier-lh 跟着写 1（虹极的竖渐变按它找数字）；下移 2px 是手写数字的视觉中线比标签高。 */
 .overall {
   position: absolute;
   left: 33%;
   right: 5.5%;
-  top: 62%;
+  top: 61%;
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: 10px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(150, 110, 45, 0.45);
-  text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35);
+  padding: 3px 10px 2px;
 }
 .overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 27px; line-height: 1; letter-spacing: 0.04em; color: #5d3a15; }
-.overall-value {
-  font-family: var(--script); font-weight: 700; font-size: 31px; line-height: 1; color: #1f3a8f;
-  transform: translateY(2px);
-  filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff);
-}
-.overall-value.tier-green { color: #3f7d2f; }
-.overall-value.tier-orange { color: #b86a13; }
-.overall-value.tier-red { color: #a83232; }
-.overall-value.tier-purple { color: #6f3d9f; }
-.overall-value.tier-bronze { color: #8d5a26; }
-.overall-value.tier-silver { color: #68727d; }
-.overall-value.tier-gold { color: #90720a; }
-.overall-value.tier-platina { background: linear-gradient(180deg, #8a8472 0%, #7a7463 45%, #625d4e 75%, #4f4a3d 100%); }
-.overall-value.tier-rainbow { background: linear-gradient(100deg, #b5273f 0%, #c26a16 16%, #8f7c0b 32%, #3f8a42 48%, #2b78b0 64%, #6440a8 80%, #a33578 100%); }
-.overall-value.tier-rainbow-deep { background: linear-gradient(180deg, #a51c14 8%, #b86400 22%, #8f7a00 34%, #a51c6a 48%, #4a2a9e 62%, #0f5f8a 76%, #0f6b4f 90%); }
-.overall-value.tier-platina, .overall-value.tier-rainbow, .overall-value.tier-rainbow-deep { background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.overall-value { font-family: var(--script); font-weight: 700; font-size: 31px; line-height: 1; --tier-lh: 1; transform: translateY(2px); }
 .level { display: flex; align-items: baseline; flex: none; font-family: var(--hand); font-weight: 700; font-size: 34px; color: #4a2f1c; }
 .level .star { color: #b0302f; margin-right: 12px; }
 .level .lv { margin-right: 2px; }
@@ -279,26 +264,9 @@ body {
 .stat dd { flex: 1; display: flex; align-items: center; justify-content: center; margin-top: 2px; font-family: var(--hand); font-weight: 700; font-size: 33px; line-height: 1.2; color: var(--indigo); }
 .stat.main dd { font-size: 42px; }
 
-/* 玩家 Rating 的颜色档：白底上用深一档的宝石色，虹、虹极也压深（照 list 主题的象牙纸） */
-.tier-green dd { color: #3f7d2f; }
-.tier-orange dd { color: #b86a13; }
-.tier-red dd { color: #a83232; }
-.tier-purple dd { color: #6f3d9f; }
-.tier-bronze dd { color: #8d5a26; }
-.tier-silver dd { color: #68727d; }
-.tier-gold dd { color: #90720a; }
-.tier-platina dd {
-  background: linear-gradient(180deg, #8a8472 0%, #7a7463 45%, #625d4e 75%, #4f4a3d 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.tier-rainbow dd {
-  background: linear-gradient(100deg, #b5273f 0%, #c26a16 16%, #8f7c0b 32%, #3f8a42 48%, #2b78b0 64%, #6440a8 80%, #a33578 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.tier-rainbow-deep dd {
-  background: linear-gradient(180deg, #a51c14 8%, #b86400 22%, #8f7a00 34%, #a51c6a 48%, #4a2a9e 62%, #0f5f8a 76%, #0f6b4f 90%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+/* 拟合 B30、AJ 50 这一格按 Rating 色档上色：格子本来就是白底，用 shared/rating-tiers.css 浅底那一套（.rating-light），
+   跟名牌版磨砂地板上的总 Rating 一个颜色。数字是霞鹜文楷（.tier-hand）、flex 子项，背景盒就是行高 1.2 */
+.stat dd { --tier-lh: 1.2; }
 
 /* ── 表：她披风里子的蔚蓝，斜着一道丝面的光泽；淡金边，里面一圈白、一道金线（她衣服的滚边）。
  *    表头是一条白的制服料子，下沿淡金线。白釉陶砖排在蓝底上 ── */

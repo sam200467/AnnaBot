@@ -24,7 +24,7 @@ h2 .subtitle { font-size:29px; letter-spacing:4px; }
 h2:after { content:"✧"; margin-left:auto; font-size:40px; color:#697669; }
 .summary { display:flex; justify-content:space-between; align-items:center; padding:22px 2px 12px; }
 .current label,.gain label { display:block; font-size:22px; color:#bfcabd; margin-bottom:3px; }
-.current strong { font:700 46px/1.5 var(--script); color:#f5e8c9; }
+.current strong { font:700 46px/1.5 var(--script); }
 .gain { text-align:right; }.gain strong { font:700 33px/1.6 var(--script); color:var(--jade); }
 .gain.negative strong { color:#e3a99e; }
 .large .summary { padding:34px 4px 20px; }
@@ -38,22 +38,14 @@ h2:after { content:"✧"; margin-left:auto; font-size:40px; color:#697669; }
 .large .plot-line { stroke-width:5; }
 .dot { fill:var(--line); stroke:#203044; stroke-width:2; }
 .baseline { margin:9px 0 0; padding-top:10px; border-top:1px solid #a5b6b033; color:#cbd1c5; font-size:22px; display:flex; justify-content:space-between; }
-.baseline b { font:700 22px var(--script); color:#dfd8c7; margin-left:10px; }
+.baseline b { font:700 22px var(--script); margin-left:10px; }
 .large .baseline { margin-top:20px; padding-top:20px; font-size:25px; }.large .baseline b { font-size:26px; }
 footer { margin-top:30px; text-shadow:0 2px 5px #0b141b; }
 footer p { margin:8px 0; color:#d2cdbb; font-size:24px; }
 footer p+p { color:#b8c0b5; font-size:23px; }
-/* 分档复用 ThemeKit；暗蓝底使用明亮的颜料色，虹与虹极保持不同渐变。
-   17 起的虹极照 best 的暗底配色：上暖下冷的竖渐变、颜色要够浓。以前这里用的是浅粉彩
-   （#e89e99…），在靛蓝底上跟 16 段的浅虹几乎一样，17.23 会被看成没上对色。 */
-.rating.tier-green { color:#a5c89f; }.rating.tier-orange { color:#edb57a; }
-.rating.tier-red { color:#df9282; }.rating.tier-purple { color:#c2a5d3; }
-.rating.tier-bronze { color:#d4ad8b; }.rating.tier-silver { color:#d5dde0; }
-.rating.tier-gold { color:#ead091; }
-.rating.tier-platina { color:#ebe7ba; background:linear-gradient(180deg,#fff5d6,#c7c5b0); }
-.rating.tier-rainbow { background:linear-gradient(100deg,#e4a9b7,#ecc58b,#e5df9e,#a4d6b0,#a8c9e7,#c7afe1); }
-.rating.tier-rainbow-deep { background:linear-gradient(180deg,#ff3b2f 24%,#ff9f1c 34%,#ffe23d 42%,#ff2f9a 50%,#8a4dff 58%,#20c8ff 68%,#3ee8b0 80%); }
-.rating.tier-platina,.rating.tier-rainbow,.rating.tier-rainbow-deep { background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+/* 当前均值、原均值按 Rating 色档上色：颜色在 shared/rating-tiers.css（所有主题共用，作者 2026-10-21 要统一），
+   暗底那一套就是照这里靛蓝底上的亮色定的（17 起的虹极是上暖下冷的饱和竖渐变）。上面两条规则因此不写颜色：
+   .current strong 比 .tier-* 具体，写了会盖掉色档。两处都是行内的 Segoe Script，正是 --tier-lh 的默认情形，不用另写 */
 
 /* ── 右上角的名片板 ──
    跟 /分数列表 右上角那块一样：左边角色头像 + 段位勋章，右边落雪的名牌版，牌子上叠称号和
@@ -104,21 +96,12 @@ footer p+p { color:#b8c0b5; font-size:23px; }
 .level .lv { margin-right:2px; }
 .name { font-weight:700; font-size:36px; line-height:1.2; transform-origin:left center; display:inline-block; }
 
-/* 总 Rating：名字下面一行，居中，上面一道细线跟名字分开（p2 的格式）。
-   标签和数值字号差不多（26 / 30），数值按游戏的 Rating 色档上色；白底纸面用深一档的宝石色。 */
-.overall { position:absolute; left:33%; right:5.5%; top:62%; display:flex; align-items:baseline; justify-content:center; gap:10px; padding-top:6px; border-top:1px solid #96702f80; text-shadow:0 1px 0 #fff8e159; }
+/* 总 Rating：名字下面一行，居中（p2 的格式），标签和数值字号差不多（26 / 30）。
+   这一行垫一块磨砂圆角地板、跟称号条一样宽，照游戏里的名片板（作者 2026-10-21 要的）；地板的样子和数值的颜色档都在
+   shared/rating-tiers.css（所有主题共用，浅底那一套跟左边图表里的当前均值同色相）。以前这里是一道细线 + 米色 text-shadow，
+   渐变的数值被那道 text-shadow 罩着，17.01 发淡。数值行高 1，--tier-lh 跟着写 1；下移 2px 是手写数字的视觉中线比标签高。 */
+.overall { position:absolute; left:33%; right:5.5%; top:61%; display:flex; align-items:baseline; justify-content:center; gap:10px; padding:3px 10px 2px; }
 .overall-label { font-family:var(--hand-bold); font-weight:700; font-size:26px; line-height:1; letter-spacing:.04em; color:#5d3a15; }
-.overall-value { font-family:var(--script); font-weight:700; font-size:30px; line-height:1; color:#1f3a8f; transform:translateY(2px); filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
-.overall-value.tier-green { color:#3f7d2f; }
-.overall-value.tier-orange { color:#b86a13; }
-.overall-value.tier-red { color:#a83232; }
-.overall-value.tier-purple { color:#6f3d9f; }
-.overall-value.tier-bronze { color:#8d5a26; }
-.overall-value.tier-silver { color:#68727d; }
-.overall-value.tier-gold { color:#90720a; }
-.overall-value.tier-platina { background:linear-gradient(180deg,#8a8472 0%,#7a7463 45%,#625d4e 75%,#4f4a3d 100%); }
-.overall-value.tier-rainbow { background:linear-gradient(100deg,#b5273f 0%,#c26a16 16%,#8f7c0b 32%,#3f8a42 48%,#2b78b0 64%,#6440a8 80%,#a33578 100%); }
-.overall-value.tier-rainbow-deep { background:linear-gradient(180deg,#a51c14 8%,#b86400 22%,#8f7a00 34%,#a51c6a 48%,#4a2a9e 62%,#0f5f8a 76%,#0f6b4f 90%); }
-.overall-value.tier-platina,.overall-value.tier-rainbow,.overall-value.tier-rainbow-deep { background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+.overall-value { font-family:var(--script); font-weight:700; font-size:30px; line-height:1; --tier-lh:1; transform:translateY(2px); }
 
 #frame { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:8; }

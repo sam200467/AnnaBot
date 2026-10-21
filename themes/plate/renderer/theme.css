@@ -193,21 +193,14 @@ body {
 .level .star { color: #b0302f; margin-right: 12px; }
 .level .lv { margin-right: 3px; }
 .name { font-weight: 700; font-size: 46px; line-height: 1.2; transform-origin: left center; display: inline-block; }
-.overall { position: absolute; left: 33%; right: 5.5%; top: 62%; display: flex; align-items: baseline; justify-content: center; gap: 14px; padding-top: 7px; border-top: 1px solid rgba(150, 110, 45, 0.45); text-shadow: 0 1px 0 rgba(255, 248, 225, 0.35); }
+/* 总 Rating 这一行垫一块磨砂圆角地板、跟称号条一样宽，照游戏里的名片板（作者 2026-10-21 要的；样子在 shared/rating-tiers.css） */
+.overall { position: absolute; left: 33%; right: 5.5%; top: 61%; display: flex; align-items: baseline; justify-content: center; gap: 14px; padding: 4px 14px 3px; }
 .overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: 0.04em; color: #5d3a15; }
-/* 数值只比标签大一点（作者 2026-10-20 要两者差不多大；原来 58px 比标签大出一倍） */
-.overall-value { font-family: var(--script); font-weight: 700; font-size: 38px; line-height: 1; color: #1f3a8f; }
-
-.tier-green { color: #3f7d2f; }
-.tier-orange { color: #b86a13; }
-.tier-red { color: #a83232; }
-.tier-purple { color: #6f3d9f; }
-.tier-bronze { color: #8d5a26; }
-.tier-silver { color: #68727d; }
-.tier-gold { color: #90720a; }
-.tier-platina { background: linear-gradient(180deg, #8a8472 0%, #7a7463 45%, #625d4e 75%, #4f4a3d 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.tier-rainbow { background: linear-gradient(100deg, #b5273f 0%, #c26a16 16%, #8f7c0b 32%, #3f8a42 48%, #2b78b0 64%, #6440a8 80%, #a33578 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.tier-rainbow-deep { background: linear-gradient(100deg, #7e0f24 0%, #8f3c08 16%, #66580a 32%, #245a28 48%, #173f70 64%, #3b1d70 80%, #6e1249 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* 数值只比标签大一点（作者 2026-10-20 要两者差不多大；原来 58px 比标签大出一倍）。
+   按游戏 Rating 色档上色，颜色在 shared/rating-tiers.css（所有主题共用，作者 2026-10-21 要统一）。这里以前单独写过一份虹极：
+   横向的深色渐变，又被这一行的米色 text-shadow 罩着，17.01 看上去成了土黄色。
+   行高 1，--tier-lh 跟着写 1（虹极的竖渐变按它找数字）；下移 3px 是手写数字的视觉中线比标签高 */
+.overall-value { font-family: var(--script); font-weight: 700; font-size: 38px; line-height: 1; --tier-lh: 1; transform: translateY(3px); }
 
 
 .heading { flex: none; padding-top: 34px; }

@@ -37,6 +37,35 @@ test("ratingTier：0 绿、4 橙、7 赤、10 紫、12 铜、13.25 银、14.5 �
   for (const value of [null, undefined, NaN, ""]) assert.equal(ratingTier(value), "green", "空值 " + String(value));
 });
 
+// Rating 色档的颜色只在 shared/rating-tiers.css：作者 2026-10-21 发现同一个 17.01 在 /分数列表、/b50、/牌子进度、
+// /推分记录 上四个样（各主题各配一套，/牌子进度 那套还写错了），统一成一份。这里防止主题里又长出自己的一套。
+test("Rating 色档：用到 ratingTier 的主题都引入 shared/rating-tiers.css，自己不配 .tier-* 的颜色", () => {
+  const themesDir = path.join(ROOT, "themes");
+  const shared = fs.readFileSync(path.join(themesDir, "shared", "rating-tiers.css"), "utf8");
+  const { ratingTier } = loadThemeKit();
+  for (const value of [0, 4, 7, 10, 12, 13.25, 14.5, 15.25, 16, 17]) {
+    assert.match(shared, new RegExp("\\.tier-" + ratingTier(value) + "\\s*[{,]"), "rating-tiers.css 缺 tier-" + ratingTier(value));
+  }
+  const TIER_RULE = /\.tier-(green|orange|red|purple|bronze|silver|gold|platina|rainbow|rainbow-deep)\b/;
+  const checked = [];
+  for (const theme of fs.readdirSync(themesDir)) {
+    // best 是停用的旧竖版（2026-10-20 起 /b50 一族都走 felix），不再出图，没有迁过来
+    if (theme === "best") continue;
+    const rendererDir = path.join(themesDir, theme, "renderer");
+    const script = path.join(rendererDir, "theme.js");
+    if (!fs.existsSync(script) || !fs.readFileSync(script, "utf8").includes("ratingTier(")) continue;
+    checked.push(theme);
+    const html = fs.readFileSync(path.join(rendererDir, "theme.html"), "utf8");
+    const links = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((match) => match[1]);
+    assert.equal(links.at(-1), "../../shared/rating-tiers.css", theme + "：rating-tiers.css 要放在主题自己的样式后面引入");
+    for (const file of fs.readdirSync(rendererDir).filter((name) => name.endsWith(".css"))) {
+      const css = fs.readFileSync(path.join(rendererDir, file), "utf8");
+      assert.doesNotMatch(css, TIER_RULE, theme + "/" + file + " 里又配了一套 Rating 色档，颜色只写在 shared/rating-tiers.css");
+    }
+  }
+  for (const theme of ["felix", "list", "plate", "trend", "history"]) assert.ok(checked.includes(theme), theme + " 没查到");
+});
+
 test("MARKS：FC/AJ/AJC 原样，长的通关标记缩写到牌子上放得下", () => {
   const { MARKS } = loadThemeKit();
   // VM 里造出来的对象跟这边的 Object.prototype 不是一个，不能直接 deepEqual；逐个字段比

@@ -12,12 +12,8 @@ body { margin:0; background:#171513; color:var(--ink); font-family:var(--hand); 
 header { height:188px; display:flex; justify-content:space-between; align-items:flex-start; text-shadow:0 2px 8px #0c0b0a; }
 h1 { margin:0 0 7px; font-size:88px; letter-spacing:10px; font-weight:500; line-height:1.2; }header p { margin:10px 0 0; font-size:27px; color:#d2c3ac; }
 .account { text-align:right; padding:20px 7px 0 20px; }.account span { display:block; font-size:26px; color:#d7c8af; }.account strong { font-family:var(--script); font-size:65px; line-height:1.6; }
-.tier-green { color:#a5c89f; }.tier-orange { color:#edb57a; }.tier-red { color:#df9282; }.tier-purple { color:#c2a5d3; }.tier-bronze { color:#d4ad8b; }.tier-silver { color:#d5dde0; }.tier-gold { color:#ead091; }.tier-platina { color:#ebe7ba; }
-/* 16 段虹：暗底用浅色横向渐层。17 起的虹极照 best 的暗底配色，换成上暖下冷的
-   饱和竖渐变——以前虹和虹极共用这一条浅色渐层，17.23 看起来跟 16.x 一模一样。
-   只给总 Rating 和「本次 B50 均值」前后两个数用；两张表里的小 Rating 没有 tier class，不受影响。 */
-.tier-rainbow { color:#e6d8b1; background:linear-gradient(100deg,#dca8ba,#edc694,#e5df9e,#aedac9,#b6cbe6,#d3b8df); background-clip:text; -webkit-text-fill-color:transparent; text-shadow:none; }
-.tier-rainbow-deep { color:#e6d8b1; background:linear-gradient(180deg,#ff3b2f 24%,#ff9f1c 34%,#ffe23d 42%,#ff2f9a 50%,#8a4dff 58%,#20c8ff 68%,#3ee8b0 80%); background-clip:text; -webkit-text-fill-color:transparent; text-shadow:none; }
+/* 总 Rating 和「本次 B50 均值」前后两个数按 Rating 色档上色，颜色在 shared/rating-tiers.css（所有主题共用，作者 2026-10-21 要统一，
+   这里是暗底那一套）；两张表里的小 Rating 没有 tier class，不受影响。两处都是行内的 Segoe Script，正是 --tier-lh 的默认情形 */
 .material { background-image:linear-gradient(105deg,#16171be8,#1c1b20e8),url('../assets/robe-texture.webp'); background-size:auto,200px 350px; border:1px solid #ad9e83; box-shadow:inset 0 0 0 5px #17171c,inset 0 0 0 7px #857769,0 5px 18px #0006; }
 .overview { display:flex; justify-content:space-between; align-items:center; height:158px; padding:23px 33px; border-left:7px solid #d0c5ad; }
 .overview label { display:block; font-size:25px; color:var(--muted); margin-bottom:12px; }.before-after b { font:700 42px var(--script); }.arrow { margin:0 27px; color:#bdb6a7; font-size:38px; }.impact { border-left:1px solid #ac9b744d; padding-left:35px; }.impact strong { font:700 48px var(--script); color:#a8f0f5; background:linear-gradient(150deg,#f3ffff 10%,#a5eff4 48%,#62c8e6 90%); background-clip:text; -webkit-text-fill-color:transparent; }.totals { display:flex; align-items:center; color:#e5d9c3; font-size:34px; white-space:nowrap; }
