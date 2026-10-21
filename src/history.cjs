@@ -1,5 +1,5 @@
 "use strict";
-// /推分记录 的数据层：把落雪的成绩变化整理成“一次一次同步”，再从基线重放 B50 算账号 Rating。
+// /同步记录 的数据层：把落雪的成绩变化整理成“一次一次同步”，再从基线重放 B50 算账号 Rating。
 //
 // 为什么不读落雪的同步结果：网页 /user/sync 的“这次改了哪几首、旧值→新值”来自 /user/crawl/status
 // （SSE，网站登录令牌），不是公开 API，OAuth 的 read_player 也拿不到。所以 Anna 自己记账：
@@ -433,7 +433,7 @@ async function writeAtomic(file, data) {
 
 // 每人一个文件；同一个人的读改写排成一队（两条指令同时来时不互相盖掉）。
 function createHistoryStore({ dir, log = () => {} } = {}) {
-  if (!dir) throw new Error("推分记录需要一个目录");
+  if (!dir) throw new Error("同步记录需要一个目录");
   const queues = new Map();
   const fileOf = (openid) => path.join(dir, hashOpenid(openid) + ".json");
 
@@ -445,7 +445,7 @@ function createHistoryStore({ dir, log = () => {} } = {}) {
       }
       return state;
     } catch (error) {
-      if (error?.code !== "ENOENT") log("⚠ 推分记录读不出来，按没有处理：" + error.message);
+      if (error?.code !== "ENOENT") log("⚠ 同步记录读不出来，按没有处理：" + error.message);
       return null;
     }
   }

@@ -1,7 +1,7 @@
 "use strict";
-// /推分记录：按“一次同步”看账号 Rating 涨了多少。
+// /同步记录：按“一次同步”看账号 Rating 涨了多少。
 //
-//   /推分记录          最近一批（按 upload_time）
+//   /同步记录          最近一批（按 upload_time）
 // 只接受无参数指令，横版图展示最近一批，超量明细注明省略数量。
 //
 // 数据层在 src/history.cjs：落雪没有给机器人“同步结果”，所以用每条成绩的 upload_time 分批、
@@ -15,8 +15,8 @@ const { buildImageData } = require("../history-view.cjs");
 
 module.exports = {
   name: "history",
-  words: ["推分记录"],
-  usage: "/推分记录",
+  words: ["同步记录"],
+  usage: "/同步记录",
   summary: "看最新一次更新的成绩与 Rating 变化。要授权。",
   panel: "看最近一次推了多少分",
   group: "查询",
@@ -51,7 +51,7 @@ module.exports = {
       try {
         await store.write(ctx.userId, current);
       } catch (error) {
-        ctx.log("⚠ 推分记录写盘失败（这次先照常显示）：" + error.message);
+        ctx.log("⚠ 同步记录写盘失败（这次先照常显示）：" + error.message);
       }
       return current;
     });
@@ -66,7 +66,7 @@ module.exports = {
     }
     const data = buildImageData(report);
     return ctx.image({
-      kind: "history", label: "推分记录图",
+      kind: "history", label: "同步记录图",
       render: async () => {
         const image = await ctx.services.renderer.render("history", data, { format: "jpeg", quality: 76, scale: 1.5 });
         return { buffer: image.buffer };

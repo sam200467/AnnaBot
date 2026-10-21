@@ -1,5 +1,5 @@
 "use strict";
-// /推分记录：北京时间、按 upload_time 分批、补历史、重放 B50、进榜/移出、存储，
+// /同步记录：北京时间、按 upload_time 分批、补历史、重放 B50、进榜/移出、存储，
 // 再走一遍端到端（假 QQ + 假落雪，检查图片数据与无记录文案）。
 const test = require("node:test");
 const assert = require("node:assert/strict");
@@ -223,7 +223,7 @@ function todayAt(hour) {
   return new Date(start.getTime() + hour * 3600 * 1000).toISOString();
 }
 
-test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒绝且不访问历史", async (t) => {
+test("/同步记录 端到端：只查最新一次，日期与翻页参数均拒绝且不访问历史", async (t) => {
   const s = await setup(t);
   const songs = s.lx.state.songList.songs;
   const current = [
@@ -238,16 +238,16 @@ test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒
   s.lx.addPlayer({ friendCode: FC1, name: "好友码玩家", scores: current });
   s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", scores: current, history });
 
-  await s.group("/推分记录");
+  await s.group("/同步记录");
   assert.equal(s.last().content, V.needBinding);
 
   await s.group("/绑定 " + FC1);
-  await s.group("/推分记录");
-  assert.equal(s.last().content, V.needOAuth("推分记录"), "好友码没有具体分数，不读历史");
+  await s.group("/同步记录");
+  assert.equal(s.last().content, V.needOAuth("同步记录"), "好友码没有具体分数，不读历史");
 
   await s.authorize("U2", FC2);
   const opts = { user: "U2" };
-  await s.group("/推分记录", opts);
+  await s.group("/同步记录", opts);
   assert.equal(s.last().msg_type, 7);
   let image = s.rendered.at(-1);
   assert.equal(image.theme, "history");
@@ -255,7 +255,7 @@ test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒
   assert.equal(image.data.rating.end.toFixed(3), "0.646");
   assert.equal(image.data.events[0].rating.toFixed(4), "17.6500");
 
-  await s.group("/推分记录 14天", opts);
+  await s.group("/同步记录 14天", opts);
   assert.equal(s.last().content, V.historyUsage);
   assert.equal(s.lx.state.requests.filter((request) => request.path.includes("/score/history")).length, 1,
     "参数不认时不读历史");
@@ -263,7 +263,7 @@ test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒
   const requests = s.lx.state.requests.length;
   const rendered = s.rendered.length;
   for (const arg of ["今天", "7天", "15天", "本月", "最新", "第2页", "今天 第99页"]) {
-    await s.group("/推分记录 " + arg, opts);
+    await s.group("/同步记录 " + arg, opts);
     assert.equal(s.last().content, V.historyUsage);
   }
   assert.equal(s.lx.state.requests.length, requests);
@@ -273,7 +273,7 @@ test("/推分记录 端到端：只查最新一次，日期与翻页参数均拒
   s.lx.addPlayer({ friendCode: FC3, name: "昨天玩家", scores: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))],
     history: [score(3, 3, 1009000, at("2026-10-18T22:00:00+08:00"))] });
   await s.authorize("U3", FC3);
-  await s.group("/推分记录", { user: "U3" });
+  await s.group("/同步记录", { user: "U3" });
   assert.equal(s.last().msg_type, 7);
   assert.equal(s.rendered.at(-1).data.batchTime, "10/18 22:00");
 });

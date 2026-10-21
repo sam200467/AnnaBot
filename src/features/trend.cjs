@@ -25,10 +25,10 @@ async function attachAssets(data, assets) {
 
 module.exports = {
   name: "trend",
-  words: ["分表变化"],
-  usage: "/分表变化 本周 / 本月",
-  summary: "看本周或本月 B50、B30、N20 的变化。要授权。",
-  panel: "看本周或本月分表变化",
+  words: ["推分记录"],
+  usage: "/推分记录 本周 / 本月 / 半年 / 今年",
+  summary: "看本周、本月、半年或今年 B50、B30、N20 的变化。要授权。",
+  panel: "看各时间段的推分记录",
   group: "查询",
   binding: "oauth",
   attachAssets,
@@ -40,7 +40,7 @@ module.exports = {
       ctx.player.player(), ctx.player.scores(), ctx.player.bests(),
     ]);
     if (!Array.isArray(scores) || !scores.length) return ctx.reply(ctx.voice.historyNoScores);
-    // 与推分记录共用历史库和锁；查询更早的区间时重建基线，后续两个功能均能增量补全。
+    // 与同步记录共用历史库和锁；查询更早的区间时重建基线，后续两个功能均能增量补全。
     const store = ctx.services.historyStore ||
       createHistoryStore({ dir: path.join(ctx.config.workDir, "history"), log: ctx.log });
     const fetchHistory = (id, lv) => ctx.player.scoreHistory(id, lv);
@@ -53,7 +53,7 @@ module.exports = {
         await collect({ state: current, scores, fetchHistory });
       }
       try { await store.write(ctx.userId, current); }
-      catch (error) { ctx.log("⚠ 分表变化写盘失败（本次照常显示）：" + error.message); }
+      catch (error) { ctx.log("⚠ 推分记录写盘失败（本次照常显示）：" + error.message); }
       return current;
     });
     const data = {
@@ -65,7 +65,7 @@ module.exports = {
       player: playerView(player),
     };
     return ctx.image({
-      kind: "trend", label: "分表变化图",
+      kind: "trend", label: "推分记录图",
       render: async () => {
         await attachAssets(data, ctx.services.assets);
         const image = await ctx.services.renderer.render("trend", data, { format: "jpeg", quality: 76, scale: 1.5 });

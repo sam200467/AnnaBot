@@ -37,7 +37,7 @@ async function createServices(config, { log = () => {}, fetchImpl, needs = ["bin
   const songTags = loadSongTags();
   // 拟合定数快照（EazyChu，见 fit-diffs.cjs 和 tools/build-fit-diffs.cjs）
   const fitDiffs = loadFitDiffs();
-  // 推分记录：每人一份基线 + 事件，放 data/history/（见 history.cjs）
+  // 同步记录：每人一份基线 + 事件，放 data/history/（见 history.cjs）
   const historyStore = createHistoryStore({ dir: path.join(workDir, "history"), log });
   const services = { lxns, oauth, catalog, assets, renderer, songExtras, songTags, fitDiffs, historyStore, vault: null, bindings: null, keySource: "" };
 

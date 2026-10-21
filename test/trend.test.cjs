@@ -18,7 +18,7 @@ const stateAt = (at, events = []) => ({
 const event = (id, score, t) => ({ id, lv: 3, score, t, ms: Date.parse(t), prev: 1000000 });
 const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, a + " ≠ " + b);
 
-test("只接受本周、本月；北京时间周一/月初边界、跨年和闰年", () => {
+test("四种时间范围；北京时间周一/月初边界、跨年和闰年", () => {
   for (const arg of ["", "7天", "本日", "本周 2", "本月 第2页", "最新", "上周", "本周本月"]) {
     assert.equal(parseWindow(arg), null);
   }
@@ -27,6 +27,19 @@ test("只接受本周、本月；北京时间周一/月初边界、跨年和闰�
   assert.equal(parseWindow("本月", new Date("2026-09-30T16:00:00Z")).from.toISOString(), "2026-09-30T16:00:00.000Z");
   assert.equal(parseWindow("本周", new Date("2027-01-01T12:00:00+08:00")).from.toISOString(), "2026-12-27T16:00:00.000Z");
   assert.equal(parseWindow("本月", new Date("2028-02-29T12:00:00+08:00")).from.toISOString(), "2028-01-31T16:00:00.000Z");
+  for (const [arg, now, expected, kind] of [
+    ["半年", "2026-10-21T12:00:00+08:00", "2026-04-20T16:00:00.000Z", "halfYear"],
+    ["半年", "2026-08-31T12:00:00+08:00", "2026-02-27T16:00:00.000Z", "halfYear"],
+    ["半年", "2028-08-31T12:00:00+08:00", "2028-02-28T16:00:00.000Z", "halfYear"],
+    ["半年", "2026-01-01T12:00:00+08:00", "2025-06-30T16:00:00.000Z", "halfYear"],
+    ["今年", "2026-12-31T15:59:59Z", "2025-12-31T16:00:00.000Z", "year"],
+    ["今年", "2026-12-31T16:00:00Z", "2026-12-31T16:00:00.000Z", "year"],
+  ]) {
+    const window = parseWindow(arg, new Date(now));
+    assert.equal(window.from.toISOString(), expected);
+    assert.equal(window.kind, kind);
+    assert.equal(window.label, arg);
+  }
 });
 
 test("三条曲线各用固定分母；包含零点更新，排除区间外事件，B50 = B30×0.6 + N20×0.4", () => {
@@ -133,7 +146,7 @@ test("名片板：玩家资料随图片数据下发，名牌版和头像在出�
   await feature.attachAssets(empty, { fileUrls: async () => assert.fail("没有素材可下时不该调用 fileUrls") });
 });
 
-test("功能入口与推分记录共用基线，月查询扩展历史，重复查询增量复用，无更新仍出图", async () => {
+test("功能入口与同步记录共用基线，月查询扩展历史，重复查询增量复用，无更新仍出图", async () => {
   const now = new Date("2026-10-20T12:00:00+08:00");
   let saved = null, calls = 0;
   const rendered = [], histories = [
@@ -175,7 +188,19 @@ test("功能入口与推分记录共用基线，月查询扩展历史，重复�
   assert.equal(calls, 1);
   await feature.run(ctx);
   assert.equal(calls, 1);
+  for (const [args, from] of [["半年", "2026-04-19T16:00:00.000Z"], ["今年", "2025-12-31T16:00:00.000Z"]]) {
+    ctx.args = args;
+    await feature.run(ctx);
+    assert.equal(saved.at, from, "长区间自动扩展历史基线");
+    assert.equal(rendered.at(-1).data.period, args);
+    assert.equal(rendered.at(-1).data.title, "推分记录");
+    assert.equal(rendered.at(-1).data.batches, 2);
+    const count = calls;
+    await feature.run(ctx);
+    assert.equal(calls, count, "重复长区间查询复用已补历史");
+  }
+  const count = calls;
   saved.friendCode = "another-account";
   await feature.run(ctx);
-  assert.equal(calls, 2, "重新绑定不能复用另一账号的历史");
+  assert.equal(calls, count + 1, "重新绑定不能复用另一账号的历史");
 });

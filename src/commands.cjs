@@ -205,7 +205,7 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
       config,
       log,
       voice: V,
-      // 功能里要用“现在几点”时走它（测试和 /推分记录 的今天/本月边界都要能固定）
+      // 功能里要用“现在几点”时走它（测试和 /同步记录 的今天/本月边界都要能固定）
       now: () => new Date(now()),
       ...extras,
       reply: (text) => send.text(event, String(text)),

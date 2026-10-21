@@ -1,22 +1,30 @@
 "use strict";
-// 分表变化只接受自然周、自然月；时间与推分记录一样按北京时间，不受服务器时区影响。
+// 查询边界统一按北京时间，不受服务器时区影响。
 const { replay, formatTime, formatDay } = require("./history.cjs");
 const DAY_MS = 86400000;
 const OFFSET_MS = 8 * 3600000;
 
 function parseWindow(args, now = new Date()) {
   const label = String(args || "").trim();
-  if (label !== "本周" && label !== "本月") return null;
+  const kinds = { 本周: "week", 本月: "month", 半年: "halfYear", 今年: "year" };
+  if (!Object.hasOwn(kinds, label)) return null;
   const local = new Date(now.getTime() + OFFSET_MS);
   let start = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), label === "本月" ? 1 : local.getUTCDate());
   if (label === "本周") start -= ((local.getUTCDay() + 6) % 7) * DAY_MS;
-  return { kind: label === "本周" ? "week" : "month", label, from: new Date(start - OFFSET_MS) };
+  if (label === "半年") {
+    // 按日历回溯六个月；月末超出目标月份时收至该月最后一天，避免 Date 自动滚到下个月。
+    const month = local.getUTCMonth() - 6;
+    const lastDay = new Date(Date.UTC(local.getUTCFullYear(), month + 1, 0)).getUTCDate();
+    start = Date.UTC(local.getUTCFullYear(), month, Math.min(local.getUTCDate(), lastDay));
+  }
+  if (label === "今年") start = Date.UTC(local.getUTCFullYear(), 0, 1);
+  return { kind: kinds[label], label, from: new Date(start - OFFSET_MS) };
 }
 
 function buildTrendData({ state, window, to = new Date(), catalog, floor } = {}) {
   const fromMs = window.from.getTime(), toMs = to.getTime();
-  if (Date.parse(state.at) > fromMs || toMs < fromMs) throw new Error("分表变化的历史基线未覆盖查询区间");
-  // 只消费旧模块公开的重放结果，不改变 /推分记录 的计算或展示。
+  if (Date.parse(state.at) > fromMs || toMs < fromMs) throw new Error("推分记录的历史基线未覆盖查询区间");
+  // 只消费旧模块公开的重放结果，不改变 /同步记录 的计算或展示。
   const { points: oldPoints, batches, initial } = replay(state, { catalog, floor });
   const points = oldPoints.map((point, i) => {
     const rows = i === 0 ? initial : batches[i - 1].afterRows;
@@ -26,7 +34,7 @@ function buildTrendData({ state, window, to = new Date(), catalog, floor } = {})
     };
   });
   let baseline = points[0];
-  // 起点表示区间开始前一刻；零点正好上传的成绩也要计入本周/本月涨幅。
+  // 起点表示区间开始前一刻；零点正好上传的成绩也要计入区间涨幅。
   for (const point of points.slice(1)) {
     if (point.ms >= fromMs) break;
     baseline = point;
@@ -56,14 +64,14 @@ function buildTrendData({ state, window, to = new Date(), catalog, floor } = {})
     return { ...meta, start, end, gain: end - start, points: values };
   });
   return {
-    title: "分表变化", period: window.label, from: fromMs, to: toMs,
+    title: "推分记录", period: window.label, from: fromMs, to: toMs,
     rangeText: formatTime(fromMs) + " — " + formatTime(toMs),
     time: formatTime(toMs), batches: updates.length, updatedCharts, series,
     ticks: makeTicks(fromMs, toMs),
   };
 }
 
-// 月视图最多五个日期刻度，避免月底挤满标签；曲线仍保留每一批数据。
+// 长区间最多五个日期刻度，避免挤满标签；曲线仍保留每一批数据。
 function makeTicks(from, to) {
   if (from === to) return [{ ms: from, label: formatDay(from) }];
   const count = Math.min(5, Math.max(2, Math.ceil((to - from) / DAY_MS) + 1));

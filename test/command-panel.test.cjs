@@ -31,6 +31,11 @@ test("清单来自功能表：管理员和隐藏指令不进，顺序跟帮助�
   assert.ok(!items.some((item) => item.name === "/示例图" || item.name === "/刷新曲库"));
   // 点一下就是把 name 填进输入框，所以它必须是认得出来的指令
   const commands = createCommands({ features, send: { text() {}, image() {} } });
+  for (const period of ["本周", "本月", "半年", "今年"]) {
+    assert.equal(commands.parse("/推分记录 " + period)?.feature.name, "trend");
+  }
+  assert.equal(commands.parse("/同步记录")?.feature.name, "history");
+  assert.equal(commands.parse("/分表变化 本周")?.feature, null);
   for (const [i, item] of items.entries()) assert.equal(commands.parse(item.name)?.feature, visible[i], item.name);
 });
 
