@@ -1,0 +1,167 @@
+/* 热门谱面：横版，高 1780，宽照油画的比例（theme.js 的 SIZE）。画框里一幅油画，右边那一栏站着原初的巫女萨拉基亚
+   （60% 不透明度、上下左右居中，跟 /同步记录、/年度总结 一样），左边抬头 + 近 7 天、近 30 天两张平行的榜。
+   底板照她的衣服配（作者 2026-10-20 要按角色的衣服配色，别用暗漆）：表格底是浅灰白的长裙，表头是深褐近黑的内裙和颈饰，
+   金线是那串金色短剑，分数照成绩卡片用墨色。 */
+:root {
+  --ink: #241c19; --muted: #74675f; --gold: #c9a865; --hair: #b9b1bd;
+  --hand: "Anna Hand", "Segoe UI Symbol", serif; --hand-bold: "Anna Hand Bold", var(--hand); --script: "Anna Script", var(--hand);
+  --frame-w: 84px; --content-w: 1680px; --row-h: 110px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #12100f; color: var(--ink); font-family: var(--hand); font-size: 28px; line-height: 1.3; }
+#page { position: relative; width: 2880px; height: 1780px; overflow: hidden; background: #171413; }
+
+/* 油画垫到框下 4px，免得框的内口露缝 */
+.scene { position: absolute; inset: calc(var(--frame-w) - 4px); overflow: hidden; }
+.painting { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+/* 抬头的字压在油画上：左上压暗；两张榜本身是浅色的底，不用整片压暗 */
+.shade { position: absolute; inset: 0; background:
+  linear-gradient(180deg, #0d0b0bb8 0%, #0d0b0b66 14%, #0d0b0b00 26%),
+  linear-gradient(90deg, #0d0b0b99 0%, #0d0b0b59 45%, #0d0b0b00 62%),
+  linear-gradient(0deg, #0d0b0b8c 0%, #0d0b0b00 14%); }
+.fullbody { position: absolute; opacity: .6; pointer-events: none; }
+
+/* 画框：theme.js 的 buildFrame 一节一节拼（乌木银丝花的立柱、扭绳纹横档、四角方墩）。框的内口压一圈阴影，油画像嵌进去的 */
+.frame { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+.frame-run { position: absolute; overflow: hidden; }
+.frame-run img { position: absolute; left: 0; top: 0; display: block; }
+.scene::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 20px 6px #000000b3; pointer-events: none; }
+
+.content { position: absolute; left: 132px; top: 126px; width: var(--content-w); }
+
+/* ── 抬头 ── */
+header { height: 236px; display: flex; justify-content: space-between; align-items: flex-start; }
+.title { color: #f3ede6; text-shadow: 0 2px 10px #0a0807, 0 0 2px #0a0807; padding-top: 4px; }
+h1 { margin: 0; font-size: 92px; font-weight: 500; letter-spacing: 12px; line-height: 1.15; }
+.title p { margin: 14px 0 0; font-size: 28px; color: #ddd3c6; }
+
+/* ── 两张榜 ── */
+.boards { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 18px; }
+.board { position: relative; display: flex; flex-direction: column; min-width: 0;
+  background: linear-gradient(165deg, #f7f5f3f2 0%, #ece8e6f2 48%, #e0dbdbf2 100%);
+  border: 1px solid #b89a5c; box-shadow: inset 0 0 0 5px #f7f5f3cc, inset 0 0 0 6px #b9b1bdb3, 0 8px 24px #000a; }
+/* 表头：内裙的深褐丝绒 + 金色双线（短剑链子的金） */
+.board h2 { position: relative; margin: 0; height: 70px; padding: 0 24px; display: flex; align-items: center; gap: 18px;
+  background: linear-gradient(180deg, #33261f, #1d1512 70%, #170f0d); border-bottom: 4px double #c9a865;
+  font-size: 35px; font-weight: 500; letter-spacing: 5px; color: #f3e6cd; text-shadow: 0 1px 3px #000; white-space: nowrap; }
+.board h2 .period { font: 700 27px var(--script); letter-spacing: 0; color: #d9c08a; }
+.board h2 .played { margin-left: auto; font-size: 25px; letter-spacing: 1px; color: #d8cab3; }
+.board h2 .played b { font: 700 30px var(--script); color: #f1dfb2; margin: 0 4px; }
+.rows { list-style: none; margin: 0; padding: 6px 16px 8px; }
+.row { position: relative; display: grid; grid-template-columns: 70px 90px minmax(0, 1fr); align-items: center; column-gap: 14px;
+  height: var(--row-h); border-bottom: 1px solid #5a463c2e; }
+.row:last-child { border-bottom: none; }
+.scored .row { grid-template-columns: 70px 90px minmax(0, 1fr) 222px; }
+.row.empty { color: var(--muted); font-size: 24px; display: flex; justify-content: center; }
+
+/* 名次：前三名是金银铜的圆牌（照 /年度总结 的领奖台），往后是数字；下面一行是跟上一期比的升降 */
+.rank { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.rank .no { font: 700 36px/1 Georgia, serif; color: #5d4b40; }
+.rank .medal { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font: 700 28px/1 Georgia, serif; color: #2b1a0c; box-shadow: 0 2px 5px #0006, inset 0 0 0 2px #fff6da88; }
+.rank .medal.m1 { background: radial-gradient(circle at 35% 30%, #fff3cf, #d9b467 60%, #9f7b39); }
+.rank .medal.m2 { background: radial-gradient(circle at 35% 30%, #ffffff, #c6ccd3 60%, #8d949d); }
+.rank .medal.m3 { background: radial-gradient(circle at 35% 30%, #ffe2c8, #c88a5a 60%, #8b5631); }
+.change { font: 700 21px/1 var(--hand-bold); white-space: nowrap; }
+.change.up { color: #2c7a41; }
+.change.down { color: #b23b33; }
+.change.same { color: #9a8e86; }
+.change.new { padding: 2px 6px 3px; border-radius: 3px; font-size: 17px; letter-spacing: 1px; color: #3a2408;
+  background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); box-shadow: inset 0 0 0 1px #5a3a0a80; }
+
+/* 曲绘：难度色的框（照 /b50 的颜料色） */
+.jacket { position: relative; width: 90px; height: 90px; margin: 0; }
+.jacket img { display: block; width: 100%; height: 100%; object-fit: cover; background: #2a2020; box-shadow: 0 0 0 3px var(--frame), 0 3px 7px #0007; }
+.jacket.missing img { visibility: hidden; }
+
+/* 曲名一行（放不下先缩到 23px，再放不下用省略号）；下面难度 + 定数 › 单曲 Rating；再下面曲师 */
+.main { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.title-line { height: 36px; font-family: var(--hand-bold); font-weight: 700; font-size: 28px; line-height: 36px; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.title-line.greek { width: 200%; height: 72px; font-size: 56px; line-height: 72px; font-weight: 900; zoom: .5; }
+.facts { display: flex; align-items: baseline; gap: 8px; height: 34px; white-space: nowrap; overflow: hidden; }
+.diff { font: 700 20px var(--hand-bold); letter-spacing: 1px; color: var(--diff-ink); }
+.const { font: 700 28px/1.2 var(--script); color: var(--diff-ink); }
+.const i { font-style: normal; margin: 0 8px 0 6px; color: #2c365c80; }
+.rating { font: 700 28px/1.2 var(--script); color: #1d5562; }
+.artist { height: 28px; font-size: 21px; line-height: 28px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 玩家的成绩：分数是这一栏最显眼的字（照成绩卡片：Anna Script Heavy、墨色），下面一行是评级封印和通关标记 */
+.mine { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 4px; min-width: 0; }
+.mine .score { font-family: "Anna Script Heavy", var(--hand); font-weight: 700; font-size: 40px; line-height: 44px; letter-spacing: -.8px; color: #131a36; white-space: nowrap; }
+.mine .badges { display: flex; align-items: center; gap: 5px; height: 46px; max-width: 100%; overflow: hidden; }
+.mine.none { align-items: center; color: #9b9089; font-size: 24px; letter-spacing: 2px; }
+
+/* 评级：金属封印（照 /b50：SSS+ 带虹彩的金、SSS 金、SS 银、S 铜、AAA 往下发黑的铁），小一号 */
+.seal { position: relative; flex: none; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; }
+.seal .wax { position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 2px 3px #0006; background:
+  radial-gradient(circle at 34% 28%, #ffffff8c, #ffffff00 38%), radial-gradient(circle, #0000 58%, #1e100461 100%), var(--metal); }
+.seal .wax::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; box-shadow: inset 0 1px 1px #00000080, inset 0 -1px 1px #ffffff73; }
+.seal span { position: relative; font-family: var(--hand-bold); font-size: 14px; font-weight: 700; letter-spacing: -.03em; color: var(--seal-ink); }
+.seal.sssp { --metal: conic-gradient(from 210deg, #d6ac55, #fff2c0, #f2c3d5, #fff0b3, #c3e8c8, #b9dbf0, #dccafa, #ffe6a0, #d6ac55); --seal-ink: #4a2a06; }
+.seal.sss { --metal: conic-gradient(from 210deg, #98702a, #f6e09c, #c39437, #fff3c6, #a67b2c, #ebcf86, #98702a); --seal-ink: #3d2405; }
+.seal.ssp, .seal.ss { --metal: conic-gradient(from 210deg, #79818a, #f3f5f7, #9fa7af, #ffffff, #838b94, #dbe0e5, #79818a); --seal-ink: #232930; }
+.seal.sp, .seal.s { --metal: conic-gradient(from 210deg, #784522, #e9b07d, #9a5e32, #f4c699, #7f4e29, #d49862, #784522); --seal-ink: #2b1205; }
+.seal.low { --metal: conic-gradient(from 210deg, #24211f, #5a554f, #2e2b28, #6a645c, #24211f); --seal-ink: #ece4d6; }
+
+/* 通关标记：照 /b50（FC 金、AJ 淡彩、AJC 鲜彩虹白字、CHAIN+ 青碧；HARD 这些是缎带签） */
+.mark { flex: none; display: flex; align-items: center; height: 26px; padding: 0 .42em 2px; font-family: var(--hand-bold); font-weight: 700; font-size: 18px;
+  white-space: nowrap; color: #fff3dc; border-radius: 2px; text-shadow: 0 1px 1px #0006; box-shadow: inset 0 0 0 1px #1e0c048c, inset 0 1px 0 #fff0d259; }
+.mark.fc, .mark.aj, .mark.ajc { box-shadow: inset 0 0 0 1px #1e0c048c, inset 0 1px 0 #fff8e1b3, 0 0 0 1px #ffecbe8c, 0 2px 4px #0006; }
+.mark.fc { color: #3a2408; text-shadow: none; background: linear-gradient(180deg, #ffe7a3, #d2a038 60%, #a7741c); }
+.mark.aj { color: #2c1c33; text-shadow: none; background: linear-gradient(90deg, #ffc5d4, #ffe8a6, #c6f0c0, #bce3f7, #d9c6ff); }
+.mark.ajc { color: #fff; text-shadow: 0 1px 1px #0009, 0 0 2px #1e0028b3; background: linear-gradient(90deg, #f0346a 0%, #ff7a1a 18%, #e0a800 34%, #1fae58 50%, #138ee0 66%, #6248f0 82%, #c23bd8 100%); }
+.mark.tag { padding-right: .95em; border-radius: 2px 0 0 2px; clip-path: polygon(0 0, 100% 0, calc(100% - .42em) 50%, 100% 100%, 0 100%); }
+.mark.hard { background: linear-gradient(180deg, #cf4a30, #84200f); }
+.mark.brave { background: linear-gradient(180deg, #9452b0, #4d1d63); }
+.mark.absolute { background: linear-gradient(180deg, #4a6fc0, #1d2f66); }
+.mark.catastrophy { color: #f5d68e; background: linear-gradient(180deg, #3a1a1a, #080303); }
+.mark.chain { background: linear-gradient(180deg, #a49fb8, #575170); }
+.mark.chain.plus { color: #fff; text-shadow: 0 1px 1px #00000080; background: linear-gradient(180deg, #4fc9b8, #1b8f81 55%, #0f5e55); }
+
+/* 难度：颜料色（照 /b50 的浅底那套）。--frame 曲绘的框，--diff-ink 难度和定数的字；WORLD'S END 用靛蓝 */
+.d0 { --frame: #4f8b52; --diff-ink: #2f5a31; }
+.d1 { --frame: #c28b25; --diff-ink: #7a5208; }
+.d2 { --frame: #b4362f; --diff-ink: #8a231c; }
+.d3 { --frame: #7c3a95; --diff-ink: #55216b; }
+.d4 { --frame: #9b1219; --diff-ink: #1a0a0b; }
+.d4 .jacket img { box-shadow: 0 0 0 2px #120607, 0 0 0 3px #9b1219, 0 0 0 4px #141428cc, 0 3px 6px #0006; }
+.d5 { --frame: #4a5fa8; --diff-ink: #33427a; }
+
+/* 页脚贴着画框下沿 */
+footer { position: absolute; left: 132px; bottom: 96px; width: var(--content-w); text-shadow: 0 2px 5px #0b0807, 0 0 2px #0b0807; }
+footer p { margin: 0; font-size: 24px; color: #d6cbbd; }
+
+/* ── 名片板：照 /年度总结（注释和来由见 themes/trend/renderer/theme.css），放在抬头右边 ── */
+.identity { position: relative; flex: none; display: flex; align-items: flex-start; gap: 16px; padding-bottom: 30px; filter: drop-shadow(0 8px 17px #0a0606b3); }
+.portrait { position: relative; flex: none; }
+.medallion { position: relative; width: 168px; height: 168px; border-radius: 50%; padding: 6px; background: conic-gradient(from 200deg, #8e6a33, #f1dca6, #a77a3b, #e8cd8d, #8e6a33); box-shadow: 0 5px 12px #000a, inset 0 0 0 1px #321905cc; }
+.medallion::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; box-shadow: inset 0 0 0 2px #281405d9, inset 0 0 12px #0000008c; }
+.chara { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #241818; }
+.medallion.empty .chara { visibility: hidden; }
+.medallion.empty::before { content: "✦"; position: absolute; inset: 6px; z-index: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #241818; font-family: "Segoe UI Symbol", serif; font-size: 36px; color: #d6b26cbb; }
+.emblem { position: absolute; left: 50%; bottom: -30px; z-index: 2; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 3px 4px #000000b3); }
+.emblem .base { display: block; height: 44px; }
+.emblem .medal { display: block; height: 80px; }
+.emblem .base + .medal { position: absolute; }
+.plate { position: relative; flex: none; width: 540px; height: 214px; }
+.plate-img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.plate.empty { border: 1px solid #b48a3ccc; background: radial-gradient(ellipse 120% 100% at 30% 10%, #fbf7ee 0%, #efe5d0 62%, #e2d3b6 100%); box-shadow: inset 0 0 0 4px #f8f1e2, inset 0 0 0 5px #b48a3c80; }
+.trophy { position: absolute; left: 33%; right: 5.5%; top: 12%; height: 20%; display: flex; align-items: center; justify-content: center; padding: 0 12px; border-radius: 3px; font-family: var(--hand-bold); font-size: 24px; font-weight: 700; color: #2a1a10; white-space: nowrap; overflow: hidden; box-shadow: inset 0 0 0 1px #ffffff59, 0 1px 3px #00000073; }
+.trophy:empty { display: none; }
+.trophy span { display: inline-block; transform-origin: center; }
+.trophy.normal { background: linear-gradient(180deg, #f7f0df, #e0cfab 60%, #cdb98f); box-shadow: inset 0 0 0 1px #fffdf766, inset 0 0 0 2px #a98a4f4d, 0 1px 3px #00000073; }
+.trophy.silver { background: linear-gradient(180deg, #f4f6f8, #b9c0c8 55%, #9aa3ad); }
+.trophy.gold { background: linear-gradient(180deg, #fff1b8, #e3b951 55%, #b8862a); }
+.trophy.platina { background: linear-gradient(180deg, #fffdf2, #eadfb6 50%, #c7b98a); }
+.trophy.rainbow, .trophy.ultima, .trophy.image { background: linear-gradient(90deg, #f6c4c4, #f5e3b0, #c9ebc0, #bfe1ef, #d6c6ef, #f3c4dd); }
+.trophy.ultima { color: #f5e6d0; background: linear-gradient(180deg, #4b1416, #1b0b0c); }
+.plate-name { position: absolute; left: 33%; right: 5.5%; top: 37%; height: 24%; display: flex; align-items: baseline; justify-content: center; color: #2a170b; white-space: nowrap; overflow: hidden; text-shadow: 0 1px 0 #fff8e159; }
+.who { display: inline-flex; align-items: baseline; gap: 10px; flex: none; transform-origin: center; }
+.level { display: flex; align-items: baseline; flex: none; font-family: var(--hand); font-weight: 700; font-size: 30px; color: #4a2f1c; }
+.level .star { color: #b0302f; margin-right: 10px; }
+.level .lv { margin-right: 2px; }
+.name { font-weight: 700; font-size: 36px; line-height: 1.2; transform-origin: left center; display: inline-block; }
+.overall { position: absolute; left: 33%; right: 5.5%; top: 61%; display: flex; align-items: baseline; justify-content: center; gap: 10px; padding: 3px 10px 2px; }
+.overall-label { font-family: var(--hand-bold); font-weight: 700; font-size: 26px; line-height: 1; letter-spacing: .04em; color: #5d3a15; }
+.overall-value { font-family: var(--script); font-weight: 700; font-size: 30px; line-height: 1; --tier-lh: 1; transform: translateY(2px); }

@@ -41,6 +41,7 @@ function createMockLxns(options = {}) {
     },
     aliasList: options.aliasList || { aliases: [{ song_id: 3, aliases: ["bbkkbkk"] }, { song_id: 407, aliases: ["混沌"] }, { song_id: 999, aliases: ["不存在"] }] },
     shares: new Map(),        // "年份/token" -> 公开分享的年度总结
+    popular: options.popular || {},   // { week, month }：热门谱面（chunithm/song/popular 的 data），没给的时段是空榜
     failNext: null,           // { status, body, times }
     tokenDelayMs: 0,          // 令牌接口故意慢一点，测并发刷新
   };
@@ -158,6 +159,12 @@ function createMockLxns(options = {}) {
     }
     if (url.pathname === "/api/v0/chunithm/song/list") return json(res, 200, state.songList);
     if (url.pathname === "/api/v0/chunithm/alias/list") return json(res, 200, state.aliasList);
+    // 热门谱面：公共接口，却跟开发者接口一样包一层 { success, data }（2026-10-22 实测）
+    if (url.pathname === "/api/v0/chunithm/song/popular") {
+      const range = url.searchParams.get("range");
+      if (range !== "week" && range !== "month") return fail(res, 400, "invalid range");
+      return ok(res, state.popular[range] || { range, period_start: "", period_end: "", updated_at: "", songs: [] });
+    }
     // 公开分享的年度总结：不用鉴权，token 不对是 404 year in review not found
     const share = url.pathname.match(/^\/api\/v0\/chunithm\/year-in-review\/(\d+)\/share\/([^/]+)$/);
     if (share) {

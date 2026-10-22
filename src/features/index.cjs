@@ -12,6 +12,7 @@ module.exports = [
   require("./song.cjs"),
   require("./search.cjs"),
   require("./chart.cjs"),
+  require("./popular.cjs"),
   require("./level.cjs"),
   require("./plate.cjs"),
   require("./history.cjs"),

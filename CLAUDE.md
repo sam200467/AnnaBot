@@ -214,6 +214,17 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 - 公开分享的年度总结 `chunithm/year-in-review/{年}/share/{token}` 不用鉴权（`lxns.yearInReviewShare`），指令还没接。
 - 别去落雪「第三方应用」里撤销测试授权：那里按应用撤销，会连服务器上 Anna 的授权一起撤掉。
 
+## /热门谱面（萨拉基亚主题）
+
+- `src/features/popular.cjs` + `themes/popular/`。数据是落雪的 `chunithm/song/popular?range=week|month`（文档没列，落雪首页「热门曲目」就是它）：
+  全站近 7 天、近 30 天上传最多的前 10 张谱面，按谱面排（EXP、ULT、WE 也会上榜）。**公共接口却包了一层 `{ success, data }`**；
+  时段是北京时间的整天（`period_end` 是北京时间零点、不含），`updated_at` 每小时 05 分变；`previous_rank` 为 null 是新上榜。
+- `binding: "none"`：没绑定也能看榜；绑定了把自己在这些谱面上的成绩画上去（授权读一次 `/scores`，好友码按曲目读 `/bests?song_id=`，3 个一批）；
+  `@某人` 看对方的成绩。两张榜先在队列外取好，都空就直接回文字。
+- 作者选的：背景 03 号透纳《狄多建设迦太基》（原始亮度，压暗的两档试过没选）、画框荷兰国立 BK-1971-122 乌木银丝花镜框
+  （拱顶的镜子，取立柱、扭绳纹横档、脚上方墩三块在页面里拼成横框）、原初的巫女萨拉基亚立绘（剧情后半在「Water Elemental」）。
+  横版 2800×1780，JPEG 76、1.5 倍。版式、配色见 `themes/popular/README.md`。
+
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
 - 基址 `https://maimai.lxns.net/api/v0/`，路径里游戏写 `chunithm`。公共接口直接返回数据；开发者/玩家接口包一层 `{ success, code, message, data }`，`lxns.cjs` 已解包。

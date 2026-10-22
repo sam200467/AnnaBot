@@ -1,0 +1,471 @@
+{
+  "ranges": [
+    {
+      "key": "week",
+      "label": "近 7 天",
+      "start": "10/15",
+      "end": "10/21",
+      "rows": [
+        {
+          "rank": 1,
+          "change": {
+            "kind": "same"
+          },
+          "id": 2838,
+          "title": "神鳴",
+          "artist": "Rígr feat. 光吉猛修",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.6,
+          "jacketId": 2838,
+          "jacket": "lxns:jacket/2838",
+          "score": {
+            "score": 1007912,
+            "rank": "sss",
+            "clear": "hard",
+            "fullCombo": "fullcombo",
+            "fullChain": null,
+            "rating": 17.64
+          }
+        },
+        {
+          "rank": 2,
+          "change": {
+            "kind": "same"
+          },
+          "id": 2846,
+          "title": "Tru'nembra",
+          "artist": "Team Grimoire & 穴山大輔",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.6,
+          "jacketId": 2846,
+          "jacket": "lxns:jacket/2846",
+          "score": {
+            "score": 1008650,
+            "rank": "sss",
+            "clear": "absolute",
+            "fullCombo": "alljusticecritical",
+            "fullChain": "fullchain2",
+            "rating": 17.71
+          }
+        },
+        {
+          "rank": 3,
+          "change": {
+            "kind": "up",
+            "value": 6
+          },
+          "id": 1086,
+          "title": "祈 -我ら神祖と共に歩む者なり-",
+          "artist": "光吉猛修 VS 穴山大輔 VS Kai VS 水野健治 VS 大国奏音",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.7,
+          "jacketId": 1086,
+          "jacket": "lxns:jacket/1086",
+          "score": {
+            "score": 1009321,
+            "rank": "sssp",
+            "clear": "clear",
+            "fullCombo": "alljustice",
+            "fullChain": "fullchain",
+            "rating": 17.85
+          }
+        },
+        {
+          "rank": 4,
+          "change": {
+            "kind": "up",
+            "value": 3
+          },
+          "id": 2825,
+          "title": "最終鬼畜妹フランドール・S (Chroma Remix)",
+          "artist": "ビートまりお × 黒魔",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2825,
+          "jacket": "lxns:jacket/2825",
+          "score": {
+            "score": 1005488,
+            "rank": "ssp",
+            "clear": "brave",
+            "fullCombo": null,
+            "fullChain": null,
+            "rating": 16.59
+          }
+        },
+        {
+          "rank": 5,
+          "change": {
+            "kind": "down",
+            "value": 2
+          },
+          "id": 2817,
+          "title": "Unwelcome School",
+          "artist": "Mitsukiyo「ブルーアーカイブ -Blue Archive-」",
+          "levelIndex": 4,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2817,
+          "jacket": "lxns:jacket/2817",
+          "score": {
+            "score": 1008650,
+            "rank": "sss",
+            "clear": "absolute",
+            "fullCombo": "alljusticecritical",
+            "fullChain": "fullchain2",
+            "rating": 17.11
+          }
+        },
+        {
+          "rank": 6,
+          "change": {
+            "kind": "down",
+            "value": 1
+          },
+          "id": 2718,
+          "title": "I Wanna",
+          "artist": "静香(CV.長谷川育美)「ワールドダイスター 夢のステラリウム」",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15.2,
+          "jacketId": 2718,
+          "jacket": "lxns:jacket/2718",
+          "score": {
+            "score": 999120,
+            "rank": "sp",
+            "clear": "hard",
+            "fullCombo": null,
+            "fullChain": null,
+            "rating": 16.16
+          }
+        },
+        {
+          "rank": 7,
+          "change": {
+            "kind": "new"
+          },
+          "id": 2340,
+          "title": "To：Be Continued",
+          "artist": "uma vs. ガリガリさむし",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.5,
+          "jacketId": 2340,
+          "jacket": "lxns:jacket/2340",
+          "score": null
+        },
+        {
+          "rank": 8,
+          "change": {
+            "kind": "down",
+            "value": 4
+          },
+          "id": 2844,
+          "title": "あの日、あの部屋で、あったこと",
+          "artist": "wotaku feat. SHIKI",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2844,
+          "jacket": "lxns:jacket/2844",
+          "score": {
+            "score": 1006021,
+            "rank": "ssp",
+            "clear": "catastrophy",
+            "fullCombo": "fullcombo",
+            "fullChain": null,
+            "rating": 16.7
+          }
+        },
+        {
+          "rank": 9,
+          "change": {
+            "kind": "up",
+            "value": 1
+          },
+          "id": 2826,
+          "title": "ニルヴの心臓",
+          "artist": "TJ.hangneil + Atomic Sphere feat.Annabel",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2826,
+          "jacket": "lxns:jacket/2826",
+          "score": {
+            "score": 1004470,
+            "rank": "ss",
+            "clear": "clear",
+            "fullCombo": null,
+            "fullChain": null,
+            "rating": 16.44
+          }
+        },
+        {
+          "rank": 10,
+          "change": {
+            "kind": "new"
+          },
+          "id": 2582,
+          "title": "Ultimate Force",
+          "artist": "削除",
+          "levelIndex": 2,
+          "level": "14",
+          "constant": 14.4,
+          "jacketId": 2582,
+          "jacket": "lxns:jacket/2582",
+          "score": null
+        }
+      ],
+      "played": 8
+    },
+    {
+      "key": "month",
+      "label": "近 30 天",
+      "start": "9/22",
+      "end": "10/21",
+      "rows": [
+        {
+          "rank": 1,
+          "change": {
+            "kind": "up",
+            "value": 3
+          },
+          "id": 2838,
+          "title": "神鳴",
+          "artist": "Rígr feat. 光吉猛修",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.6,
+          "jacketId": 2838,
+          "jacket": "lxns:jacket/2838",
+          "score": {
+            "score": 1007912,
+            "rank": "sss",
+            "clear": "hard",
+            "fullCombo": "fullcombo",
+            "fullChain": null,
+            "rating": 17.64
+          }
+        },
+        {
+          "rank": 2,
+          "change": {
+            "kind": "up",
+            "value": 6
+          },
+          "id": 2846,
+          "title": "Tru'nembra",
+          "artist": "Team Grimoire & 穴山大輔",
+          "levelIndex": 3,
+          "level": "15+",
+          "constant": 15.6,
+          "jacketId": 2846,
+          "jacket": "lxns:jacket/2846",
+          "score": {
+            "score": 1008650,
+            "rank": "sss",
+            "clear": "absolute",
+            "fullCombo": "alljusticecritical",
+            "fullChain": "fullchain2",
+            "rating": 17.71
+          }
+        },
+        {
+          "rank": 3,
+          "change": {
+            "kind": "down",
+            "value": 2
+          },
+          "id": 2817,
+          "title": "Unwelcome School",
+          "artist": "Mitsukiyo「ブルーアーカイブ -Blue Archive-」",
+          "levelIndex": 4,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2817,
+          "jacket": "lxns:jacket/2817",
+          "score": {
+            "score": 1008650,
+            "rank": "sss",
+            "clear": "absolute",
+            "fullCombo": "alljusticecritical",
+            "fullChain": "fullchain2",
+            "rating": 17.11
+          }
+        },
+        {
+          "rank": 4,
+          "change": {
+            "kind": "down",
+            "value": 1
+          },
+          "id": 2825,
+          "title": "最終鬼畜妹フランドール・S (Chroma Remix)",
+          "artist": "ビートまりお × 黒魔",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2825,
+          "jacket": "lxns:jacket/2825",
+          "score": {
+            "score": 1005488,
+            "rank": "ssp",
+            "clear": "brave",
+            "fullCombo": null,
+            "fullChain": null,
+            "rating": 16.59
+          }
+        },
+        {
+          "rank": 5,
+          "change": {
+            "kind": "up",
+            "value": 1
+          },
+          "id": 2844,
+          "title": "あの日、あの部屋で、あったこと",
+          "artist": "wotaku feat. SHIKI",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2844,
+          "jacket": "lxns:jacket/2844",
+          "score": {
+            "score": 1006021,
+            "rank": "ssp",
+            "clear": "catastrophy",
+            "fullCombo": "fullcombo",
+            "fullChain": null,
+            "rating": 16.7
+          }
+        },
+        {
+          "rank": 6,
+          "change": {
+            "kind": "down",
+            "value": 4
+          },
+          "id": 2826,
+          "title": "ニルヴの心臓",
+          "artist": "TJ.hangneil + Atomic Sphere feat.Annabel",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15,
+          "jacketId": 2826,
+          "jacket": "lxns:jacket/2826",
+          "score": {
+            "score": 1004470,
+            "rank": "ss",
+            "clear": "clear",
+            "fullCombo": null,
+            "fullChain": null,
+            "rating": 16.44
+          }
+        },
+        {
+          "rank": 7,
+          "change": {
+            "kind": "up",
+            "value": 2
+          },
+          "id": 2833,
+          "title": "並行天涯",
+          "artist": "BilliumMoto",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15.1,
+          "jacketId": 2833,
+          "jacket": "lxns:jacket/2833",
+          "score": null
+        },
+        {
+          "rank": 8,
+          "change": {
+            "kind": "new"
+          },
+          "id": 2831,
+          "title": "χρόνος",
+          "artist": "Street",
+          "levelIndex": 3,
+          "level": "14+",
+          "constant": 14.8,
+          "jacketId": 2831,
+          "jacket": "lxns:jacket/2831",
+          "score": {
+            "score": 1007912,
+            "rank": "sss",
+            "clear": "hard",
+            "fullCombo": "fullcombo",
+            "fullChain": null,
+            "rating": 16.84
+          }
+        },
+        {
+          "rank": 9,
+          "change": {
+            "kind": "down",
+            "value": 2
+          },
+          "id": 2820,
+          "title": "モエチャッカファイア",
+          "artist": "弌誠「ゲーム『ゼンレスゾーンゼロ』エレン・ジョー 同人イメージソング」",
+          "levelIndex": 4,
+          "level": "14",
+          "constant": 14.3,
+          "jacketId": 2820,
+          "jacket": "lxns:jacket/2820",
+          "score": null
+        },
+        {
+          "rank": 10,
+          "change": {
+            "kind": "down",
+            "value": 5
+          },
+          "id": 2822,
+          "title": "ラヴィ",
+          "artist": "すりぃ",
+          "levelIndex": 4,
+          "level": "14+",
+          "constant": 14.5,
+          "jacketId": 2822,
+          "jacket": "lxns:jacket/2822",
+          "score": {
+            "score": 1009321,
+            "rank": "sssp",
+            "clear": "clear",
+            "fullCombo": "alljustice",
+            "fullChain": "fullchain",
+            "rating": 16.65
+          }
+        }
+      ],
+      "played": 8
+    }
+  ],
+  "scored": true,
+  "isSelf": true,
+  "player": {
+    "name": "テストプレイヤー",
+    "level": 51,
+    "reborn": 1,
+    "rating": 16.8755,
+    "trophy": {
+      "name": "《偏愛》～Shattered Memories",
+      "color": "gold"
+    },
+    "classEmblem": {
+      "base": 4,
+      "medal": 4
+    },
+    "plateId": 20002,
+    "characterId": 8830,
+    "plate": "lxns:plate/20002",
+    "character": "lxns:character/8830"
+  },
+  "updatedAt": "2026-10-22 12:05",
+  "time": "2026-10-22 12:35"
+}

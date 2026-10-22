@@ -170,6 +170,11 @@ function createLxnsClient(options = {}) {
     collectionList: (type) => get("/chunithm/" + type + "/list"),
     // 玩家在落雪网页上公开分享的年度总结（链接 …/year-in-review/{年}/share/{token} 里的 token），不用鉴权
     yearInReviewShare: (year, token) => get("/chunithm/year-in-review/" + year + "/share/" + encodeURIComponent(token)),
+    // 热门谱面：全站近 7 天（week）/ 近 30 天（month）上传最多的前 10 张谱面，落雪首页「热门曲目」就是它（文档没列）。
+    // { range, period_start, period_end, updated_at, songs: [{ id, title, artist, rank, previous_rank, level_index, level }] }。
+    // 2026-10-22 实测：公共接口却包了一层 { success, data }；时段是北京时间的整天（period_end 是北京时间零点），
+    // updated_at 每小时 05 分变一次；previous_rank 是上一个同样长的时段里的名次，null 是新上榜
+    popular: (range) => get("/chunithm/song/popular", { query: { range } }),
   };
 }
 
