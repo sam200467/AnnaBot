@@ -275,9 +275,12 @@ test("song 主题：原创曲、五个难度、六个对应角色三份示例数
 
 test("song 主题：附加资料自动加高，长地图、解锁要求与多行版权继续换行扩展", { skip }, async (t) => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
-  t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
-  t.after(() => renderer.idle());
+  // after 按注册顺序执行；先等浏览器退出，再删目录，避免它继续写入造成 ENOTEMPTY。
+  t.after(async () => {
+    await renderer.idle();
+    fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  });
   const data = exampleData("metadata-layout.json");
   const image = await renderer.render("song", data, { format: "jpeg" });
   assert.equal(image.width, 2040);

@@ -56,7 +56,9 @@ function createMockLxns(options = {}) {
   const fail = (res, status, message) => json(res, status, { success: false, code: status, message });
 
   function playerView(p) {
-    return { name: p.name, rating: p.rating, friend_code: Number(p.friendCode), level: 1, upload_time: "2026-10-13T07:49:32Z" };
+    return { name: p.name, rating: p.rating, friend_code: Number(p.friendCode), level: 1,
+      total_play_count: p.total_play_count, over_power: p.over_power, over_power_progress: p.over_power_progress,
+      upload_time: "2026-10-13T07:49:32Z" };
   }
   function score(id, level_index, value, full = true) {
     const base = { id, song_name: "曲" + id, level: "15", level_index, clear: "clear", full_combo: null, full_chain: null, rank: "sss" };
@@ -70,7 +72,12 @@ function createMockLxns(options = {}) {
     if (rest === "/bests" && query.get("song_id")) return ok(res, p.scores.filter((s) => String(s.id) === query.get("song_id")));
     if (rest === "/bests") return ok(res, p.bests || { bests: p.scores.slice(0, 30), selections: [], new_bests: [] });
     if (rest === "/scores") return ok(res, viaDev ? p.scores.map(({ score: _s, rating: _r, over_power: _o, ...simple }) => simple) : p.scores);
-    if (rest === "/recents") return ok(res, p.scores.slice(0, 50));
+    if (rest === "/recents") return ok(res, (p.recents || p.scores).slice(0, 50));
+    // 每天传上去几条：开发者接口要对方开着历史成绩（上面已经查过谱面成绩的开关）
+    if (rest === "/heatmap") {
+      if (viaDev && !p.privacy.history) return fail(res, 403, "allow third party fetch history is disabled");
+      return ok(res, p.heatmap || {});
+    }
     if (rest === "/trend") {
       if (viaDev && !p.privacy.history) return fail(res, 403, "allow third party fetch history is disabled");
       return ok(res, [{ rating: p.rating, date: "2026-10-13" }]);
@@ -207,16 +214,21 @@ function createMockLxns(options = {}) {
     },
     // bests：/bests 原样返回的 { bests, new_bests, selections }，不给就拿 scores 的前 30 凑；
     // history：score/history 用的 Score[]（按 id、level_index 筛）；ranking：score/ranking 原样返回的列表；
-    // reviews：年度总结 { 年份: { data, needsAgree } }
-    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [], reviews = {} } = {}) {
+    // reviews：年度总结 { 年份: { data, needsAgree } }；recents：/recents 原样返回的 Score[]（不给就拿 scores 凑）；
+    // heatmap：{ 日期: 条数 }
+    addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [], reviews = {}, recents, heatmap,
+      total_play_count, over_power, over_power_progress } = {}) {
       const p = {
         friendCode: String(friendCode), name, rating,
+        total_play_count, over_power, over_power_progress,
         privacy: { player: true, scores: true, history: false, ...privacy },
         scores: scores || [score(407, 3, 1007725), score(3, 3, 1009000)],
         bests: bests || null,
         history,
         ranking,
         reviews,
+        recents: recents || null,
+        heatmap: heatmap || null,
       };
       state.players.set(String(friendCode), p);
       return p;

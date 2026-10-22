@@ -133,7 +133,8 @@ test("同一条消息以两种事件名各推一次，只回一次", async (t) =
 
 test("好友码绑定流程：没绑 → 用法 → 找不到 → 绑上 → /信息", async (t) => {
   const s = await setup(t);
-  s.lx.addPlayer({ friendCode: FC1, name: "测试玩家", rating: 16.5482 });
+  s.lx.addPlayer({ friendCode: FC1, name: "测试玩家", rating: 16.5482,
+    total_play_count: 1234, over_power: 12345.678, over_power_progress: 35.67 });
   await s.group("/信息");
   assert.equal(s.last(), V.needBinding);
   await s.group("/绑定");
@@ -144,17 +145,19 @@ test("好友码绑定流程：没绑 → 用法 → 找不到 → 绑上 → /�
   assert.match(s.last(), /记住了：测试玩家（Rating 16\.54）/);
   await s.group("/信息");
   assert.match(s.last(), /测试玩家（Rating 16\.54）\n好友码：123456789012345\n绑定方式：好友码/);
+  assert.match(s.last(), /总游玩次数：1234 次\n总 OP：12345\.68\nOP 进度：35\.67%/);
 });
 
 test("授权流程：拿链接 → 落雪页面给授权码 → /授权 授权码 → 成功", async (t) => {
   const s = await setup(t);
-  s.lx.addPlayer({ friendCode: FC1, name: "测试玩家" });
+  s.lx.addPlayer({ friendCode: FC1, name: "测试玩家", total_play_count: 0, over_power: 0, over_power_progress: 0 });
   const code = await s.authorize("U1", FC1);
   assert.match(s.texts().at(-1), /只对你有效/);
   await s.group("/授权 " + code);
   assert.match(s.last(), /^好了：测试玩家/);
   await s.group("/信息");
   assert.match(s.last(), /绑定方式：授权/);
+  assert.match(s.last(), /总游玩次数：0 次\n总 OP：0\.00\nOP 进度：0\.00%/);
   // 授权码没进日志
   assert.ok(!s.logs.join("\n").includes(code));
 });
@@ -184,6 +187,7 @@ test("私聊：有进行中的授权时直接发授权码也认；没有时当�
   assert.match(s.last(), /^好了：/);
   await s.direct("信息");                                 // 私聊里不带前缀的指令词也认
   assert.match(s.last(), /绑定方式：授权/);
+  assert.match(s.last(), /总游玩次数：未知\n总 OP：未知\nOP 进度：未知/);
 });
 
 test("/解绑 要在有效期内再发一次才执行", async (t) => {

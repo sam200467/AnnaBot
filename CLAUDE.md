@@ -225,6 +225,22 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   （拱顶的镜子，取立柱、扭绳纹横档、脚上方墩三块在页面里拼成横框）、原初的巫女萨拉基亚立绘（剧情后半在「Water Elemental」）。
   横版 2800×1780，JPEG 76、1.5 倍。版式、配色见 `themes/popular/README.md`。
 
+## /出勤记录（テルスウラス主题）
+
+- `src/features/attendance.cjs` + `src/attendance.cjs` + `themes/attendance/`（别名 `/出勤`）。最近一次出勤打了哪些谱面、几点到几点，
+  下面一条近一年的同步日历。跟 `/同步记录` 不一样：没涨分的、被技能强制结束的游玩都算。`/同步记录` 不动（作者 2026-10-22 定的：另开一个，不替换）。
+- 数据：Recent 50（开发者接口 `/recents`，授权绑定也走它，用存着的好友码）切场 —— 相邻两次隔 2 小时以上算两场，取最近一场；
+  同一张谱面合成一行（这场最高分、几次里最好的通关标记）：12 张以内排一栏，多写定数和每一次的分数（✕ 是被强制结束的），
+  行高按张数把位置填满、字跟着放大；13 张以上分两栏只写 ×次数，最多 24 张；Recent 50 全是这一场时注明前面可能还有。
+  **列表和日历中间不留空**（作者嫌第一版空一大段）：6 张以下填不满就让整张图变矮，7 张以上都是 1780 左右。
+  日历是 heatmap（`user/chunithm/player/heatmap`，只走授权：开发者接口要对方开着历史成绩），按同步那天记，照实画、不拿 Recent 50 改。
+  新纪录对 `/scores`：最好成绩分数等于这场最高、`upload_time` 跟那次游玩同一次同步（≤15 秒）。所以 `binding: "oauth"`、只看自己。
+- 作者选了原初的巫女テルスウラス（《紀律》～ As One，曲目 2091；涅菲谢的侍女，立绘手里拿着怀表）；立绘 475×1080 很窄，右栏只要 650 宽，
+  左边内容区放宽到 1740。横版 2700 宽、最高 1780，JPEG 76、1.5 倍。**背景油画和画框还没选**（候选在 `data/bg-candidates/telseuras/`），
+  现在是候选 11 占位和 CSS 画的木框。细节见 `themes/attendance/README.md`。
+- 本机 try 绑定库的授权 2026-10-22 已失效：`npm run try -- "#出勤记录"` 只会回「授权失效」，要作者重新授权一次 try 绑定才能整条走通；
+  草图用 `node themes/attendance/design/render-real.cjs`（个人密钥）。
+
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 
 - 基址 `https://maimai.lxns.net/api/v0/`，路径里游戏写 `chunithm`。公共接口直接返回数据；开发者/玩家接口包一层 `{ success, code, message, data }`，`lxns.cjs` 已解包。
@@ -245,6 +261,10 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   被技能强制结束的（分数很低、clear 是 failed）也在里面。OAuth 的 `read_player` 权限包括历史成绩；开发者接口要对方开着
   「允许读取历史成绩」（默认关）。排名 `user/chunithm/player/score/ranking?song_id&level_index` 只有玩家接口有：前 10 名加自己那一条，
   同分同名次。落雪没有中二的谱面文件（素材服务器的 `chunithm/chart/` 是 404），密度、变速这些分析不了。
+- Recent 50 和 heatmap（2026-10-22 拿作者的真数据对过）：`/recents` 每条有 `play_time`（UTC、精确到分钟）和 `upload_time`（哪次同步传的），
+  按游玩时间倒序；heatmap `{ "YYYY-MM-DD": 条数 }` 一天的数就是那天同步上去的游玩条数，**按同步那天记、不是打歌那天**
+  （10/16 打的 3 + 17 首第二天才同步，记在 10/17：20 条）。落雪网页「账号详情」那张近一年的热力图就是它；Recent 50 网页上没有展示。
+  `/scores` 里最好成绩的 `play_time` 是**最后一次打这张谱的时间**，不是打出这个分数的时间；`upload_time` 只在成绩变好时才变。
 - HARD / BRAVE / ABSOLUTE / CATASTROPHY 是通关标记，不是分数档：VERSE 起看通关时带的「危险技能」，各自在固定的判定次数强制结束
   （CATASTROPHY 是「天地創造」：JUSTICE 以下 10 次），见 wikiwiki「スキル比較(VERSE～)」。
 - OAuth：访问令牌 15 分钟，刷新令牌 30 天、**每次刷新都换新的、旧的立刻作废**。刷新的串行和写回在 `bindings.cjs`，别绕过它直接调 `oauth.refresh`。

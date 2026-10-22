@@ -142,6 +142,9 @@ function createBindings({ vault, lxns, oauth = null, now = Date.now, log = () =>
       songBests: (songId) => either((u) => u.songBests(songId), () => lxns.dev.songBests(friendCode, songId)),
       // 最近 50 条，只有开发者接口有
       recents: () => lxns.dev.recents(friendCode),
+      // 每天传上去几条成绩（/出勤记录 的日历）。开发者接口要对方开着「允许读取历史成绩」（默认关），所以只走授权
+      heatmap: () => (oauthOk ? viaUser((u) => u.heatmap(), null)
+        : Promise.reject(new LxnsError("需要授权才能读出勤日历", { code: isOAuth ? "oauth_expired" : "need_oauth" }))),
       // 全部成绩 Score[]（带分数），只有 OAuth 能读
       scores: () => (oauthOk ? viaUser((u) => u.scores(), null)
         : Promise.reject(new LxnsError("需要授权才能读全部分数", { code: isOAuth ? "oauth_expired" : "need_oauth" }))),

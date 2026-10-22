@@ -9,6 +9,8 @@ const { OAuthError } = require("./lxns-oauth.cjs");
 
 // 截到两位小数，容差的道理见 themes/shared/theme-kit.js 的 format.rating
 const formatRating = (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) / 100).toFixed(2);
+// 玩家资料可能还没同步这些字段；缺失不能显示成 0，进度本身已经是百分数。
+const formatPlayerStat = (value, digits, unit = "") => Number.isFinite(value) && value >= 0 ? value.toFixed(digits) + unit : "未知";
 const V = {
   unknownCommand: "这个我不会哦。发「/帮助」，我把会做的都写在上面了。",
   notACommand: "要帮忙的话，发「/帮助」。……我会尽力的。",
@@ -87,6 +89,10 @@ const V = {
   trendUsage: "用法：/推分记录 本周 / 本月 / 半年 / 今年。需要授权；本周从周一、本月从一号、今年从一月一号开始；半年从六个月前同日零点开始，月末超出则取该月最后一天。均按北京时间。",
   historyNoScores: "你还没有成绩。先打几首再来吧。",
   historyNoRecords: "还没有同步记录。等下一次同步再来吧。",
+
+  // ── /出勤记录 ──
+  attendanceUsage: "直接发「/出勤记录」就好，后面不用写别的。看最近一次出勤打了哪些谱面、打了多久，下面是近一年的同步日历。要授权。",
+  attendanceNoPlays: "落雪上还没有你最近的游玩记录。打完歌去落雪同步一次，再来找我吧。",
 
   // ── /年度总结 ──
   yearReviewUsage: "用法：/年度总结（看去年的），或者「/年度总结 2024」写年份。要授权，只能看自己的。",
@@ -184,6 +190,9 @@ const V = {
     player.name + "（Rating " + formatRating(player.rating) + "）",
     "好友码：" + player.friend_code,
     "绑定方式：" + (api.method === "oauth" ? (api.oauthExpired ? "授权（已失效，发「/授权」重新授权）" : "授权") : "好友码"),
+    "总游玩次数：" + formatPlayerStat(player.total_play_count, 0, " 次"),
+    "总 OP：" + formatPlayerStat(player.over_power, 2),
+    "OP 进度：" + formatPlayerStat(player.over_power_progress, 2, "%"),
     "落雪上次同步：" + (player.upload_time ? new Date(player.upload_time).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false }) : "未知"),
   ].join("\n"),
 };

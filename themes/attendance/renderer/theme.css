@@ -1,0 +1,100 @@
+/* 固定横版 2700×1780：左边抬头、五格统计、最近一次出勤（一行一张谱面）、近一年日历；右边原初的巫女テルスウラス。
+   配色照她的衣服：披肩和裙子的苔绿、围裙的象牙白、发梢的淡紫、刺绣的旧金。 */
+:root { --ink:#ece5d2; --muted:#c3b99f; --moss:#2f5a43; --ivory:#e9e1cc; --lilac:#c9b2e8; --gold:#c8a96a;
+  --hand:"Anna Hand","Segoe UI Symbol",serif; --hand-bold:"Anna Hand Bold",var(--hand); --script:"Anna Script",var(--hand); }
+* { box-sizing:border-box; }
+body { margin:0; background:#151714; color:var(--ink); font-family:var(--hand); font-size:28px; line-height:1.3; }
+#page { position:relative; width:2700px; height:1780px; overflow:hidden; background:#171a16; }
+.scene { position:absolute; inset:80px; overflow:hidden; }
+.painting { width:100%; height:100%; object-fit:cover; object-position:center; }
+/* 左边压暗一点，字底下够暗；右边留给立绘 */
+.shade { position:absolute; inset:0; background:linear-gradient(90deg,#121512b0,#1412102e 68%,#12121222),linear-gradient(0deg,#0f110f8c,transparent 40%); }
+/* 立绘 475×1080，细长：按高度放大，夹在右边那一栏（1912～2566），不压字。图变矮时（谱面很少）跟着缩小 */
+.figure { position:absolute; left:1912px; top:170px; bottom:123px; width:654px; }
+.figure img { width:100%; height:100%; object-fit:contain; opacity:.62; filter:saturate(.8) brightness(.96); }
+/* 画框还没选：先画一圈深木色加两道金线占位 */
+.frame { position:absolute; inset:0; pointer-events:none; border:80px solid #2a241d;
+  box-shadow:inset 0 0 0 3px #b89a5e,inset 0 0 0 9px #2a241d,inset 0 0 0 11px #8c744a,inset 0 0 22px 11px #0008; }
+
+/* 从上往下排，不留空：列表按张数定行高（theme.js），图的高度按内容算，最高 1780 左右 */
+.content { position:absolute; left:132px; top:104px; width:1740px; display:flex; flex-direction:column; }
+header { height:150px; text-shadow:0 2px 8px #0b0c0a; }
+h1 { margin:0; font-size:88px; letter-spacing:10px; font-weight:500; line-height:1.15; }
+header p { margin:8px 0 0 4px; font-size:36px; color:#e4dbc4; letter-spacing:1px; }
+header p .clock { font-family:var(--script); font-weight:700; font-size:38px; }
+
+.panel { position:relative; background:linear-gradient(105deg,#141d17e3,#18201bdf); border:1px solid #b5a476;
+  box-shadow:inset 0 0 0 5px #121812e6,inset 0 0 0 7px #7b7154,0 5px 18px #0006; }
+h2 { position:relative; display:flex; align-items:baseline; justify-content:space-between; margin:0; padding:14px 24px 12px; font-size:34px; letter-spacing:3px;
+  font-weight:500; color:#22362a; background:linear-gradient(90deg,#ebe3cfe6,#d9d0b9e6 65%,#c9bea5ea); border-bottom:4px double #6c5a86;
+  box-shadow:inset 0 2px #f6efdd,inset 0 -2px #e2d7bd; }
+h2 .note { font-size:23px; letter-spacing:1px; color:#4d5a4f; }
+
+/* 五格统计：时长、游玩、谱面、新纪录、强制结束 */
+.overview { margin-top:18px; height:124px; display:grid; grid-template-columns:repeat(5,1fr); align-items:center; padding:0 12px; }
+.stat { padding:0 24px; border-left:1px solid #b3a47a55; }
+.stat:first-child { border-left:none; }
+.stat label { display:block; font-size:25px; color:var(--muted); margin-bottom:2px; }
+.stat .value { white-space:nowrap; color:#f4ecd6; font-size:28px; }
+.stat .value b { font:700 54px var(--script); margin:0 6px; }
+.stat.record .value b { color:var(--lilac); }
+.stat.failed .value b { color:#e6a593; }
+
+/* 最近一次出勤：同一张谱面一行，按这场第一次打它的先后。12 张以内排一栏（.wide，还写得下定数和每一次的分数），
+   再多分两栏（先排满左栏）。行高 --row-h 按张数把位置填满，字跟着放大 --s 倍（theme.js 算） */
+.visit { margin-top:24px; }
+#rows { --row-h:56px; --s:1; display:grid; grid-auto-flow:column; column-gap:26px; padding:8px 18px 10px; }
+.row { display:flex; align-items:center; gap:calc(10px * var(--s)); height:var(--row-h); padding:0 6px; border-bottom:1px solid #c9b98c2e; }
+.difficulty { flex:none; min-width:calc(62px * var(--s)); padding:2px 6px; text-align:center; font-size:calc(21px * var(--s)); color:#eee0c2; border:1px solid #bca88d; line-height:1.2; }
+.d0 { background:#355746; }.d1 { background:#806627; }.d2 { background:#813e32; }.d3 { background:#624469; }.d4 { background:#211c20; border-color:#ac5e57; }.d5 { background:#5a4a26; }
+/* 定数跟着难度标识的底色提亮（跟 /同步记录 一样；ULT 的底色近黑，只提亮到认得出）。
+   Segoe Script 的「9」会把前面的小数点吃进去（14.9 看着像 149），加 1px 字距让开 */
+.constant { flex:none; min-width:calc(64px * var(--s)); text-align:center; font:700 calc(27px * var(--s)) var(--script); letter-spacing:1px; color:#ddcba7; }
+.difficulty.d0 + .constant { color:#a6ce94; }
+.difficulty.d1 + .constant { color:#e8ca6e; }
+.difficulty.d2 + .constant { color:#eb9187; }
+.difficulty.d3 + .constant { color:#c79cde; }
+.difficulty.d4 + .constant { color:#746370; }
+.difficulty.d5 + .constant { color:#d6bd7a; }
+.title { flex:1; min-width:0; font-size:calc(27px * var(--s)); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; color:#e6eedf; }
+/* 一栏时：这张谱面每一次的分数，淡一点；✕ 是被技能强制结束的那次 */
+.tries { flex:none; display:flex; align-items:baseline; gap:calc(8px * var(--s)); font:700 calc(22px * var(--s)) var(--script); color:#a9a189; white-space:nowrap; }
+.tries .failed { font:calc(22px * var(--s)) var(--hand); color:#d98c79; }
+.tries .more { font:calc(19px * var(--s)) var(--hand); }
+.count { flex:none; min-width:44px; text-align:right; font:700 25px var(--script); color:#b9b096; }
+.score { flex:none; min-width:calc(142px * var(--s)); text-align:right; font:700 calc(29px * var(--s)) var(--script); color:#f2e5c4; }
+.rank { flex:none; min-width:calc(58px * var(--s)); text-align:center; font-size:calc(22px * var(--s)); color:#dccd9f; }
+.marks { flex:none; display:flex; gap:5px; font-size:calc(17px * var(--s)); }
+.mark { display:flex; align-items:center; height:calc(25px * var(--s)); padding:0 .42em 2px; font-family:var(--hand-bold); font-weight:700; white-space:nowrap; color:#fff3dc;
+  border-radius:2px; text-shadow:0 1px 1px #0006; box-shadow:inset 0 0 0 1px #1e0c048c,inset 0 1px 0 #fff0d259; }
+.mark.fc { color:#3a2408; text-shadow:none; background:linear-gradient(180deg,#ffe7a3,#d2a038 60%,#a7741c); }
+.mark.aj { color:#2c1c33; text-shadow:none; background:linear-gradient(90deg,#ffc5d4,#ffe8a6,#c6f0c0,#bce3f7,#d9c6ff); }
+.mark.ajc { color:#fff; text-shadow:0 1px 1px #0009,0 0 2px #1e0028b3; background:linear-gradient(90deg,#f0346a,#ff7a1a 18%,#e0a800 34%,#1fae58 50%,#138ee0 66%,#6248f0 82%,#c23bd8); }
+.mark.hard { background:linear-gradient(180deg,#cf4a30,#84200f); }
+.mark.brave { background:linear-gradient(180deg,#9452b0,#4d1d63); }
+.mark.absolute { background:linear-gradient(180deg,#4a6fc0,#1d2f66); }
+.mark.catastrophy { color:#f5d68e; background:linear-gradient(180deg,#3a1a1a,#080303); }
+.mark.chain { background:linear-gradient(180deg,#a49fb8,#575170); }
+.mark.chain.plus { color:#fff; background:linear-gradient(180deg,#4fc9b8,#1b8f81 55%,#0f5e55); }
+/* 这场打出了现在的最好成绩：淡紫小牌（她发梢的颜色） */
+.new { flex:none; font-size:calc(17px * var(--s)); color:#2b2040; background:linear-gradient(180deg,#eadffc,#b9a0e2); padding:1px 7px 2px; border-radius:2px;
+  box-shadow:inset 0 0 0 1px #3c2a5a66; }
+.omission { margin:0; padding:0 24px 14px; font-size:23px; color:#b7ad94; }
+
+/* 近一年：53 周 × 7 天，周一在上；颜色越深绿这天传的越多（她的土之力，走过的地方长出草来） */
+.calendar { margin-top:24px; }
+.cal { display:flex; gap:10px; padding:8px 18px 16px; }
+.weekdays { display:grid; grid-template-rows:34px repeat(7,26px); row-gap:5px; width:34px; font-size:20px; line-height:26px; color:#bdb39b; text-align:center; }
+.grid-wrap { position:relative; }
+.months { position:relative; height:34px; margin-bottom:5px; }
+.months span { position:absolute; top:0; font-size:21px; color:#d3c8ac; white-space:nowrap; }
+.grid { display:grid; grid-template-columns:repeat(53,26px); grid-template-rows:repeat(7,26px); grid-auto-flow:column; gap:5px; }
+.cell { width:26px; height:26px; border-radius:5px; background:#e9e1cc12; box-shadow:inset 0 0 0 1px #e9e1cc1f; }
+.cell.l1 { background:#2f5b3d; box-shadow:none; }
+.cell.l2 { background:#437c4e; box-shadow:none; }
+.cell.l3 { background:#66a366; box-shadow:none; }
+.cell.l4 { background:#9fd583; box-shadow:none; }
+.cell.today { box-shadow:0 0 0 2px #f2e8cb; }
+.cell.future { visibility:hidden; }
+
+footer { margin-top:14px; font-size:23px; color:#c8b99c; text-shadow:0 2px 5px #000; }

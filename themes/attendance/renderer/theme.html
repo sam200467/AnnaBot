@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page">
+    <div class="scene"><img class="painting" src="../assets/painting.jpg" alt=""><div class="shade"></div></div>
+    <div class="figure"><img src="../assets/telseuras-fullbody.png" alt="原初的巫女テルスウラス"></div>
+    <div class="content" id="content">
+      <header><h1>出勤记录</h1><p id="visit-time"></p></header>
+      <section class="overview panel" id="stats"></section>
+      <section class="visit panel"><h2>最近一次出勤<span class="note" id="visit-note"></span></h2><div id="rows"></div><p class="omission" id="visit-omission" hidden></p></section>
+      <section class="calendar panel"><h2>近一年<span class="note" id="calendar-note"></span></h2>
+        <div class="cal"><div class="weekdays"><span></span><span>一</span><span></span><span>三</span><span></span><span>五</span><span></span><span>日</span></div>
+          <div class="grid-wrap"><div class="months" id="months"></div><div class="grid" id="grid"></div></div></div>
+      </section>
+      <footer id="credit"></footer>
+    </div>
+    <div class="frame"></div>
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

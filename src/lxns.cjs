@@ -150,6 +150,9 @@ function createLxnsClient(options = {}) {
       // 文档没列，前端的成绩详情在用（2026-10-17 用个人密钥实测）；开发者接口没有这个
       scoreRanking: (songId, levelIndex) => userGet("/score/ranking", { song_id: songId, level_index: levelIndex }),
       collection: (type, id) => userGet("/" + type + "/" + id),
+      // 每天传上去几条成绩 { "YYYY-MM-DD": 条数 }（文档没列，落雪「账号详情」那张近一年的热力图就是它）。
+      // 按同步那天记，不是打歌那天（2026-10-22 跟 Recent 50 对过）；开发者接口要对方开着「允许读取历史成绩」（默认关）
+      heatmap: () => userGet("/heatmap"),
       // 年度总结（文档没列，落雪前端的年度总结页在用；2026-10-21 用 OAuth 实测能读，开发者接口没有这条路由）。
       // 没生成过的年份先是 400 agree_required，带 agree=true 就是网页上的「生成数据」：当场统计、慢，
       // 只有 Y 年的数据能在 Y+1 年里生成，别的年份是 400 invalid_year
