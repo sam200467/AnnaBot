@@ -48,13 +48,16 @@
     cell("failed", "强制结束", v.failed, "次");
   }
 
-  // 一栏时写这张谱面每一次的分数（打了不止一次才写），被强制结束的写 ✕。最多写 keep 个，后面的写成「… 共 N 次」；
-  // 一个都写不下就退回 ×次数（见 main 里让曲名那段）
+  // 打了几次写成「(3pc)」，只打一次的不写。写「×3」像是同一个分数打了三次（作者 2026-10-23）
+  const playCount = (row) => (row.count > 1 ? "(" + row.count + "pc)" : "");
+
+  // 一栏时写这张谱面每一次的分数，被强制结束的写 ✕。只打一次的也写那一次（作者 2026-10-22：跟打了几次的行一个样子，
+  // 不然有的行分数左边有小字、有的没有）。最多写 keep 个，后面的写成「… 共 N 次」；
+  // 一个都写不下就退回打了几次（playCount），只打一次的就空着（见 main 里让曲名那段）
   function fillTries(box, row, keep) {
     box.replaceChildren();
     box.dataset.keep = keep;
-    if (row.count < 2) return;
-    if (keep <= 0) { box.append(el("span", "", "×" + row.count)); return; }
+    if (keep <= 0) { box.textContent = playCount(row); return; }
     const shown = row.attempts.slice(0, keep);
     shown.forEach((value, i) => {
       if (i) box.append(el("span", "", "·"));
@@ -92,8 +95,8 @@
       root.append(el("span", "difficulty d" + row.levelIndex, LEVELS[row.levelIndex] || "—"));
       if (wide) root.append(el("span", "constant", row.constant ? fmt.constant(row.constant) : ""));
       root.append(el("span", "title", row.title));
-      // 两栏时只写 ×次数；只打了一次的不写 ×1，空着的格子留着，分数照样对齐
-      root.append(wide ? tries(row) : el("span", "count", row.count > 1 ? "×" + row.count : ""));
+      // 两栏时只写打了几次；只打一次的空着，格子留着，分数照样对齐
+      root.append(wide ? tries(row) : el("span", "count", playCount(row)));
       root.append(el("span", "score", fmt.score(row.score)), el("span", "rank", row.rank));
       const marks = el("span", "marks");
       for (const key of [row.fc, row.clear, row.chain]) {
@@ -105,7 +108,7 @@
       if (anyRecord) root.append(el("span", row.newRecord ? "new" : "new blank", "新纪录"));
       box.append(root);
     }
-    $("visit-note").textContent = wide ? "每一次的分数 · ✕ 是被强制结束的那次" : "×打的次数 · 分数取这场最高";
+    $("visit-note").textContent = wide ? "每一次的分数 · ✕ 是被强制结束的那次" : "pc 是打的次数 · 分数取这场最高";
     if (notes.length) { $("visit-omission").textContent = notes.join(" · "); $("visit-omission").hidden = false; }
   }
 
@@ -176,7 +179,7 @@
     const marksWidth = Math.max(0, ...marks.map((n) => n.offsetWidth));
     marks.forEach((n) => { n.style.minWidth = marksWidth + "px"; });
     // 一栏时每一次的分数让着曲名：曲名至少留 TITLE_ROOM 个字宽（曲名本来更短就按它缩到八成五的长度），
-    // 不够就从后往前少写几次，最后退回 ×次数。写得下的优先级：分数、评级、标记、新纪录 > 曲名 > 每一次的分数
+    // 不够就从后往前少写几次，最后退回打了几次。写得下的优先级：分数、评级、标记、新纪录 > 曲名 > 每一次的分数
     document.querySelectorAll("#rows.wide .tries").forEach((box) => {
       const title = box.parentElement.querySelector(".title");
       const room = Math.min(title.scrollWidth * 0.85, TITLE_ROOM * parseFloat(getComputedStyle(title).fontSize));
