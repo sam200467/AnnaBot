@@ -7,7 +7,7 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
-const { splitVisits, mergeCharts, buildCalendar, buildAttendanceView, levelOf, ROW_LIMIT } = require("../src/attendance.cjs");
+const { splitVisits, mergeCharts, pickRows, buildCalendar, buildAttendanceView, levelOf, ROW_LIMIT } = require("../src/attendance.cjs");
 const feature = require("../src/features/attendance.cjs");
 const { V } = require("../src/voice.cjs");
 const { createLxnsClient } = require("../src/lxns.cjs");
@@ -106,6 +106,17 @@ test("整张图的数据：取最近一场，时间按北京时间、时长多�
   assert.equal(old.visit.minutes, 3);
   assert.equal(buildAttendanceView({ recents: [], catalog }), null);
   assert.equal(buildAttendanceView({ recents: [play(1, 3, 1000000, null)], catalog }), null);
+});
+
+test("谱面超过两栏能放的：新纪录全留，剩下的给后打的，画出来还按先后排", () => {
+  const rows = Array.from({ length: 30 }, (_, i) => ({ key: "k" + i, newRecord: i === 0 || i === 3 }));
+  const picked = pickRows(rows, 24);
+  assert.equal(picked.length, 24);
+  assert.deepEqual(picked.slice(0, 3).map((row) => row.key), ["k0", "k3", "k8"]);
+  assert.equal(picked.at(-1).key, "k29");
+  // 新纪录本身就放不下：留后打的那些
+  assert.deepEqual(pickRows(rows.map((row) => ({ ...row, newRecord: true })), 24).map((row) => row.key)[0], "k6");
+  assert.equal(pickRows(rows.slice(0, 5), 24).length, 5);
 });
 
 test("Recent 50 全是最近这一场：注明前面可能还有；谱面超过两栏能放的，只画最后那些", () => {

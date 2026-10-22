@@ -138,6 +138,15 @@ function buildCalendar(heatmap, now) {
   return { weeks, months, activeDays, from: weeks[0][0].key, to: dayKey(today) };
 }
 
+// 一场的谱面超过图上放得下的：出了新纪录的全留（抬头那格数了几张，列表里就得看得到），剩下的位置给后打的；
+// 画出来还是按这场第一次打的先后排
+function pickRows(rows, limit = ROW_LIMIT) {
+  if (rows.length <= limit) return rows;
+  const keep = new Set(rows.filter((row) => row.newRecord).slice(-limit));
+  for (let i = rows.length - 1; i >= 0 && keep.size < limit; i--) keep.add(rows[i]);
+  return rows.filter((row) => keep.has(row));
+}
+
 // recents：/recents 原样；heatmap：{ 日期: 条数 }；bests：/scores（全部最好成绩）。没有游玩记录返回 null
 function buildAttendanceView({ recents, heatmap, bests, catalog, now = new Date() } = {}) {
   const at = now instanceof Date ? now.getTime() : Number(now);
@@ -147,7 +156,7 @@ function buildAttendanceView({ recents, heatmap, bests, catalog, now = new Date(
   const rows = mergeCharts(plays, { catalog, bests });
   const start = plays[0].ms;
   const end = plays.at(-1).ms;
-  const shown = rows.slice(-ROW_LIMIT);
+  const shown = pickRows(rows);
   // 不是今年的出勤，日期前面带上年份
   const year = beijing(start).year;
   const date = (year !== beijing(at).year ? year + "/" : "") + dayText(start);
@@ -172,5 +181,5 @@ function buildAttendanceView({ recents, heatmap, bests, catalog, now = new Date(
 
 module.exports = {
   VISIT_GAP_MS, ROW_LIMIT, CALENDAR_WEEKS, LEVEL_FLOORS,
-  splitVisits, mergeCharts, buildCalendar, buildAttendanceView, levelOf,
+  splitVisits, mergeCharts, pickRows, buildCalendar, buildAttendanceView, levelOf,
 };

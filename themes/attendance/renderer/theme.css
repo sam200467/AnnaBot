@@ -5,16 +5,19 @@
 * { box-sizing:border-box; }
 body { margin:0; background:#151714; color:var(--ink); font-family:var(--hand); font-size:28px; line-height:1.3; }
 #page { position:relative; width:2700px; height:1780px; overflow:hidden; background:#171a16; }
-.scene { position:absolute; inset:80px; overflow:hidden; }
+/* 油画垫到框下 4px，免得框的内口露缝 */
+.scene { position:absolute; inset:76px; overflow:hidden; }
 .painting { width:100%; height:100%; object-fit:cover; object-position:center; }
 /* 左边压暗一点，字底下够暗；右边留给立绘 */
-.shade { position:absolute; inset:0; background:linear-gradient(90deg,#121512b0,#1412102e 68%,#12121222),linear-gradient(0deg,#0f110f8c,transparent 40%); }
+.shade { position:absolute; inset:0; background:linear-gradient(90deg,#121512b0,#1412102e 68%,#12121222),linear-gradient(0deg,#0f110f8c,transparent 40%);
+  box-shadow:inset 0 0 18px 8px #0009; }
 /* 立绘 475×1080，细长：按高度放大，夹在右边那一栏（1912～2566），不压字。图变矮时（谱面很少）跟着缩小 */
 .figure { position:absolute; left:1912px; top:170px; bottom:123px; width:654px; }
 .figure img { width:100%; height:100%; object-fit:contain; opacity:.62; filter:saturate(.8) brightness(.96); }
-/* 画框还没选：先画一圈深木色加两道金线占位 */
-.frame { position:absolute; inset:0; pointer-events:none; border:80px solid #2a241d;
-  box-shadow:inset 0 0 0 3px #b89a5e,inset 0 0 0 9px #2a241d,inset 0 0 0 11px #8c744a,inset 0 0 22px 11px #0008; }
+/* 画框：胡桃木花卉镶嵌镜框，四角 + 边条拼（theme.js 的 FRAME） */
+.frame { position:absolute; inset:0; pointer-events:none; }
+.frame-run { position:absolute; overflow:hidden; }
+.frame img { position:absolute; display:block; }
 
 /* 从上往下排，不留空：列表按张数定行高（theme.js），图的高度按内容算，最高 1780 左右 */
 .content { position:absolute; left:132px; top:104px; width:1740px; display:flex; flex-direction:column; }
@@ -31,12 +34,13 @@ h2 { position:relative; display:flex; align-items:baseline; justify-content:spac
 h2 .note { font-size:23px; letter-spacing:1px; color:#4d5a4f; }
 
 /* 五格统计：时长、游玩、谱面、新纪录、强制结束 */
-.overview { margin-top:18px; height:124px; display:grid; grid-template-columns:repeat(5,1fr); align-items:center; padding:0 12px; }
-.stat { padding:0 24px; border-left:1px solid #b3a47a55; }
+/* 小字和数字整块上下居中。行高都压到 1：Segoe Script 的行框上面空得多，按 1.3 排数字看着偏下、小字顶着上边 */
+.overview { margin-top:18px; height:124px; display:grid; grid-template-columns:repeat(5,1fr); padding:0 12px; }
+.stat { display:flex; flex-direction:column; justify-content:center; gap:10px; margin:18px 0 14px; padding:0 24px; border-left:1px solid #b3a47a55; }
 .stat:first-child { border-left:none; }
-.stat label { display:block; font-size:25px; color:var(--muted); margin-bottom:2px; }
-.stat .value { white-space:nowrap; color:#f4ecd6; font-size:28px; }
-.stat .value b { font:700 54px var(--script); margin:0 6px; }
+.stat label { display:block; font-size:25px; line-height:1; color:var(--muted); }
+.stat .value { white-space:nowrap; color:#f4ecd6; font-size:28px; line-height:1; }
+.stat .value b { font:700 54px/1 var(--script); margin:0 6px; }
 .stat.record .value b { color:var(--lilac); }
 .stat.failed .value b { color:#e6a593; }
 
@@ -79,6 +83,7 @@ h2 .note { font-size:23px; letter-spacing:1px; color:#4d5a4f; }
 /* 这场打出了现在的最好成绩：淡紫小牌（她发梢的颜色） */
 .new { flex:none; font-size:calc(17px * var(--s)); color:#2b2040; background:linear-gradient(180deg,#eadffc,#b9a0e2); padding:1px 7px 2px; border-radius:2px;
   box-shadow:inset 0 0 0 1px #3c2a5a66; }
+.new.blank { visibility:hidden; }
 .omission { margin:0; padding:0 24px 14px; font-size:23px; color:#b7ad94; }
 
 /* 近一年：53 周 × 7 天，周一在上；颜色越深绿这天传的越多（她的土之力，走过的地方长出草来） */
