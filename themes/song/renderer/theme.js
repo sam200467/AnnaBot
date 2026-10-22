@@ -268,6 +268,24 @@
       date.append(el("small", null, "日服上线"), el("b", null, song.releaseJP));
       kin.append(date);
     }
+
+    // 曲库有资料时才出现，未提供的字段不留空栏。
+    const details = $("details");
+    const detail = (label, value, kind) => {
+      if (!value) return;
+      details.append(el("dt", kind, label), el("dd", kind, value));
+      details.hidden = false;
+    };
+    detail("所属地图", song.map);
+    detail("解锁要求", song.unlock, "unlock");
+    if (song.copyright) {
+      $("copyright").textContent = song.copyright;
+      $("copyright").hidden = false;
+    }
+    if (data.previewNote) {
+      $("preview-note").textContent = data.previewNote;
+      $("preview-note").hidden = false;
+    }
   }
 
   // ── 下半：一行一个难度 ──
@@ -315,6 +333,7 @@
 
     const rating = el("div", "rating", played ? ThemeKit.format.rating(chart.rating) : "—");
     row.append(tag, main, seal, marks, rating);
+    if (chart.levelIndex === 4 && chart.addedVersion) row.append(el("small", "chart-version", "日服追加 " + chart.addedVersion));
     return row;
   }
 
@@ -339,6 +358,7 @@
     shrinkToFit($("artist"), { min: 24, fits: fitsWidth($("artist")) });
     // 谱师名字长的（几个人合写的）先缩字，缩到 22px 还放不下再用省略号
     for (const meta of document.querySelectorAll(".meta")) shrinkToFit(meta, { min: 22, fits: fitsWidth(meta) });
+    for (const version of document.querySelectorAll(".chart-version")) shrinkToFit(version, { min: 16, fits: fitsWidth(version) });
     // 对应角色好几个、名字连起来太长：每一级先缩字（最小 24px），还放不下就换短一级的写法，最后一级还不行用省略号。
     // 不能一路缩下去：六个人的名字缩到放得下，字小得看不清（2026-10-16 试的相思創愛）
     for (const names of document.querySelectorAll(".kin .names")) {
@@ -392,6 +412,11 @@
     fitText();
 
     const canvas = $("canvas");
+    // 新资料增加多少高度就补多少画布，五难度的成绩行和原来的字号保持不变。
+    let extraHeight = 0;
+    if (!$("details").hidden) extraHeight += $("details").offsetHeight + 20;
+    if (!$("copyright").hidden) extraHeight += $("copyright").offsetHeight + 10;
+    if (extraHeight) canvas.style.height = (1140 + extraHeight) + "px";
     const edge = tornEdge(canvas.offsetWidth, canvas.offsetHeight, random(9001), { step: 9, depth: 7, wave: 9, bite: 0.04 });
     canvas.style.clipPath = polygon(edge);
     const shadow = drawRimShadow(edge, canvas.offsetWidth, canvas.offsetHeight);

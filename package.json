@@ -22,6 +22,7 @@
     "preview": "node tools/render-preview.cjs",
     "song-bms": "node tools/build-song-bms.cjs",
     "song-extras": "node tools/build-song-extras.cjs",
+    "song-ultima": "node tools/build-song-ultima.cjs",
     "song-origins": "node tools/build-song-origins.cjs",
     "song-search": "node tools/build-song-search.cjs",
     "theme": "node tools/theme-server.cjs",

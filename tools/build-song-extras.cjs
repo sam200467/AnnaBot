@@ -398,6 +398,7 @@ async function main() {
   const opts = args();
   const out = readOut();
   out.sources = {
+    ...out.sources,
     releaseJP: "OTOGE DB（github.com/zvuc/otoge-db）chunithm/data/music-ex.json 的 date_added",
     characters: "CHUNITHM 攻略 wiki（wikiwiki.jp/chunithmwiki）「キャラクター世界観」1～3 页的角色和主题曲表，那里没有的曲子查曲目页的「対応キャラ」；按名字对上落雪角色列表的 ID",
     labels: "同一组「キャラクター世界観」页的 h2 / h3 栏目标题（レーベル、章）",
@@ -499,7 +500,8 @@ async function main() {
   console.log("已写入 " + path.relative(ROOT, OUT));
 }
 
-module.exports = { themeSongs, themeSongsWithLabels, assignCharacters, assignLabels, addFaces, charactersOn };
+module.exports = { themeSongs, themeSongsWithLabels, assignCharacters, assignLabels, addFaces, charactersOn,
+  tableGrid, cellText, cellLinks, songMatcher, fetchWiki };
 
 if (require.main === module) {
   main().catch((error) => {

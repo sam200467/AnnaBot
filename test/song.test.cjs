@@ -88,6 +88,7 @@ test("buildData：难度按顺序；同一谱面留最高分；没打过的 scor
   const data = buildData({ song, scores, catalog, extras, now: new Date("2026-10-16T04:00:00Z") });
   assert.deepEqual(data.song, {
     id: 850, title: "《混乱》 ～ Muspell", artist: "Norn", genre: "原创", bpm: 165, version: "CRYSTAL", releaseJP: "2019-12-19",
+    map: null, unlock: null, copyright: null,
     jacketId: 850, jacket: null,
     characters: [   // 好几个时都留着、按原来的顺序
       { name: "国服没有的角色", id: null, face: null, icon: null },
@@ -117,6 +118,27 @@ test("buildData：WE 曲绘用原曲、写属性和星级，对应角色用原�
   const plain = buildData({ song: catalog.getSong(3), scores: [], catalog });
   assert.equal(plain.song.releaseJP, null);
   assert.deepEqual(plain.song.characters, []);
+});
+
+test("buildData：地图、解锁要求和版权来自本曲；ULTIMA 采用核对过的日服追加版本，缺失不拿歌曲版本兜底", async (t) => {
+  const catalog = await loadCatalog(t);
+  const song = { ...catalog.getSong(3), map: "VERSE ep. STAR", locked: true, rights: "© Example Music\nLicensed by Example" };
+  const info = { get: (id) => id === 3 ? { ultimaVersionJP: "NEW" } : null };
+  const data = buildData({ song, scores: [], catalog, extras: info });
+  assert.equal(data.song.map, song.map);
+  assert.equal(data.song.unlock, "需要解锁");
+  assert.equal(data.song.copyright, song.rights);
+  assert.equal(data.song.version, "CHUNITHM");
+  assert.equal(data.charts.find((chart) => chart.levelIndex === 4).addedVersion, "NEW");
+  assert.equal("addedVersion" in data.charts[0], false);
+  const plain = buildData({ song: { ...song, locked: false }, scores: [], catalog });
+  assert.equal(plain.song.unlock, null);
+  assert.equal("addedVersion" in plain.charts.find((chart) => chart.levelIndex === 4), false);
+  const we = buildData({ song: catalog.getSong(8020), scores: [], catalog, extras: info });
+  assert.equal(we.song.map, null, "WE 不继承原曲地图与解锁要求");
+  assert.equal(we.song.unlock, null);
+  assert.equal(we.song.copyright, null);
+  assert.equal("addedVersion" in we.charts[0], false);
 });
 
 test("attachAssets：曲绘和头像换成本地地址；借来的头像也要、同一张只要一次；落雪没有的用截好的日服头像，没截就只写名字", async (t) => {
@@ -249,6 +271,23 @@ test("song 主题：原创曲、五个难度、六个对应角色三份示例数
   }
   await renderer.idle();
   assert.deepEqual(fs.readdirSync(tmp), [], "浏览器临时目录都删掉了");
+});
+
+test("song 主题：附加资料自动加高，长地图、解锁要求与多行版权继续换行扩展", { skip }, async (t) => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
+  t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
+  const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
+  t.after(() => renderer.idle());
+  const data = exampleData("metadata-layout.json");
+  const image = await renderer.render("song", data, { format: "jpeg" });
+  assert.equal(image.width, 2040);
+  assert.ok(image.height > 1356);
+  data.song.map = "很长的所属地图名称 ／ ".repeat(8);
+  data.song.unlock = "此处为测试用解锁要求。".repeat(12);
+  data.song.copyright = "© Example Music\nLicensed by Example Records\nIllustration: Example Artist";
+  const longer = await renderer.render("song", data, { format: "jpeg" });
+  assert.equal(longer.width, 2040);
+  assert.ok(longer.height > image.height, "较长资料另加高度，不压缩原本的成绩行");
 });
 
 test("附加信息表：读得到就按 ID 给，文件缺了不报错", () => {

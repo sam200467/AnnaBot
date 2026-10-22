@@ -1,6 +1,8 @@
 "use strict";
 // 曲目的附加信息：日服上线日期，原创、彩绿、音击舞萌曲的对应角色，世界观厂牌 labels（/分数列表 分类筛用）。落雪的曲库里没有这些，
 // 由 tools/build-song-extras.cjs 在开发机上生成 src/data/song-extras.json、随程序发布（来源和做法见那个工具的开头）。
+// ULTIMA 日服追加版本 ultimaVersionJP 由 tools/build-song-ultima.cjs 核对各版本追加清单后合并；
+// 不用落雪的谱面 version 或 OTOGE DB 的更新日期推算，原因见工具文件头。
 //
 //   songExtras.get(850) → { releaseJP: "2019-12-19", labels: ["シビュラ精霊記レーベル", "精霊編"],
 //                          characters: [{ name: "ティータ・アヴェニアス", id: 8790 }] }

@@ -54,12 +54,30 @@
 和 `examples/characters.json`（六个对应角色，有一个只有名字）。
 示例数据的曲目是真的、分数是编的。
 
+2026-10-22 加入地图、解锁要求、版权和 ULTIMA 日服追加版本。主题可选字段为
+`song.map`、`song.unlock`、`song.copyright` 和 ULTIMA 谱面的 `addedVersion`，缺少时不显示、不占位置。
+地图和解锁条件用头部下方的细金线信息栏，版权放在生成信息上方，追加版本放在 ULTIMA 行的 Rating 下方。
+新增文字按实际高度加高画布，保留原有成绩行的高度和字号。
+
+- 地图、解锁要求、版权直接读取落雪曲库的 `map`、`locked`、`rights`，跟曲库一起刷新。`locked: true` 只表示曲目有解锁要求，
+  不代表当前玩家尚未解锁；接口没有给具体解锁条件，所以只写「需要解锁」，不根据地图自行编条件。WE 只使用本曲的资料，不借原曲的要求。
+- ULTIMA 使用 `song-extras.json` 的 `ultimaVersionJP`，图上明确写「日服追加」。2026-10-22 核对了曲库里全部 82 首 ULTIMA：
+  落雪的谱面 `version` 全部与歌曲初出版本相同；OTOGE DB 的 `date_updated` 又会被难度调整覆盖（例如 Gate of Fate 被写成 VERSE 日期）。
+  因此由 `tools/build-song-ultima.cjs` 解析攻略 wiki 各版本的追加清单，只认 ULTIMA 行，复活重列时保留最早版本。
+  缺少这份离线资料时不显示追加版本，不用歌曲初出版本兜底。
+- 更新：`npm run song-ultima`，wiki 两次请求至少间隔 15 秒，403 时停止且不改原资料；
+  已有本地清单时用 `npm run song-ultima -- --pages data/ultima-pages --songs data/cache/songs.json`。
+  文件名为 `NEW.txt`、`NEW-PLUS.txt` 等 wiki 源代码或同名 `.html`，本地模式不联网，所有曲目都对上后才写入。
+- `examples/metadata-layout.json` 是保留的排版压力示例，四项新增资料为占位，图片右上角有说明；正式 `/单曲` 使用真实曲库及核对后的追加版本。
+
 ## 预览
 
 ```
 npm run theme -- song                                                          实时预览
 npm run preview -- song --out themes/song/previews/muspell.jpg                  正式出图流程渲染
 npm run preview -- song themes/song/examples/ultima.json --out themes/song/previews/ultima.jpg
+npm run preview -- song themes/song/examples/metadata-layout.json --out themes/song/previews/metadata-layout.jpg
 ```
 
-出图是 2040×1356 CSS 像素、两倍输出（4080×2712），JPEG 质量 76，约 1.2～1.3 MB。
+基础出图是 2040×1356 CSS 像素、两倍输出（4080×2712），JPEG 质量 76，约 1.2～1.3 MB；
+有地图、解锁要求或版权时按文字的实际高度加高画布，长文字和版权里的换行均保留。

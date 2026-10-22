@@ -5,7 +5,7 @@
 //   @某人 /单曲 曲名     看别人的（走开发者接口，受对方在落雪的「允许第三方读取」开关管）
 //
 // 成绩用落雪的 /bests?song_id=：这首歌所有谱面的最好成绩，好友码绑定也带分数（不用授权）。
-// 曲目信息来自曲库（物量要曲库带 notes 拉，见 catalog.cjs）；日服上线日期和对应角色来自 song-extras.cjs。
+// 曲目信息、地图、解锁要求、版权来自曲库；日服上线日期、对应角色和 ULTIMA 日服追加版本来自 song-extras.cjs。
 // 主题吃的数据形状见 themes/song/examples/preview-data.json。buildData 是纯函数，测试和示例数据都用它。
 
 const { pathToFileURL } = require("node:url");
@@ -70,9 +70,15 @@ function chartView(chart, score) {
 // 图上不写玩家名（作者 2026-10-16 让页脚去掉的）
 function buildData({ song, scores, catalog, extras = null, now = new Date() }) {
   const byLevel = bestByLevel(scores);
+  const extra = extras?.get(song.id);
   const charts = [...(song.difficulties || [])]
     .sort((a, b) => a.difficulty - b.difficulty)
-    .map((chart) => chartView(chart, byLevel.get(chart.difficulty)));
+    .map((chart) => {
+      const view = chartView(chart, byLevel.get(chart.difficulty));
+      // 不用落雪的 chart.version 兜底：实测旧曲的 ULTIMA 也填歌曲初出版本，会把 NEW 谱面标成无印。
+      if (chart.difficulty === 4 && extra?.ultimaVersionJP) view.addedVersion = extra.ultimaVersionJP;
+      return view;
+    });
   return {
     song: {
       id: song.id,
@@ -82,7 +88,11 @@ function buildData({ song, scores, catalog, extras = null, now = new Date() }) {
       bpm: song.bpm || null,
       // 「CHUNITHM CRYSTAL」写成「CRYSTAL」，格子窄；无印就是「CHUNITHM」
       version: catalog.versionTitle(song).replace(/^CHUNITHM\s+(?=\S)/, ""),
-      releaseJP: extras?.get(song.id)?.releaseJP || null,
+      releaseJP: extra?.releaseJP || null,
+      map: song.map || null,
+      // locked 只是曲库的解锁要求，并非当前玩家的解锁状态；接口不提供具体条件，不自行推断。
+      unlock: song.locked === true ? "需要解锁" : null,
+      copyright: song.rights || null,
       jacketId: catalog.jacketId(song),
       jacket: null,   // 出图前换成本地 file:// 地址（attachAssets）
       characters: charactersOf(song, extras, catalog),
