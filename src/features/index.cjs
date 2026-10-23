@@ -15,6 +15,7 @@ module.exports = [
   require("./popular.cjs"),
   require("./level.cjs"),
   require("./plate.cjs"),
+  require("./over-power.cjs"),
   require("./history.cjs"),
   require("./trend.cjs"),
   require("./attendance.cjs"),

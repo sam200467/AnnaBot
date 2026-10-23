@@ -1,0 +1,580 @@
+{
+  "player": {
+    "name": "テスト蓝底",
+    "level": 72,
+    "reborn": 1,
+    "rating": 17.42,
+    "trophy": {
+      "name": "聖女 アンナ・マルグレーテ",
+      "color": "rainbow"
+    },
+    "classEmblem": {
+      "base": 3,
+      "medal": 5
+    },
+    "plateId": 20002,
+    "characterId": 8830,
+    "plate": "lxns:plate/20002",
+    "character": "lxns:character/8830"
+  },
+  "total": {
+    "percent": 95.44,
+    "op": 112134.63,
+    "max": 117487,
+    "played": 1398,
+    "count": 1414
+  },
+  "genres": [
+    {
+      "name": "流行 & 动漫",
+      "percent": 94.55,
+      "op": 6043.81,
+      "max": 6392,
+      "played": 79,
+      "count": 80
+    },
+    {
+      "name": "niconico",
+      "percent": 94.63,
+      "op": 20930.78,
+      "max": 22118.5,
+      "played": 270,
+      "count": 276
+    },
+    {
+      "name": "东方Project",
+      "percent": 95.7,
+      "op": 11231.9,
+      "max": 11736.5,
+      "played": 143,
+      "count": 145
+    },
+    {
+      "name": "其他游戏",
+      "percent": 95.02,
+      "op": 19112.6,
+      "max": 20114,
+      "played": 231,
+      "count": 234
+    },
+    {
+      "name": "彩绿",
+      "percent": 94.51,
+      "op": 7749.7,
+      "max": 8199.5,
+      "played": 101,
+      "count": 102
+    },
+    {
+      "name": "音击舞萌",
+      "percent": 95.29,
+      "op": 14192.5,
+      "max": 14894,
+      "played": 176,
+      "count": 177
+    },
+    {
+      "name": "原创",
+      "percent": 96.59,
+      "op": 32873.34,
+      "max": 34032.5,
+      "played": 398,
+      "count": 400
+    }
+  ],
+  "versions": [
+    {
+      "version": 10000,
+      "name": "CHUNITHM",
+      "percent": 94.46,
+      "op": 7072.17,
+      "max": 7486.5,
+      "played": 90,
+      "count": 91
+    },
+    {
+      "version": 10500,
+      "name": "CHUNITHM PLUS",
+      "percent": 97.23,
+      "op": 3543.63,
+      "max": 3644.5,
+      "played": 44,
+      "count": 44
+    },
+    {
+      "version": 11000,
+      "name": "AIR",
+      "percent": 96.66,
+      "op": 5619.74,
+      "max": 5813.5,
+      "played": 71,
+      "count": 71
+    },
+    {
+      "version": 11500,
+      "name": "AIR PLUS",
+      "percent": 96.54,
+      "op": 4986.1,
+      "max": 5164.5,
+      "played": 64,
+      "count": 64
+    },
+    {
+      "version": 12000,
+      "name": "STAR",
+      "percent": 95.89,
+      "op": 5744.15,
+      "max": 5990,
+      "played": 72,
+      "count": 73
+    },
+    {
+      "version": 12500,
+      "name": "STAR PLUS",
+      "percent": 92.53,
+      "op": 4921.25,
+      "max": 5318,
+      "played": 63,
+      "count": 65
+    },
+    {
+      "version": 13000,
+      "name": "AMAZON",
+      "percent": 97.33,
+      "op": 4581.85,
+      "max": 4707.5,
+      "played": 57,
+      "count": 57
+    },
+    {
+      "version": 13500,
+      "name": "AMAZON PLUS",
+      "percent": 96.02,
+      "op": 5085.66,
+      "max": 5296,
+      "played": 64,
+      "count": 64
+    },
+    {
+      "version": 14000,
+      "name": "CRYSTAL",
+      "percent": 96.73,
+      "op": 5498.04,
+      "max": 5683.5,
+      "played": 69,
+      "count": 69
+    },
+    {
+      "version": 14500,
+      "name": "CRYSTAL PLUS",
+      "percent": 93.96,
+      "op": 4985.65,
+      "max": 5306,
+      "played": 63,
+      "count": 64
+    },
+    {
+      "version": 15000,
+      "name": "PARADISE",
+      "percent": 95.56,
+      "op": 3861.29,
+      "max": 4040.5,
+      "played": 47,
+      "count": 48
+    },
+    {
+      "version": 15500,
+      "name": "PARADISE LOST",
+      "percent": 95.33,
+      "op": 4651.75,
+      "max": 4879.5,
+      "played": 58,
+      "count": 59
+    },
+    {
+      "version": 20000,
+      "name": "NEW",
+      "percent": 95.58,
+      "op": 8164.66,
+      "max": 8542,
+      "played": 101,
+      "count": 102
+    },
+    {
+      "version": 20500,
+      "name": "NEW PLUS",
+      "percent": 96.21,
+      "op": 6355.17,
+      "max": 6605,
+      "played": 80,
+      "count": 80
+    },
+    {
+      "version": 21000,
+      "name": "SUN",
+      "percent": 92.76,
+      "op": 7344.75,
+      "max": 7917.5,
+      "played": 91,
+      "count": 95
+    },
+    {
+      "version": 21500,
+      "name": "SUN PLUS",
+      "percent": 96.32,
+      "op": 6503.54,
+      "max": 6751.5,
+      "played": 81,
+      "count": 81
+    },
+    {
+      "version": 22000,
+      "name": "LUMINOUS",
+      "percent": 95.2,
+      "op": 6210.49,
+      "max": 6523.5,
+      "played": 77,
+      "count": 78
+    },
+    {
+      "version": 22500,
+      "name": "LUMINOUS PLUS",
+      "percent": 96.38,
+      "op": 6013.02,
+      "max": 6238.5,
+      "played": 74,
+      "count": 74
+    },
+    {
+      "version": 23000,
+      "name": "VERSE",
+      "percent": 95.17,
+      "op": 7755.44,
+      "max": 8148.5,
+      "played": 93,
+      "count": 95
+    },
+    {
+      "version": 24000,
+      "name": "X-VERSE",
+      "percent": 94.33,
+      "op": 3236.28,
+      "max": 3430.5,
+      "played": 39,
+      "count": 40
+    }
+  ],
+  "levels": [
+    {
+      "level": "15+",
+      "percent": 97.19,
+      "op": 2166.06,
+      "max": 2228.5,
+      "played": 24,
+      "count": 24
+    },
+    {
+      "level": "15",
+      "percent": 90.77,
+      "op": 11273.94,
+      "max": 12419.5,
+      "played": 128,
+      "count": 137
+    },
+    {
+      "level": "14+",
+      "percent": 92.21,
+      "op": 15518.39,
+      "max": 16828.5,
+      "played": 182,
+      "count": 190
+    },
+    {
+      "level": "14",
+      "percent": 90.64,
+      "op": 22126.75,
+      "max": 24411,
+      "played": 266,
+      "count": 284
+    },
+    {
+      "level": "13+",
+      "percent": 93.45,
+      "op": 18975.28,
+      "max": 20304,
+      "played": 236,
+      "count": 243
+    },
+    {
+      "level": "13",
+      "percent": 94.02,
+      "op": 14001.5,
+      "max": 14890.5,
+      "played": 179,
+      "count": 184
+    },
+    {
+      "level": "12+",
+      "percent": 95.04,
+      "op": 13661.44,
+      "max": 14374,
+      "played": 180,
+      "count": 183
+    },
+    {
+      "level": "12",
+      "percent": 94.31,
+      "op": 7957.85,
+      "max": 8437.5,
+      "played": 108,
+      "count": 111
+    },
+    {
+      "level": "11+",
+      "percent": 93.95,
+      "op": 6771.61,
+      "max": 7207.5,
+      "played": 95,
+      "count": 98
+    },
+    {
+      "level": "11",
+      "percent": 97.65,
+      "op": 2086.34,
+      "max": 2136.5,
+      "played": 30,
+      "count": 30
+    },
+    {
+      "level": "10+",
+      "percent": 96.34,
+      "op": 529.91,
+      "max": 550,
+      "played": 8,
+      "count": 8
+    },
+    {
+      "level": "10",
+      "percent": 97.58,
+      "op": 261.03,
+      "max": 267.5,
+      "played": 4,
+      "count": 4
+    }
+  ],
+  "possession": {
+    "current": "silver",
+    "currentName": "蓝底",
+    "rating": 17.42,
+    "ratingNeeded": 16,
+    "charts": 1496,
+    "percent": 95.44,
+    "next": "gold",
+    "tiers": [
+      {
+        "key": "silver",
+        "name": "蓝底",
+        "rank": "S",
+        "below": 62,
+        "percent": null,
+        "done": true
+      },
+      {
+        "key": "gold",
+        "name": "金底",
+        "rank": "S+",
+        "below": 62,
+        "percent": 97.5,
+        "done": false
+      },
+      {
+        "key": "platina",
+        "name": "铂底",
+        "rank": "SS",
+        "below": 62,
+        "percent": 99,
+        "done": false
+      },
+      {
+        "key": "rainbow",
+        "name": "虹底",
+        "rank": "SSS",
+        "below": 483,
+        "percent": 99.5,
+        "done": false
+      }
+    ]
+  },
+  "headroom": {
+    "unplayed": {
+      "count": 16,
+      "max": 1302.5,
+      "songs": [
+        {
+          "songId": 1079,
+          "jacketId": 1079,
+          "title": "X7124",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15.3,
+          "score": null,
+          "op": 0,
+          "max": 91.5,
+          "gap": 91.5,
+          "jacket": "lxns:jacket/1079"
+        },
+        {
+          "songId": 2718,
+          "jacketId": 2718,
+          "title": "I Wanna",
+          "levelIndex": 3,
+          "level": "15",
+          "constant": 15.2,
+          "score": null,
+          "op": 0,
+          "max": 91,
+          "gap": 91,
+          "jacket": "lxns:jacket/2718"
+        },
+        {
+          "songId": 625,
+          "jacketId": 625,
+          "title": "volcanic",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14.4,
+          "score": null,
+          "op": 0,
+          "max": 87,
+          "gap": 87,
+          "jacket": "lxns:jacket/625"
+        },
+        {
+          "songId": 2382,
+          "jacketId": 2382,
+          "title": "Knight Rider",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14.2,
+          "score": null,
+          "op": 0,
+          "max": 86,
+          "gap": 86,
+          "jacket": "lxns:jacket/2382"
+        },
+        {
+          "songId": 2539,
+          "jacketId": 2539,
+          "title": "Ωκεανος",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14.1,
+          "score": null,
+          "op": 0,
+          "max": 85.5,
+          "gap": 85.5,
+          "jacket": "lxns:jacket/2539"
+        },
+        {
+          "songId": 2037,
+          "jacketId": 2037,
+          "title": "二次元ドリームフィーバー",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14,
+          "score": null,
+          "op": 0,
+          "max": 85,
+          "gap": 85,
+          "jacket": "lxns:jacket/2037"
+        }
+      ]
+    },
+    "played": {
+      "count": 838,
+      "songs": [
+        {
+          "songId": 2195,
+          "jacketId": 2195,
+          "title": "Komplexe",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14.3,
+          "score": 504311,
+          "op": 0.33,
+          "max": 86.5,
+          "gap": 86.17,
+          "jacket": "lxns:jacket/2195"
+        },
+        {
+          "songId": 2043,
+          "jacketId": 2043,
+          "title": "DAZZLING♡SEASON",
+          "levelIndex": 3,
+          "level": "13+",
+          "constant": 13.8,
+          "score": 547102,
+          "op": 3.45,
+          "max": 84,
+          "gap": 80.55,
+          "jacket": "lxns:jacket/2043"
+        },
+        {
+          "songId": 943,
+          "jacketId": 943,
+          "title": "クレイジー・ビート",
+          "levelIndex": 3,
+          "level": "12+",
+          "constant": 12.7,
+          "score": 510324,
+          "op": 0.66,
+          "max": 78.5,
+          "gap": 77.84,
+          "jacket": "lxns:jacket/943"
+        },
+        {
+          "songId": 614,
+          "jacketId": 614,
+          "title": "Change Our MIRAI！ (Our 7 Lights)",
+          "levelIndex": 3,
+          "level": "13",
+          "constant": 13.3,
+          "score": 577229,
+          "op": 5.34,
+          "max": 81.5,
+          "gap": 76.16,
+          "jacket": "lxns:jacket/614"
+        },
+        {
+          "songId": 2504,
+          "jacketId": 2504,
+          "title": "とまどい→レシピ",
+          "levelIndex": 3,
+          "level": "11+",
+          "constant": 11.9,
+          "score": 270413,
+          "op": 49.08,
+          "max": 74.5,
+          "gap": 25.42,
+          "jacket": "lxns:jacket/2504"
+        },
+        {
+          "songId": 335,
+          "jacketId": 335,
+          "title": "Supersonic Generation",
+          "levelIndex": 3,
+          "level": "14",
+          "constant": 14.4,
+          "score": 536932,
+          "op": 66.22,
+          "max": 87,
+          "gap": 20.78,
+          "jacket": "lxns:jacket/335"
+        }
+      ]
+    }
+  },
+  "note": "按全部曲目都已解锁计算（落雪不知道哪些歌你还没解锁），可能跟游戏里的数值有出入",
+  "credit": "Generated by Anna Bot · 数据来自落雪查分器 · 2026-10-23 12:00",
+  "example": true
+}

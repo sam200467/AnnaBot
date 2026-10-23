@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../shared/fonts.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="../../shared/rating-tiers.css">
+  <script src="../../shared/theme-kit.js"></script>
+</head>
+<body>
+  <main id="page">
+    <div class="scene"><img class="painting" src="../assets/painting.jpg" alt=""><div class="shade"></div></div>
+    <img class="fullbody" id="lenas" src="../assets/lenas-fullbody.png" alt="蕾娜斯">
+    <!-- 玩家的名片板：名牌版、称号、★转生 Lv.等级 + 名字、角色头像和段位、总 Rating（照 /推分记录），放在蕾娜斯头顶的天空里 -->
+    <aside id="identity" class="identity">
+      <div class="portrait">
+        <div class="medallion"><img id="chara" class="chara" alt=""></div>
+        <div id="emblem" class="emblem"></div>
+      </div>
+      <div id="plate" class="plate">
+        <img id="plate-img" class="plate-img" alt="">
+        <div id="trophy" class="trophy"></div>
+        <div class="plate-name"><span class="who"><span id="level" class="level"></span><span id="name" class="name"></span></span></div>
+        <div class="overall rating-floor"><span class="overall-label">总 Rating</span><span id="rating" class="overall-value"></span></div>
+      </div>
+    </aside>
+    <div class="content">
+      <header>
+        <h1>OVER POWER</h1>
+        <div class="total" id="total"></div>
+      </header>
+      <div class="bars">
+        <section class="panel genres"><h2>分类</h2><div class="rows" id="genres"></div></section>
+        <section class="panel versions"><h2>版本</h2><div class="rows" id="versions"></div></section>
+        <section class="panel levels"><h2>等级<span class="note">只算紫谱、黑谱</span></h2><div class="rows" id="levels"></div></section>
+      </div>
+      <div class="lower">
+        <section class="panel possession"><h2>底色<span class="note" id="possession-now"></span></h2><div id="possession"></div></section>
+        <section class="panel headroom"><h2>推荐游玩</h2><div id="headroom"></div></section>
+      </div>
+    </div>
+    <footer id="footer"></footer>
+    <img class="frame" src="../assets/frame.webp" alt="">
+  </main>
+  <script src="theme.js"></script>
+</body>
+</html>

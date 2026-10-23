@@ -58,7 +58,7 @@ function createMockLxns(options = {}) {
   function playerView(p) {
     return { name: p.name, rating: p.rating, friend_code: Number(p.friendCode), level: 1,
       total_play_count: p.total_play_count, over_power: p.over_power, over_power_progress: p.over_power_progress,
-      upload_time: "2026-10-13T07:49:32Z" };
+      rating_possession: p.rating_possession, upload_time: "2026-10-13T07:49:32Z" };
   }
   function score(id, level_index, value, full = true) {
     const base = { id, song_name: "曲" + id, level: "15", level_index, clear: "clear", full_combo: null, full_chain: null, rank: "sss" };
@@ -217,10 +217,10 @@ function createMockLxns(options = {}) {
     // reviews：年度总结 { 年份: { data, needsAgree } }；recents：/recents 原样返回的 Score[]（不给就拿 scores 凑）；
     // heatmap：{ 日期: 条数 }
     addPlayer({ friendCode, name, rating = 17, privacy = {}, scores, bests, history = [], ranking = [], reviews = {}, recents, heatmap,
-      total_play_count, over_power, over_power_progress } = {}) {
+      total_play_count, over_power, over_power_progress, rating_possession } = {}) {
       const p = {
         friendCode: String(friendCode), name, rating,
-        total_play_count, over_power, over_power_progress,
+        total_play_count, over_power, over_power_progress, rating_possession,
         privacy: { player: true, scores: true, history: false, ...privacy },
         scores: scores || [score(407, 3, 1007725), score(3, 3, 1009000)],
         bests: bests || null,

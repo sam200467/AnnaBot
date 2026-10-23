@@ -1,0 +1,141 @@
+/* OVER POWER 进度：固定横版 2700×1780。画框（大都会 1975.1.2169 乌木蓝玻璃箱式框，调紫；作者先看过 1975.1.2292 紫水晶框）是按画布拼好的整张图（design/prepare-materials.py），
+   油画是丘奇《荒野暮色》调紫，右边那一栏站着蕾娜斯（60% 不透明度，跟 /同步记录、/年度总结 一样）。
+   配色照她的衣服：黑色军装做底板，银白的发色和饰边做边线和字，紫色的领结、垂饰做标题条和进度条。 */
+:root { --ink:#efeaf6; --muted:#bfb5cf; --silver:#cfc9dc; --violet:#9b6fdc; --hand:"Anna Hand","Segoe UI Symbol",serif; --hand-bold:"Anna Hand Bold",var(--hand); --script:"Anna Script",var(--hand); }
+* { box-sizing:border-box; }
+body { margin:0; background:#140f19; color:var(--ink); font-family:var(--hand); font-size:28px; line-height:1.3; }
+#page { position:relative; width:2700px; height:1780px; overflow:hidden; background:#16101c; }
+/* 框宽 88，油画垫到框下 4px，免得框的内口露缝 */
+.scene { position:absolute; inset:84px; overflow:hidden; }
+.painting { width:100%; height:100%; object-fit:cover; object-position:center 40%; }
+/* 左边放表格的地方压暗；右边蕾娜斯背后是暗林，地平线那道光留着 */
+.shade { position:absolute; inset:0; background:linear-gradient(90deg,#0d0812d9 0%,#100a16bd 44%,#140d1a6b 60%,#140d1a00 70%),linear-gradient(0deg,#0c0811b3,#0c081100 30%),linear-gradient(180deg,#0c081199,#0c081100 24%); }
+.frame { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:8; }
+/* 立绘已经裁掉透明边（630×982），等比放大到 1290 高，脚落在右下角的暗林里 */
+.fullbody { position:absolute; right:104px; bottom:98px; height:1290px; width:auto; opacity:.6; filter:saturate(.95); }
+.content { position:absolute; left:132px; top:110px; width:1598px; }
+
+/* ── 抬头：标题和全曲 OP ── */
+header { height:196px; display:flex; flex-direction:column; justify-content:flex-start; text-shadow:0 2px 8px #0a060d; }
+h1 { margin:0; font-size:76px; font-weight:500; letter-spacing:12px; line-height:1.1; }
+.total { display:flex; align-items:baseline; gap:30px; margin-top:10px; white-space:nowrap; }
+.total .pct { font:700 92px/1 var(--script); }
+.total .op { font:700 42px/1 var(--script); color:#e9e2f2; }
+.total .op small { font:700 34px var(--script); color:var(--muted); margin-left:6px; }
+.total .songs { font-size:30px; color:#d9d0e6; }
+.total .songs b { font:700 34px var(--script); color:#efe8f8; margin:0 2px 0 12px; }
+
+/* ── 底板：黑色军装 + 银边，标题条是紫色的领结 ── */
+.panel { position:relative; background:linear-gradient(110deg,#110c18ed,#181221ed); border:1px solid #b9b1cc;
+  box-shadow:inset 0 0 0 5px #120d19,inset 0 0 0 7px #a99dc280,0 6px 20px #0008; overflow:hidden; }
+.panel h2 { position:relative; margin:0; height:62px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; font-size:32px; font-weight:500;
+  letter-spacing:5px; color:#f3eef9; background:linear-gradient(90deg,#4c2c76f2,#35204ff2 70%,#281a3df2); border-bottom:4px double #cbc3dc; text-shadow:0 1px 3px #12081e; }
+.panel h2 .note { font-size:22px; letter-spacing:1px; color:#d5cbe5; }
+
+/* ── 三栏进度条：分类、版本、等级 ── */
+.bars { display:grid; grid-template-columns:460px 640px 450px; gap:24px; margin-top:18px; height:826px; }
+.rows { display:flex; flex-direction:column; justify-content:space-around; height:calc(100% - 62px); padding:10px 22px 12px; }
+.row { display:flex; align-items:center; gap:14px; min-width:0; }
+.label { flex:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#ece6f4; }
+.track { position:relative; flex:1; min-width:0; height:14px; background:#ffffff12; box-shadow:inset 0 0 0 1px #cfc9dc38; border-radius:2px; overflow:hidden; }
+.track i { position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,#55309a,#9d74e2 70%,#c9adf6); box-shadow:0 0 8px #b48df066; }
+.pct { flex:none; text-align:right; font-family:var(--script); font-weight:700; }
+.count { flex:none; text-align:right; color:var(--muted); white-space:nowrap; }
+
+/* 分类：七行，一行两层：名字和百分比在上，进度条和曲数在下 */
+.genres .row { display:grid; grid-template-columns:1fr 150px; grid-template-areas:"label pct" "track count"; align-items:center; row-gap:8px; column-gap:16px; }
+.genres .label { grid-area:label; font-size:30px; }
+.genres .pct { grid-area:pct; font-size:36px; }
+.genres .track { grid-area:track; height:16px; }
+.genres .count { grid-area:count; min-width:86px; font-size:22px; }
+/* 版本：二十行，一行一条 */
+.versions .label { width:212px; font-size:24px; }
+.versions .pct { width:112px; font-size:27px; }
+.versions .count { width:84px; font-size:20px; }
+/* 等级：十二行 */
+.levels .label { width:64px; font:700 30px var(--script); color:#e6dcf3; }
+.levels .pct { width:112px; font-size:29px; }
+.levels .count { width:86px; font-size:21px; }
+
+/* OP 百分比的颜色跟底色的门槛一致（作者 2026-10-23）：默认蓝，97.50% 起金、99.00% 起铂、99.50% 起虹。
+   金、铂、虹直接用共用色阶（shared/rating-tiers.css 的 tier-gold / tier-platina / tier-rainbow，theme.js 加 class），
+   色阶表里没有蓝，用虹那条渐变里的蓝（#a8c9e7），不另调颜色 */
+.op-blue { color:#a8c9e7; }
+
+/* ── 下面一排：底色、推荐游玩 ── */
+.lower { display:grid; grid-template-columns:640px 934px; gap:24px; margin-top:22px; height:466px; }
+
+/* 底色：四档，每档一行（色块 + 条件 + 还差多少） */
+#possession { display:flex; flex-direction:column; height:calc(100% - 62px); padding:10px 22px 8px; }
+.need-rating { font-size:24px; color:#d8cfe6; margin:0 0 6px 2px; white-space:nowrap; }
+.need-rating b { font:700 28px var(--script); margin:0 4px; }
+.tier { flex:1; display:grid; grid-template-columns:82px 1fr auto; align-items:center; gap:16px; border-top:1px solid #cfc9dc2e; padding:0 6px; }
+.chip { display:flex; align-items:center; justify-content:center; height:42px; font-family:var(--hand-bold); font-weight:700; font-size:24px; border-radius:3px; box-shadow:inset 0 0 0 1px #ffffff59,0 2px 6px #0008; }
+/* 色块跟百分比用同一套颜色：蓝是 .op-blue 那个蓝，金、铂、虹照共用色阶（shared/rating-tiers.css）里的颜色和渐变 */
+.chip.silver { color:#16263b; background:#a8c9e7; }
+.chip.gold { color:#3a2a08; background:#ead091; }
+.chip.platina { color:#3a3524; background:linear-gradient(180deg,#fff5d6,#c7c5b0); }
+.chip.rainbow { color:#2a2233; background:linear-gradient(100deg,#e4a9b7,#ecc58b,#e5df9e,#a4d6b0,#a8c9e7,#c7afe1); }
+.cond { font-size:24px; color:#e6dff0; line-height:1.25; white-space:nowrap; }
+.cond small { display:block; font-size:21px; color:var(--muted); }
+.gap { text-align:right; font-size:22px; color:#d8cfe6; white-space:nowrap; line-height:1.3; }
+.gap b { font:700 29px var(--script); color:#f0e8fa; margin:0 3px; }
+.gap .done { color:#a8e0b0; font-size:25px; }
+.tier.next { background:linear-gradient(90deg,#9b6fdc2e,#9b6fdc00 75%); }
+.tier.next .chip { box-shadow:inset 0 0 0 1px #ffffff80,0 0 0 2px #e9dcff,0 2px 8px #000a; }
+.possession-note { margin:4px 0 0 2px; font-size:19px; color:#a99fba; white-space:nowrap; }
+
+/* 推荐游玩：两排曲绘，左边一栏写这排是什么；曲绘下面一行是还能涨多少 OP，打过的再一行写这张谱面现在的分数 */
+#headroom { display:flex; flex-direction:column; justify-content:space-around; height:calc(100% - 62px); padding:4px 22px 6px; }
+.hr-row { display:flex; align-items:flex-start; gap:18px; }
+.hr-head { flex:none; width:132px; padding-top:4px; }
+.hr-head b { display:block; font-size:30px; font-weight:500; color:#f1ebf8; letter-spacing:2px; }
+.hr-head span { display:block; margin-top:6px; font-size:21px; color:var(--muted); line-height:1.4; }
+.hr-head span em { font:700 23px var(--script); font-style:normal; color:#e3dbef; }
+.hr-songs { flex:1; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:14px; }
+.hr-song { min-width:0; text-align:center; }
+.hr-song .jacket { position:relative; width:100%; aspect-ratio:1; }
+.hr-song img { display:block; width:100%; height:100%; object-fit:cover; border:2px solid #cfc9dcb3; background:#241b2e; box-shadow:0 3px 8px #000a; }
+/* 定数垫难度色（紫谱紫、黑谱黑底红边、红谱红），只写数字 */
+.hr-song .diff { position:absolute; right:0; bottom:0; padding:0 6px 1px; font:700 19px/1.3 var(--script); color:#f4eefa; background:#000000a8; }
+.hr-song .diff.d3 { background:#6a3f86ee; }
+.hr-song .diff.d4 { background:#1b1416f2; color:#f0c8c8; box-shadow:inset 0 0 0 1px #b25d5dcc; }
+.hr-song .diff.d2 { background:#8a3a2cee; }
+.hr-song .plus { display:block; margin-top:4px; font:700 25px/1.15 var(--script); color:#cfb3fa; white-space:nowrap; }
+.hr-song .score { display:block; font:700 18px/1.2 var(--script); color:#bfb5cf; white-space:nowrap; }
+
+footer { position:absolute; left:132px; bottom:96px; width:1600px; font-size:21px; color:#c6bcd5; text-shadow:0 2px 5px #0a060d; white-space:nowrap; }
+
+/* ── 名片板：照 /推分记录（注释和来由见 themes/trend/renderer/theme.css），放在右上角、蕾娜斯头顶的天空里 ── */
+.identity { position:absolute; right:112px; top:112px; z-index:3; display:flex; align-items:flex-start; gap:16px; filter:drop-shadow(0 8px 17px #0a0610b3); }
+.portrait { position:relative; flex:none; }
+.medallion { position:relative; width:168px; height:168px; border-radius:50%; padding:6px; background:conic-gradient(from 200deg,#8e6a33,#f1dca6,#a77a3b,#e8cd8d,#8e6a33); box-shadow:0 5px 12px #000a, inset 0 0 0 1px #321905cc; }
+.medallion::after { content:""; position:absolute; inset:6px; border-radius:50%; box-shadow:inset 0 0 0 2px #281405d9, inset 0 0 12px #0000008c; }
+.chara { display:block; width:100%; height:100%; border-radius:50%; object-fit:cover; background:#241828; }
+.medallion.empty .chara { visibility:hidden; }
+.medallion.empty::before { content:"✦"; position:absolute; inset:6px; z-index:1; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#241828; font-family:"Segoe UI Symbol",serif; font-size:36px; color:#d6b26cbb; }
+.emblem { position:absolute; left:50%; bottom:-30px; z-index:2; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; filter:drop-shadow(0 3px 4px #000000b3); }
+.emblem .base { display:block; height:44px; }
+.emblem .medal { display:block; height:80px; }
+.emblem .base + .medal { position:absolute; }
+.plate { position:relative; flex:none; width:540px; height:214px; }
+.plate-img { position:absolute; inset:0; width:100%; height:100%; }
+.plate.empty { border:1px solid #b48a3ccc; background:radial-gradient(ellipse 120% 100% at 30% 10%,#fbf7ee 0%,#efe5d0 62%,#e2d3b6 100%); box-shadow:inset 0 0 0 4px #f8f1e2, inset 0 0 0 5px #b48a3c80; }
+.trophy { position:absolute; left:33%; right:5.5%; top:12%; height:20%; display:flex; align-items:center; justify-content:center; padding:0 12px; border-radius:3px; font-family:var(--hand-bold); font-size:24px; font-weight:700; color:#2a1a10; white-space:nowrap; overflow:hidden; box-shadow:inset 0 0 0 1px #ffffff59, 0 1px 3px #00000073; }
+.trophy:empty { display:none; }
+.trophy span { display:inline-block; transform-origin:center; }
+.trophy.normal { background:linear-gradient(180deg,#f7f0df,#e0cfab 60%,#cdb98f); box-shadow:inset 0 0 0 1px #fffdf766, inset 0 0 0 2px #a98a4f4d, 0 1px 3px #00000073; }
+.trophy.silver { background:linear-gradient(180deg,#f4f6f8,#b9c0c8 55%,#9aa3ad); }
+.trophy.gold { background:linear-gradient(180deg,#fff1b8,#e3b951 55%,#b8862a); }
+.trophy.platina { background:linear-gradient(180deg,#fffdf2,#eadfb6 50%,#c7b98a); }
+.trophy.rainbow,.trophy.ultima,.trophy.image { background:linear-gradient(90deg,#f6c4c4,#f5e3b0,#c9ebc0,#bfe1ef,#d6c6ef,#f3c4dd); }
+.trophy.ultima { color:#f5e6d0; background:linear-gradient(180deg,#4b1416,#1b0b0c); }
+.plate-name { position:absolute; left:33%; right:5.5%; top:37%; height:24%; display:flex; align-items:baseline; justify-content:center; color:#2a170b; white-space:nowrap; overflow:hidden; text-shadow:0 1px 0 #fff8e159; }
+.who { display:inline-flex; align-items:baseline; gap:10px; flex:none; transform-origin:center; }
+.level { display:flex; align-items:baseline; flex:none; font-family:var(--hand); font-weight:700; font-size:30px; color:#4a2f1c; }
+.level .star { color:#b0302f; margin-right:10px; }
+.level .lv { margin-right:2px; }
+.name { font-weight:700; font-size:36px; line-height:1.2; transform-origin:left center; display:inline-block; }
+.overall { position:absolute; left:33%; right:5.5%; top:61%; display:flex; align-items:baseline; justify-content:center; gap:10px; padding:3px 10px 2px; }
+.overall-label { font-family:var(--hand-bold); font-weight:700; font-size:26px; line-height:1; letter-spacing:.04em; color:#5d3a15; }
+.overall-value { font-family:var(--script); font-weight:700; font-size:30px; line-height:1; --tier-lh:1; transform:translateY(2px); }

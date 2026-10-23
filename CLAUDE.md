@@ -58,6 +58,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/song-search.cjs` | 认歌：简繁日汉字互通、假名和罗马音、拼错了给相近的候选（排名表在文件头）。数据是 `src/data/song-search.json`，由 `tools/build-song-search.cjs` 生成后提交 |
 | `src/score-math.cjs` | 单曲 Rating、OVER POWER、分数线和容错的算法（公式照落雪前端，拿真成绩核过），`/谱面分析` 用 |
 | `src/fit-diffs.cjs` | 拟合定数快照（EazyChu），`/拟合定数b30` 用；数据是 `src/data/fit-diffs.json`，由 `tools/build-fit-diffs.cjs` 生成后提交 |
+| `src/over-power.cjs` | 全曲 OVER POWER 按分类、版本、等级拆开，推荐游玩（OP 还能涨最多），底色条件（按全部曲目已解锁算），`/OP进度` 用 |
 | `src/song-extras.cjs` | 落雪没有的曲目信息：日服上线日期、原创 / 彩绿 / 音击舞萌曲的对应角色、世界观厂牌 labels。数据是 `src/data/song-extras.json`，由 `tools/build-song-extras.cjs` 生成后提交 |
 | `src/song-tags.cjs` | 曲目分类标签：官方分类、世界观厂牌、音击 / 舞萌、BMS；别名和 `has(song, tag)`。数据是 `src/data/song-origins.json`（`tools/build-song-origins.cjs`）和 `src/data/song-bms.json`（`tools/build-song-bms.cjs`），`/分数列表 精灵记` 用 |
 | `src/chart-designers.cjs` | 谱师原始署名和别名索引；别名在 `src/data/chart-designer-aliases.json`，由作者补。用 `node tools/list-chart-designers.cjs` 导出署名和谱面数量清单 |
@@ -242,6 +243,25 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   边条整段排、多出来的从每段两头的素木上裁，花格不切半），图高取双数免得 1.5 倍时底边露半像素暗线。细节见 `themes/attendance/README.md`。
 - 本机 try 绑定库的授权 2026-10-22 已失效：`npm run try -- "#出勤记录"` 只会回「授权失效」，要作者重新授权一次 try 绑定才能整条走通；
   草图用 `node themes/attendance/design/render-real.cjs`（个人密钥）。
+
+## /OP进度（蕾娜斯主题）
+
+- `src/features/over-power.cjs` + `src/over-power.cjs` + `themes/over-power/`（别名 `/op`、`/overpower`），只接受无参数、只收授权绑定（要每张谱面的分数）。
+  全曲 OP 按分类、版本、等级拆开，下面是底色（蓝底 / 金底 / 铂底 / 虹底）的条件和「推荐游玩」的两排曲绘
+  （没打过的按满 OP 排；打过的挑推满能涨最多的那张打过的谱面，写它的真实分数）。
+- 算法（wikiwiki「レーティング・OVER POWER」，2026-10-23 拿作者的真成绩核过）：每首歌只算 OP 最高的那张（红谱也可能是），
+  满 OP =（这首歌最高的定数 + 3）× 5（黑谱比紫谱高时按黑谱），WE 不算；等级那栏只算紫谱、黑谱，每张各算各的（作者 2026-10-23 要的）。
+  单张谱面的 OP 用曲库现在的定数重算（`score-math.overPower`），跟落雪存的 over_power 一张不差；分数取最高、FC / AJ 取所有记录里最好的。
+- **游戏的分母只算已经解锁的歌，落雪不知道谁解锁了哪些**。作者 2026-10-23 定的：一律按全部曲目已解锁算，页脚注明可能跟游戏里有出入
+  （作者的号：游戏 33.98%，按全解锁 33.41%）。被技能强制结束的记录 OP 是 0，当没打过。
+- 底色条件是玩家总结的（VERSE～X-VERSE-X，国服 X-VERSE 照这套），见 `src/over-power.cjs` 的 `POSSESSION`；落雪玩家资料的
+  `rating_possession` 是游戏里现在的底色。游戏里已经拿到的档和它下面的一律算达成，更高的档才按全解锁算还差几张（不然会「金底 ✓」又「蓝底还差 72 张」）。
+- 作者选的：角色蕾娜斯（レナス・オルスキュラ，日服 2025-12 加入、国服还没有，立绘取 CHUNITHM Story Wiki）、背景丘奇《荒野暮色》
+  稍微调紫（color 混合 32%）、画框大都会 1975.1.2169 乌木蓝玻璃箱式框调紫（P2V，70%；先用过的 1975.1.2292 紫水晶框 P1V 留着）。
+  调色离线烤进素材（`themes/over-power/design/prepare-materials.py`），横版 2700×1780，JPEG 76、1.5 倍约 1.4 MB。
+  OP 百分比的颜色跟底色门槛一致：默认蓝，97.50% 金、99.00% 铂、99.50% 虹（金铂虹用共用色阶；作者不要照游戏 70/80/90/95 分档，
+  会误导人以为够底色了）。细节见 `themes/over-power/README.md`。
+- 草图用 `node themes/over-power/design/render-real.cjs`（个人密钥）。
 
 ## 落雪接口要点（2026-10-13 用真实密钥实测）
 

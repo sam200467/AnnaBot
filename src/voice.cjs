@@ -184,6 +184,7 @@ const V = {
   plateUnknown: (words) => "「" + words.join(" ") + "」……这里只写版本名就行。\n" + V.plateUsage,
   // 版本表里已经有、但还没出曲目的版本
   plateNoSongs: (label) => label + " 还没有曲目。",
+  overPowerUsage: "直接发「/OP进度」就行，后面不用加东西。要授权；按全部曲目都已解锁计算，可能跟游戏里的数值有出入。",
 
   // ── /信息 ──
   info: (player, api) => [
