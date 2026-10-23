@@ -337,6 +337,7 @@ function deployGuide(manifest, { zip = true } = {}) {
       ? "这是完整安装包：程序 + 配置、密钥、绑定数据（" + manifest.personal.bindings + " 人）、曲库和素材缓存。第一次部署、搬服务器用。"
       : "这是更新包：只有程序，不带配置和数据。服务器上已经装过 Anna 才能用。",
     "",
+    ...((manifest.notes || []).length ? ["本次更新", ...manifest.notes.map((note) => "  · " + note), ""] : []),
     "一、服务器要什么",
     "  · Windows 64 位。Windows Server 2019 / 2022 要选「带桌面体验」的镜像（Server Core 没有浏览器，出不了图）",
     "  · Node.js 22 或更新：https://nodejs.org 下载 LTS 的 Windows 安装包（.msi），安装时勾上 Add to PATH",
