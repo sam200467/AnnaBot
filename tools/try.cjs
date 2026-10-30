@@ -16,6 +16,7 @@ const { loadConfig } = require("../src/config.cjs");
 const { createLog } = require("../src/log.cjs");
 const { createServices } = require("../src/services.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
+const { parseOwnedData } = require("../src/pager.cjs");
 const { createMockOfficial } = require("../test/mock-official.cjs");
 
 // Git Bash 会把以 / 开头的参数当成路径改写（"/信息" → "C:/Program Files/Git/信息"），这里改回来。
@@ -90,6 +91,13 @@ async function main() {
         continue;
       }
       console.log(String(body.markdown?.content ?? body.content).replace(/^/gm, "  "));
+      // 翻页按钮一排一行：回调按钮写点了执行什么（绑了发起人的标出来），页码按钮写填进输入框的那截
+      for (const row of body.keyboard?.content?.rows || []) {
+        console.log("  [按钮] " + row.buttons.map((button) => {
+          const { owner, data } = parseOwnedData(button.action.data);
+          return button.render_data.label + (button.action.type === 2 ? "（填入「" + data + "」）" : " → " + data + (owner ? "（只有发起人能点）" : ""));
+        }).join("　"));
+      }
     }
     for (const upload of qq.state.uploads.slice(uploadsBefore)) {
       const buffer = Buffer.from(upload.body.file_data, "base64");

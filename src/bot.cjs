@@ -2,7 +2,8 @@
 // 机器人主体：QQ 事件 → 指令。平台细节关在 official-transport.cjs，指令和功能在 commands.cjs / features/。
 //
 // 一条消息要过的闸，顺序照 MiaBot 的 mia-entry.cjs（那边线上踩出来的）：
-//   1. 按钮回调先应答 —— 不应答客户端会一直转圈；按钮里存的那句当成这个人发的指令
+//   1. 按钮回调先应答 —— 不应答客户端会一直转圈；按钮里存的那句当成这个人发的指令。
+//      绑了发起人的翻页按钮（/分数列表 翻的是自己的成绩，见 pager.cjs）别人点了应答「没有权限」，不执行
 //   2. 白名单：群不在 allowedGroupIds 里整条忽略；私聊看 allowPrivateChat；QQ 频道不接
 //   3. @全体成员 不是在叫 Anna，忽略
 //   4. 幂等：同一条消息可能以 GROUP_MESSAGE_CREATE 和 GROUP_AT_MESSAGE_CREATE 各推一次，只处理一次
@@ -17,6 +18,7 @@ const { createOfficial } = require("./official-transport.cjs");
 const { createCommands } = require("./commands.cjs");
 const { syncPanels } = require("./command-panel.cjs");
 const { createUpdateNotice } = require("./update-notice.cjs");
+const { parseOwnedData } = require("./pager.cjs");
 const { V } = require("./voice.cjs");
 
 function makeTarget(event) {
@@ -82,7 +84,14 @@ function createAnnaBot(config, deps = {}) {
   async function handleEvent(eventName, d) {
     const event = transport.normalize(eventName, d);
     if (!event) return;
-    if (event.interactionId) await transport.ackInteraction?.(event.interactionId, 0);
+    if (event.interactionId) {
+      // 应答码 4 是「没有权限」，客户端自己弹提示，不占回复次数
+      const owned = parseOwnedData(event.content);
+      const foreign = Boolean(owned.owner) && owned.owner !== String(event.userId);
+      event.content = owned.data;
+      await transport.ackInteraction?.(event.interactionId, foreign ? 4 : 0);
+      if (foreign) return;
+    }
 
     if (event.type === "group" && !allowGroups.has(String(event.openid))) return;
     if (event.type === "c2c" && !allowPrivate) return;

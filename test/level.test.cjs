@@ -20,7 +20,7 @@ const { createAnnaBot } = require("../src/bot.cjs");
 const { V } = require("../src/voice.cjs");
 const { createSongTags } = require("../src/song-tags.cjs");
 const { createDesignerIndex } = require("../src/chart-designers.cjs");
-const { parseQuery, resolveCharts, buildData, attachAssets, describe, commandOf, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
+const { parseQuery, resolveCharts, buildData, attachAssets, describe, commandOf, pageInput, pageCount, PER_PAGE, RENDER_SCALE } = require("../src/features/level.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 const FC1 = "123456789012345";
@@ -92,6 +92,8 @@ test("拆参数：等级、定数、页码、难度、版本、评级随便组�
   assert.deepEqual(parse("Lv.14+ 2"), { ...base, level: "14+", page: 2 });
   assert.deepEqual(parse("lv 14＋　第３页"), { ...base, level: "14+", page: 3 }, "全角也认");
   assert.deepEqual(parse("14 p2"), { ...base, level: "14", page: 2 });
+  assert.deepEqual(parse("master 第2"), { ...base, levelIndex: 3, page: 2 }, "不写「页」的「第2」：页码按钮填到「第」，用户只补数字");
+  assert.deepEqual(parse("14+ 第 3 紫"), { ...base, level: "14+", levelIndex: 3, page: 3 });
   assert.deepEqual(parse("14.5"), { ...base, constant: 14.5 });
   assert.deepEqual(parse("定数14 2"), { ...base, constant: 14, page: 2 }, "「定数」后面的整数也是定数");
   assert.deepEqual(parse("14+ 紫"), { ...base, level: "14+", levelIndex: 3 });
@@ -240,6 +242,27 @@ test("buildData：评级筛选（以下含没打过的、以上和正好不含�
   assert.deepEqual(build("13.0").data.title, { prefix: "定数", main: "13.0", sub: "全谱面成绩" });
 });
 
+test("页码按钮填进输入框的那截：补上数字就是那一页，条件一样不少", () => {
+  const catalog = catalogLike();
+  const designers = createDesignerIndex(catalog.songs, { x: ["叉"] });
+  const cases = [
+    ["14+ SSS以下", "/分数列表 14+ SSS以下 "],
+    ["14.6 黑", "/分数列表 14.6 ULTIMA "],
+    ["精灵记 紫", "/分数列表 精灵记 MASTER "],
+    ["x-verse 紫 ss以下", "/分数列表 MASTER X-VERSE SS以下 第"],
+    ["master", "/分数列表 MASTER 第"],
+    ["叉", "/分数列表 叉 "],
+  ];
+  const parse = (args) => parseQuery(args, { versions: VERSIONS, tags: TAGS, designers });
+  for (const [args, input] of cases) {
+    const query = parse(args);
+    assert.equal(pageInput("分数列表", query, TAGS), input, args);
+    const again = parse((input + "3").replace("/分数列表 ", ""));
+    assert.deepEqual([again.page, describe(again, null, TAGS)], [3, describe(query, null, TAGS)], args + " 补上 3");
+    assert.equal(parse(commandOf("分数列表", query, 3, TAGS).replace("/分数列表 ", "")).page, 3, args + " 的翻页指令");
+  }
+});
+
 test("分类的标题和翻页指令：分类单独做标题，默认副标题是紫谱·黑谱；页码直接写数字", () => {
   const catalog = catalogLike();
   const build = (args) => {
@@ -319,10 +342,17 @@ async function setup(t) {
     const code = lx.approve(friendCode, new URL(url).searchParams.get("code_challenge"));
     await group("/授权 " + code, { user });
   }
-  return { lx, renders, group, last, authorize };
+  // 群里点了一个按钮（回调按钮的 data 原样推回来）
+  const click = (button, { user = "U1" } = {}) => bot.handleEvent("INTERACTION_CREATE", {
+    id: "itr" + (++seq), group_openid: "G1", group_member_openid: user, data: { resolved: { button_data: button.action.data } },
+  });
+  return { qq, lx, renders, group, last, authorize, click };
 }
 
-test("/分数列表 端到端：好友码绑定请去授权；授权的出图（1.8 倍、JPEG 76）、翻页提示；用法、看不懂、WE、没有谱面、页码超了、只按评级都用文字回", async (t) => {
+// 翻页消息里的按钮：id → 按钮
+const buttonsOf = (body) => Object.fromEntries((body.keyboard?.content?.rows || []).flatMap((row) => row.buttons).map((button) => [button.id, button]));
+
+test("/分数列表 端到端：好友码绑定请去授权；授权的出图（1.8 倍、JPEG 76）、翻页按钮（本人点了翻页，别人点了没有权限）；用法、看不懂、WE、没有谱面、页码超了、只按评级都用文字回", async (t) => {
   const s = await setup(t);
   s.lx.addPlayer({ friendCode: FC1, name: "好友码玩家", scores: myScores() });
   s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", scores: myScores() });
@@ -346,12 +376,33 @@ test("/分数列表 端到端：好友码绑定请去授权；授权的出图（
   assert.deepEqual([first.data.player.name, first.data.player.rating, first.data.player.plateId], ["授权玩家", 17, null],
     "玩家资料跟着出图数据一起取：名片板上的名字和总 Rating");
   assert.match(first.data.charts[0].jacket, /^file:\/\/.*jacket[\\/]1000\.png$/);
-  assert.equal(s.last().msg_type, 7);
-  assert.equal(s.last().content, V.levelPage(1, 2, "/分数列表 14+ 2"));
+  const [image, pager] = s.qq.state.sent.slice(-2).map((sent) => sent.body);
+  assert.deepEqual([image.msg_type, image.content], [7, undefined], "页码印在图上，图不带图注");
+  assert.equal(pager.msg_type, 2, "不止一页：发完图再补一条翻页消息");
+  assert.equal(pager.markdown.content, "### " + V.pageButtons(1, 2));
+  let buttons = buttonsOf(pager);
+  assert.deepEqual(Object.keys(buttons), ["page", "next", "last"], "第一页没有上一页、首页");
+  assert.equal(buttons.next.action.data, "anna:U2:/分数列表 14+ 2", "翻页按钮绑发起人");
+  assert.deepEqual([buttons.page.action.type, buttons.page.action.data, buttons.page.action.enter], [2, "/分数列表 14+ ", false],
+    "页码按钮只把指令填进输入框，不绑人");
+
+  // 本人点下一页：应答成功，出第 2 页；最后一页没有下一页、末页
+  await s.click(buttons.next, opts);
+  assert.deepEqual(s.qq.state.acks.at(-1).body, { code: 0 });
+  assert.equal(s.renders.at(-1).data.page, 2);
+  buttons = buttonsOf(s.last());
+  assert.deepEqual(Object.keys(buttons), ["prev", "page", "first"]);
+  assert.equal(buttons.prev.action.data, "anna:U2:/分数列表 14+ 1");
+  // 别人点：应答「没有权限」，不出图、不回话
+  const [rendered, sent] = [s.renders.length, s.qq.state.sent.length];
+  await s.click(buttons.prev, { user: "U3" });
+  assert.deepEqual(s.qq.state.acks.at(-1).body, { code: 4 });
+  assert.deepEqual([s.renders.length, s.qq.state.sent.length], [rendered, sent]);
+
   await s.group("/分数列表 14+ 2", opts);
-  assert.deepEqual([s.renders.at(-1).data.page, s.last().content], [2, V.levelPage(2, 2, null)]);
+  assert.deepEqual([s.renders.at(-1).data.page, s.last().markdown.content], [2, "### " + V.pageButtons(2, 2)]);
   await s.group("/lv 14+ 黑", opts);
-  assert.deepEqual([s.renders.at(-1).data.charts.length, s.last().content], [1, undefined], "只有一页不带图注");
+  assert.deepEqual([s.renders.at(-1).data.charts.length, s.last().msg_type, s.last().content], [1, 7, undefined], "只有一页：只发图，没有翻页消息");
 
   const count = s.renders.length;
   await s.group("/分数列表", opts);
@@ -423,7 +474,8 @@ test("/分数列表 谱师筛选端到端：直接写名字，数字翻页，额
   const opts = { user: "U2" };
   await s.group("/分数列表 x", opts);
   assert.deepEqual([s.renders.at(-1).data.stats.total, s.renders.at(-1).data.title.main], [102, "x"]);
-  assert.equal(s.last().content, V.levelPage(1, 2, "/分数列表 x 2"));
+  const buttons = buttonsOf(s.last());
+  assert.deepEqual([buttons.next.action.data, buttons.page.action.data], ["anna:U2:/分数列表 x 2", "/分数列表 x "], "谱师只接受名字后面空格加数字");
   await s.group("/分数列表 x 2", opts);
   assert.deepEqual([s.renders.at(-1).data.page, s.renders.at(-1).data.charts.length], [2, 24]);
   const before = s.renders.length;

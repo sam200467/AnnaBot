@@ -6,12 +6,15 @@
 // 结果里只写 ID、曲名和难度，不把别名列出来（作者 2026-10-19 定的，MiaBot 搜索时也不显示别名）。
 //
 // 结果用 Markdown 发：曲名是指令链接，点一下把「/谱面分析 id…」填进输入框；不止一页时挂翻页按钮。
-// 指令链接的写法和转义照 MiaBot 的 song-search.cjs（2026-10-11 用 probe-layout 实测过），平台没有
+// 指令链接的写法和转义在 markdown.cjs，按钮的排法在 pager.cjs（跟 /分数列表 共用）。平台没有
 // Markdown/按钮权限时传输层会自动退回纯文本 / 不带按钮的 Markdown（见 official-transport.cjs 的 sendMarkdown）。
+// 查的是公开曲库，翻页按钮谁点都行，不绑发起人。
 //
 // 一页 8 首是照 MiaBot：曲名一行、谱面一行，8 首连抬头和翻页提示约 800 字，不会撑爆一条消息。
 
 const { V } = require("../voice.cjs");
+const { linkable, markdownLine, plainLine } = require("../markdown.cjs");
+const { pagerKeyboard, pageLine } = require("../pager.cjs");
 
 const PER_PAGE = 8;
 // 曲库现在 1400 多首；给足上限，页数才算得准。搜索本身只遍历一次索引，不差这点。
@@ -68,42 +71,8 @@ function analysisCommand(song, charts, catalog) {
   return "/谱面分析 " + id + (highest === undefined ? "" : " " + LEVEL_WORDS[highest]);
 }
 
-// ── Markdown 指令链接 ──
-// QQ 的写法：<qqbot-cmd-input text="…" show="…" reference="false" />，点了只填输入框、不直接发出；
-// 群里会自动带上 @Anna（MiaBot 2026-10-10 实测）。show 里的 & 和半角双引号要写成 &amp; &quot;。
-// 只转曲名里的 * 和 _：2026-10-11 实测 QQ 认 \* \_，但 \[ \] 会把反斜杠原样显示出来。
-const escapeMarkdown = (text) => String(text).replace(/[*_]/g, (ch) => "\\" + ch);
-const showText = (text) => String(text).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-const linkable = (text, command) => !/["<>&]/.test(String(command)) && !/[<>]/.test(String(text));
-function markdownLine(line) {
-  return line.map((part) => {
-    if (typeof part === "string") return escapeMarkdown(part);
-    if (part.hint) return part.hint;
-    if (!linkable(part.text, part.command)) return escapeMarkdown(part.text);
-    return '<qqbot-cmd-input text="' + part.command + '" show="' + showText(part.text) + '" reference="false" />';
-  }).join("");
-}
-
-const plainLine = (line) => line.map((part) => (typeof part === "string" ? part : part.text ?? "")).join("");
+// 结果的一行写成 markdown.cjs 的数组；整行都是 { hint } 的只在 Markdown 里出现
 const isHintLine = (line) => line.length > 0 && line.every((part) => part?.hint);
-
-// 翻页按钮（QQ 消息按钮 keyboard.content 那一层 { rows }），照 MiaBot 的 pager-buttons.cjs：
-// 上一页、页码、下一页一行，首页、末页一行（一行五个会被挤成「⏮…」）。
-// 翻页是回调按钮（type 1）：点了平台推 INTERACTION_CREATE，按钮里存的指令当这个人发的话执行；
-// 页码是指令按钮（type 2，enter=false）：只把 input 填进输入框，页数让用户自己补。
-function pagerKeyboard({ page, pages, jump, input, labels = V.searchPagerLabels }) {
-  const button = (id, label, style, action) => ({
-    id, render_data: { label, visited_label: label, style },
-    action: { permission: { type: 2 }, unsupport_tips: labels.unsupported, ...action },
-  });
-  const go = (id, label, target) => button(id, label, 1, { type: 1, data: jump(target) });
-  const pageButton = input ? [button("page", labels.page(page, pages), 0, { type: 2, data: input, enter: false })] : [];
-  const rows = [
-    [...(page > 1 ? [go("prev", labels.prev, page - 1)] : []), ...pageButton, ...(page < pages ? [go("next", labels.next, page + 1)] : [])],
-    [...(page > 1 ? [go("first", labels.first, 1)] : []), ...(page < pages ? [go("last", labels.last, pages)] : [])],
-  ];
-  return { rows: rows.filter((buttons) => buttons.length).map((buttons) => ({ buttons })) };
-}
 
 // 参数 + 曲库 → 要发的东西。纯函数，测试和功能都走这里。
 // 返回 { kind: "text", text } 或 { kind: "markdown", markdown, text, keyboard?, markdownWithoutKeyboard? }。
@@ -131,13 +100,10 @@ function buildReply(args, catalog, voice = V) {
   }
   if (found.some((result) => result.fuzzy)) lines.push([""], [voice.searchFuzzy]);
 
+  const jump = (target) => "/搜索歌曲 " + query + " --page " + target;
   let pagerLine = null;
   if (pages > 1) {
-    const next = "/搜索歌曲 " + query + " --page " + (page + 1);
-    pagerLine = [
-      voice.searchPage(page, pages) + "；",
-      ...(page < pages ? ["下一页：", { text: next, command: next }] : ["已到最后一页"]),
-    ];
+    pagerLine = pageLine(page, pages, page < pages ? jump(page + 1) : null, voice);
     lines.push([""], pagerLine);
   }
   if (linked) lines.push([""], [{ hint: voice.searchHint }]);
@@ -145,15 +111,10 @@ function buildReply(args, catalog, voice = V) {
   // 有按钮时正文里那行「下一页：…」换成按钮提示；按钮被拒时传输层改发 markdownWithoutKeyboard，
   // 原来那行可点的指令还在。没有按钮的中文提示不会出现在纯文本里。
   const withButtons = pagerLine
-    ? lines.map((line) => (line === pagerLine ? [voice.searchPageButtons(page, pages)] : line))
+    ? lines.map((line) => (line === pagerLine ? [voice.pageButtons(page, pages)] : line))
     : lines;
   const text = lines.filter((line) => !isHintLine(line)).map(plainLine).join("\n").replace(/\n+$/, "");
-  const keyboard = pages > 1 ? pagerKeyboard({
-    page, pages,
-    jump: (target) => "/搜索歌曲 " + query + " --page " + target,
-    input: "/搜索歌曲 " + query + " --page ",
-    labels: voice.searchPagerLabels,
-  }) : null;
+  const keyboard = pages > 1 ? pagerKeyboard({ page, pages, jump, input: "/搜索歌曲 " + query + " --page ", labels: voice.pagerLabels }) : null;
   return {
     kind: "markdown",
     markdown: withButtons.map(markdownLine).join("\n"),
@@ -178,4 +139,4 @@ module.exports = Object.assign({
       ...(reply.keyboard ? { keyboard: reply.keyboard, markdownWithoutKeyboard: reply.markdownWithoutKeyboard } : {}),
     });
   },
-}, { parseArgs, chartText, analysisCommand, buildReply, pagerKeyboard, markdownLine, plainLine, escapeMarkdown, linkable, PER_PAGE });
+}, { parseArgs, chartText, analysisCommand, buildReply, PER_PAGE });

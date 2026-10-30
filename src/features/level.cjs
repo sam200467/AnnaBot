@@ -22,6 +22,9 @@
 // 分类默认只统计紫谱（MASTER）和黑谱（ULTIMA），红黄绿不列；要看红黄绿就别带分类，按等级或定数查。
 // 页码：写了「第 N 页」「pN」的直接认；分类后面的裸数字一定是页码；不带分类时，裸数字前面还没有等级、定数时是等级，
 // 有了就是页码（MiaBot 的写法「/分数列表 14+ 2」）。
+// 翻页按钮照 MiaBot 的 /等级：不止一页时，发完图再补一条翻页消息（上一页 / 页码 / 下一页、首页 / 末页，见 pager.cjs）。
+// 翻页按钮绑发起人，别人点了回「没有权限」；点页码按钮把「/分数列表 14+ 」填进输入框，自己补上页数。
+// 页码印在图上，所以图不再带图注。
 //
 // 要具体分数，所以只认授权绑定（binding: "oauth"，好友码绑定的人会被请去 /授权）：读全部成绩，对上曲库里符合条件的谱面。
 // 统计是包含关系（作者 2026-10-17 定的，MiaBot 同时改了）：AJ 里含 AJC、FC 里含 AJ，SSS 里含 SSS+。统计的是筛完的全部谱面，不只这一页。
@@ -100,8 +103,8 @@ function parseQuery(args, { versions = [], tags = null, designers = null } = {})
   const designerQuery = parseDesignerQuery(args, designers);
   if (designerQuery) return Object.assign(query, designerQuery);
   let text = String(args || "").normalize("NFKC").toLowerCase();
-  // 页码先拿掉：「第 2 页」「2页」「p2」「page 2」
-  text = text.replace(/第\s*(\d+)\s*页|(\d+)\s*页|(?<![a-z])p(?:age)?\s*(\d+)(?![\d.+])/g, (all, a, b, c) => {
+  // 页码先拿掉：「第 2 页」「2页」「p2」「page 2」，还有不写「页」的「第2」—— 页码按钮填到「第」为止，用户只补数字（见 pageTemplate）
+  text = text.replace(/第\s*(\d+)\s*页?(?![\d.+])|(\d+)\s*页|(?<![a-z])p(?:age)?\s*(\d+)(?![\d.+])/g, (all, a, b, c) => {
     query.page = Number(a || b || c);
     return " ";
   });
@@ -216,9 +219,11 @@ function titleOf(query, tags = null) {
   return { ...title, sub };
 }
 
-// 翻页提示里写的指令：照着 parseQuery 认得的写法拼回去。页码写成光秃秃的数要前面有等级或定数，不然会被当成等级
-function commandOf(word, query, page, tags = null) {
-  if (query.designer) return "/" + word + " " + (query.designerInput || query.designer.name) + " " + page;
+// 翻页指令：照着 parseQuery 认得的写法拼回去，拆成页码前后两截 —— input 是页码按钮填进输入框的那截，用户在后面补数字。
+// 页码写成光秃秃的数要前面有等级、定数或分类，不然会被当成等级（「/分数列表 master 2」先试 Lv.2）：那时写成「第N页」，
+// input 到「第」为止（parseQuery 也认不写「页」的「第2」）。谱师只接受名字后面空格加数字
+function pageTemplate(word, query, tags = null) {
+  if (query.designer) return { input: "/" + word + " " + (query.designerInput || query.designer.name) + " ", suffix: "" };
   const tagIndex = tags || loadSongTags();
   const parts = ["/" + word];
   if (query.level) parts.push(query.level);
@@ -230,8 +235,13 @@ function commandOf(word, query, page, tags = null) {
     const name = RANK_NAMES[query.rank.key];
     parts.push(query.rank.mode === "below" ? name + "以下" : query.rank.mode === "above" ? name + "以上" : name);
   }
-  parts.push(query.tag || query.level || query.constant !== null ? String(page) : "第" + page + "页");
-  return parts.join(" ");
+  const bare = Boolean(query.tag || query.level || query.constant !== null);
+  return { input: parts.join(" ") + (bare ? " " : " 第"), suffix: bare ? "" : "页" };
+}
+const pageInput = (word, query, tags = null) => pageTemplate(word, query, tags).input;
+function commandOf(word, query, page, tags = null) {
+  const { input, suffix } = pageTemplate(word, query, tags);
+  return input + page + suffix;
 }
 
 // 曲库里符合等级、定数、难度、版本、分类的谱面（评级要看成绩，在 buildData 里筛）
@@ -417,9 +427,13 @@ module.exports = Object.assign({
           width: 2100, height: 1500, format: "jpeg", quality: 76, scale: RENDER_SCALE,
           maxBytes: 5_000_000, fallbackQualities: [70, 64],
         });
-        const next = data.page < data.pages ? commandOf(ctx.feature.words[0], query, data.page + 1, tags) : null;
-        return { buffer: image.buffer, caption: data.pages > 1 ? voice.levelPage(data.page, data.pages, next) : "" };
+        // 不止一页时，commands.cjs 发完图再补一条翻页消息（按钮、按钮被拒时可点的下一页、纯文本，见 pager.cjs）
+        const word = ctx.feature.words[0];
+        return {
+          buffer: image.buffer,
+          pager: { page: data.page, pages: data.pages, jump: (target) => commandOf(word, query, target, tags), input: pageInput(word, query, tags) },
+        };
       },
     });
   },
-}, { parseQuery, selectCharts, resolveCharts, buildData, attachAssets, describe, titleOf, commandOf, versionKey, pageCount, PER_PAGE, MAX_PER_PAGE, RENDER_SCALE });
+}, { parseQuery, selectCharts, resolveCharts, buildData, attachAssets, describe, titleOf, commandOf, pageInput, versionKey, pageCount, PER_PAGE, MAX_PER_PAGE, RENDER_SCALE });

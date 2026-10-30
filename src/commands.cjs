@@ -7,6 +7,7 @@
 //   - 出图走一个队列：同一个人的同一种图在排队时不再接；同一个人同一种图之间有冷却；队列有上限，满了直接说
 //   - 官方平台没有「编辑消息」，出图慢时先回一句占位，图好了再另发一条
 //   - 图发出时被动回复窗口已过（40034128）只记日志，不补发文字 —— 补发同样会失败
+//   - 多页的图（/分数列表）发完再补一条翻页消息：图片消息挂不了按钮，按钮只能跟 Markdown（照 MiaBot 的 /等级，见 pager.cjs）
 // 跟 MiaBot 不同的一处：占位那句不是每次都发。图在 receiptDelayMs 内就出来的话直接发图，
 //   少占一次被动回复（群里一条消息 5 分钟内只能回 5 次）。
 //
@@ -27,6 +28,7 @@
 // ctx 里有什么见下面 context()。
 
 const { V, errorText } = require("./voice.cjs");
+const { pagerMessage } = require("./pager.cjs");
 
 const PREFIX = /^[#＃/]\s*([^\s]+)\s*([\s\S]*)$/;
 const RAW_PREFIX = /^[#＃/／]\s*[^\s]+\s*([\s\S]*)$/;
@@ -134,7 +136,23 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
     }
   }
 
-  // job: { kind: "b30", label?: "B30 成绩图", render: async () => Buffer | { buffer, caption } }
+  // 多页的图发完以后补一条翻页消息：上一页 / 页码 / 下一页、首页 / 末页（排法和降级见 pager.cjs）。
+  // 翻页按钮绑发起人，别人点了回「没有权限」（bot.cjs）。查别人（@ 了人）时不补：按钮里存的指令不带 @，
+  // 点了翻的是点的人自己（MiaBot 同样）。发不出去只记日志：图已经到了，翻页消息是锦上添花。
+  async function sendPager(ctx, kind, pager) {
+    if (!(pager.pages > 1) || !ctx.subject.isSelf) return;
+    const message = pagerMessage({ ...pager, owner: ctx.userId, voice: V });
+    try {
+      if (typeof send.markdown === "function") await ctx.replyMarkdown(message.markdown, message.text, message.options);
+      else await ctx.reply(message.text);
+    } catch (error) {
+      log("翻页消息没发出去（" + kind + "）：" + error.message);
+    }
+  }
+
+  // job: { kind: "b30", label?: "B30 成绩图", render: async () => Buffer | { buffer, caption, pager } }
+  // pager：多页的图要翻页时给 { page, pages, jump: (页码) => 那一页的指令, input: 页码按钮填进输入框的前缀 }，
+  //   不止一页就在图后面补一条翻页消息（sendPager）
   async function image(ctx, job) {
     const userKey = job.kind + ":" + ctx.userId;
     if (queued.has(userKey)) return ctx.reply(pick(V.jobSameKindPending));
@@ -158,7 +176,9 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
     clearTimeout(timer);
     if (!result.ok) return ctx.reply(V.jobFailed(result.reason));
     try {
-      return await ctx.replyImage(result.image.buffer, result.image.caption || job.caption || "");
+      const sent = await ctx.replyImage(result.image.buffer, result.image.caption || job.caption || "");
+      if (result.image.pager) await sendPager(ctx, job.kind, result.image.pager);
+      return sent;
     } catch (error) {
       if (error?.code === 40034128) { log("图生成好了但被动回复窗口已过，没发出去（" + job.kind + "）"); return null; }
       throw error;

@@ -126,12 +126,18 @@ const V = {
   searchFound: (total, page, pages) => "查到 " + total + " 首" + (pages > 1 ? "（第 " + page + "/" + pages + " 页）" : "") + "：",
   searchNoCharts: "落雪那边还没有这首歌的谱面数据。",
   searchFuzzy: "上面是曲名比较接近的几首。……你看看有没有对的。",
-  searchPage: (page, pages) => "第 " + page + "/" + pages + " 页",
-  searchPageButtons: (page, pages) => "第 " + page + "/" + pages + " 页，" +
-    (page < pages ? "点下面的按钮翻页" : "点下面的按钮回到前面的页") + "；点页码可以自己填页数",
   // 只在 Markdown 里出现：纯文本没有可点的曲名，写这句反而让人以为点不了
   searchHint: "（点曲名会填入 /谱面分析 和曲目 ID，再补一个难度字：绿/黄/红/紫/黑；WE 的整条已经填好）",
-  searchPagerLabels: {
+
+  // ── 翻页（/搜索歌曲 的结果、/分数列表 发完图补的那条；按钮的排法见 pager.cjs）──
+  pageOf: (page, pages) => "第 " + page + "/" + pages + " 页",
+  // 没有按钮时写在页码后面：「第 1/3 页；下一页：…」「第 3/3 页；已到最后一页」
+  pageNext: "下一页：",
+  pageLast: "已到最后一页",
+  // 挂着按钮时，正文里那行「下一页：…」换成这句
+  pageButtons: (page, pages) => "第 " + page + "/" + pages + " 页，" +
+    (page < pages ? "点下面的按钮翻页" : "点下面的按钮回到前面的页") + "；点页码可以自己填页数",
+  pagerLabels: {
     prev: "◀ 上一页", next: "下一页 ▶", first: "⏮ 首页", last: "末页 ⏭",
     page: (page, pages) => "第" + page + "/" + pages + "页",
     unsupported: "这个版本的 QQ 不支持按钮，请手动发送翻页指令",
@@ -174,8 +180,6 @@ const V = {
   // label：条件写成的一行字（Lv.14+ · MASTER · 未达 SSS）
   levelEmpty: (label) => "没有符合条件的谱面（" + label + "）。",
   levelNoPage: (pages) => "只有 " + pages + " 页。",
-  // 图注：next 是下一页的指令，最后一页是 null
-  levelPage: (page, pages, next) => "第 " + page + "/" + pages + " 页" + (next ? "，下一页发「" + next + "」" : "（最后一页）"),
 
   // ── /牌子进度 ──
   plateUsage: "用法：/牌子进度 版本名，比如「/牌子进度 SUN PLUS」「/牌子进度 lmn+」，不写就是当前版本。\n" +
