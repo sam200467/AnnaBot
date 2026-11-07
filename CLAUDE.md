@@ -50,6 +50,7 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
 | `src/command-panel.cjs` | 指令面板：按功能表生成，`bot.start()` 时同步到 QQ（平台规则在文件头） |
 | `src/pager.cjs` | 翻页按钮和翻页消息（照 MiaBot 的 `pager-buttons.cjs`）：`/搜索歌曲` 挂在结果下面，`/分数列表` 发完图另补一条；绑了发起人的按钮别人点了回「没有权限」 |
 | `src/markdown.cjs` | QQ Markdown 的转义和指令链接（`/搜索歌曲`、翻页消息共用） |
+| `src/image-host.cjs` | 临时图片网址（照 MiaBot 素材网页的 `/shared/`）：开了 `pagedImageInMarkdown` 时多页的图放这儿，跟翻页按钮合成一条 Markdown |
 | `src/features/` | 一个功能一个文件，在 `index.cjs` 里登记 |
 | `src/voice.cjs` | 所有回给玩家的话，包括落雪错误的翻译（`errorText`） |
 | `src/lxns.cjs` | 落雪接口：公共 / 开发者 / 玩家三种 |
@@ -81,7 +82,8 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
      超过 15 个汉字（平台算 30 个字符，中文算 2 个）时写一个短的 `panel`，测试会提醒
 2. 出图：照 `src/features/example-image.cjs` 写，交给 `ctx.image({ kind, label, render })`。排队、冷却、占位消息、
    被动回复过期都由它管。落雪素材在 `render` 里用 `assets.fileUrls` 换成 `file://` 地址（慢，必须在队列里做）。
-   多页的图在 `render` 的返回值里带 `pager: { page, pages, jump, input }`，发完图自动补一条翻页消息（写法看 `/分数列表`）。
+   多页的图在 `render` 的返回值里带 `pager: { page, pages, jump, input }`，发完图自动补一条翻页消息（写法看 `/分数列表`；
+   开了 `pagedImageInMarkdown` 时图和按钮合成一条）。
 3. 主题：复制 `themes/_example/` 成 `themes/<名字>/`，按 `themes/README.md` 写。作者给的背景图等放 `themes/<名字>/assets/`，
    几个主题共用的图标和字体放 `themes/shared/`。示例数据里用 `"lxns:jacket/407"` 引用落雪素材。
 4. 文案写进 `src/voice.cjs`，功能代码里不直接写句子。
@@ -161,6 +163,10 @@ Anna 平时可能正用「启动Anna.vbs」在后台跑（没有窗口，状态�
   不止一页时照 MiaBot 的 /等级，发完图另补一条翻页消息（图片消息挂不了按钮）：上一页 / 页码 / 下一页、首页 / 末页。
   翻页按钮绑发起人（别人点了回「没有权限」）；点页码把「/分数列表 14+ 」填进输入框自己补页数，没有等级、定数、分类时填到「第」为止
   （parseQuery 认不写「页」的「第2」）。页码印在图上，图不带图注（2026-10-30）。
+  作者要跟 MiaBot 一样合成一条（2026-11-07）：照 MiaBot 的 `pagedImageInMarkdown`，图、翻页按钮合成一条 Markdown，默认关。
+  Markdown 里的图只能写网址，所以 Anna 开一个小网页服务（`src/image-host.cjs`，默认端口 47832，MiaBot 的素材网页占着 47831）
+  把图临时放在 `/shared/<随机串>.jpg`（内存里，24 小时作废，最多 30 张，别的地址 404），QQ 从 `imageHost.publicBaseUrl` 取图。
+  QQ 取不到图时这边察觉不到（消息里没有图），所以要在服务器上明说开；服务没起来、平台不收 Markdown 时退回图片 + 翻页消息。
   还能按分类筛：`/分数列表 精灵记`、`/分数列表 音击 紫 2`、`/分数列表 BMS`。分类只保留顶层（精霊編/地上編这种章名
   落到父分类，不单独统计），词表和别称在 `src/song-tags.cjs`；数据来自 `song-extras.json` 的 `labels`、`song-origins.json`、
   `song-bms.json`；分类默认只列紫谱/黑谱，一次一个分类，后面只能再加紫/黑和页码（数字就是页码）
@@ -315,7 +321,8 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
 - 指令面板（`/v2/panels`）没公开的机器人也能建：群聊面板（挂白名单里的群）、私聊面板（对所有人）都建上了。
   平台读回来的指令名去掉了开头的斜杠（跟 MiaBot 记的一样），归一化以后再同步一次不会再写。
 - 取网关地址会被限频（40023001），断线重连失败要接着退避（`official-transport.cjs` 的 `scheduleReconnect`）。
-- Markdown 和按钮权限：`/搜索歌曲`（曲名指令链接、翻页按钮）和 `/分数列表` 的翻页消息已经在用，还没在真 QQ 上实测；平台拒收时传输层会自动退回纯文本 / 不带按钮的 Markdown。
+- Markdown 和按钮权限有：2026-11-07 作者截图，群里 `/分数列表` 的翻页消息（### 大标题 + 两排按钮）显示正常；按钮点下去翻页还没确认。
+  `/搜索歌曲`（曲名指令链接、翻页按钮）用的是同一套；平台拒收时传输层会自动退回纯文本 / 不带按钮的 Markdown。
 - 公开以后别人用起来怎样。
 
 ## 底座层面还没做的
@@ -335,6 +342,9 @@ Anna 2026-10-15 真 QQ 联调实测（机器人还没公开）：
   设了这个任务以后，「启动Anna.vbs」交给计划任务去启动，Anna 不挂在远程桌面会话上（直接起子进程的话，注销远程桌面会把它一起关掉）
 - 服务器上的绑定库主密钥写在 `.env` 的 `ANNA_VAULT_KEY`，不用 DPAPI：S4U 任务里解不开，云控制台重置密码也会让 DPAPI 封的东西永远解不开
 - 打完整包时本机的 Anna 必须停着，之后也别再开：刷新令牌是滚动的，两边各刷一次就有一边失效
+- 多页的图合成一条（`pagedImageInMarkdown`）要服务器放行 `imageHost.port`（默认 47832）：云服务器安全组 + Windows 防火墙
+  （`netsh advfirewall firewall add rule … localport=47832`，部署说明里有整句），`config.local.json` 写 `publicBaseUrl`。
+  更新包不动 `config.local.json`，开关要在服务器上手改；日志里有「合成一条：开」才算起来了
 - git 外的素材不用改打包脚本：`themes/*/assets/`、`themes/shared/fonts|icons/` 自动带上，字体只带主题里用到了名字的。
   新功能要是在 `src/` `tools/` `themes/` 之外加了运行时要读的目录，要加进 `build-package.cjs` 的 `PROGRAM_DIRS`
 - `安装Anna.cmd` 只能是纯 ASCII、不能调 PowerShell：带 `powershell -EncodedCommand` 的 .cmd 一运行就被火绒 / 腾讯电脑管家

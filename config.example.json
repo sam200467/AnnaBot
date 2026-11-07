@@ -24,6 +24,10 @@
   "markdown": true,
   "keyboard": true,
 
+  "_图片合进Markdown": "pagedImageInMarkdown=true 时，/分数列表 这类多页的图跟翻页按钮合成一条消息（照 MiaBot），不再另发一条翻页消息。QQ 的 Markdown 里的图只能写网址，所以 Anna 会开一个小网页服务，把图临时放在 imageHost.publicBaseUrl 的 /shared/ 下（随机地址，24 小时作废，别的地址都是 404），QQ 从那里取图。要先在云服务器的安全组和 Windows 防火墙放行 imageHost.port（TCP），publicBaseUrl 写外网打得开的地址，比如 http://服务器公网IP:47832。QQ 取不到图时 Anna 察觉不到，消息里会没有图，那就改回 false；端口被占、没填地址时照旧发图片 + 翻页消息（日志里有一句说明）。",
+  "pagedImageInMarkdown": false,
+  "imageHost": { "host": "0.0.0.0", "port": 47832, "publicBaseUrl": "" },
+
   "_指令面板": "QQ 输入框里打 / 弹出来的指令清单。Anna 每次启动按功能表同步：群聊的只挂 allowedGroupIds 里的群，私聊的对所有人（allowPrivateChat=false 时撤掉）。false 是不管面板（平台上已有的原样留着）。",
   "commandPanel": true,
 

@@ -142,6 +142,8 @@ const V = {
     page: (page, pages) => "第" + page + "/" + pages + "页",
     unsupported: "这个版本的 QQ 不支持按钮，请手动发送翻页指令",
   },
+  // 图跟翻页按钮合成一条 Markdown 时，图的替代文字（![成绩图 #宽px #高px](网址)）
+  pageImageAlt: "成绩图",
 
   // ── /谱面分析 ──
   chartUsage: "用法：/谱面分析 曲名 难度\n难度写在最后，不写就是 MASTER：绿 黄 红 紫 黑、bas adv exp mas ult、WE 都认。" +

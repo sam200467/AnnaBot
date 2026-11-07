@@ -7,7 +7,8 @@
 //   - 出图走一个队列：同一个人的同一种图在排队时不再接；同一个人同一种图之间有冷却；队列有上限，满了直接说
 //   - 官方平台没有「编辑消息」，出图慢时先回一句占位，图好了再另发一条
 //   - 图发出时被动回复窗口已过（40034128）只记日志，不补发文字 —— 补发同样会失败
-//   - 多页的图（/分数列表）发完再补一条翻页消息：图片消息挂不了按钮，按钮只能跟 Markdown（照 MiaBot 的 /等级，见 pager.cjs）
+//   - 多页的图（/分数列表）发完再补一条翻页消息：图片消息挂不了按钮，按钮只能跟 Markdown（照 MiaBot 的 /等级，见 pager.cjs）。
+//     开了 pagedImageInMarkdown 时图、翻页按钮合成一条 Markdown，图放在临时图片网址上（image-host.cjs）
 // 跟 MiaBot 不同的一处：占位那句不是每次都发。图在 receiptDelayMs 内就出来的话直接发图，
 //   少占一次被动回复（群里一条消息 5 分钟内只能回 5 次）。
 //
@@ -29,13 +30,15 @@
 
 const { V, errorText } = require("./voice.cjs");
 const { pagerMessage } = require("./pager.cjs");
+const { escapeMarkdown } = require("./markdown.cjs");
 
 const PREFIX = /^[#＃/]\s*([^\s]+)\s*([\s\S]*)$/;
 const RAW_PREFIX = /^[#＃/／]\s*[^\s]+\s*([\s\S]*)$/;
 const IDEMPOTENCY_TTL_MS = 10 * 60 * 1000;
 const IDEMPOTENCY_MAX = 500;
 
-function createCommands({ features, services, config = {}, send, now = Date.now, random = Math.random, log = () => {}, extras = {} } = {}) {
+// publishImage：把图放到临时图片网址上、返回 { url, width, height }（image-host.cjs 的 publish）；不给就不合成一条
+function createCommands({ features, services, config = {}, send, now = Date.now, random = Math.random, log = () => {}, extras = {}, publishImage = null } = {}) {
   if (!send || typeof send.text !== "function" || typeof send.image !== "function") throw new Error("commands 需要 send.text / send.image");
   const receiptDelayMs = config.receiptDelayMs ?? 1500;
   const cooldownMs = config.generateCooldownMs ?? 3000;
@@ -150,9 +153,36 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
     }
   }
 
+  // 图、图注和翻页按钮合成一条 Markdown（MiaBot 的 pagedImageInMarkdown，跟「提比不想睡觉」一样）。Markdown 里的图只能写网址，
+  // 所以先把图放到临时图片网址上（publishImage）。给不出地址、发不成 Markdown 都返回 false，调用方照旧发图片 + 翻页消息；
+  // 离了 Markdown 图就丢了，所以不许传输层退成纯文本（requireMarkdown）。按钮被拒时传输层去掉按钮再发，下一页写回可点的指令。
+  // QQ 取不到图时这边察觉不到，消息里会没有图 —— 所以要配置里明说要（pagedImageInMarkdown），默认关。
+  async function sendImageInMarkdown(ctx, kind, image) {
+    if (!publishImage || typeof send.markdown !== "function" || !(image.pager.pages > 1) || !ctx.subject.isSelf) return false;
+    const published = publishImage(image.buffer);
+    if (!published) {
+      log("图没放上临时图片网址（服务没起来，或者不是 PNG/JPG），照旧发图片 + 翻页消息（" + kind + "）");
+      return false;
+    }
+    const message = pagerMessage({ ...image.pager, owner: ctx.userId, voice: V });
+    const head = "![" + V.pageImageAlt + " #" + published.width + "px #" + published.height + "px](" + published.url + ")" +
+      (image.caption ? "\n\n" + escapeMarkdown(image.caption) : "");
+    try {
+      await ctx.replyMarkdown(head + "\n\n" + message.markdown, message.text, {
+        keyboard: message.options.keyboard, markdownWithoutKeyboard: head + "\n\n" + message.options.markdownWithoutKeyboard, requireMarkdown: true,
+      });
+      // 发出去了：盯一下 QQ 来不来取图，没来日志里会说（image-host.cjs）
+      published.sent?.();
+      return true;
+    } catch (error) {
+      log("图和翻页按钮没合成一条，改发图片 + 翻页消息（" + kind + "）：" + error.message);
+      return false;
+    }
+  }
+
   // job: { kind: "b30", label?: "B30 成绩图", render: async () => Buffer | { buffer, caption, pager } }
   // pager：多页的图要翻页时给 { page, pages, jump: (页码) => 那一页的指令, input: 页码按钮填进输入框的前缀 }，
-  //   不止一页就在图后面补一条翻页消息（sendPager）
+  //   不止一页就跟图合成一条（sendImageInMarkdown），合不成就在图后面补一条翻页消息（sendPager）
   async function image(ctx, job) {
     const userKey = job.kind + ":" + ctx.userId;
     if (queued.has(userKey)) return ctx.reply(pick(V.jobSameKindPending));
@@ -176,6 +206,7 @@ function createCommands({ features, services, config = {}, send, now = Date.now,
     clearTimeout(timer);
     if (!result.ok) return ctx.reply(V.jobFailed(result.reason));
     try {
+      if (result.image.pager && await sendImageInMarkdown(ctx, job.kind, result.image)) return null;
       const sent = await ctx.replyImage(result.image.buffer, result.image.caption || job.caption || "");
       if (result.image.pager) await sendPager(ctx, job.kind, result.image.pager);
       return sent;

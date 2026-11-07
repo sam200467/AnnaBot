@@ -18,6 +18,8 @@ const DEFAULTS = Object.freeze({
   reuseLatestPassiveCredential: true,
   markdown: true,
   keyboard: true,
+  // 多页的图跟翻页按钮合成一条：要服务器放行 imageHost 的端口（见 image-host.cjs、config.example.json），默认关
+  pagedImageInMarkdown: false,
   commandPanel: true,
   generateCooldownMs: 3000,
   receiptDelayMs: 1500,

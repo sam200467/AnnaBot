@@ -17,6 +17,7 @@ const { createCatalog } = require("../src/catalog.cjs");
 const { createAssets } = require("../src/assets.cjs");
 const { createRenderer, findBrowser } = require("../src/renderer.cjs");
 const { createAnnaBot } = require("../src/bot.cjs");
+const { createImageHost } = require("../src/image-host.cjs");
 const { V } = require("../src/voice.cjs");
 const { createSongTags } = require("../src/song-tags.cjs");
 const { createDesignerIndex } = require("../src/chart-designers.cjs");
@@ -305,7 +306,8 @@ test("谱师按具体谱面的署名筛选，默认紫黑，不混入同曲其�
 });
 
 // ── 端到端 ──
-async function setup(t) {
+// config / deps：多给机器人的设置和部件（合成一条的测试要开 pagedImageInMarkdown、塞一个起好了的临时图片服务）
+async function setup(t, { config = {}, deps = {} } = {}) {
   const qq = createMockOfficial();
   await qq.start();
   const lx = createMockLxns({ songList: songList() });
@@ -324,7 +326,8 @@ async function setup(t) {
     allowedGroupIds: ["G1"], allowPrivateChat: true, admins: [], receiptDelayMs: 5000, generateCooldownMs: 0,
     qq: { appId: "1", clientSecret: "x", tokenUrl: qq.tokenUrl, apiBase: qq.apiBase, sandboxApiBase: qq.apiBase, sandbox: false,
       minSendIntervalMs: 0, jitterMs: 0, perTargetIntervalMs: 0, perTargetPerHour: 1000 },
-  }, { lxns, oauth, bindings, catalog, assets, renderer, songTags: TAGS, log: () => {} });
+    ...config,
+  }, { lxns, oauth, bindings, catalog, assets, renderer, songTags: TAGS, log: () => {}, ...deps });
   t.after(async () => {
     bot.stop();
     await qq.stop();
@@ -490,6 +493,45 @@ test("/分数列表 谱师筛选端到端：直接写名字，数字翻页，额
   await s.group("/分数列表 x 3", opts);
   assert.equal(s.last().content, V.levelNoPage(2));
   assert.equal(s.renders.length, before);
+});
+
+test("/分数列表 开了 pagedImageInMarkdown：图和翻页按钮合成一条；平台不收 Markdown、临时图片服务停了都退回图片 + 翻页消息", async (t) => {
+  const PUBLIC = "http://203.0.113.5:47832";
+  const imageHost = createImageHost({ port: 0, publicBaseUrl: PUBLIC });
+  await imageHost.start();
+  t.after(() => imageHost.stop());
+  const s = await setup(t, { config: { pagedImageInMarkdown: true }, deps: { imageHost } });
+  s.lx.addPlayer({ friendCode: FC2, name: "授权玩家", scores: myScores() });
+  for (let id = 1000; id < 1100; id++) s.lx.state.assets.set("jacket/" + id, PNG);
+  s.lx.state.assets.set("jacket/2000", PNG);
+  await s.authorize("U2", FC2);
+  const opts = { user: "U2" };
+  const newTypes = async (command) => {
+    const before = s.qq.state.sent.length;
+    await s.group(command, opts);
+    return s.qq.state.sent.slice(before).map((sent) => sent.body.msg_type);
+  };
+
+  const uploads = s.qq.state.uploads.length;
+  assert.deepEqual(await newTypes("/分数列表 14+"), [2], "只发一条 Markdown，不另发图片");
+  assert.equal(s.qq.state.uploads.length, uploads, "图不走 QQ 的富媒体上传");
+  const [image, hint, ...rest] = s.last().markdown.content.split("\n\n");
+  const url = image.match(/^!\[成绩图 #1px #1px\]\((http:\/\/203\.0\.113\.5:47832\/shared\/[0-9a-f]{32}\.png)\)$/)?.[1];
+  assert.ok(url, "第一段是图（宽高照图片本身）：" + image);
+  assert.deepEqual([hint, rest], [V.pageButtons(1, 2), []]);
+  assert.equal(buttonsOf(s.last()).next.action.data, "anna:U2:/分数列表 14+ 2", "按钮跟另发一条时一样，绑发起人");
+  const served = await fetch(url.replace(PUBLIC, "http://127.0.0.1:" + imageHost.port()));
+  assert.deepEqual(Buffer.from(await served.arrayBuffer()), PNG, "QQ 照这个网址取得到这张图");
+  assert.deepEqual(await newTypes("/lv 14+ 黑"), [7], "只有一页：照旧只发图");
+
+  // 带按钮、去掉按钮都被拒：不退成纯文本（图会丢），改发图片 + 翻页消息；这不算平台不收 Markdown，下一次照样合成一条
+  s.qq.state.nextError = { status: 400, err_code: 40034012, message: "不允许发送原生 markdown", times: 2 };
+  assert.deepEqual(await newTypes("/分数列表 14+ 2"), [7, 2]);
+  assert.equal(s.last().markdown.content, "### " + V.pageButtons(2, 2));
+  assert.deepEqual(await newTypes("/分数列表 14+"), [2]);
+
+  await imageHost.stop();
+  assert.deepEqual(await newTypes("/分数列表 14+"), [7, 2], "临时图片服务停了：照旧两条");
 });
 
 // ── 真的渲染一次 ──

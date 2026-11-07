@@ -19,6 +19,7 @@ const { createCommands } = require("./commands.cjs");
 const { syncPanels } = require("./command-panel.cjs");
 const { createUpdateNotice } = require("./update-notice.cjs");
 const { parseOwnedData } = require("./pager.cjs");
+const { createImageHost } = require("./image-host.cjs");
 const { V } = require("./voice.cjs");
 
 function makeTarget(event) {
@@ -39,6 +40,10 @@ function createAnnaBot(config, deps = {}) {
   };
   const startedAt = now();
   const updateNotice = createUpdateNotice(config, { log });
+  // 多页的图跟翻页按钮合成一条时，图临时放在这个小网页服务上（见 image-host.cjs）。没开就是 null，照旧发图片 + 翻页消息
+  const imageHost = config.pagedImageInMarkdown
+    ? (deps.imageHost || createImageHost({ ...(config.imageHost || {}), log }))
+    : null;
 
   // 回答跟着消息走：群里问的回群里，私聊问的回私聊；一律带 msgId 走被动回复。
   const send = {
@@ -71,6 +76,7 @@ function createAnnaBot(config, deps = {}) {
     features, services, config, send, log, now,
     ...(deps.random ? { random: deps.random } : {}),
     extras: { statusText },
+    publishImage: imageHost ? (buffer) => imageHost.publish(buffer) : null,
   });
 
   // 「这条消息是在叫 Anna 吗」。平台在 mentions 里直接标了 is_you（official-transport.cjs 里有实测记录）；
@@ -154,6 +160,8 @@ function createAnnaBot(config, deps = {}) {
       log("Anna 启动｜环境 " + (config.qq?.sandbox ? "沙箱" : "正式") +
         "｜允许群 " + allowGroups.size + " 个｜私聊 " + (allowPrivate ? "开" : "关") +
         "｜功能 " + features.length + " 个｜授权绑定 " + (services.bindings?.oauthEnabled ? "开" : "关"));
+      // 开没开、图放哪儿由它自己记一句（省得猜配置生效没有，MiaBot 同样）；没起来不拦着启动
+      if (imageHost) await imageHost.start();
       await transport.start((name, d) => {
         void handleEvent(name, d).catch((error) => log("⚠ 处理消息出错：" + (error?.stack || error)));
       });
@@ -169,6 +177,7 @@ function createAnnaBot(config, deps = {}) {
       if (gatewayTimer) clearInterval(gatewayTimer);
       gatewayTimer = null;
       transport.stop();
+      if (imageHost) void imageHost.stop();
     },
   };
 }
