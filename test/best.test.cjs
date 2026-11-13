@@ -331,6 +331,41 @@ async function setup(t) {
 
 const BOT = { id: "BOT", member_openid: "BOT", is_you: true, bot: true };
 
+test("/r30 端到端：好友码和授权都能查，@别人遵守隐私，空记录和多余参数有提示", async (t) => {
+  const s = await setup(t);
+  const recents = [
+    { id: 1, level_index: 3, score: 1009000, rating: 16.5, play_time: "2026-11-13T04:01:00Z" },
+    { id: 1, level_index: 3, score: 1005000, rating: 16, play_time: "2026-11-13T04:05:00Z" },
+  ];
+  const player = s.lx.addPlayer({ friendCode: FC1, name: "测试玩家", recents });
+  await s.group("/r30");
+  assert.equal(s.last().content, V.needBinding);
+  await s.group("/绑定 " + FC1);
+  await s.group("/r30 2");
+  assert.equal(s.last().content, V.recentUsage);
+  await s.group("/r30");
+  assert.equal(s.last().msg_type, 7);
+  assert.equal(s.renders.at(-1).theme, "felix");
+  assert.equal(s.renders.at(-1).data.mode, "r30");
+  assert.deepEqual(s.renders.at(-1).data.chapters[0].scores.map((row) => row.score), [1005000, 1009000]);
+  assert.equal(s.renders.at(-1).options.maxBytes, 5_000_000);
+  await s.authorize("U1", FC1);
+  await s.group("/r30");
+  assert.equal(s.last().msg_type, 7);
+  await s.group("<@BOT> <@U1> /r30", { user: "U2", mentions: [BOT, { id: "U1", member_openid: "U1" }] });
+  assert.equal(s.last().msg_type, 7);
+  player.privacy.scores = false;
+  const before = s.renders.length;
+  await s.group("<@BOT> <@U1> /r30", { user: "U2", mentions: [BOT, { id: "U1", member_openid: "U1" }] });
+  assert.match(s.last().content, /允许读取谱面成绩/);
+  assert.equal(s.renders.length, before);
+  player.privacy.scores = true;
+  player.recents = [];
+  await s.group("/r30");
+  assert.equal(s.last().content, V.recentEmpty);
+  assert.equal(s.renders.length, before);
+});
+
 test("/b50 /b30 端到端：没绑定先提示；好友码绑定出图；新曲可能漏时图注说明；@别人走开发者接口；授权读全部成绩", async (t) => {
   const s = await setup(t);
   // 新曲 Rating 都比旧曲高：新曲前 20 全进前 30
@@ -530,12 +565,12 @@ function exampleData(file, theme = "felix") {
   return JSON.parse(raw, (key, value) => (typeof value === "string" && value.startsWith("lxns:") ? null : value));
 }
 
-test("横版 felix：B50、B30、AJ30、AJ50、拟合 B30 都能出图，宽 3924 / 3524", { skip }, async (t) => {
+test("横版 felix：B50、B30、AJ30、AJ50、拟合 B30、R30 都能出图，宽 3924 / 3524", { skip }, async (t) => {
   // 浏览器临时目录放测试自己的目录里，不碰系统临时目录
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "anna-scratch-"));
   t.after(() => fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 }));
   const renderer = createRenderer({ themesDir: path.join(ROOT, "themes"), scale: 1, tmpDir: tmp });
-  for (const file of ["preview-data.json", "b30.json", "aj30.json", "aj50.json", "fit30.json"]) {
+  for (const file of ["preview-data.json", "b30.json", "aj30.json", "aj50.json", "fit30.json", "r30.json"]) {
     const out = await renderer.render("felix", exampleData(file), { width: 3400, format: "jpeg" });
     assert.equal(out.width, file === "preview-data.json" || file === "aj50.json" ? 3924 : 3524, file);
     assert.ok(out.height > 1500, file);

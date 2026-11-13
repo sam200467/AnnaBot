@@ -12,6 +12,8 @@ const formatRating = (value) => (Math.floor((Number(value) || 0) * 100 + 1e-8) /
 // 玩家资料可能还没同步这些字段；缺失不能显示成 0，进度本身已经是百分数。
 const formatPlayerStat = (value, digits, unit = "") => Number.isFinite(value) && value >= 0 ? value.toFixed(digits) + unit : "未知";
 const V = {
+  recentUsage: "直接发「/r30」，我会把最近 30 次游玩按时间排好。也可以 @某人 /r30。",
+  recentEmpty: "落雪里还没有带游玩时间的最近记录。先同步最近游玩记录，再来找我画吧。",
   unknownCommand: "这个我不会哦。发「/帮助」，我把会做的都写在上面了。",
   notACommand: "要帮忙的话，发「/帮助」。……我会尽力的。",
   internalError: "……这次没办成。等一会儿再试一次吧。",

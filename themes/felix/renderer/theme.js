@@ -9,6 +9,7 @@
   const SVG = "http://www.w3.org/2000/svg";
 
   const CHAPTERS = {
+    recent: { en: "Recent 30", side: "最近游玩 · 从左到右、从上到下" },
     old: { en: "Best 30", side: "旧版本曲目" },
     new: { en: "New 20", side: "当前版本新曲" },
     all: { en: "Best 30", side: "不分新旧" },
@@ -274,6 +275,11 @@
 
     const stats = $("stats");
     const chapters = data.chapters || [];
+    if (mode === "r30") {
+      stats.classList.add("two");
+      stats.append(stat("游玩次数", chapters[0]?.scores.length || 0), stat("不同谱面", data.uniqueCharts || 0));
+      return;
+    }
     if (mode === "fit30") {
       const list = chapters[0]?.scores || [];
       stats.append(stat("拟合 B30", rating(data.rating), "main", data.rating));
@@ -380,6 +386,12 @@
   }
 
   function renderChart(mode) {
+    if (mode === "r30") {
+      $("chart-title").append(el("b", null, "Recent 30"), el("span", null, "最近游玩"));
+      $("chart-legend").textContent = "新 → 旧";
+      $("chart").replaceWith(el("p", "recent-note", data.note));
+      return;
+    }
     const name = mode === "b50" ? "Best 50" : mode === "aj50" ? "AJ 50" : mode === "aj30" ? "AJ 30" : mode === "fit30" ? "Fit 30" : "Best 30";
     $("chart-title").append(el("b", null, name), el("span", null, mode === "fit30" ? "按拟合定数重算" : "单曲 Rating"));
     const chapters = data.chapters || [];
@@ -425,11 +437,13 @@
     for (const mark of [markOf(score.fullCombo), markOf(score.clear, "tag"), markOf(score.fullChain)]) if (mark) marks.append(mark);
     const constant = el("span", "const" + (score.constantText ? " fit" : ""),
       score.constantText || (score.constant ? ThemeKit.format.constant(score.constant) : score.level || ""));
-    constant.append(el("i", null, "›"));
+    if (score.rating !== null) constant.append(el("i", null, "›"));
     const foot = el("div", "foot");
-    foot.append(constant, el("span", "rating", rating(score.rating)));
+    foot.append(constant);
+    if (score.rating !== null) foot.append(el("span", "rating", rating(score.rating)));
     body.append(title, el("div", "score", ThemeKit.format.score(score.score)), foot, marks);
     item.append(body);
+    if (mode === "r30") item.append(el("div", "play-time", score.playTimeText));
     return item;
   }
 
@@ -466,7 +480,7 @@
       panel.style.width = (wide ? panelWidth(3) + SIZE.tableGap + panelWidth(2) : panelWidth(cols)) + "px";
       const head = el("header", "panel-head");
       const count = el("span", "count");
-      count.append(el("b", null, (chapter.scores || []).length + " / " + chapter.slots), "首");
+      count.append(el("b", null, (chapter.scores || []).length + " / " + chapter.slots), mode === "r30" ? "次" : "首");
       head.append(el("span", "en", words.en), el("span", "zh", words.side), count);
       const grid = el("ol", "grid");
       const scores = chapter.scores || [];
@@ -492,7 +506,7 @@
     }
     for (const score of document.querySelectorAll(".score")) shrinkToFit(score, { min: 18, fits: fitsWidth(score) });
     for (const foot of document.querySelectorAll(".foot")) {
-      const parts = [foot.querySelector(".const"), foot.querySelector(".rating")].map((node) => [node, parseFloat(getComputedStyle(node).fontSize)]);
+      const parts = [foot.querySelector(".const"), foot.querySelector(".rating")].filter(Boolean).map((node) => [node, parseFloat(getComputedStyle(node).fontSize)]);
       for (let ratio = 0.97; foot.scrollWidth > foot.clientWidth + 1 && ratio > 0.7; ratio -= 0.03) {
         for (const [node, size] of parts) node.style.fontSize = (size * ratio).toFixed(2) + "px";
       }
@@ -547,7 +561,7 @@
   }
 
   async function main() {
-    const mode = ["b50", "aj30", "aj50", "fit30"].includes(data.mode) ? data.mode : "b30";
+    const mode = ["b50", "aj30", "aj50", "fit30", "r30"].includes(data.mode) ? data.mode : "b30";
     document.body.classList.add("mode-" + mode);
     // 背景、立绘是自己准备的素材（不进仓库），缺了也照样出图
     for (const img of [$("painting"), $("sibyl")]) img.addEventListener("error", () => { img.style.visibility = "hidden"; }, { once: true });
@@ -566,7 +580,7 @@
       .map((font) => document.fonts.load(font).catch(() => null)));
     await document.fonts.ready;
     fitText();
-    drawChart($("chart"), mode);
+    if (mode !== "r30") drawChart($("chart"), mode);
     placeCanvas(pad);
     const shadows = drawCardShadows($("canvas"));
     drawFrame(page.offsetWidth, page.offsetHeight);

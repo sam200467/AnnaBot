@@ -486,6 +486,15 @@ body {
 }
 
 /* 空位：还没烧好的素坯，淡淡一层 */
+/* R30 沿用横版 B30 的五列六行；时间单独放在卡片底部，保留原有成绩字号。 */
+.mode-r30 { --card-h: 204px; }
+.mode-r30 .body { bottom: 43px; }
+.mode-r30 .play-time { position: absolute; left: 14px; right: 14px; bottom: 8px; padding-top: 5px; border-top: 1px solid rgba(70, 76, 150, 0.25); text-align: right; font-size: 22px; line-height: 1; color: var(--lilac); }
+.mode-r30 .chart-title b { font-size: 52px; }
+.mode-r30 .chart-title span { font-size: 42px; }
+.mode-r30 .chart-legend { font-size: 40px; }
+.mode-r30 .recent-note { flex: 1; display: flex; align-items: center; padding: 24px 14px; white-space: pre-line; font-size: 46px; line-height: 1.65; color: var(--ultramarine); }
+.mode-r30 .d5 { --band: rgba(84, 62, 106, 0.92); --frame: #9984ad; --wash: rgba(140, 120, 160, 0.16); --diff-ink: #574364; }
 .card.empty .tile { opacity: 0.14; }
 .card.empty .void { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--hand); font-size: 21px; letter-spacing: 0.2em; color: rgba(238, 244, 255, 0.6); border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(238, 244, 255, 0.24); }
 
