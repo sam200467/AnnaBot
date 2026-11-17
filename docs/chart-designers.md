@@ -1,9 +1,9 @@
 # 谱师署名与别名填写清单
 
-数据来源：本地落雪曲库缓存；缓存时间：2026-10-21T13:13:50.881Z。
+数据来源：本地落雪曲库缓存；缓存时间：2026-11-13T07:03:21.833Z。
 范围：未删除的 MASTER／ULTIMA，不含 WORLD'S END。共 769 种原始署名、1496 张谱面。
 
-署名包含马甲和合作署名，不等于独立谱师人数；仅合并下表有来源的马甲关系，未确认的保留原始署名，合作谱不自动拆分。原始清单按谱面总数从多到少排列。
+署名包含马甲和合作署名，不等于独立谱师人数；合作署名按 wiki 栏目与署名规则分别归入每位参与谱师。原始清单按谱面总数从多到少排列。
 
 命令直接写名字或别名，例如 `/分数列表 Techno Kitchen`，翻页写 `/分数列表 Techno Kitchen 2`。名字有空格也不用引号。只接受名字和数字页码。
 
@@ -19,56 +19,57 @@
 
 ## 谱师名义归并表（优先在这里添加中文别名）
 
-2026-10-21 已读取并缓存 wiki 的五张谱师汇总页，核对单人栏目、明确的别名跳转和合作/未知栏目。
-共整理 42 组名义，覆盖 589 种本地原始署名。这不是独立人数统计，真身仅为推测的 Violetta、Ragnarok 等仍单独保留。
-合作署名、归属不明以及无法与本地署名严格对应的条目不强行合并。组内完整马甲和来源见 [马甲明细](chart-designer-credits.md)。
-作者确认：Violetta、Ragnarok、START "A I R "、Fahrenheit 212、透明絵具各自独立，不按推测归入其他谱师；Toaster 不添加。START "A I R " 当前本地曲库没有相应谱面，有实际署名数据时按原名识别。
-马甲关系维护在 `src/data/chart-designer-identities.json`；中文简称写在别名表本名或马甲名下均可。同组名字查询同一批谱面。
+已读取并缓存 wiki 的五张谱师汇总页，核对单人栏目、明确的别名跳转以及合作栏目（含 wikiwiki.jp 查实的合作团队内译名）。
+共整理 43 组名义，覆盖 749 种本地原始署名。真身仅为推测的 Violetta、Ragnarok 等仍单独保留。
+组内完整马甲、合作署名和来源见 [马甲明细](chart-designer-credits.md)。
+作者确认：Violetta、Ragnarok、START "A I R "、Fahrenheit 212、透明絵具各自独立，不按推测归入其他谱师；Toaster 不添加；翠楼屋归入サファ太，緑化委員長归入はっぴー。START "A I R " 当前本地曲库没有相应谱面，有实际署名数据时按原名识别。
+马甲关系维护在 `src/data/chart-designer-identities.json`；中文简称写在别名表本名或单人马甲名下均可。同组名字查询同一批谱面。
 
 | 谱师名义 | 原始署名数 | 紫谱 | 黑谱 | 合计 | 中文别名（可填写） | 来源 |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
-| ロシェ＠ペンギン | 59 | 157 | 10 | 167 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| じゃこレモン | 87 | 114 | 6 | 120 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| ぴちネコ | 50 | 107 | 3 | 110 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| Techno Kitchen | 18 | 87 | 7 | 94 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| ミストルティン | 39 | 86 | 4 | 90 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| Moon Strix | 41 | 78 | 3 | 81 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| アミノハバキリ | 34 | 76 | 5 | 81 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| すきやき奉行 | 34 | 69 | 1 | 70 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| Redarrow | 17 | 54 | 6 | 60 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| ミニミライト | 25 | 46 | 8 | 54 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| Revo@LC | 9 | 40 | 1 | 41 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| みぞれヤナギ | 14 | 36 | 4 | 40 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| Jack | 8 | 30 | 0 | 30 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| 譜面-100号 | 14 | 28 | 1 | 29 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| はっぴー | 27 | 27 | 0 | 27 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| ものくろっく | 13 | 24 | 0 | 24 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| 小鳥遊さん | 17 | 21 | 2 | 23 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| 某S氏 | 17 | 23 | 0 | 23 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| そらいろカリン | 5 | 19 | 0 | 19 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| écologie | 3 | 16 | 0 | 16 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| Emerald | 5 | 12 | 0 | 12 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| rioN | 6 | 12 | 0 | 12 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| 如月 ゆかり | 4 | 11 | 0 | 11 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| 夕凪アロエ | 2 | 8 | 2 | 10 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| サファ太 | 5 | 9 | 0 | 9 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| mai-Star | 1 | 7 | 0 | 7 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| LabiLabi | 6 | 6 | 0 | 6 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| 透明絵具 | 2 | 6 | 0 | 6 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| Luxizhel | 1 | 4 | 0 | 4 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| Violetta | 3 | 4 | 0 | 4 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| 玉子豆腐 | 4 | 4 | 0 | 4 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
-| 緑化委員長 | 3 | 4 | 0 | 4 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
-| Clematis | 1 | 3 | 0 | 3 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| チャン@DP皆伝 | 3 | 3 | 0 | 3 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| ロシェ＠ペンギン | 86 | 191 | 12 | 203 | 企鹅 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| じゃこレモン | 119 | 145 | 12 | 157 | 柠檬 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| ぴちネコ | 79 | 139 | 5 | 144 | 桃子猫 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| ミストルティン | 73 | 125 | 6 | 131 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| Techno Kitchen | 39 | 113 | 7 | 120 | 科技厨房 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| アミノハバキリ | 55 | 96 | 8 | 104 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| Moon Strix | 57 | 96 | 3 | 99 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| すきやき奉行 | 46 | 83 | 1 | 84 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| Redarrow | 33 | 69 | 8 | 77 | 红箭 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| ミニミライト | 32 | 53 | 9 | 62 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| Revo@LC | 21 | 56 | 1 | 57 | revolc | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| みぞれヤナギ | 21 | 44 | 5 | 49 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| Jack | 18 | 40 | 1 | 41 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| はっぴー | 36 | 37 | 0 | 37 | 哈皮、绿化委员长 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| 小鳥遊さん | 29 | 34 | 2 | 36 | 小鸟游 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| 譜面-100号 | 20 | 34 | 1 | 35 | 谱面100号 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| ものくろっく | 17 | 30 | 0 | 30 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| 某S氏 | 20 | 26 | 0 | 26 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| écologie | 11 | 24 | 0 | 24 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| そらいろカリン | 9 | 21 | 2 | 23 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| Emerald | 8 | 16 | 0 | 16 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| rioN | 8 | 14 | 0 | 14 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| サファ太 | 10 | 13 | 1 | 14 | safata、沙发太 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| 如月 ゆかり | 6 | 14 | 0 | 14 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| 夕凪アロエ | 4 | 11 | 2 | 13 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| LabiLabi | 8 | 9 | 0 | 9 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| mai-Star | 2 | 8 | 0 | 8 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
+| Violetta | 7 | 8 | 0 | 8 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| 透明絵具 | 3 | 7 | 0 | 7 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| チャン@DP皆伝 | 6 | 6 | 0 | 6 | dp皆传 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| 玉子豆腐 | 6 | 6 | 0 | 6 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| Clematis | 2 | 5 | 0 | 5 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| Luxizhel | 2 | 5 | 0 | 5 | 泸溪河 | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| Ragnarok | 5 | 5 | 0 | 5 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
+| Ataraxia | 4 | 4 | 0 | 4 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| Ruby | 3 | 2 | 1 | 3 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
 | みそかつ侍 | 3 | 3 | 0 | 3 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| Ataraxia | 2 | 2 | 0 | 2 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
 | 鳩ホルダー | 2 | 2 | 0 | 2 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
+| 鈴木さん | 2 | 2 | 0 | 2 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
 | Meteian | 1 | 1 | 0 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧3) |
-| Ragnarok | 1 | 1 | 0 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧4) |
 | あまくちジンジャー | 1 | 1 | 0 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
 | うさぎランドリー | 1 | 1 | 0 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
-| 翠楼屋 | 1 | 0 | 1 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧1) |
+| 原D(羽田の白い彗星) | 1 | 1 | 0 | 1 |  | [wiki](https://wikiwiki.jp/chunithmwiki/譜面制作者一覧2) |
 
 ## 全部原始署名
 
@@ -76,22 +77,22 @@
 
 | 序号 | 原始署名 | 已确认归属 | 紫谱 | 黑谱 | 合计 | 别名（可填写） |
 | ---: | --- | --- | ---: | ---: | ---: | --- |
-| 1 | ロシェ＠ペンギン | ロシェ＠ペンギン | 101 | 4 | 105 |  |
-| 2 | Techno Kitchen | Techno Kitchen | 70 | 5 | 75 |  |
-| 3 | ぴちネコ | ぴちネコ | 55 | 0 | 55 |  |
+| 1 | ロシェ＠ペンギン | ロシェ＠ペンギン | 101 | 4 | 105 | 企鹅 |
+| 2 | Techno Kitchen | Techno Kitchen | 70 | 5 | 75 | 科技厨房 |
+| 3 | ぴちネコ | ぴちネコ | 55 | 0 | 55 | 桃子猫 |
 | 4 | ミストルティン | ミストルティン | 46 | 1 | 47 |  |
-| 5 | Redarrow | Redarrow | 39 | 5 | 44 |  |
+| 5 | Redarrow | Redarrow | 39 | 5 | 44 | 红箭 |
 | 6 | アミノハバキリ | アミノハバキリ | 38 | 3 | 41 |  |
 | 7 | Moon Strix | Moon Strix | 32 | 1 | 33 |  |
-| 8 | Revo@LC | Revo@LC | 33 | 0 | 33 |  |
-| 9 | じゃこレモン | じゃこレモン | 32 | 1 | 33 |  |
+| 8 | Revo@LC | Revo@LC | 33 | 0 | 33 | revolc |
+| 9 | じゃこレモン | じゃこレモン | 32 | 1 | 33 | 柠檬 |
 | 10 | すきやき奉行 | すきやき奉行 | 33 | 0 | 33 |  |
 | 11 | ミニミライト | ミニミライト | 26 | 2 | 28 |  |
 | 12 | みぞれヤナギ | みぞれヤナギ | 25 | 2 | 27 |  |
 | 13 | Jack | Jack | 22 | 0 | 22 |  |
 | 14 | そらいろカリン | そらいろカリン | 15 | 0 | 15 |  |
 | 15 | écologie | écologie | 14 | 0 | 14 |  |
-| 16 | 譜面-100号 | 譜面-100号 | 13 | 0 | 13 |  |
+| 16 | 譜面-100号 | 譜面-100号 | 13 | 0 | 13 | 谱面100号 |
 | 17 | 譜面ボーイズからの挑戦状 |  | 10 | 0 | 10 |  |
 | 18 | ものくろっく | ものくろっく | 9 | 0 | 9 |  |
 | 19 | 夕凪アロエ | 夕凪アロエ | 8 | 1 | 9 |  |
@@ -101,13 +102,13 @@
 | 23 | Piercing Blade | アミノハバキリ | 5 | 2 | 7 |  |
 | 24 | rioN | rioN | 7 | 0 | 7 |  |
 | 25 | 某S氏 | 某S氏 | 7 | 0 | 7 |  |
-| 26 | 小鳥遊さん | 小鳥遊さん | 6 | 0 | 6 |  |
+| 26 | 小鳥遊さん | 小鳥遊さん | 6 | 0 | 6 | 小鸟游 |
 | 27 | A Lucidness | すきやき奉行 | 5 | 0 | 5 |  |
-| 28 | サファ太 | サファ太 | 5 | 0 | 5 |  |
+| 28 | サファ太 | サファ太 | 5 | 0 | 5 | safata、沙发太 |
 | 29 | ロシアンブラック | ぴちネコ | 5 | 0 | 5 |  |
 | 30 | 聖剣ミストルティン | ミストルティン | 5 | 0 | 5 |  |
 | 31 | 透明絵具 | 透明絵具 | 5 | 0 | 5 |  |
-| 32 | Luxizhel | Luxizhel | 4 | 0 | 4 |  |
+| 32 | Luxizhel | Luxizhel | 4 | 0 | 4 | 泸溪河 |
 | 33 | Clematis | Clematis | 3 | 0 | 3 |  |
 | 34 | Rochesthésie | ロシェ＠ペンギン | 3 | 0 | 3 |  |
 | 35 | 一ノ瀬 リズ | ものくろっく | 3 | 0 | 3 |  |
@@ -128,107 +129,107 @@
 | 50 | wonder&#42; | Techno Kitchen | 2 | 0 | 2 |  |
 | 51 | じゃこレモンスター | じゃこレモン | 2 | 0 | 2 |  |
 | 52 | ずんだライト | ミニミライト | 2 | 0 | 2 |  |
-| 53 | ぴちネコ supported by ロシェ＠ペンギン |  | 2 | 0 | 2 |  |
+| 53 | ぴちネコ supported by ロシェ＠ペンギン | ロシェ＠ペンギン、ぴちネコ | 2 | 0 | 2 |  |
 | 54 | ものぽんず＊ | ものくろっく | 2 | 0 | 2 |  |
 | 55 | ロシェ＠中野 | ロシェ＠ペンギン | 2 | 0 | 2 |  |
 | 56 | ロシェ回ペンギン | ロシェ＠ペンギン | 2 | 0 | 2 |  |
 | 57 | 音楽的同位体 月梟 | Moon Strix | 2 | 0 | 2 |  |
 | 58 | 月梟 -Moon Strix- | Moon Strix | 2 | 0 | 2 |  |
 | 59 | 羅波露斯 | アミノハバキリ | 2 | 0 | 2 |  |
-| 60 | 緑化委員長 | 緑化委員長 | 2 | 0 | 2 |  |
+| 60 | 緑化委員長 | はっぴー | 2 | 0 | 2 |  |
 | 61 | &#95; す き や き 奉 行 | すきやき奉行 | 1 | 0 | 1 |  |
-| 62 | -DestroyeR:MistilteinN- |  | 1 | 0 | 1 |  |
+| 62 | -DestroyeR:MistilteinN- | ミストルティン | 1 | 0 | 1 |  |
 | 63 | .&#95;&#95;. .. &#95;&#95;.. &#95;&#95;.. .. &#95;.&#95;. .&#95; &#95; | ぴちネコ | 1 | 0 | 1 |  |
 | 64 | .357 Sukiyaki | すきやき奉行 | 1 | 0 | 1 |  |
 | 65 | "Beyond The Future" |  | 0 | 1 | 1 |  |
 | 66 | "Fire Vampires"Lemon | じゃこレモン | 1 | 0 | 1 |  |
-| 67 | "JOKER"LEMON |  | 0 | 1 | 1 |  |
-| 68 | "M.Y." heartbeat is spinning around my head. |  | 1 | 0 | 1 |  |
-| 69 | (　ﾟ∀ﾟ)o彡゜ペンギン！ペンギン！ |  | 1 | 0 | 1 |  |
+| 67 | "JOKER"LEMON | じゃこレモン | 0 | 1 | 1 |  |
+| 68 | "M.Y." heartbeat is spinning around my head. | みぞれヤナギ | 1 | 0 | 1 |  |
+| 69 | (　ﾟ∀ﾟ)o彡゜ペンギン！ペンギン！ | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 70 | （締切を）ぶった切る犬 | はっぴー | 1 | 0 | 1 |  |
 | 71 | [!!DataJaCk!!] | Jack | 1 | 0 | 1 |  |
-| 72 | [&lt;&gt;I7&amp;:]\/[&lt;&gt;&lt;\&gt;57&amp;12 |  | 1 | 0 | 1 |  |
+| 72 | [&lt;&gt;I7&amp;:]\/[&lt;&gt;&lt;\&gt;57&amp;12 | じゃこレモン | 1 | 0 | 1 |  |
 | 73 | [O.N.×STAGE!]ミニミライト | ミニミライト | 1 | 0 | 1 |  |
 | 74 | [SS4]Jack＠フルHGG蛇 | Jack | 1 | 0 | 1 |  |
 | 75 | [THE&#95;MAGISTRATE] | すきやき奉行 | 1 | 0 | 1 |  |
 | 76 | 《檸檬》 ～ Fruit | じゃこレモン | 1 | 0 | 1 |  |
 | 77 | 「ミストルティン」 | ミストルティン | 1 | 0 | 1 |  |
 | 78 | 「みぞれ | みぞれヤナギ | 1 | 0 | 1 |  |
-| 79 | 」ДΚ〇 &lt;ε∈〇И |  | 1 | 0 | 1 |  |
+| 79 | 」ДΚ〇 &lt;ε∈〇И | じゃこレモン | 1 | 0 | 1 |  |
 | 80 | 『新入生』Moon Strix | Moon Strix | 1 | 0 | 1 |  |
-| 81 | 【CHUNITHM】小鳥遊さん【本店だよ！！】 |  | 1 | 0 | 1 |  |
-| 82 | 【CHUNITHM】譜人エメーラ【Emerald】 |  | 1 | 0 | 1 |  |
-| 83 | 【Fires】 Gt:ミストルティン Dr:すきやき |  | 1 | 0 | 1 |  |
-| 84 | 【HARMONY奏でよう】Redarrow |  | 1 | 0 | 1 |  |
-| 85 | 【せーい】Techno Kitchen【いぇーい!!】 |  | 1 | 0 | 1 |  |
-| 86 | 【自称】きれいなはっぴー |  | 1 | 0 | 1 |  |
-| 87 | 【暴龍天】dj TAKANASHI |  | 1 | 0 | 1 |  |
+| 81 | 【CHUNITHM】小鳥遊さん【本店だよ！！】 | 小鳥遊さん | 1 | 0 | 1 |  |
+| 82 | 【CHUNITHM】譜人エメーラ【Emerald】 | Emerald | 1 | 0 | 1 |  |
+| 83 | 【Fires】 Gt:ミストルティン Dr:すきやき | ミストルティン、すきやき奉行 | 1 | 0 | 1 |  |
+| 84 | 【HARMONY奏でよう】Redarrow | Redarrow | 1 | 0 | 1 |  |
+| 85 | 【せーい】Techno Kitchen【いぇーい!!】 | Techno Kitchen | 1 | 0 | 1 |  |
+| 86 | 【自称】きれいなはっぴー | はっぴー | 1 | 0 | 1 |  |
+| 87 | 【暴龍天】dj TAKANASHI | 小鳥遊さん | 1 | 0 | 1 |  |
 | 88 | &#42;NullPointerException&#42; |  | 0 | 1 | 1 |  |
 | 89 | #FR33D0MP1221C4T |  | 1 | 0 | 1 |  |
 | 90 | †はっぴー† | はっぴー | 1 | 0 | 1 |  |
 | 91 | †ロシェ＠チュウニ病† | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 92 | ∋○○И ＄＋Я１&gt;&lt; |  | 1 | 0 | 1 |  |
-| 93 | ＋ 玉子どうふ EX |  | 1 | 0 | 1 |  |
+| 92 | ∋○○И ＄＋Я１&gt;&lt; | Moon Strix | 1 | 0 | 1 |  |
+| 93 | ＋ 玉子どうふ EX | 玉子豆腐 | 1 | 0 | 1 |  |
 | 94 | ⊥∀K∀И∀2HI2∀И | 小鳥遊さん | 1 | 0 | 1 |  |
-| 95 | ┗(廿&#95;廿 )┛わたしイヌリアン┗( 廿&#95;廿)┛ |  | 1 | 0 | 1 |  |
-| 96 | ■■■■■LEmOn■■■■■ |  | 1 | 0 | 1 |  |
+| 95 | ┗(廿&#95;廿 )┛わたしイヌリアン┗( 廿&#95;廿)┛ | はっぴー | 1 | 0 | 1 |  |
+| 96 | ■■■■■LEmOn■■■■■ | じゃこレモン | 1 | 0 | 1 |  |
 | 97 | ★スイーツ系すとりっくす★ | Moon Strix | 1 | 0 | 1 |  |
 | 98 | ☆スイーツ系はっぴー☆ | はっぴー | 1 | 0 | 1 |  |
 | 99 | ☆スイーツ系ぺんぎん☆ | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 100 | 1P:レッドアロー 2P:サファ太 |  | 1 | 0 | 1 |  |
+| 100 | 1P:レッドアロー 2P:サファ太 | Redarrow、サファ太 | 1 | 0 | 1 |  |
 | 101 | 2step lemon | じゃこレモン | 1 | 0 | 1 |  |
 | 102 | 5UK1Y4KI Magistrate | すきやき奉行 | 1 | 0 | 1 |  |
 | 103 | A B B A 犬 UP DOG L R | はっぴー | 1 | 0 | 1 |  |
-| 104 | A Lucidness vs すきやき奉行 |  | 1 | 0 | 1 |  |
+| 104 | A Lucidness vs すきやき奉行 | すきやき奉行 | 1 | 0 | 1 |  |
 | 105 | Adverse Light | ミニミライト | 1 | 0 | 1 |  |
 | 106 | Air -INSANITY- |  | 0 | 1 | 1 |  |
-| 107 | AMN feat.空色かりん |  | 0 | 1 | 1 |  |
+| 107 | AMN feat.空色かりん | アミノハバキリ、そらいろカリン | 0 | 1 | 1 |  |
 | 108 | Anomaly Labyrinth |  | 1 | 0 | 1 |  |
 | 109 | ascribable ALL it | LabiLabi | 1 | 0 | 1 |  |
 | 110 | Ataraxia | Ataraxia | 1 | 0 | 1 |  |
 | 111 | Ataraxia beyond the horizon | Ataraxia | 1 | 0 | 1 |  |
 | 112 | Baa Deb Fee Hot Silk Nil Tor | LabiLabi | 1 | 0 | 1 |  |
 | 113 | BASSLEMON YATTERU? lol | じゃこレモン | 1 | 0 | 1 |  |
-| 114 | BELiZHEL &amp; Twinrook |  | 1 | 0 | 1 |  |
+| 114 | BELiZHEL &amp; Twinrook | ミニミライト、Luxizhel | 1 | 0 | 1 |  |
 | 115 | Black CaT Darkside | ぴちネコ | 1 | 0 | 1 |  |
 | 116 | Blade of Justice | アミノハバキリ | 1 | 0 | 1 |  |
 | 117 | Blade of Witch | アミノハバキリ | 1 | 0 | 1 |  |
 | 118 | BlazinG JAQ | Jack | 1 | 0 | 1 |  |
 | 119 | C0DE FF9C | 譜面-100号 | 1 | 0 | 1 |  |
-| 120 | CatastroPhe VS Damnation |  | 1 | 0 | 1 |  |
+| 120 | CatastroPhe VS Damnation | ぴちネコ、Moon Strix | 1 | 0 | 1 |  |
 | 121 | CatastroPhe"-UNIVERSE-" | ぴちネコ | 1 | 0 | 1 |  |
-| 122 | Chaotic Blade vs Blanc=diLLe |  | 1 | 0 | 1 |  |
+| 122 | Chaotic Blade vs Blanc=diLLe | アミノハバキリ | 1 | 0 | 1 |  |
 | 123 | CHAOTIC LEMON | じゃこレモン | 1 | 0 | 1 |  |
-| 124 | Clematis&amp;Mistilteinn |  | 1 | 0 | 1 |  |
+| 124 | Clematis&amp;Mistilteinn | ミストルティン、Clematis | 1 | 0 | 1 |  |
 | 125 | Club Yukari in Oh Hit Lucky | 如月 ゆかり | 1 | 0 | 1 |  |
 | 126 | CODE:CatastroPhe | ぴちネコ | 1 | 0 | 1 |  |
 | 127 | CODE:Emperor | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 128 | CODE:SacrIfIce | すきやき奉行 | 1 | 0 | 1 |  |
-| 129 | CODE:Twinrook vs CODE:Ragnarok |  | 1 | 0 | 1 |  |
+| 129 | CODE:Twinrook vs CODE:Ragnarok | ミニミライト、Ragnarok | 1 | 0 | 1 |  |
 | 130 | cotelette samurai | みそかつ侍 | 1 | 0 | 1 |  |
-| 131 | Curse"Mistilteinn"G.O.D |  | 1 | 0 | 1 |  |
+| 131 | Curse"Mistilteinn"G.O.D | ミストルティン | 1 | 0 | 1 |  |
 | 132 | Cyberocher | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 133 | DANCE TIME with habakiri | アミノハバキリ | 1 | 0 | 1 |  |
-| 134 | Die Kuche |  | 1 | 0 | 1 |  |
-| 135 | DJ #-100 |  | 1 | 0 | 1 |  |
-| 136 | dj JAKO meets DJ REDARROW |  | 0 | 1 | 1 |  |
-| 137 | Don't Fight Chuni Fumen Boys |  | 1 | 0 | 1 |  |
+| 134 | Die Kuche | Techno Kitchen | 1 | 0 | 1 |  |
+| 135 | DJ #-100 | ぴちネコ、譜面-100号 | 1 | 0 | 1 |  |
+| 136 | dj JAKO meets DJ REDARROW | じゃこレモン、Redarrow | 0 | 1 | 1 |  |
+| 137 | Don't Fight Chuni Fumen Boys | ロシェ＠ペンギン、じゃこレモン、Techno Kitchen、アミノハバキリ | 1 | 0 | 1 |  |
 | 138 | DX超性能フルメタル小鳥遊 | 小鳥遊さん | 1 | 0 | 1 |  |
 | 139 | éco3r | écologie | 1 | 0 | 1 |  |
-| 140 | écologie × じゃこレモン |  | 1 | 0 | 1 |  |
-| 141 | écologie affected by "Arcaea" |  | 1 | 0 | 1 |  |
-| 142 | écologie&#42; |  | 1 | 0 | 1 |  |
+| 140 | écologie × じゃこレモン | じゃこレモン、écologie | 1 | 0 | 1 |  |
+| 141 | écologie affected by "Arcaea" | écologie | 1 | 0 | 1 |  |
+| 142 | écologie&#42; | écologie | 1 | 0 | 1 |  |
 | 143 | écoroだー！ | écologie | 1 | 0 | 1 |  |
 | 144 | Elastic Blade | アミノハバキリ | 1 | 0 | 1 |  |
 | 145 | eme＊rald | Emerald | 1 | 0 | 1 |  |
-| 146 | Emerald supported by Moon Strix |  | 1 | 0 | 1 |  |
-| 147 | Emerald vs ものくろっく |  | 1 | 0 | 1 |  |
-| 148 | Emperor vs Ataraxia |  | 1 | 0 | 1 |  |
+| 146 | Emerald supported by Moon Strix | Moon Strix、Emerald | 1 | 0 | 1 |  |
+| 147 | Emerald vs ものくろっく | ものくろっく、Emerald | 1 | 0 | 1 |  |
+| 148 | Emperor vs Ataraxia | ロシェ＠ペンギン、Ataraxia | 1 | 0 | 1 |  |
 | 149 | ETARTSIGAM | すきやき奉行 | 1 | 0 | 1 |  |
 | 150 | Fahrenheit 212 |  | 1 | 0 | 1 |  |
 | 151 | fantasic lemon | じゃこレモン | 1 | 0 | 1 |  |
 | 152 | FIGHT ACT ITEM ♥PHOENIX | 小鳥遊さん | 1 | 0 | 1 |  |
-| 153 | FLANDRE LEMON |  | 1 | 0 | 1 |  |
+| 153 | FLANDRE LEMON | じゃこレモン | 1 | 0 | 1 |  |
 | 154 | FRANTIC LEMON | じゃこレモン | 1 | 0 | 1 |  |
 | 155 | Free-stylemon | じゃこレモン | 1 | 0 | 1 |  |
 | 156 | FREEDOM "over-Over-OVERDRIVE" CAT!!!!! | ぴちネコ | 1 | 0 | 1 |  |
@@ -238,8 +239,8 @@
 | 160 | FREEDOM↑FLYHIGH↑CAT | ぴちネコ | 1 | 0 | 1 |  |
 | 161 | GODLEMONESS | じゃこレモン | 1 | 0 | 1 |  |
 | 162 | GOODCAT | ぴちネコ | 1 | 0 | 1 |  |
-| 163 | Grim Shooter Lemon |  | 0 | 1 | 1 |  |
-| 164 | habakiri -Fugaku- |  | 1 | 0 | 1 |  |
+| 163 | Grim Shooter Lemon | じゃこレモン | 0 | 1 | 1 |  |
+| 164 | habakiri -Fugaku- | アミノハバキリ | 1 | 0 | 1 |  |
 | 165 | habakiri -Ignited- | アミノハバキリ | 1 | 0 | 1 |  |
 | 166 | habakiri -Testament- | アミノハバキリ | 1 | 0 | 1 |  |
 | 167 | habakiri-Psychedelic- | アミノハバキリ | 1 | 0 | 1 |  |
@@ -257,11 +258,11 @@
 | 179 | J4K0 L5M0N | じゃこレモン | 1 | 0 | 1 |  |
 | 180 | Jack Assault X | Jack | 1 | 0 | 1 |  |
 | 181 | Jack TP | Jack | 1 | 0 | 1 |  |
-| 182 | Jack vs Moon Strix |  | 1 | 0 | 1 |  |
+| 182 | Jack vs Moon Strix | Moon Strix、Jack | 1 | 0 | 1 |  |
 | 183 | Komplemon | じゃこレモン | 1 | 0 | 1 |  |
 | 184 | LabiLabi | LabiLabi | 1 | 0 | 1 |  |
 | 185 | lAbilabI wAndeRing iN tHe NighTmARe | LabiLabi | 1 | 0 | 1 |  |
-| 186 | Labi師匠[小鳥遊.] |  | 1 | 0 | 1 |  |
+| 186 | Labi師匠[小鳥遊.] | 小鳥遊さん、LabiLabi | 1 | 0 | 1 |  |
 | 187 | Lemmoon | じゃこレモン | 1 | 0 | 1 |  |
 | 188 | Lemon | じゃこレモン | 1 | 0 | 1 |  |
 | 189 | Lemon -Arced for the Ace- | じゃこレモン | 1 | 0 | 1 |  |
@@ -272,32 +273,32 @@
 | 194 | M■o◆ S■r◆x | Moon Strix | 1 | 0 | 1 |  |
 | 195 | Magistrate -for KoP2020- | すきやき奉行 | 1 | 0 | 1 |  |
 | 196 | Magistrate vs A Lucidness | すきやき奉行 | 1 | 0 | 1 |  |
-| 197 | maimai譜面ボーイズ |  | 1 | 0 | 1 |  |
-| 198 | maimai譜面ボーイズからの挑戦ﾝl犬 |  | 1 | 0 | 1 |  |
+| 197 | maimai譜面ボーイズ | Jack、はっぴー、某S氏、rioN、mai-Star、チャン@DP皆伝 | 1 | 0 | 1 |  |
+| 198 | maimai譜面ボーイズからの挑戦ﾝl犬 | Jack、はっぴー、小鳥遊さん、某S氏、LabiLabi、チャン@DP皆伝、玉子豆腐 | 1 | 0 | 1 |  |
 | 199 | MANIAC LEMON | じゃこレモン | 1 | 0 | 1 |  |
 | 200 | Meteian | Meteian | 1 | 0 | 1 |  |
 | 201 | MinimiLight -Despair- | ミニミライト | 0 | 1 | 1 |  |
 | 202 | MinimiLight -RENAISSANCE- | ミニミライト | 0 | 1 | 1 |  |
-| 203 | MinimiLight vs Mistilteinn |  | 1 | 0 | 1 |  |
+| 203 | MinimiLight vs Mistilteinn | ミストルティン、ミニミライト | 1 | 0 | 1 |  |
 | 204 | Mistilteinn -Burn Apocalypse- | ミストルティン | 1 | 0 | 1 |  |
 | 205 | Mistilteinn -dear our sister- | ミストルティン | 1 | 0 | 1 |  |
 | 206 | Mistilteinn -Flutter- | ミストルティン | 1 | 0 | 1 |  |
 | 207 | Mistilteinn -For KOP6th- | ミストルティン | 1 | 0 | 1 |  |
-| 208 | Mistilteinn -Phoenix- |  | 1 | 0 | 1 |  |
+| 208 | Mistilteinn -Phoenix- | ミストルティン、小鳥遊さん | 1 | 0 | 1 |  |
 | 209 | Mistilteinn -Sense des Todes- | ミストルティン | 1 | 0 | 1 |  |
-| 210 | Mistilteinn -starry- |  | 1 | 0 | 1 |  |
+| 210 | Mistilteinn -starry- | ミストルティン | 1 | 0 | 1 |  |
 | 211 | Mistilteinn -Viscumalbum- | ミストルティン | 1 | 0 | 1 |  |
 | 212 | Mistilteinn -ZTX2 Impulse- | ミストルティン | 1 | 0 | 1 |  |
 | 213 | Mistilteinn in zero-g | ミストルティン | 1 | 0 | 1 |  |
-| 214 | Mistilteinn vs Mizore respect for Finalists and "Endmark" |  | 1 | 0 | 1 |  |
+| 214 | Mistilteinn vs Mizore respect for Finalists and "Endmark" | ミストルティン、みぞれヤナギ | 1 | 0 | 1 |  |
 | 215 | MIZ |  | 1 | 0 | 1 |  |
 | 216 | Mizo[r]e -Trinity- | みぞれヤナギ | 1 | 0 | 1 |  |
 | 217 | mizoRequiem... | みぞれヤナギ | 1 | 0 | 1 |  |
 | 218 | mnooze strix | Moon Strix | 1 | 0 | 1 |  |
 | 219 | monoclock.HiTECH | ものくろっく | 1 | 0 | 1 |  |
-| 220 | monoclock.kagura |  | 1 | 0 | 1 |  |
-| 221 | Monster -FINAL JUDGMENT- |  | 1 | 0 | 1 |  |
-| 222 | MONSTER vs Violetta |  | 1 | 0 | 1 |  |
+| 220 | monoclock.kagura | ものくろっく | 1 | 0 | 1 |  |
+| 221 | Monster -FINAL JUDGMENT- | じゃこレモン | 1 | 0 | 1 |  |
+| 222 | MONSTER vs Violetta | じゃこレモン、Violetta | 1 | 0 | 1 |  |
 | 223 | Moon StriGX-04 | Moon Strix | 1 | 0 | 1 |  |
 | 224 | MOON STRiX | Moon Strix | 1 | 0 | 1 |  |
 | 225 | Moon Strix -Encore- | Moon Strix | 1 | 0 | 1 |  |
@@ -306,10 +307,10 @@
 | 228 | MOON STRIX!! | Moon Strix | 1 | 0 | 1 |  |
 | 229 | Moon Strix(・◇・) | Moon Strix | 1 | 0 | 1 |  |
 | 230 | Moon Strix（バンド） | Moon Strix | 1 | 0 | 1 |  |
-| 231 | Moon Strix「イカゲソ天」 |  | 1 | 0 | 1 |  |
+| 231 | Moon Strix「イカゲソ天」 | Moon Strix | 1 | 0 | 1 |  |
 | 232 | Moon Strix＠つぶあん派 | Moon Strix | 1 | 0 | 1 |  |
 | 233 | Moon Strix＠ゆづきず推し | Moon Strix | 0 | 1 | 1 |  |
-| 234 | Moon Strix＠超銀河キズユカ歌合戦 |  | 1 | 0 | 1 |  |
+| 234 | Moon Strix＠超銀河キズユカ歌合戦 | Moon Strix | 1 | 0 | 1 |  |
 | 235 | Moon Strix／さよなら、お元気で。 | Moon Strix | 1 | 0 | 1 |  |
 | 236 | Moon Strix／僕ら止まれない | Moon Strix | 1 | 0 | 1 |  |
 | 237 | Moon Strix#ΦωΦ | Moon Strix | 1 | 0 | 1 |  |
@@ -325,7 +326,7 @@
 | 247 | NEW Techno Kitchen+ | Techno Kitchen | 0 | 1 | 1 |  |
 | 248 | Nyan NyaNyan Nyang!! | ぴちネコ | 1 | 0 | 1 |  |
 | 249 | obj:mnnn | ミニミライト | 1 | 0 | 1 |  |
-| 250 | One øf Chuni Fumen Boys |  | 1 | 0 | 1 |  |
+| 250 | One øf Chuni Fumen Boys | じゃこレモン、ミストルティン、みぞれヤナギ | 1 | 0 | 1 |  |
 | 251 | Op.hx | 小鳥遊さん | 1 | 0 | 1 |  |
 | 252 | Opus Negativus Centum | 譜面-100号 | 1 | 0 | 1 |  |
 | 253 | Otoware Lemon | じゃこレモン | 1 | 0 | 1 |  |
@@ -335,7 +336,7 @@
 | 257 | Panther Zero | ぴちネコ | 1 | 0 | 1 |  |
 | 258 | Panther+Black | ぴちネコ | 1 | 0 | 1 |  |
 | 259 | PhOEnIx | 小鳥遊さん | 1 | 0 | 1 |  |
-| 260 | Phoenix vs Redarrow |  | 1 | 0 | 1 |  |
+| 260 | Phoenix vs Redarrow | Redarrow、小鳥遊さん | 1 | 0 | 1 |  |
 | 261 | Piercing Blade -For KOP5th- | アミノハバキリ | 1 | 0 | 1 |  |
 | 262 | Piercing Blade 'Sharp Eyes' | アミノハバキリ | 1 | 0 | 1 |  |
 | 263 | PIZ2ICAT  -CODENAME : CRYSTAL- | ぴちネコ | 1 | 0 | 1 |  |
@@ -344,80 +345,80 @@
 | 266 | Pizzicat a.k.a. Russianblack | ぴちネコ | 1 | 0 | 1 |  |
 | 267 | Pizzicat MX | ぴちネコ | 1 | 0 | 1 |  |
 | 268 | POETIC LEMON | じゃこレモン | 1 | 0 | 1 |  |
-| 269 | Queen J.A.Q. VS Freedom C.A.T. |  | 1 | 0 | 1 |  |
+| 269 | Queen J.A.Q. VS Freedom C.A.T. | ぴちネコ、Jack | 1 | 0 | 1 |  |
 | 270 | Queen P.H.X. | 小鳥遊さん | 0 | 1 | 1 |  |
-| 271 | R-BLACKJACK |  | 1 | 0 | 1 |  |
+| 271 | R-BLACKJACK | ぴちネコ | 1 | 0 | 1 |  |
 | 272 | R.@.P. | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 273 | Ragnarok | Ragnarok | 1 | 0 | 1 |  |
-| 274 | Ragnarok vs Violetta |  | 1 | 0 | 1 |  |
+| 274 | Ragnarok vs Violetta | Violetta、Ragnarok | 1 | 0 | 1 |  |
 | 275 | Rainbow:Arrow | Redarrow | 1 | 0 | 1 |  |
-| 276 | Re:vo@LC vs. ミストルティン |  | 1 | 0 | 1 |  |
+| 276 | Re:vo@LC vs. ミストルティン | ミストルティン、Revo@LC | 1 | 0 | 1 |  |
 | 277 | RED IMPACT | Redarrow | 1 | 0 | 1 |  |
 | 278 | Red→→→Arrow | Redarrow | 1 | 0 | 1 |  |
-| 279 | Red+Lemon |  | 1 | 0 | 1 |  |
+| 279 | Red+Lemon | じゃこレモン、Redarrow | 1 | 0 | 1 |  |
 | 280 | Redarrow -For KOP4th- | Redarrow | 1 | 0 | 1 |  |
 | 281 | Redarrow -LIFE STREAM- | Redarrow | 1 | 0 | 1 |  |
 | 282 | Redarrow -U&amp;iVERSE- | Redarrow | 1 | 0 | 1 |  |
 | 283 | Redarrow (L'inverno) | Redarrow | 1 | 0 | 1 |  |
 | 284 | Redarrow last war | Redarrow | 1 | 0 | 1 |  |
-| 285 | Redarrow resurrected by Mistilteinn |  | 1 | 0 | 1 |  |
+| 285 | Redarrow resurrected by Mistilteinn | ミストルティン、Redarrow | 1 | 0 | 1 |  |
 | 286 | Redarrow SPEED RAVE!!! | Redarrow | 1 | 0 | 1 |  |
-| 287 | Redarrow supported by ミストルティン |  | 1 | 0 | 1 |  |
-| 288 | redarrow Vs habakiri |  | 1 | 0 | 1 |  |
+| 287 | Redarrow supported by ミストルティン | ミストルティン、Redarrow | 1 | 0 | 1 |  |
+| 288 | redarrow Vs habakiri | アミノハバキリ、Redarrow | 1 | 0 | 1 |  |
 | 289 | Redarrow＠ずっと、夏！ | Redarrow | 1 | 0 | 1 |  |
 | 290 | Remnants of Blade | アミノハバキリ | 1 | 0 | 1 |  |
 | 291 | Revo@LC [VIT型Assassin] | Revo@LC | 1 | 0 | 1 |  |
-| 292 | Revo@LC + 鈴木さん |  | 1 | 0 | 1 |  |
-| 293 | Revo@LC cooperated with 譜面-100号 |  | 1 | 0 | 1 |  |
+| 292 | Revo@LC + 鈴木さん | Revo@LC、鈴木さん | 1 | 0 | 1 |  |
+| 293 | Revo@LC cooperated with 譜面-100号 | Revo@LC、譜面-100号 | 1 | 0 | 1 |  |
 | 294 | Revo@LC respect for ロシェ＠ペンギン | Revo@LC | 1 | 0 | 1 |  |
-| 295 | Revo@LC supported by Techno Kitchen |  | 1 | 0 | 1 |  |
-| 296 | Revo@LC vs Jack |  | 1 | 0 | 1 |  |
-| 297 | Revo@LC vs ぴちネコ |  | 1 | 0 | 1 |  |
+| 295 | Revo@LC supported by Techno Kitchen | Techno Kitchen、Revo@LC | 1 | 0 | 1 |  |
+| 296 | Revo@LC vs Jack | Revo@LC、Jack | 1 | 0 | 1 |  |
+| 297 | Revo@LC vs ぴちネコ | ぴちネコ、Revo@LC | 1 | 0 | 1 |  |
 | 298 | Revo@LCYYYY!!!! | Revo@LC | 1 | 0 | 1 |  |
 | 299 | Revo＠充電切れ | Revo@LC | 0 | 1 | 1 |  |
 | 300 | Revo2LC  -CODENAME : AIRPLUS- | Revo@LC | 1 | 0 | 1 |  |
 | 301 | Revo2LC -ENDLESS CIRCULATION- | Revo@LC | 1 | 0 | 1 |  |
-| 302 | RevorioN |  | 1 | 0 | 1 |  |
+| 302 | RevorioN | Revo@LC、rioN | 1 | 0 | 1 |  |
 | 303 | rio -N- | rioN | 1 | 0 | 1 |  |
 | 304 | ROCHER GALACTIC STRIKE | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 305 | Rockarrow |  | 1 | 0 | 1 |  |
-| 306 | Ruby supported by ミストルティン |  | 1 | 0 | 1 |  |
-| 307 | Ruby vs DJ CaT |  | 1 | 0 | 1 |  |
-| 308 | Ruby vs Jack |  | 0 | 1 | 1 |  |
+| 305 | Rockarrow | Redarrow | 1 | 0 | 1 |  |
+| 306 | Ruby supported by ミストルティン | ミストルティン、Ruby | 1 | 0 | 1 |  |
+| 307 | Ruby vs DJ CaT | ぴちネコ、Ruby | 1 | 0 | 1 |  |
+| 308 | Ruby vs Jack | Jack、Ruby | 0 | 1 | 1 |  |
 | 309 | Russian Black Square | ぴちネコ | 1 | 0 | 1 |  |
 | 310 | RussianB1ack | ぴちネコ | 1 | 0 | 1 |  |
 | 311 | Sacred Excalibur |  | 1 | 0 | 1 |  |
-| 312 | Sacred key "Mistilteinn" |  | 1 | 0 | 1 |  |
+| 312 | Sacred key "Mistilteinn" | ミストルティン | 1 | 0 | 1 |  |
 | 313 | SacrIfIce | すきやき奉行 | 1 | 0 | 1 |  |
-| 314 | SacrIfIce vs Ragnarok |  | 1 | 0 | 1 |  |
+| 314 | SacrIfIce vs Ragnarok | すきやき奉行、Ragnarok | 1 | 0 | 1 |  |
 | 315 | salix | みぞれヤナギ | 1 | 0 | 1 |  |
 | 316 | SAMBA MASTER 小鳥遊 | 小鳥遊さん | 1 | 0 | 1 |  |
 | 317 | Sampling Beginners いぬ | はっぴー | 1 | 0 | 1 |  |
 | 318 | SEGA Fumen Man | じゃこレモン | 1 | 0 | 1 |  |
-| 319 | SEGA Fumen Unit[B.] |  | 0 | 1 | 1 |  |
-| 320 | SHOW ME YOUR "POTENTIAL" -For KoP The 3rd- |  | 1 | 0 | 1 |  |
+| 319 | SEGA Fumen Unit[B.] | ロシェ＠ペンギン、じゃこレモン、ぴちネコ、ミストルティン、アミノハバキリ、Redarrow | 0 | 1 | 1 |  |
+| 320 | SHOW ME YOUR "POTENTIAL" -For KoP The 3rd- | ロシェ＠ペンギン、じゃこレモン、アミノハバキリ、Redarrow、小鳥遊さん | 1 | 0 | 1 |  |
 | 321 | SILENT LEMON | じゃこレモン | 1 | 0 | 1 |  |
 | 322 | Six Dimensio'N' Motor | Moon Strix | 1 | 0 | 1 |  |
-| 323 | SUILOUYA　COLORS | 翠楼屋 | 0 | 1 | 1 |  |
+| 323 | SUILOUYA　COLORS | サファ太 | 0 | 1 | 1 |  |
 | 324 | Sukiyaki SC | すきやき奉行 | 1 | 0 | 1 |  |
-| 325 | SukiyakY fused with HABaKURO |  | 1 | 0 | 1 |  |
+| 325 | SukiyakY fused with HABaKURO | アミノハバキリ、すきやき奉行 | 1 | 0 | 1 |  |
 | 326 | SUKIYAKYPSIS JOHANNIS | すきやき奉行 | 1 | 0 | 1 |  |
 | 327 | t+phoenix | 小鳥遊さん | 1 | 0 | 1 |  |
 | 328 | Taboo "Forbidden Notes" |  | 0 | 1 | 1 |  |
-| 329 | Techno Kitchen -+- Moon Strix |  | 1 | 0 | 1 |  |
+| 329 | Techno Kitchen -+- Moon Strix | Techno Kitchen、Moon Strix | 1 | 0 | 1 |  |
 | 330 | Techno Kitchen -For KOP4th- | Techno Kitchen | 1 | 0 | 1 |  |
 | 331 | Techno Kitchen [Reborn] | Techno Kitchen | 1 | 0 | 1 |  |
 | 332 | Techno Kitchen [Spherical] | Techno Kitchen | 1 | 0 | 1 |  |
-| 333 | Techno Kitchen &lt;―&gt; Redarrow &lt;―&gt; |  | 1 | 0 | 1 |  |
-| 334 | Techno Kitchen and ミストルティン |  | 1 | 0 | 1 |  |
+| 333 | Techno Kitchen &lt;―&gt; Redarrow &lt;―&gt; | Techno Kitchen、Redarrow | 1 | 0 | 1 |  |
+| 334 | Techno Kitchen and ミストルティン | ミストルティン、Techno Kitchen | 1 | 0 | 1 |  |
 | 335 | Techno Kitchen SC | Techno Kitchen | 0 | 1 | 1 |  |
-| 336 | Techno Kitchen vs Revo@LC |  | 1 | 0 | 1 |  |
+| 336 | Techno Kitchen vs Revo@LC | Techno Kitchen、Revo@LC | 1 | 0 | 1 |  |
 | 337 | Techno Kitchen vs wonder&#42; | Techno Kitchen | 1 | 0 | 1 |  |
-| 338 | Techno Kitchen vs ぴちネコ |  | 1 | 0 | 1 |  |
+| 338 | Techno Kitchen vs ぴちネコ | ぴちネコ、Techno Kitchen | 1 | 0 | 1 |  |
 | 339 | Techno Kitchen!!!! | Techno Kitchen | 1 | 0 | 1 |  |
 | 340 | Techno Kitchen+ | Techno Kitchen | 1 | 0 | 1 |  |
 | 341 | techno&#42;kitchen | Techno Kitchen | 1 | 0 | 1 |  |
-| 342 | Technologie |  | 1 | 0 | 1 |  |
+| 342 | Technologie | Techno Kitchen、écologie | 1 | 0 | 1 |  |
 | 343 | TEKNOKITCHEN 1796 | Techno Kitchen | 1 | 0 | 1 |  |
 | 344 | THE IVORY LIGHT | ミニミライト | 1 | 0 | 1 |  |
 | 345 | The Magistrate | すきやき奉行 | 1 | 0 | 1 |  |
@@ -436,25 +437,25 @@
 | 358 | Unlimited Lemon! | じゃこレモン | 0 | 1 | 1 |  |
 | 359 | VIoletta | Violetta | 1 | 0 | 1 |  |
 | 360 | Violetta + ω | Violetta | 1 | 0 | 1 |  |
-| 361 | Violetta vs Ataraxia |  | 1 | 0 | 1 |  |
-| 362 | Violetta vs MONSTER |  | 1 | 0 | 1 |  |
-| 363 | watch?v=HiSAVRDX3c0 |  | 1 | 0 | 1 |  |
+| 361 | Violetta vs Ataraxia | Violetta、Ataraxia | 1 | 0 | 1 |  |
+| 362 | Violetta vs MONSTER | じゃこレモン、Violetta | 1 | 0 | 1 |  |
+| 363 | watch?v=HiSAVRDX3c0 | ロシェ＠ペンギン、じゃこレモン、ミストルティン、Techno Kitchen、アミノハバキリ、Moon Strix、Redarrow、Revo@LC、小鳥遊さん | 1 | 0 | 1 |  |
 | 364 | Welcome to mathworld. |  | 0 | 1 | 1 |  |
 | 365 | Where All Miracles Begin |  | 1 | 0 | 1 |  |
-| 366 | WHITE WINTER NOTES |  | 0 | 1 | 1 |  |
+| 366 | WHITE WINTER NOTES | じゃこレモン、ミストルティン | 0 | 1 | 1 |  |
 | 367 | with Phoenix | 小鳥遊さん | 0 | 1 | 1 |  |
 | 368 | wonder&#42; vs Techno Kitchen | Techno Kitchen | 1 | 0 | 1 |  |
 | 369 | xmxoxnxoxcxlxoxcxkx | ものくろっく | 1 | 0 | 1 |  |
 | 370 | XXX:THE MONSTER | じゃこレモン | 1 | 0 | 1 |  |
-| 371 | ZONE:SaFaRi vs. CODE:Ragnarok |  | 1 | 0 | 1 |  |
+| 371 | ZONE:SaFaRi vs. CODE:Ragnarok | サファ太、Ragnarok | 1 | 0 | 1 |  |
 | 372 | アイドル応援！ロシアンブラック | ぴちネコ | 1 | 0 | 1 |  |
 | 373 | アイマイペンギン | ロシェ＠ペンギン | 0 | 1 | 1 |  |
 | 374 | あなただけのロシェ＠ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 375 | あまくちジンジャー | あまくちジンジャー | 1 | 0 | 1 |  |
 | 376 | あみのきゃはばないことばきり | アミノハバキリ | 1 | 0 | 1 |  |
 | 377 | アミノハバキリ 2k20 | アミノハバキリ | 1 | 0 | 1 |  |
-| 378 | アミノハバキリ vs サファ太 |  | 1 | 0 | 1 |  |
-| 379 | アミノハバキリ vs じゃこレモン |  | 1 | 0 | 1 |  |
+| 378 | アミノハバキリ vs サファ太 | アミノハバキリ、サファ太 | 1 | 0 | 1 |  |
+| 379 | アミノハバキリ vs じゃこレモン | じゃこレモン、アミノハバキリ | 1 | 0 | 1 |  |
 | 380 | アミノハバスター | アミノハバキリ | 1 | 0 | 1 |  |
 | 381 | アミノホワァ(゜Д゜)バキリ | アミノハバキリ | 1 | 0 | 1 |  |
 | 382 | いい波きてるよ！ロシェ＠ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
@@ -467,18 +468,18 @@
 | 389 | イヌハッピー | はっぴー | 1 | 0 | 1 |  |
 | 390 | いまきた奉行 | すきやき奉行 | 1 | 0 | 1 |  |
 | 391 | うさぎランドリー | うさぎランドリー | 1 | 0 | 1 |  |
-| 392 | えころじがやってきたぞっ with 謎の金髪梟 |  | 1 | 0 | 1 |  |
+| 392 | えころじがやってきたぞっ with 謎の金髪梟 | Moon Strix、écologie | 1 | 0 | 1 |  |
 | 393 | エスシ・プリズムリバー | 某S氏 | 1 | 0 | 1 |  |
 | 394 | エメラルド星人 | Emerald | 1 | 0 | 1 |  |
 | 395 | エメリャルド | Emerald | 1 | 0 | 1 |  |
 | 396 | おもしレッドアロー | Redarrow | 1 | 0 | 1 |  |
 | 397 | おもしレモン | じゃこレモン | 1 | 0 | 1 |  |
-| 398 | おもしロシェ |  | 1 | 0 | 1 |  |
+| 398 | おもしロシェ | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 399 | カードゲーマー†レモン | じゃこレモン | 1 | 0 | 1 |  |
 | 400 | キャプテン・レモン | じゃこレモン | 1 | 0 | 1 |  |
 | 401 | キュートなレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 402 | くっころペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 403 | ゲキ&#42;チュウマイ Fumen Team |  | 1 | 0 | 1 |  |
+| 403 | ゲキ&#42;チュウマイ Fumen Team | ぴちネコ、原D(羽田の白い彗星) | 1 | 0 | 1 |  |
 | 404 | ごろごろレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 405 | サイバーじゃこレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 406 | じゃーんレモン | じゃこレモン | 1 | 0 | 1 |  |
@@ -491,11 +492,11 @@
 | 413 | ジャコレモサンバ | じゃこレモン | 1 | 0 | 1 |  |
 | 414 | じゃこレモン -desperado- | じゃこレモン | 1 | 0 | 1 |  |
 | 415 | じゃこレモン respect for rioN | じゃこレモン | 1 | 0 | 1 |  |
-| 416 | じゃこレモン supported by Techno Kitchen |  | 1 | 0 | 1 |  |
+| 416 | じゃこレモン supported by Techno Kitchen | じゃこレモン、Techno Kitchen | 1 | 0 | 1 |  |
 | 417 | じゃこレモン synthetic | じゃこレモン | 1 | 0 | 1 |  |
-| 418 | じゃこレモン vs Redarrow |  | 1 | 0 | 1 |  |
-| 419 | じゃこレモン vs アミノハバキリ |  | 1 | 0 | 1 |  |
-| 420 | じゃこレモン vs. すきやき奉行 |  | 1 | 0 | 1 |  |
+| 418 | じゃこレモン vs Redarrow | じゃこレモン、Redarrow | 1 | 0 | 1 |  |
+| 419 | じゃこレモン vs アミノハバキリ | じゃこレモン、アミノハバキリ | 1 | 0 | 1 |  |
+| 420 | じゃこレモン vs. すきやき奉行 | じゃこレモン、すきやき奉行 | 1 | 0 | 1 |  |
 | 421 | じゃこレモン！ | じゃこレモン | 1 | 0 | 1 |  |
 | 422 | じゃこレモン!!! | じゃこレモン | 1 | 0 | 1 |  |
 | 423 | じゃこレモン＠7sRefちほー | じゃこレモン | 1 | 0 | 1 |  |
@@ -510,21 +511,21 @@
 | 432 | じゃこレモンドロップ | じゃこレモン | 1 | 0 | 1 |  |
 | 433 | じゃこレモンの突撃! | じゃこレモン | 1 | 0 | 1 |  |
 | 434 | じゃこレモン裁判長 | じゃこレモン | 1 | 0 | 1 |  |
-| 435 | じゃっく組長＆猫魚亭ぴちねこ |  | 1 | 0 | 1 |  |
+| 435 | じゃっく組長＆猫魚亭ぴちねこ | ぴちネコ、Jack | 1 | 0 | 1 |  |
 | 436 | じゃンこラボックス | じゃこレモン | 1 | 0 | 1 |  |
-| 437 | ス゜イロ゜ウヤ゜ |  | 1 | 0 | 1 |  |
+| 437 | ス゜イロ゜ウヤ゜ | サファ太 | 1 | 0 | 1 |  |
 | 438 | すきやき が てんこもり | すきやき奉行 | 1 | 0 | 1 |  |
 | 439 | すきやきアドベンチャー | すきやき奉行 | 1 | 0 | 1 |  |
 | 440 | すきやきケーキ | すきやき奉行 | 1 | 0 | 1 |  |
 | 441 | すきやきの奉行が君に襲い掛かる！ | すきやき奉行 | 1 | 0 | 1 |  |
-| 442 | すきやき委員長 |  | 1 | 0 | 1 |  |
+| 442 | すきやき委員長 | すきやき奉行 | 1 | 0 | 1 |  |
 | 443 | すきやき解剖 | すきやき奉行 | 1 | 0 | 1 |  |
 | 444 | すきやき東京 | すきやき奉行 | 1 | 0 | 1 |  |
 | 445 | すきやき卑怯 | すきやき奉行 | 1 | 0 | 1 |  |
-| 446 | すきやき奉行 ＋ Jack |  | 1 | 0 | 1 |  |
-| 447 | すきやき奉行 supported by Moon Strix |  | 1 | 0 | 1 |  |
-| 448 | すきやき奉行 supported by ぴちネコ |  | 1 | 0 | 1 |  |
-| 449 | すきやき奉行 vs ミストルティン |  | 1 | 0 | 1 |  |
+| 446 | すきやき奉行 ＋ Jack | すきやき奉行、Jack | 1 | 0 | 1 |  |
+| 447 | すきやき奉行 supported by Moon Strix | Moon Strix、すきやき奉行 | 1 | 0 | 1 |  |
+| 448 | すきやき奉行 supported by ぴちネコ | ぴちネコ、すきやき奉行 | 1 | 0 | 1 |  |
+| 449 | すきやき奉行 vs ミストルティン | ミストルティン、すきやき奉行 | 1 | 0 | 1 |  |
 | 450 | すきやき奉行(Hr) | すきやき奉行 | 1 | 0 | 1 |  |
 | 451 | すきやき奉行＠初代132万 | すきやき奉行 | 0 | 1 | 1 |  |
 | 452 | すき山 誠十行 | すきやき奉行 | 1 | 0 | 1 |  |
@@ -541,12 +542,12 @@
 | 463 | だって、犬の譜面は、心の叫びだから！ | はっぴー | 1 | 0 | 1 |  |
 | 464 | だつりょく系ミニミライト | ミニミライト | 1 | 0 | 1 |  |
 | 465 | タマゴのお考え | 玉子豆腐 | 1 | 0 | 1 |  |
-| 466 | チャン@16kf.゜ω゜ |  | 1 | 0 | 1 |  |
-| 467 | チャン@DP皆伝 | チャン@DP皆伝 | 1 | 0 | 1 |  |
+| 466 | チャン@16kf.゜ω゜ | チャン@DP皆伝 | 1 | 0 | 1 |  |
+| 467 | チャン@DP皆伝 | チャン@DP皆伝 | 1 | 0 | 1 | dp皆传 |
 | 468 | チャン@DP皆伝からのメリークリスマス | チャン@DP皆伝 | 1 | 0 | 1 |  |
 | 469 | チャン＠ちっちゃなドキドキ皆伝 | チャン@DP皆伝 | 1 | 0 | 1 |  |
-| 470 | チュウニ譜面ボーイズの反逆 |  | 1 | 0 | 1 |  |
-| 471 | チュウマイコラボユニット |  | 1 | 0 | 1 |  |
+| 470 | チュウニ譜面ボーイズの反逆 | じゃこレモン、ぴちネコ、ミストルティン、Techno Kitchen、Moon Strix、écologie | 1 | 0 | 1 |  |
+| 471 | チュウマイコラボユニット | ロシェ＠ペンギン、ぴちネコ、Techno Kitchen、Moon Strix、Jack、譜面-100号 | 1 | 0 | 1 |  |
 | 472 | ちょっとヤバいんじゃない？ |  | 0 | 1 | 1 |  |
 | 473 | てーちゃんとくーちゃんとのーちゃん | Techno Kitchen | 1 | 0 | 1 |  |
 | 474 | テクノ★キッチン♂ | Techno Kitchen | 1 | 0 | 1 |  |
@@ -564,19 +565,19 @@
 | 486 | はたらくペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 487 | バックダンサーズじゃこ&amp;レモン | じゃこレモン | 1 | 0 | 1 |  |
 | 488 | ハっぴー | はっぴー | 1 | 0 | 1 |  |
-| 489 | はっぴー | はっぴー | 1 | 0 | 1 |  |
+| 489 | はっぴー | はっぴー | 1 | 0 | 1 | 哈皮、绿化委员长 |
 | 490 | はっぴー　NEW!! | はっぴー | 1 | 0 | 1 |  |
 | 491 | はっぴー@全都道府県完全制覇 | はっぴー | 1 | 0 | 1 |  |
 | 492 | ハバキリ@こしあん派 | アミノハバキリ | 1 | 0 | 1 |  |
-| 493 | ハバキリ@三角コーナー |  | 1 | 0 | 1 |  |
+| 493 | ハバキリ@三角コーナー | アミノハバキリ | 1 | 0 | 1 |  |
 | 494 | ハバキリ＠涙の薫りがする | アミノハバキリ | 1 | 0 | 1 |  |
 | 495 | パラレルじゃこレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 496 | ぴ.ち.ネ.コ. | ぴちネコ | 1 | 0 | 1 |  |
-| 497 | ぴちネコ ft.すきやき奉行 |  | 1 | 0 | 1 |  |
-| 498 | ぴちネコ vs Moon Strix |  | 1 | 0 | 1 |  |
-| 499 | ぴちネコ vs Techno Kitchen |  | 1 | 0 | 1 |  |
-| 500 | ぴちネコ VS ロシェ＠ペンギン |  | 1 | 0 | 1 |  |
-| 501 | ぴちネコ VS 譜面-100号(超上級) |  | 1 | 0 | 1 |  |
+| 497 | ぴちネコ ft.すきやき奉行 | ぴちネコ、すきやき奉行 | 1 | 0 | 1 |  |
+| 498 | ぴちネコ vs Moon Strix | ぴちネコ、Moon Strix | 1 | 0 | 1 |  |
+| 499 | ぴちネコ vs Techno Kitchen | ぴちネコ、Techno Kitchen | 1 | 0 | 1 |  |
+| 500 | ぴちネコ VS ロシェ＠ペンギン | ロシェ＠ペンギン、ぴちネコ | 1 | 0 | 1 |  |
+| 501 | ぴちネコ VS 譜面-100号(超上級) | ぴちネコ、譜面-100号 | 1 | 0 | 1 |  |
 | 502 | ぴちネコ（帝国軍したっぱ） | ぴちネコ | 0 | 1 | 1 |  |
 | 503 | ぴちネコ@taterenda lovers | ぴちネコ | 0 | 1 | 1 |  |
 | 504 | ぴちネコの激唱 | ぴちネコ | 1 | 0 | 1 |  |
@@ -590,17 +591,17 @@
 | 512 | フメンティック H.P.犬（♂） | はっぴー | 1 | 0 | 1 |  |
 | 513 | プレミアムエメラルデー | Emerald | 1 | 0 | 1 |  |
 | 514 | ペンギンは人になりたかった | ロシェ＠ペンギン | 0 | 1 | 1 |  |
-| 515 | ポコポコヘルメット団 |  | 0 | 1 | 1 |  |
+| 515 | ポコポコヘルメット団 | ロシェ＠ペンギン、じゃこレモン、アミノハバキリ、そらいろカリン | 0 | 1 | 1 |  |
 | 516 | みこレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 517 | ミストルティン -アポートル- | ミストルティン | 1 | 0 | 1 |  |
 | 518 | ミストルティン -禁圧解除- | ミストルティン | 1 | 0 | 1 |  |
-| 519 | ミストルティン &amp; 透明絵具 |  | 1 | 0 | 1 |  |
-| 520 | ミストルティン and アミノハバキリ |  | 1 | 0 | 1 |  |
-| 521 | ミストルティン vs MILD:CatastroPhe |  | 1 | 0 | 1 |  |
+| 519 | ミストルティン &amp; 透明絵具 | ミストルティン、透明絵具 | 1 | 0 | 1 |  |
+| 520 | ミストルティン and アミノハバキリ | ミストルティン、アミノハバキリ | 1 | 0 | 1 |  |
+| 521 | ミストルティン vs MILD:CatastroPhe | ぴちネコ、ミストルティン | 1 | 0 | 1 |  |
 | 522 | ミストルティン vs Mistilteinn | ミストルティン | 1 | 0 | 1 |  |
-| 523 | ミストルティン vs アミノハバキリ |  | 1 | 0 | 1 |  |
-| 524 | ミストルティン vs じゃこレモン |  | 1 | 0 | 1 |  |
-| 525 | ミストルティン vs 譜面-100号 |  | 1 | 0 | 1 |  |
+| 523 | ミストルティン vs アミノハバキリ | ミストルティン、アミノハバキリ | 1 | 0 | 1 |  |
+| 524 | ミストルティン vs じゃこレモン | じゃこレモン、ミストルティン | 1 | 0 | 1 |  |
+| 525 | ミストルティン vs 譜面-100号 | ミストルティン、譜面-100号 | 1 | 0 | 1 |  |
 | 526 | ミストルティン＠DIVA10周年おめでとう！ | ミストルティン | 1 | 0 | 1 |  |
 | 527 | ミストルティン＠Melee | ミストルティン | 0 | 1 | 1 |  |
 | 528 | ミストルティン＠エゴイスト | ミストルティン | 1 | 0 | 1 |  |
@@ -624,16 +625,16 @@
 | 546 | みそかつ侍＠北宇治の3年間をありがとう！ | みそかつ侍 | 1 | 0 | 1 |  |
 | 547 | みぞれとやなぎ | みぞれヤナギ | 1 | 0 | 1 |  |
 | 548 | みぞれやなぎ | みぞれヤナギ | 0 | 1 | 1 |  |
-| 549 | みぞれヤナギ + そらいろカリン |  | 1 | 0 | 1 |  |
-| 550 | みぞれヤナギ vs じゃこレモン |  | 1 | 0 | 1 |  |
-| 551 | みぞれヤナギ vs ミストルティン |  | 1 | 0 | 1 |  |
+| 549 | みぞれヤナギ + そらいろカリン | みぞれヤナギ、そらいろカリン | 1 | 0 | 1 |  |
+| 550 | みぞれヤナギ vs じゃこレモン | じゃこレモン、みぞれヤナギ | 1 | 0 | 1 |  |
+| 551 | みぞれヤナギ vs ミストルティン | ミストルティン、みぞれヤナギ | 1 | 0 | 1 |  |
 | 552 | みぞれヤナギ(笑)(笑)(笑)(笑)(笑) | みぞれヤナギ | 1 | 0 | 1 |  |
 | 553 | みぞれヤナギEXの　おひろめだ！ | みぞれヤナギ | 1 | 0 | 1 |  |
 | 554 | みぞれ堕ナギ | みぞれヤナギ | 1 | 0 | 1 |  |
-| 555 | みにみとあろえ |  | 1 | 0 | 1 |  |
-| 556 | ミニミライト &amp; みぞれヤナギ |  | 0 | 1 | 1 |  |
+| 555 | みにみとあろえ | ミニミライト、夕凪アロエ | 1 | 0 | 1 |  |
+| 556 | ミニミライト &amp; みぞれヤナギ | ミニミライト、みぞれヤナギ | 0 | 1 | 1 |  |
 | 557 | ミニミライト respect for Lycoris | ミニミライト | 1 | 0 | 1 |  |
-| 558 | ミニミライト vs ミストルティン |  | 1 | 0 | 1 |  |
+| 558 | ミニミライト vs ミストルティン | ミストルティン、ミニミライト | 1 | 0 | 1 |  |
 | 559 | ミニミライト(^^♪ | ミニミライト | 0 | 1 | 1 |  |
 | 560 | ミニミライト@can go to the next stage!! | ミニミライト | 1 | 0 | 1 |  |
 | 561 | ミニミライト@だいたいゴリラ | ミニミライト | 1 | 0 | 1 |  |
@@ -647,7 +648,7 @@
 | 569 | モスきやき奉行 | すきやき奉行 | 1 | 0 | 1 |  |
 | 570 | もの☆くろっく | ものくろっく | 1 | 0 | 1 |  |
 | 571 | もの♂くろっく | ものくろっく | 1 | 0 | 1 |  |
-| 572 | ものくろっく supported by 小鳥遊さん |  | 1 | 0 | 1 |  |
+| 572 | ものくろっく supported by 小鳥遊さん | 小鳥遊さん、ものくろっく | 1 | 0 | 1 |  |
 | 573 | ものくろっく(#) | ものくろっく | 1 | 0 | 1 |  |
 | 574 | ものくろっく＠I ♡ うにプ | ものくろっく | 1 | 0 | 1 |  |
 | 575 | ものくろっく@シンラリウム | ものくろっく | 1 | 0 | 1 |  |
@@ -665,16 +666,16 @@
 | 587 | ロシアンブラッ愚民＠大崎 | ぴちネコ | 1 | 0 | 1 |  |
 | 588 | ロシェ＠すごP | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 589 | ロシェ＠ヒーロー | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 590 | ロシェ＠ペンギン &amp; 夕凪アロエ |  | 1 | 0 | 1 |  |
-| 591 | ロシェ＠ペンギン panicked by Techno Kitchen |  | 1 | 0 | 1 |  |
-| 592 | ロシェ＠ペンギン vs Revo@LC |  | 1 | 0 | 1 |  |
-| 593 | ロシェ＠ペンギン vs そらいろカリン |  | 1 | 0 | 1 |  |
+| 590 | ロシェ＠ペンギン &amp; 夕凪アロエ | ロシェ＠ペンギン、夕凪アロエ | 1 | 0 | 1 |  |
+| 591 | ロシェ＠ペンギン panicked by Techno Kitchen | ロシェ＠ペンギン、Techno Kitchen | 1 | 0 | 1 |  |
+| 592 | ロシェ＠ペンギン vs Revo@LC | ロシェ＠ペンギン、Revo@LC | 1 | 0 | 1 |  |
+| 593 | ロシェ＠ペンギン vs そらいろカリン | ロシェ＠ペンギン、そらいろカリン | 1 | 0 | 1 |  |
 | 594 | ロシェ＠ペンギン(超上級) | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 595 | ロシェ＠ペンギン＆ミストルティン |  | 1 | 0 | 1 |  |
+| 595 | ロシェ＠ペンギン＆ミストルティン | ロシェ＠ペンギン、ミストルティン | 1 | 0 | 1 |  |
 | 596 | ロシェ＠移動要塞ママトト | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 597 | ロシェ＠九十九里浜 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 598 | ロシェ＠再履修 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 599 | ロシェ＠秋葉原 |  | 1 | 0 | 1 |  |
+| 599 | ロシェ＠秋葉原 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 600 | ロシェ＠大鳥居 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 601 | ロシェ＠北葛西 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 602 | ロシェ＠要検査 | ロシェ＠ペンギン | 1 | 0 | 1 |  |
@@ -684,11 +685,11 @@
 | 606 | ロシェ↓ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 607 | ロシェ★ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 608 | ロシェ♡ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 609 | ロシェ♣ペンギン |  | 1 | 0 | 1 |  |
+| 609 | ロシェ♣ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 610 | ロシェ⤴ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 611 | ロシェロシェにしてあげる♪ | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 612 | ロシェ乙ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 613 | ロシェ軍 対 ミストルティン軍 |  | 1 | 0 | 1 |  |
+| 613 | ロシェ軍 対 ミストルティン軍 | ロシェ＠ペンギン、ミストルティン | 1 | 0 | 1 |  |
 | 614 | わくわくフクロウ探検隊 | Moon Strix | 0 | 1 | 1 |  |
 | 615 | わるいことするみぞれ | みぞれヤナギ | 1 | 0 | 1 |  |
 | 616 | わるのり奉行 | すきやき奉行 | 1 | 0 | 1 |  |
@@ -706,7 +707,7 @@
 | 628 | 外出た瞬間ロシェペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 629 | 覚醒者Revo | Revo@LC | 1 | 0 | 1 |  |
 | 630 | 患者ミストルティン | ミストルティン | 1 | 0 | 1 |  |
-| 631 | 患者ミストルティン vs 患者ハバキリ |  | 1 | 0 | 1 |  |
+| 631 | 患者ミストルティン vs 患者ハバキリ | ミストルティン、アミノハバキリ | 1 | 0 | 1 |  |
 | 632 | 危険すぎる譜面-100号 | 譜面-100号 | 1 | 0 | 1 |  |
 | 633 | 吸きや鬼奉行 | すきやき奉行 | 1 | 0 | 1 |  |
 | 634 | 宮廷譜面士　みぞれヤナギ | みぞれヤナギ | 1 | 0 | 1 |  |
@@ -723,16 +724,16 @@
 | 645 | 月梟 as 六次元モーター | Moon Strix | 1 | 0 | 1 |  |
 | 646 | 剣技「気炎万丈の刃」 | アミノハバキリ | 1 | 0 | 1 |  |
 | 647 | 犬のバーゲンセール | はっぴー | 1 | 0 | 1 |  |
-| 648 | 犬は！　必死にやるしか出来ない！ |  | 1 | 0 | 1 |  |
+| 648 | 犬は！　必死にやるしか出来ない！ | はっぴー | 1 | 0 | 1 |  |
 | 649 | 犬はAIRを振り下ろしたかったようだった | はっぴー | 1 | 0 | 1 |  |
 | 650 | 胡散臭い譜面-100号 | 譜面-100号 | 1 | 0 | 1 |  |
-| 651 | 幸福は全ての市民と猫の義務です。 |  | 1 | 0 | 1 |  |
-| 652 | 紅き鳳凰伝説を語り継ぎしカタストロフィ |  | 0 | 1 | 1 |  |
-| 653 | 合作だよ |  | 1 | 0 | 1 |  |
+| 651 | 幸福は全ての市民と猫の義務です。 | ぴちネコ | 1 | 0 | 1 |  |
+| 652 | 紅き鳳凰伝説を語り継ぎしカタストロフィ | ぴちネコ | 0 | 1 | 1 |  |
+| 653 | 合作だよ | ロシェ＠ペンギン、じゃこレモン、ミストルティン、アミノハバキリ、ミニミライト | 1 | 0 | 1 |  |
 | 654 | 黒き弐匹ノ猫、魔汁片手に熾烈な音譜を画く | ぴちネコ | 1 | 0 | 1 |  |
 | 655 | 黒き翼Moon Strix vs 白き翼六次元モーター | Moon Strix | 1 | 0 | 1 |  |
 | 656 | 黒猫、旧支配者 | ぴちネコ | 1 | 0 | 1 |  |
-| 657 | 最後に勝つのはやっぱり奉行よね！ |  | 1 | 0 | 1 |  |
+| 657 | 最後に勝つのはやっぱり奉行よね！ | すきやき奉行 | 1 | 0 | 1 |  |
 | 658 | 最終鬼畜ペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 659 | 三十代身の丈知った犬 | はっぴー | 1 | 0 | 1 |  |
 | 660 | 山風に乗るペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
@@ -742,7 +743,7 @@
 | 664 | 死ぬ気で食い止めろ！おもしロシェ | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 665 | 自然の犬 | はっぴー | 1 | 0 | 1 |  |
 | 666 | 漆黒のヒーロー・ロシアンブラック | ぴちネコ | 1 | 0 | 1 |  |
-| 667 | 若いペンギンとお絵描きネコ |  | 1 | 0 | 1 |  |
+| 667 | 若いペンギンとお絵描きネコ | ロシェ＠ペンギン、ぴちネコ | 1 | 0 | 1 |  |
 | 668 | 渋谷の駅前で丸裸のはっぴー | はっぴー | 1 | 0 | 1 |  |
 | 669 | 小悪魔ミストルティン | ミストルティン | 1 | 0 | 1 |  |
 | 670 | 小鳥遊さん ～Phoenix～ | 小鳥遊さん | 1 | 0 | 1 |  |
@@ -755,14 +756,14 @@
 | 677 | 新参も古参もロシェペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 678 | 生き抜き撃ち抜くペンギン | ロシェ＠ペンギン | 0 | 1 | 1 |  |
 | 679 | 聖S氏 | 某S氏 | 1 | 0 | 1 |  |
-| 680 | 聖剣ミストルティン＠401円(税込） |  | 1 | 0 | 1 |  |
+| 680 | 聖剣ミストルティン＠401円(税込） | ミストルティン | 1 | 0 | 1 |  |
 | 681 | 聖銃ミストルティン | ミストルティン | 1 | 0 | 1 |  |
 | 682 | 切裂きジャック◆ | Jack | 1 | 0 | 1 |  |
 | 683 | 戦慄のテクノキッチン！ | Techno Kitchen | 1 | 0 | 1 |  |
 | 684 | 煽り耐性ゼロペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 685 | 前方不注意ヤナギ | みぞれヤナギ | 0 | 1 | 1 |  |
 | 686 | 全然ロシェです | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 687 | 奏坂学園 音撃譜面部からの挑戦状 |  | 1 | 0 | 1 |  |
+| 687 | 奏坂学園 音撃譜面部からの挑戦状 | ロシェ＠ペンギン、ものくろっく | 1 | 0 | 1 |  |
 | 688 | 堕天使《月梟》†vs† 熾天使《月梟》 | Moon Strix | 1 | 0 | 1 |  |
 | 689 | 大振檸檬 | じゃこレモン | 1 | 0 | 1 |  |
 | 690 | 大入道-100号 | 譜面-100号 | 1 | 0 | 1 |  |
@@ -777,30 +778,30 @@
 | 699 | 天上天下S氏独尊！ | 某S氏 | 1 | 0 | 1 |  |
 | 700 | 冬の窓辺に、じゃこ一尾 | じゃこレモン | 1 | 0 | 1 |  |
 | 701 | 透明ゾンビ・デ・ダンス | 透明絵具 | 1 | 0 | 1 |  |
-| 702 | 動物楽団(イヌ＆ペンギン＆ネコ) |  | 1 | 0 | 1 |  |
+| 702 | 動物楽団(イヌ＆ペンギン＆ネコ) | ロシェ＠ペンギン、ぴちネコ、はっぴー | 1 | 0 | 1 |  |
 | 703 | 匿名R＠P | ロシェ＠ペンギン | 1 | 0 | 1 |  |
 | 704 | 謎を呼ぶ赤い矢 | Redarrow | 1 | 0 | 1 |  |
 | 705 | 南の島のペンギン | ロシェ＠ペンギン | 0 | 1 | 1 |  |
-| 706 | 如月 ゆかり vs Techno Kitchen |  | 1 | 0 | 1 |  |
+| 706 | 如月 ゆかり vs Techno Kitchen | Techno Kitchen、如月 ゆかり | 1 | 0 | 1 |  |
 | 707 | 如月ゆかりの消失 | 如月 ゆかり | 1 | 0 | 1 |  |
 | 708 | 猫の名は。 | ぴちネコ | 1 | 0 | 1 |  |
-| 709 | 波乗りペンギンと監視員ネコ |  | 1 | 0 | 1 |  |
-| 710 | 白金で遊ぶ緑化委員長 | 緑化委員長 | 1 | 0 | 1 |  |
+| 709 | 波乗りペンギンと監視員ネコ | ロシェ＠ペンギン、ぴちネコ | 1 | 0 | 1 |  |
+| 710 | 白金で遊ぶ緑化委員長 | はっぴー | 1 | 0 | 1 |  |
 | 711 | 白狼天狗じゃこレモン | じゃこレモン | 1 | 0 | 1 |  |
 | 712 | 爆仙破々 | アミノハバキリ | 1 | 0 | 1 |  |
 | 713 | 鳩ホルダー | 鳩ホルダー | 1 | 0 | 1 |  |
 | 714 | 鳩鳩鳩のホル連単 | 鳩ホルダー | 1 | 0 | 1 |  |
 | 715 | 半人半霊のS氏 | 某S氏 | 1 | 0 | 1 |  |
-| 716 | 譜百ボーイズからの挑戦状 |  | 1 | 0 | 1 |  |
+| 716 | 譜百ボーイズからの挑戦状 | ロシェ＠ペンギン、ぴちネコ、Techno Kitchen、Moon Strix、Revo@LC、譜面-100号、如月 ゆかり | 1 | 0 | 1 |  |
 | 717 | 譜面-100ミ | 譜面-100号 | 1 | 0 | 1 |  |
 | 718 | 譜面-100ンゴ | 譜面-100号 | 1 | 0 | 1 |  |
 | 719 | 譜面-100号号号 | 譜面-100号 | 1 | 0 | 1 |  |
 | 720 | 譜面、残業、広報、雑用、↑B↓AY↑L犬 | はっぴー | 1 | 0 | 1 |  |
 | 721 | 譜面MADとよばれるもの |  | 1 | 0 | 1 |  |
-| 722 | 譜面ボーイズからの祈り -Pray for "JUSTICE"- |  | 1 | 0 | 1 |  |
-| 723 | 譜面ボーイズからの挑戦状 -Legends- |  | 1 | 0 | 1 |  |
-| 724 | 譜面ボーイズからの挑戦状 -Revolutions- |  | 1 | 0 | 1 |  |
-| 725 | 譜面ボーイズからの挑戦状 -新約譜面創世記- |  | 1 | 0 | 1 |  |
+| 722 | 譜面ボーイズからの祈り -Pray for "JUSTICE"- | ロシェ＠ペンギン、じゃこレモン、Techno Kitchen、アミノハバキリ、Redarrow、小鳥遊さん | 1 | 0 | 1 |  |
+| 723 | 譜面ボーイズからの挑戦状 -Legends- | ロシェ＠ペンギン、ミストルティン、Techno Kitchen、Moon Strix | 1 | 0 | 1 |  |
+| 724 | 譜面ボーイズからの挑戦状 -Revolutions- | じゃこレモン、アミノハバキリ、Redarrow、小鳥遊さん | 1 | 0 | 1 |  |
+| 725 | 譜面ボーイズからの挑戦状 -新約譜面創世記- | ぴちネコ、Techno Kitchen、Moon Strix、小鳥遊さん | 1 | 0 | 1 |  |
 | 726 | 譜面戦士サフ | サファ太 | 1 | 0 | 1 |  |
 | 727 | 物凄いULTIMAで赤矢が物凄い譜面 | Redarrow | 0 | 1 | 1 |  |
 | 728 | 物凄いスライドでS氏が物凄い譜面 | 某S氏 | 1 | 0 | 1 |  |
@@ -812,7 +813,7 @@
 | 734 | 某C氏「らんしゃまあああああああ」 | 某S氏 | 1 | 0 | 1 |  |
 | 735 | 某R氏「ちぇえええええええん」 | 某S氏 | 1 | 0 | 1 |  |
 | 736 | 某S「シー」 | 某S氏 | 1 | 0 | 1 |  |
-| 737 | 某S氏(Hr) vs Jack(Hr) |  | 1 | 0 | 1 |  |
+| 737 | 某S氏(Hr) vs Jack(Hr) | Jack、某S氏 | 1 | 0 | 1 |  |
 | 738 | 某S氏「ひじりんは俺の嫁！」 | 某S氏 | 1 | 0 | 1 |  |
 | 739 | 某S氏＠三麻天界役満縛り勢 | 某S氏 | 1 | 0 | 1 |  |
 | 740 | 某愚氏 | 某S氏 | 1 | 0 | 1 |  |
@@ -829,19 +830,19 @@
 | 751 | 羅叢雲剣 | アミノハバキリ | 1 | 0 | 1 |  |
 | 752 | 羅破々斬 | アミノハバキリ | 1 | 0 | 1 |  |
 | 753 | 羅破々斬 -焔乱撃鱗- | アミノハバキリ | 1 | 0 | 1 |  |
-| 754 | 羅破々斬 + écologie |  | 1 | 0 | 1 |  |
+| 754 | 羅破々斬 + écologie | アミノハバキリ、écologie | 1 | 0 | 1 |  |
 | 755 | 羅破々斬　★★ | アミノハバキリ | 1 | 0 | 1 |  |
 | 756 | 羅雷切 | アミノハバキリ | 1 | 0 | 1 |  |
 | 757 | 嵐を呼ぶみーちゃん | ミニミライト | 1 | 0 | 1 |  |
 | 758 | 流星に手を振るペンギン | ロシェ＠ペンギン | 1 | 0 | 1 |  |
-| 759 | 緑鹿委員長 | 緑化委員長 | 1 | 0 | 1 |  |
+| 759 | 緑鹿委員長 | はっぴー | 1 | 0 | 1 |  |
 | 760 | 緑譜面が許されるのはMASTERまでだよねー |  | 0 | 1 | 1 |  |
-| 761 | 鈴木さん cooperated with Revo@LC |  | 1 | 0 | 1 |  |
+| 761 | 鈴木さん cooperated with Revo@LC | Revo@LC、鈴木さん | 1 | 0 | 1 |  |
 | 762 | 六次元モーター vs Moon Strix | Moon Strix | 1 | 0 | 1 |  |
 | 763 | 巫女みこ奉行 | すきやき奉行 | 1 | 0 | 1 |  |
 | 764 | 檸檬 | じゃこレモン | 1 | 0 | 1 |  |
-| 765 | 檸檬・優曇華院・イナバ |  | 1 | 0 | 1 |  |
+| 765 | 檸檬・優曇華院・イナバ | じゃこレモン | 1 | 0 | 1 |  |
 | 766 | βλαδε | アミノハバキリ | 1 | 0 | 1 |  |
-| 767 | ι″ャ⊇∠E･/ |  | 1 | 0 | 1 |  |
-| 768 | Яussianblack |  | 1 | 0 | 1 |  |
-| 769 | Яussianblack VS écologie |  | 1 | 0 | 1 |  |
+| 767 | ι″ャ⊇∠E･/ | じゃこレモン | 1 | 0 | 1 |  |
+| 768 | Яussianblack | ぴちネコ | 1 | 0 | 1 |  |
+| 769 | Яussianblack VS écologie | ぴちネコ、écologie | 1 | 0 | 1 |  |

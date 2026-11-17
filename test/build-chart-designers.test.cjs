@@ -23,7 +23,7 @@ test("wiki 表格处理紫黑谱、继承署名、合作栏和明确的别名跳
   assert.equal(parsed.aliases[0].name, "正式别名");
 });
 
-test("跨页归并只接受唯一的单人归属；任一页标合作或未确认的署名都排除", () => {
+test("跨页归并只接受唯一的单人归属；合作署名进入双方 jointCredits，未确认署名排除", () => {
   const songs = ["本名", "换名", "正式别名", "共同名", "冲突名", "未知名"].map((note_designer, id) =>
     ({ id, difficulties: [{ difficulty: 3, note_designer }] }));
   const result = buildGroups(songs, [
@@ -32,7 +32,9 @@ test("跨页归并只接受唯一的单人归属；任一页标合作或未确�
     { page: 5, text: "*譜面製作者不明 [#unknown]\n|[[曲D]]|>|M|未知名|" },
   ]);
   assert.deepEqual(new Set(result.groups["本名"].credits), new Set(["本名", "换名", "正式别名"]));
+  assert.deepEqual(result.groups["本名"].jointCredits, ["共同名"]);
+  assert.deepEqual(result.groups["另一人"].jointCredits, ["共同名"]);
   assert.deepEqual(result.conflicts, [{ credit: "冲突名", owners: ["本名", "另一人"] }]);
-  assert.deepEqual(result.excludedCredits.sort(), ["共同名", "未知名"]);
+  assert.deepEqual(result.excludedCredits.sort(), ["冲突名", "未知名"]);
   assert.equal(result.groups["本名"].evidenceByCredit["换名"].song, "曲A");
 });

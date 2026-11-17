@@ -257,7 +257,7 @@ function selectCharts(catalog, query, tags = null) {
       if (!(chart.difficulty >= 0 && chart.difficulty < WORLDS_END)) continue;
       // 分类列表默认只统计紫谱（MASTER）和黑谱（ULTIMA），红黄绿不放进来
       if (query.tag && chart.difficulty < 3) continue;
-      if (query.designer && (chart.difficulty < 3 || !query.designer.credits.includes(designerKey(chart.note_designer)))) continue;
+      if (query.designer && (chart.difficulty < 3 || (!query.designer.credits.includes(designerKey(chart.note_designer)) && !(chart.difficulty === 3 && query.designer.songs?.includes(designerKey(song.title)))))) continue;
       if (query.levelIndex !== null && chart.difficulty !== query.levelIndex) continue;
       if (query.level && chart.level !== query.level) continue;
       if (query.constant !== null && Math.round(Number(chart.level_value) * 10) !== Math.round(query.constant * 10)) continue;
@@ -319,7 +319,9 @@ function buildData({ query, charts, scores, player = null, catalog, page = 1, no
 
   rows.sort((a, b) => {
     if ((a.score === null) !== (b.score === null)) return a.score === null ? 1 : -1;
-    return (b.score ?? 0) - (a.score ?? 0) || (b.constant ?? 0) - (a.constant ?? 0) || a.songId - b.songId || b.levelIndex - a.levelIndex;
+    const byScore = (b.score ?? 0) - (a.score ?? 0);
+    const byConstant = (b.constant ?? 0) - (a.constant ?? 0);
+    return (query.designer ? byConstant || byScore : byScore || byConstant) || a.songId - b.songId || b.levelIndex - a.levelIndex;
   });
 
   const played = rows.filter((row) => row.score !== null);

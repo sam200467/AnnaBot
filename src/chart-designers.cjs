@@ -3,13 +3,26 @@
 const ALIASES = require("./data/chart-designer-aliases.json");
 const IDENTITIES = require("./data/chart-designer-identities.json");
 const normalize = (text) => String(text ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
+const COOP_SEP = /\s+(?:vs\.?|supported by|cooperated with|cooperated|panicked by|resurrected by|fumbled by|fused with|with|and|feat\.?|ft\.?|meets|対)\s+|\s*(?:<―>|＜ー＞|-\+-|[&＆+＋×])\s*|\s+(?=(?:2P|Dr):)/i;
+
+function splitCollaborators(name) {
+  const parts = String(name || "").split(COOP_SEP).map((part) => part.trim()).filter(Boolean);
+  if (parts.length < 2) return [];
+  return parts.map((part) => part
+    .replace(/^(?:1P|2P|Gt|Dr|[〖【]Fires[〗】]\s*Gt)\s*[:：]\s*/i, "")
+    .replace(/^(?:ZONE|CODE|MILD)\s*[:：]\s*/i, "")
+    .replace(/\(Hr\)$/i, "")
+    .trim());
+}
 
 function createDesignerIndex(songs, aliases = ALIASES, identities = IDENTITIES) {
   const entries = new Map();
+  const songTitles = new Set();
   for (const song of songs) {
     if (song.disabled || song.difficulties?.some((chart) => chart.difficulty === 5)) continue;
     for (const chart of song.difficulties || []) {
       if (chart.difficulty !== 3 && chart.difficulty !== 4) continue;
+      if (chart.difficulty === 3 && song.title) songTitles.add(normalize(song.title));
       const name = String(chart.note_designer || "").trim();
       const key = normalize(name);
       if (key && !entries.has(key)) entries.set(key, { key, name, credits: [key] });
@@ -17,12 +30,15 @@ function createDesignerIndex(songs, aliases = ALIASES, identities = IDENTITIES) 
   }
   const lookup = new Map(entries);
   for (const [name, group] of Object.entries(identities)) {
-    const credits = [...new Set([name, ...group.credits].map(normalize))];
-    if (!credits.some((key) => entries.has(key))) continue;
-    const entry = { key: normalize(name), name, credits };
-    for (const key of credits) {
+    const solo = [...new Set([name, ...(group.credits || [])].map(normalize))];
+    const joint = [...new Set((group.jointCredits || []).map(normalize))];
+    const credits = [...new Set([...solo, ...joint])];
+    const jointSongs = [...new Set((group.jointSongs || []).map(normalize))].filter((title) => songTitles.has(title));
+    if (!credits.some((key) => entries.has(key)) && !jointSongs.length) continue;
+    const entry = { key: normalize(name), name, credits, songs: jointSongs, grouped: true };
+    for (const key of solo) {
       const old = lookup.get(key);
-      if (old && old.credits.length > 1 && old.key !== entry.key) throw new Error("谱师马甲归属重复：" + key);
+      if (old && old.grouped && old.key !== entry.key) throw new Error("谱师马甲归属重复：" + key);
       lookup.set(key, entry);
     }
   }
@@ -35,6 +51,17 @@ function createDesignerIndex(songs, aliases = ALIASES, identities = IDENTITIES) 
       // 重复别名不能悄悄选中另一个谱师，直接报错便于维护。
       if (lookup.has(key) && lookup.get(key) !== entry) throw new Error("谱师别名重复：" + word);
       lookup.set(key, entry);
+    }
+  }
+  // 把「A vs B」这类合作署名拆开，同时归进参与双方的谱面列表；直接搜合作名本身仍保留独立条目。
+  for (const rawEntry of entries.values()) {
+    const parts = splitCollaborators(rawEntry.name);
+    if (parts.length < 2) continue;
+    for (const part of parts) {
+      const target = lookup.get(normalize(part));
+      if (target && target !== rawEntry && !target.credits.includes(rawEntry.key)) {
+        target.credits.push(rawEntry.key);
+      }
     }
   }
   return { resolve: (text) => lookup.get(normalize(text)) || null };
@@ -63,4 +90,4 @@ function parseDesignerQuery(args, index) {
   return null;
 }
 
-module.exports = { createDesignerIndex, parseDesignerQuery, normalize };
+module.exports = { createDesignerIndex, parseDesignerQuery, normalize, splitCollaborators };

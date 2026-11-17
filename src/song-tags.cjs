@@ -41,7 +41,7 @@ const DEFINITIONS = [
 
   // ── 世界观厂牌（song-extras.json 的 labels；只用顶层栏目，章不再单独做分类）──
   { key: "精灵记", name: "精灵记", command: "精灵记", label: "シビュラ精霊記レーベル", aliases: ["精灵记", "精霊記", "精霊记", "シビュラ精霊記", "シビュラ", "sibyl", "西比拉", "西比拉精灵记", "精灵传记", "精霊編", "精霊编", "精灵篇", "精霊篇", "スカージ編", "スカージ", "scourge", "天灾篇", "天災篇"] },
-  { key: "SeelischTact", name: "SeelischTact", command: "SeelischTact", label: "SeelischTactレーベル", aliases: ["seelischtact", "seelisch", "ゼーリシュタクト", "ゼーリ", "泽利"] },
+  { key: "SeelischTact", name: "SeelischTact", command: "SeelischTact", label: "SeelischTactレーベル", aliases: ["seelischtact", "seelisch", "ゼーリシュタクト", "ゼーリ", "泽利", "灵魂音律", "心灵节奏", "灵魂节拍", "心灵节拍", "心智节奏", "赛利希", "赛利希塔克特"] },
   { key: "GUMIN", name: "GUMIN", command: "GUMIN", label: "GUMINレーベル", aliases: ["gumin", "グミン", "愚民大陆", "愚民"] },
   { key: "リレイション", name: "リレイション", command: "リレイション", label: "リレイションレーベル", aliases: ["リレイション", "リレーション", "relation", "心连羁绊", "心连", "羁绊"] },
   { key: "GenesisOfDestiny", name: "Genesis Of Destiny", command: "GenesisOfDestiny", label: "Genesis Of Destinyレーベル", aliases: ["genesisofdestiny", "genesis", "god", "ジェネシス", "创世命运", "创世"] },

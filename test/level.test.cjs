@@ -112,8 +112,11 @@ test("拆参数：等级、定数、页码、难度、版本、评级随便组�
   assert.equal(parseQuery("14+ we").worldsEnd, true);
   assert.equal(parseQuery("master 2").level, "2", "没有等级时 2 先当等级（挑谱面时对不上再改当页码）");
   assert.deepEqual(parse("精灵记"), { ...base, tag: "精灵记" });
+  assert.deepEqual(parse("西比拉精灵记"), { ...base, tag: "精灵记" });
   assert.deepEqual(parse("精霊記"), { ...base, tag: "精灵记" }, "日文写法也认");
   assert.deepEqual(parse("シビュラ"), { ...base, tag: "精灵记" }, "厂牌名 / 缩写");
+  assert.deepEqual(parse("灵魂音律"), { ...base, tag: "SeelischTact" });
+  assert.deepEqual(parse("心灵节奏"), { ...base, tag: "SeelischTact" });
   assert.deepEqual(parse("愚民大陆"), { ...base, tag: "GUMIN" }, "别称");
   assert.deepEqual(parse("心连羁绊"), { ...base, tag: "リレイション" });
   assert.deepEqual(parse("元宇宙"), { ...base, tag: "Metaverse" });
@@ -285,24 +288,37 @@ test("分类的标题和翻页指令：分类单独做标题，默认副标题�
   assert.deepEqual(build("BMS 紫").data.title, { prefix: "", main: "BMS", sub: "紫谱" });
 });
 
-test("谱师按具体谱面的署名筛选，默认紫黑，不混入同曲其他谱面；标题和翻页保留谱师", () => {
+test("谱师按具体谱面的署名筛选，只列紫黑、不混入红黄绿；按定数从高到低、同定数内按分数从高到低排，未游玩放最后", () => {
   const catalog = catalogLike();
   catalog.songs.find((song) => song.id === 1000).difficulties[1].note_designer = "Techno Kitchen";
   catalog.songs.find((song) => song.id === 2000).difficulties[1].note_designer = "Techno Kitchen";
   catalog.songs.find((song) => song.id === 1001).difficulties[1].note_designer = "Techno Kitchen vs x";
   catalog.songs.find((song) => song.id === 1002).difficulties[1].note_designer = "wonder*";
+  catalog.songs.find((song) => song.id === 1003).difficulties[0].note_designer = "Techno Kitchen";
+  catalog.songs.find((song) => song.id === 1045).difficulties[1].note_designer = "Techno Kitchen";
+  catalog.songs.find((song) => song.id === 1044).difficulties[1].note_designer = "Techno Kitchen";
   const designers = createDesignerIndex(catalog.songs, { "Techno Kitchen": ["厨房"] });
   const parsed = parseQuery("厨房 2", { designers });
   const { query, charts } = resolveCharts(catalog, parsed);
-  assert.deepEqual(charts.map(({ song, chart }) => [song.id, chart.difficulty]), [[1000, 3], [1002, 3], [2000, 4]]);
+  assert.deepEqual(charts.map(({ song, chart }) => [song.id, chart.difficulty]), [[1000, 3], [1001, 3], [1002, 3], [1044, 3], [1045, 3], [2000, 4]]);
   const data = buildData({ query, charts, scores: myScores(), catalog });
   assert.deepEqual(data.title, { prefix: "谱师", main: "Techno Kitchen", sub: "紫谱 · 黑谱" });
   assert.equal(describe(query), "谱师 Techno Kitchen");
   const next = commandOf("分数列表", query, 2);
   assert.equal(next, "/分数列表 厨房 2", "翻页保留用户输入的别名，不要求重新输入日文署名");
   assert.equal(parseQuery(next.replace("/分数列表 ", ""), { designers }).page, 2);
-  assert.equal(data.stats.total, 3, "有来源的马甲计入同一位谱师");
+  assert.equal(data.stats.total, 6, "有来源的马甲和合作谱计入同一位谱师，不含红谱");
+  // 2000(定数14.9, 1005000) > 1002(14.7, 1008500) > 1001(14.6, 1009000) > 1000(14.5, 1009500)；未游玩 1044(14.7) > 1045(14.5) 在最后
+  assert.deepEqual(data.charts.map((c) => [c.title, c.constant, c.score]), [
+    ["曲2000", 14.9, 1005000],
+    ["曲1002", 14.7, 1008500],
+    ["曲1001", 14.6, 1009000],
+    ["曲1000", 14.5, 1009500],
+    ["曲1044", 14.7, null],
+    ["曲1045", 14.5, null],
+  ]);
   assert.deepEqual(resolveCharts(catalog, parseQuery("wonder*", { designers })).charts, charts);
+  assert.ok(resolveCharts(catalog, parseQuery("x", { designers })).charts.some(({ song, chart }) => song.id === 1001 && chart.difficulty === 3), "合作谱也出现在另一位合作者的列表里");
 });
 
 // ── 端到端 ──
